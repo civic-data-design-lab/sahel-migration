@@ -1,0 +1,38 @@
+.stepper {
+    --dark: #463C35;
+    --light: #ffffff;
+    display: flex;
+    gap: .5rem;
+    justify-content: space-between;
+    position: relative;
+    width: 15rem;
+}
+
+.stepper::before {
+    content: '';
+    background-color: var(--dark);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: .1rem;
+    width: 100%;
+    z-index: 0;
+}
+
+.step {
+    background-color: var(--light);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    width: .625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: .1rem solid var(--dark);
+    transition: 0.4s ease;
+    z-index: 1;
+}
+
+.filled {
+    background-color: var(--dark);
+}

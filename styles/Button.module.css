@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkalami&family=Overpass:wght@500;600;700;900&display=swap');
+
+
+.button {
+    --dark: #463C35;
+    --light: #ffffff;
+    font-family: Overpass;
+    font-weight: 700;
+
+    width: 8rem;
+    padding: .375rem;
+    border-radius: 1rem;
+
+    cursor: pointer;
+    outline: none;
+    border: 2px solid var(--dark);
+    background-color: rgba(255, 255, 255, 0.5);
+    color: var(--dark);
+
+    transition: background 750ms ease-in-out, border 750ms ease-in-out;
+
+}
+
+.button:hover {
+    /* --dark: #463C35; */
+    border: none;
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.filled {
+    --dark: #463C35;
+    border: none;
+    background-color: var(--dark);
+    color: var(--light);
+}
