@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
 import { useSpring, animated, useTransition, config } from 'react-spring';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 export default function Menu() {
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleToggle = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleRouting = (href) => {
+    return async (e) => {
+      handleToggle();
+      e.preventDefault();
+      await delay(200);
+      router.push(href);
+    };
   };
 
   const fullscreenMenu = useSpring({
@@ -78,16 +90,24 @@ export default function Menu() {
             }}
           >
             <li>
-              <Link href="/">HOME</Link>
+              <a onClick={handleRouting('/')} href="/">
+                HOME
+              </a>
             </li>
             <li>
-              <Link href="/about">ABOUT</Link>
+              <a onClick={handleRouting('/about')} href="/about">
+                ABOUT
+              </a>
             </li>
             <li>
-              <Link href="/credits">CREDITS</Link>
+              <a onClick={handleRouting('/credits')} href="/credits">
+                CREDITS
+              </a>
             </li>
             <li>
-              <Link href="/data-source">DATA SOURCE</Link>
+              <a onClick={handleRouting('/data-source')} href="/data-source">
+                DATA SOURCE
+              </a>
             </li>
           </ul>
         </animated.div>
