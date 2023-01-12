@@ -1,3 +1,9 @@
+import Menu from '../components/menu';
 export default function DataSource() {
-  return <h1>Data Source</h1>;
+  return (
+    <>
+      <Menu />
+      <h1>DATA SOURCE</h1>
+    </>
+  );
 }

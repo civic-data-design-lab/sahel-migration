@@ -1,3 +1,9 @@
+import Menu from '../components/menu';
 export default function About() {
-  return <h1>About</h1>;
+  return (
+    <>
+      <Menu />
+      <h1>ABOUT</h1>
+    </>
+  );
 }

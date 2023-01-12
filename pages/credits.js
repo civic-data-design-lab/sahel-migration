@@ -1,3 +1,9 @@
+import Menu from '../components/menu';
 export default function Credits() {
-  return <h1>Credits</h1>;
+  return (
+    <>
+      <Menu />
+      <h1>CREDITS</h1>
+    </>
+  );
 }
