@@ -73,15 +73,6 @@ a {
   text-decoration: none;
 }
 
-/* Icons */
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 64;
-  font-size: 1.4rem;
-}
-.material-symbols-outlined:hover {
-  opacity: 0.75;
-}
-
 ul {
   list-style: none;
   color: white;
@@ -94,4 +85,13 @@ li {
 
 li:hover {
   color: var(--gray);
+}
+
+/* Icons */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 64;
+  font-size: 1.4rem;
+}
+.material-symbols-outlined:hover {
+  opacity: 0.75;
 }
