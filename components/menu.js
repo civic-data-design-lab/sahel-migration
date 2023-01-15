@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSpring, animated, useTransition, config } from 'react-spring';
 import { useRouter } from 'next/router';
-
+import styles from '../styles/Menu.module.css';
 export default function Menu() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const router = useRouter();
@@ -31,27 +31,10 @@ export default function Menu() {
   });
 
   return (
-    <nav className="navBar">
-      <span
-        style={{
-          position: 'absolute',
-          top: '0px',
-          right: '0px',
-          zIndex: 20,
-          backgroundColor: 'transparent',
-          padding: '1rem',
-          font: '4em',
-        }}
-      >
+    <nav className={styles.navBar}>
+      <span className={styles.menuContainer}>
         {!menuOpen ? (
-          <button
-            onClick={handleToggle}
-            style={{
-              background: 'none',
-              border: 'none',
-              font: 'inherit',
-            }}
-          >
+          <button onClick={handleToggle} className={styles.menuButton}>
             <span
               class="material-symbols-outlined"
               style={{ color: 'var(--brown)' }}
@@ -60,14 +43,7 @@ export default function Menu() {
             </span>
           </button>
         ) : (
-          <button
-            onClick={handleToggle}
-            style={{
-              background: 'none',
-              border: 'none',
-              font: 'inherit',
-            }}
-          >
+          <button onClick={handleToggle} className={styles.menuButton}>
             <span class="material-symbols-outlined" style={{ color: 'white' }}>
               close
             </span>
@@ -76,19 +52,7 @@ export default function Menu() {
       </span>
       <div>
         <animated.div style={fullscreenMenu}>
-          <ul
-            style={{
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '2rem',
-              padding: 0,
-              margin: 0,
-              backgroundColor: 'var(--brown)',
-            }}
-          >
+          <ul className={styles.menuSelection}>
             <li>
               <a onClick={handleRouting('/')} href="/">
                 HOME
