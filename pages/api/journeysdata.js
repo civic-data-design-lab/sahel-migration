@@ -9,12 +9,9 @@ export default async function handler(req, res) {
     jsonDirectory + '/journeys-items.json',
     'utf8',
   );
-  console.log('HELlO');
-  console.log(req.query.id);
   const obj = JSON.parse(fileContents).items.journeys.find(
     (journey) => journey.id == req.query.id,
   );
-  console.log(obj);
   //Return the content of the data file in json format
   res.status(200).json(obj);
 }
