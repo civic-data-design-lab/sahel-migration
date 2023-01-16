@@ -1,0 +1,26 @@
+.card {
+  font-size: 0.4rem;
+  width: fit-content;
+  max-width: 32rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-color: black;
+  border: solid;
+  padding: 0.5rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+  position: absolute;
+
+  z-index: 9000;
+}
+
+.card-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+}
