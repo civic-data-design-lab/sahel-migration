@@ -7,10 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import DescriptionTab from './descriptionTab';
 export default function ImageBox({ journey }) {
   const { width, height } = useWindowSize();
-  useEffect(() => {
-    console.log('ahdkfjasdfhasd');
-    console.log(typeof journey.popUps[0].posX);
-  }, [journey]);
+  useEffect(() => {}, [journey]);
   const ref = useRef(null);
 
   const textBoxItems = journey.popUps.map((popUp) => (

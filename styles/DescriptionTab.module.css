@@ -46,3 +46,11 @@
   left: 0.01rem;
   /* transform: scale(-1); */
 }
+
+.stepper {
+  position: fixed;
+  top: 0.5rem;
+  right: 2rem;
+  padding: 1rem;
+  width: 20vw;
+}

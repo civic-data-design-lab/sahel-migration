@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { wrap } from '@popmotion/popcorn';
 import { useState } from 'react';
 import styles from '../styles/DescriptionTab.module.css';
+import Stepper from './stepper';
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity;
@@ -37,13 +38,19 @@ export default function DescriptionTab({ descriptions, handleScroll }) {
 
   const handleButtonClick = (newDirection) => {
     paginate(newDirection);
-    console.log(descIndex);
-    console.log(descriptions[descIndex].posX);
-    handleScroll(descriptions[descIndex].posX, 0);
+    const index = (descIndex + newDirection) % descriptions.length;
+    handleScroll(descriptions[index].posX, 0);
   };
 
   return (
     <div className={styles.main}>
+      <div className={styles.stepper}>
+        <Stepper
+          totalSteps={descriptions.length - 1}
+          stepNumber={descriptions[descIndex].id}
+        />
+      </div>
+
       <AnimatePresence
         initial={false}
         custom={direction}
