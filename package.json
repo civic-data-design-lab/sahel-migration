@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "13.1.1",
+    "@popmotion/popcorn": "^0.4.4",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
     "framer-motion": "^8.4.3",
