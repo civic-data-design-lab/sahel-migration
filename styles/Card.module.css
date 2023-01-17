@@ -13,7 +13,7 @@
   box-sizing: border-box;
   position: absolute;
 
-  z-index: 900;
+  z-index: 9000;
 }
 
 .card-container {
@@ -22,5 +22,5 @@
   display: inline-block;
   align-items: center;
   justify-content: center;
-  z-index: 900;
+  z-index: 9000;
 }
