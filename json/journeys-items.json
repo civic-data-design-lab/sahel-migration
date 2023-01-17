@@ -8,16 +8,30 @@
         "imageUrl": "/images/journeys/1.svg",
         "descriptions": [
           {
+            "id": 1,
             "body": "consectetur adipiscing elit. Maecenas condimentum diam",
             "posX": 0
           },
-          { "body": "Lorem ipsum dolor sit amet", "posX": 200 },
-          { "body": " Maecenas condimentum diam eget dolor ", "posX": 500 },
           {
+            "id": 2,
+            "body": "Lorem ipsum dolor sit amet",
+            "posX": 200
+          },
+          {
+            "id": 3,
+            "body": " Maecenas condimentum diam eget dolor ",
+            "posX": 500
+          },
+          {
+            "id": 4,
             "body": " Maecenas condimentum diam eget dolor sectetur adipi",
             "posX": 500
           },
-          { "body": " Maecenas dolor diam dolor dolor ", "posX": 500 }
+          {
+            "id": 5,
+            "body": " Maecenas dolor diam dolor dolor ",
+            "posX": 500
+          }
         ],
         "popUps": [
           {
