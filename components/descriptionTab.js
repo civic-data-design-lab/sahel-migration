@@ -38,7 +38,7 @@ export default function DescriptionTab({ descriptions, handleScroll }) {
 
   const handleButtonClick = (newDirection) => {
     paginate(newDirection);
-    const index = (descIndex + newDirection) % descriptions.length;
+    const index = Math.abs((descIndex + newDirection) % descriptions.length);
     handleScroll(descriptions[index].posX, 0);
   };
 
