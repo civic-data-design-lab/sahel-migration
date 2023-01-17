@@ -8,8 +8,9 @@ export default function Card({ posX, posY, text }) {
           className={styles.card}
           initial={{ opacity: 0, x: posX, y: posY }}
           transition={{ duration: 0.5 }}
-          whileInView={{ opacity: 1 }}
+          whileInView={{ opacity: 0.8 }}
           viewport={{ amount: 'all' }}
+          whileHover={{ scale: 1.05, opacity: 1 }}
         >
           {text}
         </motion.div>

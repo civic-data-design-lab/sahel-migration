@@ -1,0 +1,10 @@
+.imageContainer {
+  overflow-x: scroll;
+  object-fit: cover;
+  position: relative;
+}
+
+.image {
+  overflow-x: scroll;
+  position: relative;
+}
