@@ -14,10 +14,10 @@ export default function JourneysPage() {
   const router = useRouter();
   const _id = router.query.id;
   const { data: journey, error } = useSWR(['/api/journeysdata', _id], fetcher);
-  const ref = useRef(null);
 
   useEffect(() => {
-    console.log(journey);
+    // console.log(journey);
+    // console.log(journey.popUps);
   }, [journey]);
 
   const handleSelect = (selectedIndex, e) => {
@@ -29,7 +29,7 @@ export default function JourneysPage() {
   return (
     <>
       <Menu />
-      <ImageBox journey={journey} />
+      <ImageBox journey={journey} id="image-box" />
       <DataTab />
     </>
   );
