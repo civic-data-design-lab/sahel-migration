@@ -6,38 +6,11 @@
         "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facilisis odio vitae condimentum. Pellentesque sed sem elementum, commodo velit eu, blandit lacus. Phasellus porttitor dolor vestibulum scelerisque lacinia. Nullam erat erat, vulputate sollicitudin suscipit et, commodo bibendum felis. Vestibulum ullamcorper facilisis eleifend. Morbi malesuada felis et odio elementum cursus. Integer tincidunt, turpis eu pulvinar interdum, nulla urna lobortis risus, et faucibus augue diam et tellus.",
         "imageUrl": "/images/journeys/1.svg",
-        "descriptions": [
-          {
-            "id": 1,
-            "body": "consectetur adipiscing elit. Maecenas condimentum diam",
-            "posX": 0
-          },
-          {
-            "id": 2,
-            "body": "Lorem ipsum dolor sit amet",
-            "posX": 200
-          },
-          {
-            "id": 3,
-            "body": " Maecenas condimentum diam eget dolor ",
-            "posX": 500
-          },
-          {
-            "id": 4,
-            "body": " Maecenas condimentum diam eget dolor sectetur adipi",
-            "posX": 500
-          },
-          {
-            "id": 5,
-            "body": " Maecenas dolor diam dolor dolor ",
-            "posX": 500
-          }
-        ],
         "popUps": [
           {
             "id": 1,
             "body": "onsectetur adipiscing elit. Maecenas condimentum diam ",
-            "posX": 100,
+            "posX": 800,
             "posY": 100
           },
           {
@@ -59,27 +32,6 @@
             "posY": 500
           }
         ]
-      },
-      {
-        "id": 2,
-        "title": "City Views",
-        "body": "Bootstrap Carousel Example",
-        "imageUrl": "https://res.cloudinary.com/kizmelvin/image/upload/v1587785064/kizmelvin/michael-BcgEo2CNeYA-unsplash_cdaruk.jpg",
-        "docs": "https://getbootstrap.com/docs/4.0/components/carousel/"
-      },
-      {
-        "id": 3,
-        "title": "Wild Life",
-        "body": "Bootstrap Carousel Example",
-        "imageUrl": "https://res.cloudinary.com/kizmelvin/image/upload/v1586799827/kizmelvin/brownlion_qm8hah.jpg",
-        "docs": "https://getbootstrap.com/docs/4.0/components/carousel/"
-      },
-      {
-        "id": 4,
-        "title": "Foods and Culture",
-        "body": "Bootstrap Carousel Example",
-        "imageUrl": "https://res.cloudinary.com/kizmelvin/image/upload/v1587870308/kizmelvin/edvin-johansson-5AylXcpJn1I-unsplash_lbhgod.jpg",
-        "docs": "https://getbootstrap.com/docs/4.0/components/carousel/"
       }
     ]
   }

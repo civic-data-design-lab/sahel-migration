@@ -1,13 +1,15 @@
 import TextBox from './card';
 import styles from '../styles/ImageBox.module.css';
 import useWindowSize from '../hooks/useWindowSize';
-
+import Title from './title';
 import { useState, useRef, useEffect } from 'react';
 
 import DescriptionTab from './descriptionTab';
 export default function ImageBox({ journey }) {
   const { width, height } = useWindowSize();
-  useEffect(() => {}, [journey]);
+  useEffect(() => {
+    console.log(journey.body);
+  }, [journey]);
   const ref = useRef(null);
 
   const textBoxItems = journey.popUps.map((popUp) => (
@@ -24,11 +26,9 @@ export default function ImageBox({ journey }) {
   return (
     <>
       <div className={styles.imageContainer} ref={ref}>
+        <Title />
         {textBoxItems}
-        <DescriptionTab
-          handleScroll={scrollToCoordinate}
-          descriptions={journey.descriptions}
-        />
+        <DescriptionTab title={journey.title} body={journey.body} />
         <img
           src={journey.imageUrl}
           height={height}

@@ -64,6 +64,11 @@ h6 {
   font-size: 0.8rem;
 }
 
+h7 {
+  font-weight: normal;
+  font-size: 0.8rem;
+}
+
 body {
   background: white;
 }
