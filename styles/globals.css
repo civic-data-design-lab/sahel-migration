@@ -20,8 +20,8 @@
 
 html,
 body {
-  max-width: 100vw;
-  overflow: hidden;
+  /* max-width: 100vw; */
+  /* overflow: hidden; */
   font-size: 20pt;
   color: var(--brown);
 }
@@ -99,4 +99,12 @@ li:hover {
 }
 .material-symbols-outlined:hover {
   opacity: 0.75;
+}
+
+svg {
+  pointer-events: none;
+}
+
+g{
+  pointer-events: auto;
 }
