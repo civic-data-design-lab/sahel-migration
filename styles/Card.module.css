@@ -16,11 +16,15 @@
   z-index: 9000;
 }
 
-.card-container {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  align-items: center;
-  justify-content: center;
-  z-index: 9000;
+.cardContainer {
+  /*position: relative;*/
+  /*overflow: hidden;*/
+  /*display: inline-block;*/
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  /*z-index: 9000;*/
+}
+
+.collapsedCard{
+
 }
