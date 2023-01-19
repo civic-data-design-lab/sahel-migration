@@ -6,7 +6,7 @@
         "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facilisis odio vitae condimentum. Pellentesque sed sem elementum, commodo velit eu, blandit lacus. Phasellus porttitor dolor vestibulum scelerisque lacinia. Nullam erat erat, vulputate sollicitudin suscipit et, commodo bibendum felis. Vestibulum ullamcorper facilisis eleifend. Morbi malesuada felis et odio elementum cursus. Integer tincidunt, turpis eu pulvinar interdum, nulla urna lobortis risus, et faucibus augue diam et tellus.",
         "imageUrl": "/images/journeys/1.svg",
-        "popUps": [
+        "entourages": [
           {
             "id": 1,
             "body": "onsectetur adipiscing elit. Maecenas condimentum diam ",
@@ -30,6 +30,56 @@
             "body": "Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facili facilisis",
             "posX": 500,
             "posY": 500
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Crossing the Sahara Desert",
+        "body": "Smugglers drive migrants in pick-up trucks for 3 days across the Sahara Desert. This informal route is the most dangerous part of the journey, where migrants risk violence, extortion, nutrition deficiencies, and vehicle accidents.",
+        "imageUrl": "/images/journeys/3/3-sahara_background.svg",
+        "entourages": [
+          {
+            "id": 1,
+            "body": "pickup trucks with ~25 passengers on the back (migrants from West Africa and short-time laborers from Niger). Migrants wrap their heads in turbans for sun protection and brace themselves with stick to keep from falling out of the truck.",
+            "posX": 200,
+            "posY": 500,
+            "element": "/images/journeys/3/3-sahara_fig-1.svg"
+          },
+          {
+            "id": 2,
+            "body": "Rest station along the way. The 2015 Law 036 EU-Niger prohibits smuggling in Niger. This has led to smugglers using longer routes, which are more dangerous and expensive.",
+            "posX": 700,
+            "posY": 520,
+            "element": "/images/journeys/3/3-sahara_fig-2.svg"
+          },
+          {
+            "id": 3,
+            "body": "When trucks break down, passengers are forced to walk.",
+            "posX": 1400,
+            "posY": 500,
+            "element": "/images/journeys/3/3-sahara_fig-3.svg"
+          },
+          {
+            "id": 4,
+            "body": "They burn a tire to keep warm",
+            "posX": 1900,
+            "posY": 550,
+            "element": "/images/journeys/3/3-sahara_fig-4.svg"
+          },
+          {
+            "id": 5,
+            "body": "Trucks heading back to Agadez with workers from Libya. Majority converts earnings into goods (furniture, clothes, appliances and other household items) to bring home because the Libyan dinar is unstable",
+            "posX": 2500,
+            "posY": 450,
+            "element": "/images/journeys/3/3-sahara_fig-5.svg"
+          },
+          {
+            "id": 6,
+            "body": "Tombs marked by jagged stones, an empty water jug are found along the way",
+            "posX": 2300,
+            "posY":850,
+            "element": "/images/journeys/3/3-sahara_fig-6.svg"
           }
         ]
       }
