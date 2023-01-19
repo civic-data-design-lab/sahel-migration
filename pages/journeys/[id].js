@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import Menu from '../../components/menu';
 import DataTab from '../../components/dataTab';
 import React, { useState, useRef, useEffect } from 'react';
+
 import ImageBox from '../../components/imageBox';
 
 async function fetcher(params) {
@@ -28,7 +29,7 @@ export default function JourneysPage() {
   if (!journey) return <div>loading...</div>;
   return (
     <>
-      <Menu />
+      {/* <Menu /> */}
       <ImageBox journey={journey} id="image-box" />
       <DataTab />
     </>
