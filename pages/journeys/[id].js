@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import Menu from '../../components/menu';
 import DataTab from '../../components/dataTab';
 import React, { useState, useRef, useEffect } from 'react';
+
 import ImageBox from '../../components/imageBox';
 
 async function fetcher(params) {
@@ -14,10 +15,10 @@ export default function JourneysPage() {
   const router = useRouter();
   const _id = router.query.id;
   const { data: journey, error } = useSWR(['/api/journeysdata', _id], fetcher);
-  const ref = useRef(null);
 
   useEffect(() => {
-    console.log(journey);
+    // console.log(journey);
+    // console.log(journey.popUps);
   }, [journey]);
 
   const handleSelect = (selectedIndex, e) => {
@@ -28,8 +29,8 @@ export default function JourneysPage() {
   if (!journey) return <div>loading...</div>;
   return (
     <>
-      <Menu />
-      <ImageBox journey={journey} />
+      {/* <Menu /> */}
+      <ImageBox journey={journey} id="image-box" />
       <DataTab />
     </>
   );

@@ -1,0 +1,29 @@
+.main {
+  position: absolute;
+  width: 100%;
+  max-width: 22rem;
+  top: 3rem;
+  left: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  z-index: 2000;
+  color: var(--brown);
+}
+
+.main h7 {
+  margin: 1rem;
+  margin-left: 0;
+  font-style: italic;
+}
+
+.main small {
+}
+
+.stepper {
+  position: fixed;
+  top: 0.5rem;
+  right: 2rem;
+  padding: 1rem;
+  width: 20vw;
+}
