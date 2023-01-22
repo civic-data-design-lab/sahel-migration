@@ -1,0 +1,82 @@
+{
+  "items": {
+    "journeys": [
+      {
+        "id": 1,
+        "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facilisis odio vitae condimentum. Pellentesque sed sem elementum, commodo velit eu, blandit lacus. Phasellus porttitor dolor vestibulum scelerisque lacinia. Nullam erat erat, vulputate sollicitudin suscipit et, commodo bibendum felis. Vestibulum ullamcorper facilisis eleifend. Morbi malesuada felis et odio elementum cursus. Integer tincidunt, turpis eu pulvinar interdum, nulla urna lobortis risus, et faucibus augue diam et tellus.",
+        "imageUrl": "/images/journeys/1.svg",
+        "entourages": [
+          {
+            "id": 1,
+            "body": "onsectetur adipiscing elit. Maecenas condimentum diam ",
+            "posX": 800,
+            "posY": 100
+          },
+          {
+            "id": 2,
+            "body": "Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facili",
+            "posX": 1500,
+            "posY": 200
+          },
+          {
+            "id": 3,
+            "body": "Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facili",
+            "posX": 1500,
+            "posY": 300
+          },
+          {
+            "id": 4,
+            "body": "Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facili facilisis",
+            "posX": 500,
+            "posY": 500
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Crossing the Sahara Desert",
+        "body": "Smugglers drive migrants in pick-up trucks for 3 days across the Sahara Desert. This informal route is the most dangerous part of the journey, where migrants risk violence, extortion, nutrition deficiencies, and vehicle accidents.",
+        "imageUrl": "/images/journeys/3/3-sahara.svg",
+        "entourages": [
+          {
+            "id": 1,
+            "body": "pickup trucks with ~25 passengers on the back (migrants from West Africa and short-time laborers from Niger). Migrants wrap their heads in turbans for sun protection and brace themselves with stick to keep from falling out of the truck.",
+            "posX": 300,
+            "posY": -50
+          },
+          {
+            "id": 2,
+            "body": "Rest station along the way. The 2015 Law 036 EU-Niger prohibits smuggling in Niger. This has led to smugglers using longer routes, which are more dangerous and expensive.",
+            "posX": 120,
+            "posY": -40
+          },
+          {
+            "id": 3,
+            "body": "When trucks break down, passengers are forced to walk. This exposes migrants to extreme heat risk with little access to shelter or water. Average high temperatures in the Sahara Desert reach 38 degrees celsius.",
+            "posX": 250,
+            "posY": -80
+          },
+          {
+            "id": 4,
+            "body": "Just as migrants are exposed to extreme heat during the day, the Sahara Desert can be a cold place at night, so migrants burn tires to keep warm. The Sahara Desert reach average low temperatures of -4 degrees celsius at night--posing another health risk for migrants.",
+            "posX": 150,
+            "posY": -70
+          },
+          {
+            "id": 5,
+            "body": "Trucks heading back to Agadez with workers from Libya. Majority converts earnings into goods (furniture, clothes, appliances and other household items) to bring home because the Libyan dinar is unstable",
+            "posX": 300,
+            "posY": 0
+          },
+          {
+            "id": 6,
+            "body": "Tombs marked by jagged stones, an empty water jug are found along the way. Migrants report the highest number of deaths (28% of migrants reporting) along this part of the Central Mediterranean Route (4mi)",
+            "posX": -100,
+            "posY": 80
+          }
+        ]
+      }
+    ]
+  }
+}

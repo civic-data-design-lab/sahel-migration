@@ -1,0 +1,15 @@
+.imageContainer {
+  overflow-x: scroll;
+  object-fit: cover;
+  position: relative;
+  scroll-behavior: smooth;
+}
+
+.image {
+  overflow-x: scroll;
+  position: relative;
+}
+
+.navigationButton {
+}
+

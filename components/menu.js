@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSpring, animated, useTransition, config } from 'react-spring';
 import { useRouter } from 'next/router';
 import styles from '../styles/Menu.module.css';
+import Link from "next/link";
 export default function Menu() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const router = useRouter();
@@ -54,24 +55,24 @@ export default function Menu() {
         <animated.div style={fullscreenMenu}>
           <ul className={styles.menuSelection}>
             <li>
-              <a onClick={handleRouting('/')} href="/">
+              <Link onClick={handleRouting('/')} href="/">
                 HOME
-              </a>
+              </Link>
             </li>
             <li>
-              <a onClick={handleRouting('/about')} href="/about">
+              <Link onClick={handleRouting('/about')} href="/about">
                 ABOUT
-              </a>
+              </Link>
             </li>
             <li>
-              <a onClick={handleRouting('/credits')} href="/credits">
+              <Link onClick={handleRouting('/credits')} href="/credits">
                 CREDITS
-              </a>
+              </Link>
             </li>
             <li>
-              <a onClick={handleRouting('/data-source')} href="/data-source">
+              <Link onClick={handleRouting('/data-source')} href="/data-source">
                 DATA SOURCE
-              </a>
+              </Link>
             </li>
           </ul>
         </animated.div>
