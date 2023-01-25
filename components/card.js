@@ -1,11 +1,12 @@
-import { motion, AnimatePresence } from "framer-motion"
+import {motion, AnimatePresence, useScroll} from "framer-motion"
 import styles from '../styles/Card.module.css';
 import {useEffect, useLayoutEffect, useState} from "react";
 import * as d3 from "d3";
 
 
-export default function Card({svgRef, entourage, width,height}) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Card({svgRef, entourage, width,height, scrollRef}) {
+  const { scrollXProgress } = useScroll({ target: scrollRef });
+  const [isOpen, setIsOpen] = useState(scrollXProgress.get() >= entourage.scrollStart && scrollXProgress.get() <= entourage.scrollEnd);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [bboxWidth, setbboxWidth] = useState(0);
@@ -29,16 +30,14 @@ export default function Card({svgRef, entourage, width,height}) {
           setIsOpen(false)
         });
     });
-
+    scrollXProgress.on("change", latest =>setIsOpen(latest >= entourage.scrollStart && latest <= entourage.scrollEnd))
   }, [entourage.id, isOpen, svgRef])
-
 
   useLayoutEffect(()=> {
     let svg = d3.select(svgRef.current.contentDocument.documentElement);
     if (svg.select("#fig-"+entourage.id).node() ==null) {
       svgRef.current.addEventListener("load", () => {
         svg = d3.select(svgRef.current.contentDocument.documentElement);
-        const bbox = svg.select("#fig-"+entourage.id).node().getBoundingClientRect();
       })
     } else {
       const bbox = svg.select("#fig-"+entourage.id).node().getBoundingClientRect();
