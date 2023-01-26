@@ -13,3 +13,12 @@
 .navigationButton {
 }
 
+.cardContainer {
+  position: absolute;
+  top:0;
+  left: 0;
+  /*width: fit-content;*/
+  transform: translate(-50%, -50%);
+
+}
+
