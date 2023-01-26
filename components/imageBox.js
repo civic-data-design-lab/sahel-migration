@@ -35,7 +35,7 @@ export default function ImageBox({ journey }) {
     // console.log(w)
     window.addEventListener("resize", changeWindowSize);
 
-  }, [windowSize, journey]);
+  }, []);
   // const entourages =
   const scrollToCoordinate = (posX, posY) => {
     ref.current.scrollLeft = posX;
