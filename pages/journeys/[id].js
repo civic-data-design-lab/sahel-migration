@@ -25,7 +25,7 @@ export default function JourneysPage() {
   if (!journey) return <div>loading...</div>;
   return (
     <>
-       {/*<Menu/>*/}
+       <Menu/>
       <ImageBox journey={journey} id="image-box" />
       {/*<DataTab />*/}
     </>
