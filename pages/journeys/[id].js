@@ -17,9 +17,9 @@ export default function JourneysPage() {
     // console.log(journey.popUps);
   }, [journey]);
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
+  // const handleSelect = (selectedIndex, e) => {
+  //   setIndex(selectedIndex);
+  // };
 
   if (error) return <div>Journey not found</div>;
   if (!journey) return <div>loading...</div>;
@@ -28,6 +28,7 @@ export default function JourneysPage() {
        {/*<Menu/>*/}
       {/*<ImageBox journey={journey} id="image-box" />*/}
       {/*<DataTab />*/}
+      {journey.body}
     </>
   );
 }
