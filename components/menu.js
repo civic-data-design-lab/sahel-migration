@@ -59,10 +59,10 @@ export default function Menu() {
         )}
       </span>
       <div>
-        <animated.div  style={{
+        <div style={{
                               opacity: menuOpen ? 1 : 0,
-                              zIndex: menuOpen? 9000:0,
-                              transitionTimingFunction: menuOpen? 'ease-in': 'ease-out',
+                              zIndex: menuOpen? 8:0,
+                              transitionTimingFunction: 'ease',
         }} className={styles.screenCover}/>
         <animated.div style={fullscreenMenu} className={styles.navBar}>
           <ul>

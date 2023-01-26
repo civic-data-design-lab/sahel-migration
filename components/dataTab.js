@@ -16,7 +16,7 @@ export default function DataTab() {
   const fullscreenTab = useSpring({
     opacity: isOpen ? 1 : .9,
     y: isOpen ? -height*.75:0,
-    config: { tension: 170, friction: 26, precision: 0.01, clamp: true },
+    config: { tension: 170, friction: 26, precision: 0.01, clamp: false },
     position: 'fixed',
     left: 0,
     top: "75%",
@@ -26,10 +26,10 @@ export default function DataTab() {
   });
 
   return (
-    <div>
+    <>
         <animated.div style={fullscreenTab} className={styles.tab}>
           <DataTabToggle isOpen={isOpen} toggleOpen={handleToggle}/>
           <RiskItems isOpen={isOpen}/>
         </animated.div>
-    </div>);
+    </>);
 }
