@@ -26,9 +26,8 @@ export default function JourneysPage() {
   return (
     <>
        {/*<Menu/>*/}
-      {/*<ImageBox journey={journey} id="image-box" />*/}
+      <ImageBox journey={journey} id="image-box" />
       {/*<DataTab />*/}
-      {journey.body}
     </>
   );
 }
