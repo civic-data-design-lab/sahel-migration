@@ -18,13 +18,17 @@
   margin: 0;
 }
 
-html,
-body {
+html{
   /* max-width: 100vw; */
-  /* overflow: hidden; */
   font-size: 20pt;
   color: var(--brown);
   scroll-snap-type: x mandatory;
+}
+body {
+  font-size: 20pt;
+  color: var(--brown);
+  scroll-snap-type: x mandatory;
+  overflow-y: hidden;
 }
 h1 {
   font-weight: bold;
