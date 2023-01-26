@@ -15,9 +15,7 @@ function useParallax(value, distance) {
 }
 
 export default function ImageBox({ journey }) {
-  // const { width, height } = useWindowSize();
-  const width= 1200;
-  const height = 800;
+  const { width, height } = useWindowSize();
   const ref = useRef(null);
   const svgRef = useRef(null);
   useEffect(() => {

@@ -34,17 +34,14 @@ export default function Card({svgRef, entourage, width,height, scrollRef}) {
   }, [entourage.id, isOpen, svgRef])
 
   useLayoutEffect(()=> {
-    let svg = d3.select(svgRef.current.contentDocument.documentElement);
-    if (svg.select("#fig-"+entourage.id).node() ==null) {
-      svgRef.current.addEventListener("load", () => {
-        svg = d3.select(svgRef.current.contentDocument.documentElement);
-      })
-    } else {
-      const bbox = svg.select("#fig-"+entourage.id).node().getBoundingClientRect();
-      setX(bbox.x)
-      setY(bbox.y)
+    if (svgRef.current.contentDocument != null) {
+      const svg = d3.select(svgRef.current.contentDocument.documentElement);
+      if (svg.select("#fig-"+entourage.id).node() !=null) {
+        const bbox = svg.select("#fig-"+entourage.id).node().getBoundingClientRect();
+        setX(bbox.x)
+        setY(bbox.y)
+      }
     }
-
 
   },[width, height, svgRef, entourage.id])
   return (
