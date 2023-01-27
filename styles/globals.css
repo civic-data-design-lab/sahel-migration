@@ -18,12 +18,17 @@
   margin: 0;
 }
 
-html,
-body {
+html{
   /* max-width: 100vw; */
-  /* overflow: hidden; */
   font-size: 20pt;
   color: var(--brown);
+  scroll-snap-type: x mandatory;
+}
+body {
+  font-size: 20pt;
+  color: var(--brown);
+  scroll-snap-type: x mandatory;
+  overflow-y: hidden;
 }
 h1 {
   font-weight: bold;
@@ -80,16 +85,16 @@ a {
 
 ul {
   list-style: none;
-  color: white;
+  color: black;
 }
 
 li {
-  font-size: 1.2rem;
-  padding: 0.5rem;
+  font-size: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
 }
 
 li:hover {
-  color: var(--gray);
+  /*color: var(--gray);*/
 }
 
 /* Icons */
@@ -99,6 +104,9 @@ li:hover {
 }
 .material-symbols-outlined:hover {
   opacity: 0.75;
+}
+Link {
+
 }
 
 svg {

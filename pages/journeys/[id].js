@@ -5,33 +5,30 @@ import DataTab from '../../components/dataTab';
 import React, { useState, useRef, useEffect } from 'react';
 
 import ImageBox from '../../components/imageBox';
+import {fetcher} from "../../hooks/useFetch";
 
-async function fetcher(params) {
-  const [url, id] = params;
-  const res = await fetch(`${url}?id=${id}`);
-  return res.json();
-}
+
 export default function JourneysPage() {
   const router = useRouter();
   const _id = router.query.id;
   const { data: journey, error } = useSWR(['/api/journeysdata', _id], fetcher);
-
   useEffect(() => {
     // console.log(journey);
     // console.log(journey.popUps);
   }, [journey]);
 
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
+  // const handleSelect = (selectedIndex, e) => {
+  //   setIndex(selectedIndex);
+  // };
 
   if (error) return <div>Journey not found</div>;
   if (!journey) return <div>loading...</div>;
   return (
     <>
-      {/* <Menu /> */}
-      <ImageBox journey={journey} id="image-box" />
+       <Menu/>
       <DataTab />
+      <ImageBox journey={journey} id="image-box" />
+
     </>
   );
 }

@@ -9,11 +9,12 @@ export default function useWindowSize() {
         height: isSSR ? 800 : window.innerHeight,
     });
 
-    function changeWindowSize() {
-        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    }
+
 
     useEffect(() => {
+        function changeWindowSize() {
+            setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+        }
         window.addEventListener("resize", changeWindowSize);
 
         return () => {
