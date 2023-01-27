@@ -3,6 +3,7 @@ import Menu from '../components/menu';
 import { Inter } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import MainMap from './maps/map';
+import MapBox from '../components/mapBox';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +20,7 @@ export default function Home() {
         <Menu />
         {/* <h1>HOME</h1> */}
         <MainMap />
+        {/* <MapBox /> */}
 
       </main>
     </>
