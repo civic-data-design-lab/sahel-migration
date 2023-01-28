@@ -11,11 +11,9 @@ import {fetcher} from "../../hooks/useFetch";
 export default function JourneysPage() {
   const router = useRouter();
   const _id = router.query.id;
-  const { data: journey, error } = useSWR(['/api/journeysdata', _id], fetcher);
+  const { data: journey, error } = useSWR(['/api/journeys/journeysdata', _id], fetcher);
   useEffect(() => {
-    // console.log(journey);
-    // console.log(journey.popUps);
-  }, [journey]);
+  }, []);
 
   // const handleSelect = (selectedIndex, e) => {
   //   setIndex(selectedIndex);
