@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSpring, animated, useTransition, config } from 'react-spring';
+import { useSpring, animated, useTransition, config, easings } from 'react-spring';
 import { useRouter } from 'next/router';
 import styles from '../styles/Menu.module.css';
 import Link from "next/link";
@@ -8,7 +8,7 @@ import useSWR from "swr";
 import {fetcher} from "../hooks/useFetch";
 export default function Menu() {
   const _id = 'all';
-  const {data: journeys, error} = useSWR(['/api/journeysdata',_id], fetcher);
+  const {data: journeys, error} = useSWR(['/api/journeys/journeysdata',_id], fetcher);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,6 +36,11 @@ export default function Menu() {
     // left: 0,
     // top: 0,
   });
+  const fullScreenFill = useSpring({
+    opacity: menuOpen ? 1 : 0,
+    zIndex: menuOpen? 8:0,
+    config: { easing: easings.steps(10),},
+  })
   if (error) return <div>Journey not found</div>;
   if (!journeys) return<></>;
   return (
@@ -59,11 +64,7 @@ export default function Menu() {
         )}
       </span>
       <div>
-        <div style={{
-                              opacity: menuOpen ? 1 : 0,
-                              zIndex: menuOpen? 8:0,
-                              transitionTimingFunction: 'ease',
-        }} className={styles.screenCover}/>
+        <animated.div  style={fullScreenFill} className={styles.screenCover}/>
         <animated.div style={fullscreenMenu} className={styles.navBar}>
           <ul>
             <li>
