@@ -6,9 +6,7 @@ import Link from "next/link";
 import Card from "./card";
 import useSWR from "swr";
 import {fetcher} from "../hooks/useFetch";
-export default function Menu() {
-  const _id = 'all';
-  const {data: journeys, error} = useSWR(['/api/journeys/journeysdata',_id], fetcher);
+export default function Menu({journeys}) {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,8 +18,8 @@ export default function Menu() {
     return async (e) => {
       handleToggle();
       e.preventDefault();
-      await delay(200);
-      router.push(href);
+      // await delay(200);
+      await router.push(href);
     };
   };
 
@@ -41,7 +39,6 @@ export default function Menu() {
     zIndex: menuOpen? 8:0,
     config: { easing: easings.steps(10),},
   })
-  if (error) return <div>Journey not found</div>;
   if (!journeys) return<></>;
   return (
     <nav>
@@ -75,9 +72,9 @@ export default function Menu() {
             <li>
               Journey
               <ul>
-                {journeys.map((entourage) => (
-                  <li key={entourage.id}>
-                    <Link className={styles.route} key={entourage.id} href={'/journeys/'+entourage.id}>{entourage.title}</Link>
+                {journeys.map((journey) => (
+                  <li key={journey.id}>
+                    <Link className={styles.route} key={journey.id} href={'/journeys/'+journey.id}>{journey.title}</Link>
                   </li>
                 ))}
               </ul>

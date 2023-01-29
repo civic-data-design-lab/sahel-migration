@@ -1,0 +1,35 @@
+.navigationBar {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    justify-content: space-between;
+    pointer-events: none;
+    position: fixed;
+    bottom: 26%;
+    z-index: 7;
+    color: var(--brown);
+    width: 100%
+}
+
+
+.title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    align-self: center;
+    pointer-events: all;
+}
+
+.button:hover {
+    opacity: 0.75;
+}
+

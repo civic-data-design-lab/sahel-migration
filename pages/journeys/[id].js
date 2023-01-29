@@ -6,12 +6,14 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import ImageBox from '../../components/imageBox';
 import {fetcher} from "../../hooks/useFetch";
+import Navigation from "../../components/navigation";
 
 
 export default function JourneysPage() {
   const router = useRouter();
   const _id = router.query.id;
-  const { data: journey, error } = useSWR(['/api/journeys/journeysdata', _id], fetcher);
+  const { data: journeys, errorJourneys } = useSWR(['/api/journeys/journeysdata', 'all'], fetcher);
+  const { data: journey, errorJourney } = useSWR(['/api/journeys/journeysdata', _id], fetcher);
   useEffect(() => {
   }, []);
 
@@ -19,14 +21,16 @@ export default function JourneysPage() {
   //   setIndex(selectedIndex);
   // };
 
-  if (error) return <div>Journey not found</div>;
+  if (errorJourneys) return <div>Journeys not found</div>;
+  if (errorJourney) return <div>Journey not found</div>;
+  if (!journeys) return <div>loading...</div>;
   if (!journey) return <div>loading...</div>;
   return (
     <>
-       <Menu/>
+      <Menu journeys={journeys}/>
+      <Navigation journeys={journeys} journey={journey}/>
       <DataTab />
       <ImageBox journey={journey} id="image-box" />
-
     </>
   );
 }

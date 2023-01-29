@@ -9,7 +9,6 @@ export default function Card({svgRef, entourage, width,height, scrollRef}) {
   const [isOpen, setIsOpen] = useState(scrollXProgress.get() >= entourage.scrollStart && scrollXProgress.get() <= entourage.scrollEnd);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  // const [bboxWidth, setbboxWidth] = useState(0);
 
   useEffect(() => {
     svgRef.current.addEventListener("load", () => {
