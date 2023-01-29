@@ -23,12 +23,13 @@ export default function MainMap() {
 
     const { data: countries, countryError } = useSWR('/api/map/countrydata', fetcher)
     const { data: cities, error: cityError } = useSWR('/api/map/cities', fetcher)
+    const { data: heatMap, error: heatError } = useSWR('/api/map/cities', fetcher)
 
     const { data: landRoutes, error: routeError } = useSWR('/api/map/landRoute', fetcher)
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', fetcher)
 
-    if (countryError || cityError || routeError || risksError) return <div>Journey not found</div>;
-    if (!countries || !cities || !landRoutes || !riskItems) return <div>loading...</div>;
+    if (countryError || cityError || routeError || risksError || heatError) return <div>Journey not found</div>;
+    if (!countries || !cities || !landRoutes || !riskItems || !heatMap) return <div>loading...</div>;
 
     return (
 
@@ -44,6 +45,7 @@ export default function MainMap() {
                     countryData={countries}
                     cityData={cities}
                     routeData={landRoutes}
+                    heatData={heatMap}
                     activeSource={currentView}
                     risks={riskItems}
                 />

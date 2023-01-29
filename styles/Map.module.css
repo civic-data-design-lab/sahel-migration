@@ -9,13 +9,12 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    z-index: -1;
 }
 
 .sidebar {
     position: fixed;
     height: 65%;
-    z-index: -1;
+    /* z-index: -1; */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

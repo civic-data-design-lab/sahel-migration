@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import React, { useRef, useEffect, useState, createContext, useCallback } from 'react';
+import React, { useRef, useEffect, useState, createContext, useCallback, useMemo } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import Map, { Source, Layer } from 'react-map-gl'
+import Map, { Source, Layer, Popup } from 'react-map-gl'
 import Image from 'react-map-gl'
 import styles from '../styles/MapBox.module.css'
 import { Col, Stack } from 'react-bootstrap';
@@ -14,11 +14,14 @@ import {
     mobilePerspective,
     INITIAL_VIEW_STATE,
     countryLabels,
+    countryLayer,
+    highlightLayer,
+    heatmapLayer
 } from '../pages/maps/mapStyles';
 import useWindowSize from '../hooks/useWindowSize';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
-export default function MapBox({ countryData, cityData, routeData, activeSource, risks }) {
+export default function MapBox({ countryData, cityData, routeData, activeSource, risks, heatData }) {
     const { width } = useWindowSize()
 
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
@@ -26,24 +29,20 @@ export default function MapBox({ countryData, cityData, routeData, activeSource,
 
     const mapRef = useRef(null)
     const [persepctive, setPerspective] = useState(desktopPerspective)
-    const hoverLayer = {
-        'id': 'hoverable',
-        'type': 'fill',
-        'paint': {
-            'fill-color': 'rgba(0,0,0,0)'
-        }
-    };
+
 
     const onHover = useCallback(event => {
-        const {
-            features,
-            point: { x, y }
-        } = event;
-        const hoveredFeature = features && features[0];
-
-        // prettier-ignore
-        setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
+        const country = event.features && event.features[0];
+        setHoverInfo({
+            longitude: event.lngLat.lng,
+            latitude: event.lngLat.lat,
+            countryName: country && country.properties.ADM0_NAME
+        });
     }, []);
+
+    const selectedCountry = (hoverInfo && hoverInfo.countryName) || '';
+    const filter = useMemo(() => ['in', 'ADM0_NAME', selectedCountry], [selectedCountry]);
+
 
     return (
         <div style={{ zIndex: -5, position: 'absolute', inset: 0 }}>
@@ -57,22 +56,21 @@ export default function MapBox({ countryData, cityData, routeData, activeSource,
                     width: '100vw', height: '100%'
                 }}
                 longitude={persepctive.lng}
-                interactiveLayerIds={['hoverable', 'country-outline']}
+                interactiveLayerIds={['hoverable']}
                 latitude={persepctive.lat}
                 zoom={
                     width < 900 ? mobilePerspective.zoom : desktopPerspective.zoom
                 }
                 mapStyle={mapStyle}
                 ref={mapRef}
-                // interactive={false}
                 onMouseMove={onHover}
             >
                 {activeSource === 'cities' && (
                     <>
-                        <Source id='selected-countries' type='geojson' data={JSON.parse(countryData)}>
-                            <Image id='hatch' />
+                        <Source type='geojson' data={JSON.parse(countryData)}>
                             <Layer {...countryBorderStyle} />
-                            <Layer {...hoverLayer} />
+                            <Layer {...countryLayer} />
+                            <Layer {...highlightLayer} filter={filter} />
                         </Source>
                         <Source id='origin-cities' type='geojson' data={JSON.parse(cityData)}>
                             <Layer {...cityStyle} />
@@ -84,33 +82,48 @@ export default function MapBox({ countryData, cityData, routeData, activeSource,
                     </>
                 )
                 }
-                {hoverInfo && (
-                    <>
-                        <Tooltip hoverInfo={hoverInfo}></Tooltip>
-                    </>
-                )}
+                {selectedCountry && (
+                    <Popup style={{
+                        width: '240px',
+                        display: 'flex',
+                        flexDirection: 'column-reverse',
+                    }}
+                        longitude={hoverInfo.longitude}
+                        latitude={hoverInfo.latitude}
+                        offset={[0, -10]}
+                        anchor={'bottom'}
+                        closeButton={false}
+                        className="county-info"
+                    >
+                        <Tooltip selectedCountry={selectedCountry} />
+                    </Popup>)}
                 {activeSource === 'route' && (
-                    <Source id='land-routes' type='geojson' data={JSON.parse(routeData)}>
-                        <Layer {...routeStyle} />
-                    </Source>
+                    <>
+                        <Source id='land-routes' type='geojson' data={JSON.parse(routeData)}>
+                            <Layer {...routeStyle} />
+                        </Source>
+                        <Source type="geojson" data={JSON.parse(heatData)}>
+                            <Layer {...heatmapLayer} />
+                        </Source>
+                    </>
                 )}
             </Map>
         </div >
     )
 }
 
-function Tooltip({ hoverInfo }) {
+function Tooltip({ selectedCountry }) {
 
     return (
-        <div className={styles.tooltip} style={{ left: hoverInfo.x, top: hoverInfo.y }}>
-            <h2>{hoverInfo.feature.properties.ADM0_NAME}</h2>
+        <div className={styles.tooltip}>
+            <h2>{selectedCountry}</h2>
             <div className={styles.tooltipInfo}>
                 <Stack>
-                    <span>xxx,xxx {hoverInfo.feature.properties.ADM0_NAME} mirgants in Libya</span>
+                    <span>xxx,xxx {selectedCountry} mirgants in Libya</span>
                     <span>xxx,xxx km from start to end</span>
                 </Stack>
                 <Stack style={{ marginTop: '0.5rem' }}>
-                    <span>Top origin cities of {hoverInfo.feature.properties.ADM0_NAME} migrants</span>
+                    <span>Top origin cities of {selectedCountry} migrants</span>
                     {['15%', '14%', '13%', '12%'].map((entries, i) => {
                         return <span>{entries} {i}</span>
                     })}
@@ -129,6 +142,14 @@ function Tooltip({ hoverInfo }) {
     )
 }
 
+
+function renderMap(activeSource) {
+    return (
+        <Layer {...layerStyle} />
+    )
+
+
+}
 
 
 
