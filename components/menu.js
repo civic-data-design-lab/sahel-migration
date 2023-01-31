@@ -7,7 +7,6 @@ import Card from "./card";
 import useSWR from "swr";
 import {fetcher} from "../hooks/useFetch";
 export default function Menu({journeys}) {
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleToggle = () => {
@@ -18,26 +17,17 @@ export default function Menu({journeys}) {
     return async (e) => {
       handleToggle();
       e.preventDefault();
-      // await delay(200);
       await router.push(href);
     };
   };
 
 
   const fullscreenMenu = useSpring({
-    // opacity: menuOpen ? 1 : 0,
-    // config: { tension: 170, friction: 26, precision: 0.01, clamp: true },
-    // position: 'fixed',
-    // bottom: 0,
     from: { right: "-100%" },
     right: menuOpen ? "0" : "-100%",
-    // left: 0,
-    // top: 0,
   });
   const fullScreenFill = useSpring({
     opacity: menuOpen ? 1 : 0,
-    zIndex: menuOpen? 8:0,
-    config: { easing: easings.steps(10),},
   })
   if (!journeys) return<></>;
   return (
@@ -74,7 +64,7 @@ export default function Menu({journeys}) {
               <ul>
                 {journeys.map((journey) => (
                   <li key={journey.id}>
-                    <Link className={styles.route} key={journey.id} href={'/journeys/'+journey.id}>{journey.title}</Link>
+                    <Link className={styles.route} key={journey.id} onClick={handleRouting('/journeys/'+journey.id)} href={'/journeys/'+journey.id}>{journey.title}</Link>
                   </li>
                 ))}
               </ul>
