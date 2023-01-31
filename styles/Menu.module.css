@@ -31,6 +31,7 @@
   font: inherit;
   position: sticky;
 }
+
 .menuButton:hover {
   cursor: pointer;
 }
@@ -47,7 +48,14 @@
   /*z-index: 8000;*/
 }
 
-.route:hover {
-  text-decoration: underline;
+
+.route {
+  text-decoration: none;
+  color: var(--brown);
+  font-family: Assistant;
 }
 
+.route:hover {
+  text-decoration: underline;
+  color: var(--brown)
+}
