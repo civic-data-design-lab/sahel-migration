@@ -32,3 +32,21 @@
     opacity: 0.75;
 }
 
+@media only screen and (max-width: 480px) {
+    .navigationBar {
+        bottom: 6%;
+    }
+    .title {
+        bottom: 0;
+        width: 5rem;
+    }
+    .button {
+        width: 7rem;
+        height: 4rem;
+        align-items: flex-end;
+    }
+    .button h7 {
+        padding-bottom: .3rem;
+    }
+}
+
