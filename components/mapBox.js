@@ -96,7 +96,7 @@ export default function MapBox({ activeSource, risks }) {
             feautureID = null
         })
 
-    }, [mapRef.current])
+    })
 
 
     return (
