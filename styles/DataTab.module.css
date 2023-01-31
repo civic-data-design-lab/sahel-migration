@@ -1,6 +1,17 @@
 .tab {
+    display: flex;
+    flex-direction: column;
     background: white;
     z-index: 7;
+    top: 75%;
+}
+
+@media only screen and (max-width: 480px) {
+    .tab {
+        top: 95%;
+        border-radius: 1rem;
+        justify-items: center;
+    }
 }
 
 .risksSelection {
