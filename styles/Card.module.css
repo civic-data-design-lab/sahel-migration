@@ -28,3 +28,16 @@
   border-radius: 10px;
   line-height: 150%;
 }
+
+@media only screen and (max-width: 480px) {
+   .expandedCard {
+     width: 40rem;
+     max-width: 100rem;
+     /*height: 20rem;*/
+     overflow-y: scroll;
+     max-height: 20rem;
+   }
+  .card {
+    font-size: 2rem;
+  }
+}
