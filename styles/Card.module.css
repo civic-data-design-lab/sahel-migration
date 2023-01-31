@@ -36,5 +36,8 @@
      overflow-y: scroll;
      max-height: 20rem;
    }
+  .card {
+    font-size: .6rem;
+   }
 
 }
