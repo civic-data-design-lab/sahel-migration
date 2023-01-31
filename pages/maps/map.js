@@ -7,14 +7,12 @@ import useSWR from 'swr'
 import MapBox from "../../components/mapBox";
 import ContentBox from "../../components/contentBox";
 import Title from "../../components/title";
-import DataTab from "../../components/dataTab";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 export const ViewContext = createContext({
     currentView: 'overallRoutes',
     setCurrentView: (() => { })
 })
-
 
 export default function MainMap() {
     const { width } = useWindowSize()
@@ -42,7 +40,6 @@ export default function MainMap() {
                     risks={riskItems}
                 />
             </div>
-            {/* <DataTab /> */}
         </ViewContext.Provider>
 
 
