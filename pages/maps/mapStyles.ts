@@ -54,6 +54,7 @@ export const DOT_COLOR_SCALE = {
 export const countryLayer: FillLayer = {
     id: 'hoverable',
     type: 'fill',
+    "source-layer": 'WA_SelectedCountries2-3495m1',
     paint: {
         'fill-outline-color': 'rgba(0,0,0,0.1)',
         'fill-color': 'rgba(0,0,0,0.1)'
@@ -63,33 +64,21 @@ export const countryLayer: FillLayer = {
 export const highlightLayer: LineLayer = {
     id: 'countires-highlighted',
     type: 'line',
-    source: 'hoverable',
+    "source-layer": 'WA_SelectedCountries2-3495m1',
+    source: 'routes',
     paint: {
         'line-color': '#ffffff',
-        'line-width': 3,
-        'line-opacity': 0.75,
+        'line-width': 6,
         'line-opacity-transition': {
             delay: 1000,
-            duration: 1000
+            duration: 9000
         }
-    },
-}
-
-export const countryStyle = {
-    'id': 'landuse_park',
-    'type': 'fill',
-    'paint': {
-        'fill-color': COUNTRY_FILL_COLOR,
-        'fill-opacity': 0.5
-    },
-    "transition": {
-        "duration": 300,
-        "delay": 0
     }
-};
+}
 
 export const countryBorderStyle = {
     'id': 'country-outline',
+    "source-layer": 'WA_SelectedCountries2-3495m1',
     'type': 'line',
     'paint': {
         'line-color': BORDER_COlOR,
@@ -103,6 +92,7 @@ export const countryBorderStyle = {
 
 export const countryLabels = {
     'id': 'poi-labels',
+    "source-layer": 'WA_SelectedCountries2-3495m1',
     'type': 'symbol',
     'layout': {
         'text-field': ['get', 'ADM0_NAME'],
@@ -112,22 +102,47 @@ export const countryLabels = {
     },
 }
 
-export const routeStyle = {
-    'id': 'routes',
-    'type': 'line',
-    'paint': {
+export const routeStyle: LineLayer = {
+    id: 'routes',
+    type: 'line',
+    'source-layer': 'route_lagos-tripoli-9p3vru',
+    source: 'overall-routes',
+    paint: {
         'line-color': DOT_COLOR_SCALE.bold,
-        'line-width': 3,
-    },
-    "transition": {
-        "duration": TRANSITION_TIME,
-        "delay": 0
+        'line-width': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            7,
+            3
+        ],
+        'line-opacity': 0.75,
+        'line-opacity-transition': {
+            delay: 1000,
+            duration: 9000
+        }
     }
+}
+
+export const routeHighlightLayer: LineLayer = {
+    id: 'route-highlighted',
+    'source-layer': 'route_lagos-tripoli-9p3vru',
+    type: 'line',
+    source: 'overall-routes',
+    paint: {
+        'line-color': '#ffffff',
+        'line-width': 7,
+        'line-opacity': 0,
+        'line-opacity-transition': {
+            delay: 1000,
+            duration: 1000
+        }
+    },
 }
 
 export const cityStyle = {
     'id': 'cities',
     'type': 'circle',
+    'source-layer': 'IFPRI_Libya_origin-cities-98ikdw',
     'paint': {
         'circle-color': [
             'step',
@@ -168,6 +183,7 @@ export const desktopPerspective = {
     lat: 25,
     zoom: 3.65
 }
+
 
 export const mobilePerspective = {
     lng: 9,
@@ -224,3 +240,13 @@ export const cityLayerSet = [
         }
     }
 ]
+
+export const stylesObject = {
+    'routeStyle': routeStyle,
+    'countryLabels': countryLabels,
+    'cityStyle': cityStyle,
+    'countryBorderStyle': countryBorderStyle,
+    'countryLayer': countryLayer,
+    'highlightLayer': highlightLayer,
+    'routeHighlightLayer': routeHighlightLayer
+}

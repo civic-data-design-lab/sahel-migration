@@ -41,6 +41,12 @@
 
 .paragraph {
     font-family: Overpass;
+    align-self: normal;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .box {
@@ -58,4 +64,10 @@
 
 .paragraph h2 {
     font-size: 1rem;
+}
+
+@media (max-width:1000px) {
+    .paragraph {
+        justify-content: flex-start;
+    }
 }

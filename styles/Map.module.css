@@ -55,7 +55,6 @@
     }
 
     .mapContainer {
-        background-color: #bfd5df;
         height: clamp(30%, 35vh, 40%);
         width: 100%;
         bottom: 0;
@@ -69,26 +68,28 @@
     }
 }
 
-@media (max-width:600px) {
+@media (max-width:1000px) {
     .map {
         position: absolute;
     }
 
     .mapContainer {
         position: absolute;
-        height: clamp(30%, 35vh, 40%);
+        height: clamp(30%, 35vh, 50%);
         width: 100%;
         bottom: 0;
+        right: 0;
+        left: 0;
     }
 
     .container {
         width: 100%;
 
     }
+
+    .sidebar {
+        height: 40%;
+        position: relative;
+        top: -2rem;
+    }
 }
-
-/* .mapContainer path:hover {
-    stroke: black;
-    stroke-width: 2px;
-
-} */

@@ -4,7 +4,7 @@ import styles from './../styles/ContentBox.module.css'
 import { ViewContext } from '../pages/maps/map'
 
 
-function Paragraph({ children, scrollRef, id, body, heading }) {
+function Paragraph({ children, scrollRef, data }) {
     const ref = useRef(null)
     const isInView = useInView(ref, {
         amount: 1
@@ -13,14 +13,14 @@ function Paragraph({ children, scrollRef, id, body, heading }) {
     useEffect(() => {
         console.log("Element is in view: ", isInView)
         if (isInView) {
-            setCurrentView(id)
+            setCurrentView(data.id)
         }
     }, [isInView])
     return (
         <div className={styles.paragraph} ref={ref}>
             {children}
-            <h2>{heading}</h2>
-            <p>{body}</p>
+            <h2>{data.heading}</h2>
+            <p>{data.body}</p>
         </div>
     )
 }
@@ -34,19 +34,17 @@ function Box({ isVisible }) {
     );
 }
 
-export default function ContentBox({ body, scrollRef, narratives }) {
+export default function ContentBox({ body, scrollRef, dataItems }) {
     const contentRef = useRef(null)
     return (
         <div ref={contentRef} className={styles.container}>
             {
-                narratives.map(narrative => {
+                dataItems.map(data => {
                     return (
                         <div className={styles.paragraphContainer}  >
                             <Paragraph
-                                id={narrative.id}
                                 scrollRef={contentRef}
-                                body={narrative.body}
-                                heading={narrative.heading}>
+                                data={data}>
                             </Paragraph>
                         </div>
                     )

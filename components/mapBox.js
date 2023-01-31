@@ -29,7 +29,6 @@ export default function MapBox({ activeSource, risks, }) {
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
 
-    const [isClicked, setIsClicked] = useState(true)
 
     const mapRef = useRef(null)
     const { current: map } = useMap();
@@ -95,7 +94,6 @@ export default function MapBox({ activeSource, risks, }) {
             }
             feautureID = null
         })
-
 
     }, [mapRef.current])
 
