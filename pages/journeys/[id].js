@@ -7,6 +7,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ImageBox from '../../components/imageBox';
 import {fetcher} from "../../hooks/useFetch";
 import Navigation from "../../components/navigation";
+import Title from "../../components/title";
 
 
 export default function JourneysPage() {
@@ -27,6 +28,7 @@ export default function JourneysPage() {
   if (!journey) return <div>loading...</div>;
   return (
     <>
+      <Title/>
       <Menu journeys={journeys}/>
       <Navigation journeys={journeys} journey={journey}/>
       <DataTab />

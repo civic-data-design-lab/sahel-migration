@@ -39,7 +39,6 @@ export default function ImageBox({ journey }) {
   return (
     <>
       <motion.div className="box" ref={ref} styles={{position: 'relative'}}>
-        <Title />
         <DescriptionTab title={journey.title} body={journey.body} />
         <object
           type="image/svg+xml"

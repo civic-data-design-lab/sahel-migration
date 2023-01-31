@@ -1,9 +1,9 @@
 .main {
   position: absolute;
   width: 100%;
-  max-width: 22rem;
-  top: 0.5rem;
-  left: 0.5rem;
+  /*max-width: 22rem;*/
+  top: 1%;
+  left: 2%;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -11,11 +11,17 @@
   color: var(--brown);
 }
 
-.main h2 {
-  margin-left: 0.5rem;
-  margin-bottom: 0.01rem;
-}
-
-.main h6 {
-  margin-left: 0.5rem;
+@media only screen and (max-width: 480px) {
+  .main {
+   max-width: 100vw;
+   top: 10%;
+   left: 25%;
+    /*font-size: 80pt;*/
+  }
+  .main h2 {
+    width: 50rem;
+  }
+  .main h6 {
+    width: 50rem;
+  }
 }
