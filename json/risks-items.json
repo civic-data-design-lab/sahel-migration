@@ -2,49 +2,39 @@
     "items": {
         "risks": [
             {
-                "id": "route",
+                "id": "overallRoutes",
                 "heading": "Migration from West Africa to Libya is Risky",
                 "body": "Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022)."
             },
             {
-                "id": "cities",
+                "id": "originCities",
                 "heading": "Migrants were Surveyed in Libya",
                 "body": "In June and July 2021, migrants in Libya were surveyed  by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status.. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
+            },
+            {
+                "id": "extremeHeat",
+                "heading": "Extreme Heat",
+                "body": ""
             }
         ],
         "styles": {
-            "patterns": [
+            "layers": [
                 {
-                    "ids": [
-                        "Benin"
-                    ],
-                    "url": "/images/maps/test_hatch.png"
+                    "id": "originCities",
+                    "layerNames": [
+                        "countryBorderStyle",
+                        "countryLayer",
+                        "countryLayer",
+                        "cityStyle",
+                        "countryLabels"
+                    ]
                 },
                 {
-                    "ids": [
-                        "Mali",
-                        "Ghana"
-                    ],
-                    "url": "/images/maps/cameroon_gambia_hatch.svg"
-                },
-                {
-                    "ids": [
-                        "Chad",
-                        "Nigeria"
-                    ],
-                    "url": "/images/maps/cameroon_gambia_hatch.svg"
-                },
-                {
-                    "ids": [
-                        "Niger"
-                    ],
-                    "url": "/images/maps/cameroon_gambia_hatch.svg"
-                },
-                {
-                    "ids": [
-                        "Libya"
-                    ],
-                    "url": "/images/maps/cameroon_gambia_hatch.svg"
+                    "id": "overallRoutes",
+                    "layerNames": [
+                        "routeStyle",
+                        "routeHighlightLayer"
+                    ]
                 }
             ]
         }
