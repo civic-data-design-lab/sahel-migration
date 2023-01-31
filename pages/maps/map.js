@@ -7,10 +7,11 @@ import useSWR from 'swr'
 import MapBox from "../../components/mapBox";
 import ContentBox from "../../components/contentBox";
 import Title from "../../components/title";
+import DataTab from "../../components/dataTab";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 export const ViewContext = createContext({
-    currentView: 'route',
+    currentView: 'overallRoutes',
     setCurrentView: (() => { })
 })
 
@@ -18,18 +19,13 @@ export const ViewContext = createContext({
 export default function MainMap() {
     const { width } = useWindowSize()
     const sideBarRef = useRef(null)
-    const [currentView, setCurrentView] = useState('route')
+    const [currentView, setCurrentView] = useState('overallRoutes')
     const viewValue = { currentView, setCurrentView }
 
-    const { data: countries, countryError } = useSWR('/api/map/countrydata', fetcher)
-    const { data: cities, error: cityError } = useSWR('/api/map/cities', fetcher)
-    const { data: heatMap, error: heatError } = useSWR('/api/map/cities', fetcher)
-
-    const { data: landRoutes, error: routeError } = useSWR('/api/map/landRoute', fetcher)
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', fetcher)
 
-    if (countryError || cityError || routeError || risksError || heatError) return <div>Journey not found</div>;
-    if (!countries || !cities || !landRoutes || !riskItems || !heatMap) return <div>loading...</div>;
+    if (risksError) return <div>Journey not found</div>;
+    if (!riskItems) return <div>loading...</div>;
 
     return (
 
@@ -37,19 +33,16 @@ export default function MainMap() {
             <Title />
             <div className={styles.container}>
                 <div className={styles.sidebar} ref={sideBarRef}>
-                    <ContentBox scrollRef={sideBarRef} narratives={riskItems.risks} />
+                    <ContentBox scrollRef={sideBarRef} dataItems={riskItems.risks} />
                 </div>
             </div>
             <div className={styles.mapContainer}>
                 <MapBox
-                    countryData={countries}
-                    cityData={cities}
-                    routeData={landRoutes}
-                    heatData={heatMap}
                     activeSource={currentView}
                     risks={riskItems}
                 />
             </div>
+            {/* <DataTab /> */}
         </ViewContext.Provider>
 
 

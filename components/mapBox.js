@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import React, { useRef, useEffect, useState, createContext, useCallback, useMemo } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import Map, { Source, Layer, Popup } from 'react-map-gl'
+import Map, { Source, Layer, Popup, useMap } from 'react-map-gl'
 import Image from 'react-map-gl'
 import styles from '../styles/MapBox.module.css'
 import { Col, Stack } from 'react-bootstrap';
@@ -16,20 +16,28 @@ import {
     countryLabels,
     countryLayer,
     highlightLayer,
-    heatmapLayer
+    heatmapLayer,
+    stylesObject
 } from '../pages/maps/mapStyles';
 import useWindowSize from '../hooks/useWindowSize';
+import { colorToRgba } from '@react-spring/shared';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
-export default function MapBox({ countryData, cityData, routeData, activeSource, risks, heatData }) {
+export default function MapBox({ activeSource, risks, }) {
     const { width } = useWindowSize()
 
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
 
-    const mapRef = useRef(null)
-    const [persepctive, setPerspective] = useState(desktopPerspective)
+    const [isClicked, setIsClicked] = useState(true)
 
+    const mapRef = useRef(null)
+    const { current: map } = useMap();
+    const persepctive = useMemo(() => {
+        if (width > 1000) return { ...desktopPerspective }
+        if (600 < width < 1000) return { ...desktopPerspective, zoom: 2.5 }
+        return { ...desktopPerspective, zoom: 2 }
+    })
 
     const onHover = useCallback(event => {
         const country = event.features && event.features[0];
@@ -42,6 +50,54 @@ export default function MapBox({ countryData, cityData, routeData, activeSource,
 
     const selectedCountry = (hoverInfo && hoverInfo.countryName) || '';
     const filter = useMemo(() => ['in', 'ADM0_NAME', selectedCountry], [selectedCountry]);
+    useEffect(() => {
+        if (!mapRef.current) return
+        let feautureID = null
+        const testMap = mapRef.current.getMap()
+
+        mapRef.current.on('mousemove', 'routes', (event) => {
+            if (event.features.length === 0) return;
+
+            if (feautureID !== null) {
+                mapRef.current.removeFeatureState({
+                    source: 'overall-routes',
+                    id: feautureID,
+                    sourceLayer: 'route_lagos-tripoli-9p3vru',
+                });
+            }
+
+            feautureID = event.features[0].id
+            mapRef.current.setFeatureState(
+                {
+                    source: 'overall-routes',
+                    id: feautureID,
+                    sourceLayer: 'route_lagos-tripoli-9p3vru',
+                },
+                {
+                    hover: true
+                })
+
+            const targetCoords = event.features[0].geometry.coordinates[0][30]
+        })
+
+        mapRef.current.on('mouseleave', 'routes', () => {
+            if (feautureID !== null) {
+                mapRef.current.setFeatureState(
+                    {
+                        source: 'overall-routes',
+                        id: feautureID,
+                        sourceLayer: 'route_lagos-tripoli-9p3vru',
+                    },
+                    {
+                        hover: false
+                    }
+                );
+            }
+            feautureID = null
+        })
+
+
+    }, [mapRef.current])
 
 
     return (
@@ -55,34 +111,30 @@ export default function MapBox({ countryData, cityData, routeData, activeSource,
                 style={{
                     width: '100vw', height: '100%'
                 }}
-                longitude={persepctive.lng}
                 interactiveLayerIds={['hoverable']}
-                latitude={persepctive.lat}
-                zoom={
-                    width < 900 ? mobilePerspective.zoom : desktopPerspective.zoom
-                }
+                zoom={persepctive.zoom}
                 mapStyle={mapStyle}
                 ref={mapRef}
                 onMouseMove={onHover}
             >
-                {activeSource === 'cities' && (
+                {activeSource === 'originCities' && (
                     <>
-                        <Source type='geojson' data={JSON.parse(countryData)}>
+                        <Source type='vector' url='mapbox://mitcivicdata.111746lw'>
                             <Layer {...countryBorderStyle} />
                             <Layer {...countryLayer} />
                             <Layer {...highlightLayer} filter={filter} />
                         </Source>
-                        <Source id='origin-cities' type='geojson' data={JSON.parse(cityData)}>
+                        <Source id='origin-cities' type='vector' url='mapbox://mitcivicdata.biwrhf8h'>
                             <Layer {...cityStyle} />
                         </Source>
-                        <Source id='selected-countries-label' type='geojson' data={JSON.parse(countryData)}>
+                        <Source id='selected-countries-label' type='vector' url='mapbox://mitcivicdata.111746lw'>
                             <Layer {...countryLabels} />
                         </Source>
 
                     </>
                 )
                 }
-                {selectedCountry && (
+                {(selectedCountry && activeSource === 'originCities') && (
                     <Popup style={{
                         width: '240px',
                         display: 'flex',
@@ -97,14 +149,12 @@ export default function MapBox({ countryData, cityData, routeData, activeSource,
                     >
                         <Tooltip selectedCountry={selectedCountry} />
                     </Popup>)}
-                {activeSource === 'route' && (
+                {activeSource === 'overallRoutes' && (
                     <>
-                        <Source id='land-routes' type='geojson' data={JSON.parse(routeData)}>
-                            <Layer {...routeStyle} />
+                        <Source id='overall-routes' type='vector' url='mapbox://mitcivicdata.a6m0ng2q' generateId={true} >
+                            {/* <Layer {...routeStyle} /> */}
                         </Source>
-                        <Source type="geojson" data={JSON.parse(heatData)}>
-                            <Layer {...heatmapLayer} />
-                        </Source>
+                        {renderMap(activeSource, risks.styles)}
                     </>
                 )}
             </Map>
@@ -143,12 +193,20 @@ function Tooltip({ selectedCountry }) {
 }
 
 
-function renderMap(activeSource) {
+
+
+function renderMap(activeSource, styles) {
+    const layerInfo = styles.layers.find((layer) => activeSource === layer.id)
     return (
-        <Layer {...layerStyle} />
+        <>
+            {
+                layerInfo.layerNames.map((name) => {
+                    return <Layer {...stylesObject[name]} />
+                })
+            }
+        </>
+
     )
-
-
 }
 
 
