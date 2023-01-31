@@ -7,11 +7,7 @@ export default function Title() {
   return (
     <div className={styles.main}>
       <h2>Crossing the Sahara</h2>
-      {
-        width > 700 && (
-          <h6>Risks of West African Migration</h6>
-        )
-      }
+        <h6>Risks of West African Migration</h6>
     </div>
   );
 }

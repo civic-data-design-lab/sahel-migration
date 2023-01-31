@@ -14,8 +14,8 @@
 @media only screen and (max-width: 480px) {
   .main {
    max-width: 100vw;
-   top: 10%;
-   left: 25%;
+   top: 3%;
+   left: 5%;
     /*font-size: 80pt;*/
   }
   .main h2 {

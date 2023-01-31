@@ -14,11 +14,8 @@
 @media only screen and (max-width: 480px) {
   .main {
     max-width: 100vw;
-    top: 50%;
-    left: 25%;
-    height: auto;
-
-    /*font-size: 80pt;*/
+    top: 13%;
+    left: 5%;
   }
 
   .main small {

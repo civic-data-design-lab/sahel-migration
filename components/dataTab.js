@@ -15,13 +15,11 @@ export default function DataTab() {
 
   const fullscreenTab = useSpring({
     opacity: isOpen ? 1 : .9,
-    y: isOpen ? -height*.75:0,
+    y: isOpen ? width < 480 ?-height*(.9-.1): -height*(.9-.25):0,
     config: { tension: 170, friction: 26, precision: 0.01, clamp: false },
     position: 'fixed',
     left: 0,
-    top: "75%",
-    bottom: "25%",
-    height: isOpen? height: height*.25,
+    height: isOpen? height*.9: height*.25,
     width: width
   });
 
