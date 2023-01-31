@@ -110,7 +110,8 @@ export default function MapBox({ activeSource, risks }) {
                 style={{
                     width: '100vw', height: '100%'
                 }}
-                interactiveLayerIds={['hoverable']}
+                interactiveLayerIds={
+                    activeSource === 'originCities' ? ['hoverable'] : []}
                 zoom={persepctive.zoom}
                 mapStyle={mapStyle}
                 ref={mapRef}
