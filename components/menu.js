@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { useSpring, animated, useTransition, config } from 'react-spring';
+import { useSpring, animated, useTransition, config, easings } from 'react-spring';
 import { useRouter } from 'next/router';
 import styles from '../styles/Menu.module.css';
 import Link from "next/link";
 import Card from "./card";
 import useSWR from "swr";
 import {fetcher} from "../hooks/useFetch";
-export default function Menu() {
-  const _id = 'all';
-  const {data: journeys, error} = useSWR(['/api/journeysdata',_id], fetcher);
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+export default function Menu({journeys}) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleToggle = () => {
@@ -20,23 +17,18 @@ export default function Menu() {
     return async (e) => {
       handleToggle();
       e.preventDefault();
-      await delay(200);
-      router.push(href);
+      await router.push(href);
     };
   };
 
 
   const fullscreenMenu = useSpring({
-    // opacity: menuOpen ? 1 : 0,
-    // config: { tension: 170, friction: 26, precision: 0.01, clamp: true },
-    // position: 'fixed',
-    // bottom: 0,
     from: { right: "-100%" },
     right: menuOpen ? "0" : "-100%",
-    // left: 0,
-    // top: 0,
   });
-  if (error) return <div>Journey not found</div>;
+  const fullScreenFill = useSpring({
+    opacity: menuOpen ? 1 : 0,
+  })
   if (!journeys) return<></>;
   return (
     <nav>
@@ -59,11 +51,7 @@ export default function Menu() {
         )}
       </span>
       <div>
-        <div style={{
-                              opacity: menuOpen ? 1 : 0,
-                              zIndex: menuOpen? 8:0,
-                              transitionTimingFunction: 'ease',
-        }} className={styles.screenCover}/>
+        <animated.div  style={fullScreenFill} className={styles.screenCover}/>
         <animated.div style={fullscreenMenu} className={styles.navBar}>
           <ul>
             <li>
@@ -74,9 +62,9 @@ export default function Menu() {
             <li>
               Journey
               <ul>
-                {journeys.map((entourage) => (
-                  <li key={entourage.id}>
-                    <Link className={styles.route} key={entourage.id} href={'/journeys/'+entourage.id}>{entourage.title}</Link>
+                {journeys.map((journey) => (
+                  <li key={journey.id}>
+                    <Link className={styles.route} key={journey.id} onClick={handleRouting('/journeys/'+journey.id)} href={'/journeys/'+journey.id}>{journey.title}</Link>
                   </li>
                 ))}
               </ul>

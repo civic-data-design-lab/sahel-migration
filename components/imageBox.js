@@ -19,10 +19,9 @@ export default function ImageBox({ journey }) {
   const ref = useRef(null);
   const svgRef = useRef(null);
   useEffect(() => {
-    // console.log(journey.body);
 
 
-  }, [journey]);
+  }, []);
   const entourages = journey.entourages.map((entourage) => (
       <Card
         entourage={entourage}
