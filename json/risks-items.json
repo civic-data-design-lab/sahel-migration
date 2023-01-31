@@ -35,8 +35,28 @@
                         "routeStyle",
                         "routeHighlightLayer"
                     ]
+                },
+                {
+                    "id": "extremeHeat",
+                    "layerNames": [
+                        ""
+                    ]
                 }
             ]
-        }
+        },
+        "sources": [
+            {
+                "id": "overall-routes",
+                "url": "mapbox://mitcivicdata.a6m0ng2q"
+            },
+            {
+                "id": "selected-countries",
+                "url": "mapbox://mitcivicdata.111746lw"
+            },
+            {
+                "id": "origin-cities",
+                "url": "mapbox://mitcivicdata.biwrhf8h"
+            }
+        ]
     }
 }
