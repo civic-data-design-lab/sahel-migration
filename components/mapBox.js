@@ -1,5 +1,5 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import React, { useRef, useEffect, useState, createContext, useCallback, useMemo } from 'react';
+import React, { useRef, useEffect, useState, createContext, useCallback, useMemo, use } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import Map, { Source, Layer, Popup, useMap } from 'react-map-gl'
 import Image from 'react-map-gl'
@@ -23,7 +23,7 @@ import useWindowSize from '../hooks/useWindowSize';
 import { colorToRgba } from '@react-spring/shared';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
-export default function MapBox({ activeSource, risks, }) {
+export default function MapBox({ activeSource, risks }) {
     const { width } = useWindowSize()
 
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
@@ -115,78 +115,58 @@ export default function MapBox({ activeSource, risks, }) {
                 ref={mapRef}
                 onMouseMove={onHover}
             >
-                {activeSource === 'originCities' && (
-                    <>
-                        <Source type='vector' url='mapbox://mitcivicdata.111746lw'>
-                            <Layer {...countryBorderStyle} />
-                            <Layer {...countryLayer} />
-                            <Layer {...highlightLayer} filter={filter} />
-                        </Source>
-                        <Source id='origin-cities' type='vector' url='mapbox://mitcivicdata.biwrhf8h'>
-                            <Layer {...cityStyle} />
-                        </Source>
-                        <Source id='selected-countries-label' type='vector' url='mapbox://mitcivicdata.111746lw'>
-                            <Layer {...countryLabels} />
-                        </Source>
-
-                    </>
-                )
-                }
                 {(selectedCountry && activeSource === 'originCities') && (
-                    <Popup style={{
-                        width: '240px',
-                        display: 'flex',
-                        flexDirection: 'column-reverse',
-                    }}
-                        longitude={hoverInfo.longitude}
-                        latitude={hoverInfo.latitude}
-                        offset={[0, -10]}
-                        anchor={'bottom'}
-                        closeButton={false}
-                        className="county-info"
-                    >
-                        <Tooltip selectedCountry={selectedCountry} />
-                    </Popup>)}
-                {activeSource === 'overallRoutes' && (
-                    <>
-                        <Source id='overall-routes' type='vector' url='mapbox://mitcivicdata.a6m0ng2q' generateId={true} >
-                            {/* <Layer {...routeStyle} /> */}
-                        </Source>
-                        {renderMap(activeSource, risks.styles)}
-                    </>
+                    <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
                 )}
+                {renderSource(activeSource, risks)}
+                {activeSource === 'overallRoutes' && (renderMap(activeSource, risks.styles))}
+                {activeSource === 'originCities' && (renderMap(activeSource, risks.styles))}
+                {activeSource === 'originCities' && (<Layer {...highlightLayer} filter={filter} />)}
             </Map>
         </div >
     )
 }
 
-function Tooltip({ selectedCountry }) {
+function Tooltip({ selectedCountry, hoverInfo }) {
 
     return (
-        <div className={styles.tooltip}>
-            <h2>{selectedCountry}</h2>
-            <div className={styles.tooltipInfo}>
-                <Stack>
-                    <span>xxx,xxx {selectedCountry} mirgants in Libya</span>
-                    <span>xxx,xxx km from start to end</span>
-                </Stack>
-                <Stack style={{ marginTop: '0.5rem' }}>
-                    <span>Top origin cities of {selectedCountry} migrants</span>
-                    {['15%', '14%', '13%', '12%'].map((entries, i) => {
-                        return <span>{entries} {i}</span>
-                    })}
-                </Stack>
-            </div>
-            <span style={{ marginTop: '0.5rem' }}>IPC Food Security in Origin Country</span>
-            <div className={styles.bar}>
-                <div style={{ flexBasis: '70%', backgroundColor: '#B9BF8B' }}></div>
-                <div style={{ flex: 1, backgroundColor: '#EADD97' }}></div>
-                <div style={{ flex: 1, backgroundColor: '#DF9B6F' }}></div>
-            </div>
-            <div style={{ width: '100%', display: 'flex', position: 'relative', justifyContent: 'flex-end' }}>
-                <span style={{ textAlign: 'right', right: '0', width: '70%' }}>Moderatel or Serverly Food Insecure</span>
-            </div>
-        </div >
+        <Popup style={{
+            width: '240px',
+            display: 'flex',
+            flexDirection: 'column-reverse',
+        }}
+            longitude={hoverInfo.longitude}
+            latitude={hoverInfo.latitude}
+            offset={[0, -10]}
+            anchor={'bottom'}
+            closeButton={false}
+            className="county-info"
+        >
+            <div className={styles.tooltip}>
+                <h2>{selectedCountry}</h2>
+                <div className={styles.tooltipInfo}>
+                    <Stack>
+                        <span>xxx,xxx {selectedCountry} mirgants in Libya</span>
+                        <span>xxx,xxx km from start to end</span>
+                    </Stack>
+                    <Stack style={{ marginTop: '0.5rem' }}>
+                        <span>Top origin cities of {selectedCountry} migrants</span>
+                        {['15%', '14%', '13%', '12%'].map((entries, i) => {
+                            return <span>{entries} {i}</span>
+                        })}
+                    </Stack>
+                </div>
+                <span style={{ marginTop: '0.5rem' }}>IPC Food Security in Origin Country</span>
+                <div className={styles.bar}>
+                    <div style={{ flexBasis: '70%', backgroundColor: '#B9BF8B' }}></div>
+                    <div style={{ flex: 1, backgroundColor: '#EADD97' }}></div>
+                    <div style={{ flex: 1, backgroundColor: '#DF9B6F' }}></div>
+                </div>
+                <div style={{ width: '100%', display: 'flex', position: 'relative', justifyContent: 'flex-end' }}>
+                    <span style={{ textAlign: 'right', right: '0', width: '70%' }}>Moderatel or Serverly Food Insecure</span>
+                </div>
+            </div >
+        </Popup>
     )
 }
 
@@ -195,7 +175,7 @@ function Tooltip({ selectedCountry }) {
 
 function renderMap(activeSource, styles) {
     const layerInfo = styles.layers.find((layer) => activeSource === layer.id)
-    return (
+    if (layerInfo) return (
         <>
             {
                 layerInfo.layerNames.map((name) => {
@@ -204,6 +184,18 @@ function renderMap(activeSource, styles) {
             }
         </>
 
+    )
+}
+function renderSource(activeSource, data) {
+    const sourceInfo = data.sources
+    if (sourceInfo) return (
+        <>
+            {
+                sourceInfo.map((source) => {
+                    return <Source id={source.id} type='vector' url={source.url} />
+                })
+            }
+        </>
     )
 }
 

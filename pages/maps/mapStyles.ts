@@ -54,9 +54,10 @@ export const DOT_COLOR_SCALE = {
 export const countryLayer: FillLayer = {
     id: 'hoverable',
     type: 'fill',
+    source: 'selected-countries',
     "source-layer": 'WA_SelectedCountries2-3495m1',
     paint: {
-        'fill-outline-color': 'rgba(0,0,0,0.1)',
+        'fill-outline-color': 'rgba(255,255,255,1)',
         'fill-color': 'rgba(0,0,0,0.1)'
     }
 };
@@ -65,7 +66,7 @@ export const highlightLayer: LineLayer = {
     id: 'countires-highlighted',
     type: 'line',
     "source-layer": 'WA_SelectedCountries2-3495m1',
-    source: 'routes',
+    source: 'selected-countries',
     paint: {
         'line-color': '#ffffff',
         'line-width': 6,
@@ -78,8 +79,9 @@ export const highlightLayer: LineLayer = {
 
 export const countryBorderStyle = {
     'id': 'country-outline',
-    "source-layer": 'WA_SelectedCountries2-3495m1',
     'type': 'line',
+    "source-layer": 'WA_SelectedCountries2-3495m1',
+    'source': 'selected-countries',
     'paint': {
         'line-color': BORDER_COlOR,
         'line-width': 1
@@ -93,6 +95,7 @@ export const countryBorderStyle = {
 export const countryLabels = {
     'id': 'poi-labels',
     "source-layer": 'WA_SelectedCountries2-3495m1',
+    'source': 'selected-countries',
     'type': 'symbol',
     'layout': {
         'text-field': ['get', 'ADM0_NAME'],
@@ -143,6 +146,7 @@ export const cityStyle = {
     'id': 'cities',
     'type': 'circle',
     'source-layer': 'IFPRI_Libya_origin-cities-98ikdw',
+    'source': 'origin-cities',
     'paint': {
         'circle-color': [
             'step',
