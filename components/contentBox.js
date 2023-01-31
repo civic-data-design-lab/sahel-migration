@@ -2,6 +2,7 @@ import { useRef, useEffect, useContext } from 'react'
 import { useInView } from 'framer-motion'
 import styles from './../styles/ContentBox.module.css'
 import { ViewContext } from '../pages/maps/map'
+import { v4 as uuidv4 } from 'uuid'
 
 
 function Paragraph({ children, data }) {
@@ -31,7 +32,7 @@ export default function ContentBox({ dataItems }) {
             {
                 dataItems.map(data => {
                     return (
-                        <div className={styles.paragraphContainer}  >
+                        <div className={styles.paragraphContainer} key={uuidv4()}>
                             <Paragraph
                                 data={data}>
                             </Paragraph>
