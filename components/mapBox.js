@@ -5,6 +5,7 @@ import Map, { Source, Layer, Popup, useMap } from 'react-map-gl'
 import Image from 'react-map-gl'
 import styles from '../styles/MapBox.module.css'
 import { Col, Stack } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid'
 import {
     routeStyle,
     countryStyle,
@@ -152,7 +153,7 @@ function Tooltip({ selectedCountry, hoverInfo }) {
                     <Stack style={{ marginTop: '0.5rem' }}>
                         <span>Top origin cities of {selectedCountry} migrants</span>
                         {['15%', '14%', '13%', '12%'].map((entries, i) => {
-                            return <span>{entries} {i}</span>
+                            return <span key={uuidv4()}>{entries} {i}</span>
                         })}
                     </Stack>
                 </div>
@@ -179,7 +180,12 @@ function renderMap(activeSource, styles) {
         <>
             {
                 layerInfo.layerNames.map((name) => {
-                    return <Layer {...stylesObject[name]} />
+
+                    return (
+                        <div key={name}>
+                            <Layer {...stylesObject[name]} />
+                        </div>
+                    )
                 })
             }
         </>
@@ -192,7 +198,7 @@ function renderSource(activeSource, data) {
         <>
             {
                 sourceInfo.map((source) => {
-                    return <Source id={source.id} type='vector' url={source.url} />
+                    return <Source id={source.id} type='vector' url={source.url} key={source.id} />
                 })
             }
         </>

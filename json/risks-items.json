@@ -24,7 +24,6 @@
                     "layerNames": [
                         "countryBorderStyle",
                         "countryLayer",
-                        "countryLayer",
                         "cityStyle",
                         "countryLabels"
                     ]
