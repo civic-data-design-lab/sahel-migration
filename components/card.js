@@ -45,7 +45,6 @@ export default function Card({svgRef, entourage, width,height, scrollRef}) {
   },[width, height, svgRef, entourage.id])
   return (
     <motion.div className={styles.cardContainer} style={{left: x+entourage.posX, top: y+entourage.posY}}>
-
         <motion.div
           layout
             viewport={{ amount: 'all' }}
