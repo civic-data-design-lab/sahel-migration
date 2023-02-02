@@ -101,6 +101,7 @@ export default function MapBox({ activeSource, risks }) {
                 mapStyle={mapStyle}
                 ref={mapRef}
                 onMouseMove={onHover}
+                dragPan={false}
             >
                 {(selectedCountry && activeSource === 'originCities') && (
                     <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
