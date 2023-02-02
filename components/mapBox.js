@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid'
 import stylesObject from '../pages/maps/mapStyles';
 import useWindowSize from '../hooks/useWindowSize';
 
-const { layersObject, highlightLayer, desktopPerspective } = stylesObject
+const { layersObject, highlightLayer, desktopPerspective } = stylesObject()
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
 export default function MapBox({ activeSource, risks }) {

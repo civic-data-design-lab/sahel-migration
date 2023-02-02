@@ -189,12 +189,18 @@ const layersObject = {
     'extremeHeatLayer': extremeHeatLayer
 }
 
-const stylesObject = {
-    layersObject,
-    highlightLayer,
-    desktopPerspective
+// const stylesObject = {
+//     layersObject,
+//     highlightLayer,
+//     desktopPerspective
+// }
+
+
+export default function stylesObject() {
+    return {
+        layersObject,
+        highlightLayer,
+        desktopPerspective
+    }
 }
-
-
-export default stylesObject
 
