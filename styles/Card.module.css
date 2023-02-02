@@ -33,7 +33,7 @@
    .expandedCard {
      width: 10rem;
      max-width: 100rem;
-     overflow-y: scroll;
+     /*overflow-y: scroll;*/
      max-height: 20rem;
    }
   .card {

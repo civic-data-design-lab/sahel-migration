@@ -6,6 +6,17 @@
     top: 75%;
 }
 
+.screenCover {
+    backdrop-filter: brightness(10%);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 6;
+    pointer-events: none;
+}
+
 @media only screen and (max-width: 480px) {
     .tab {
         top: 95%;
