@@ -1,43 +1,32 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import React, { useRef, useEffect, useState, createContext, useCallback, useMemo, use } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import Map, { Source, Layer, Popup, useMap } from 'react-map-gl'
-import Image from 'react-map-gl'
 import styles from '../styles/MapBox.module.css'
-import { Col, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid'
-import {
-    routeStyle,
-    countryStyle,
-    cityStyle,
-    countryBorderStyle,
-    desktopPerspective,
-    mobilePerspective,
-    INITIAL_VIEW_STATE,
-    countryLabels,
-    countryLayer,
-    highlightLayer,
-    heatmapLayer,
-    stylesObject
-} from '../pages/maps/mapStyles';
+import stylesObject from '../pages/maps/mapStyles';
 import useWindowSize from '../hooks/useWindowSize';
-import { colorToRgba } from '@react-spring/shared';
+
+const { layersObject, highlightLayer, desktopPerspective } = stylesObject
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
 export default function MapBox({ activeSource, risks }) {
     const { width } = useWindowSize()
+
+    console.log(stylesObject)
 
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
 
 
     const mapRef = useRef(null)
-    const { current: map } = useMap();
     const persepctive = useMemo(() => {
         if (width > 1000) return { ...desktopPerspective }
         if (600 < width < 1000) return { ...desktopPerspective, zoom: 2.5 }
         return { ...desktopPerspective, zoom: 2 }
     })
+
 
     const onHover = useCallback(event => {
         const country = event.features && event.features[0];
@@ -98,7 +87,6 @@ export default function MapBox({ activeSource, risks }) {
 
     })
 
-
     return (
         <div style={{ zIndex: -5, position: 'absolute', inset: 0 }}>
             <Map
@@ -123,6 +111,7 @@ export default function MapBox({ activeSource, risks }) {
                 {renderSource(activeSource, risks)}
                 {activeSource === 'overallRoutes' && (renderMap(activeSource, risks.styles))}
                 {activeSource === 'originCities' && (renderMap(activeSource, risks.styles))}
+                {activeSource === 'extremeHeat' && (renderMap(activeSource, risks.styles))}
                 {activeSource === 'originCities' && (<Layer {...highlightLayer} filter={filter} />)}
             </Map>
         </div >
@@ -184,7 +173,7 @@ function renderMap(activeSource, styles) {
 
                     return (
                         <div key={name}>
-                            <Layer {...stylesObject[name]} />
+                            <Layer {...layersObject[name]} />
                         </div>
                     )
                 })
