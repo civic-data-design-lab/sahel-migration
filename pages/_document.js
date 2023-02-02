@@ -15,7 +15,6 @@ export default function Document() {
           rel="stylesheet"
         ></link>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
-        <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
       </Head>
       <body>
         <Main />

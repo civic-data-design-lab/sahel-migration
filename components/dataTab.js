@@ -13,6 +13,9 @@ export default function DataTab() {
     toggleOpen(!isOpen);
   };
 
+  const fullScreenFill = useSpring({
+    opacity: isOpen ? 1 : 0,
+  })
   const fullscreenTab = useSpring({
     opacity: isOpen ? 1 : .9,
     y: isOpen ? width < 480 ?-height*(.9-.1): -height*(.9-.25):0,
@@ -25,6 +28,7 @@ export default function DataTab() {
 
   return (
     <>
+      <animated.div  style={fullScreenFill} className={styles.screenCover}/>
         <animated.div style={fullscreenTab} className={styles.tab}>
           <DataTabToggle isOpen={isOpen} toggleOpen={handleToggle}/>
           <RiskItems isOpen={isOpen}/>

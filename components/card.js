@@ -2,6 +2,7 @@ import {motion, AnimatePresence, useScroll} from "framer-motion"
 import styles from '../styles/Card.module.css';
 import {useEffect, useLayoutEffect, useState} from "react";
 import * as d3 from "d3";
+import useWindowSize from "../hooks/useWindowSize";
 
 
 export default function Card({svgRef, entourage, width,height, scrollRef}) {
@@ -44,7 +45,7 @@ export default function Card({svgRef, entourage, width,height, scrollRef}) {
 
   },[width, height, svgRef, entourage.id])
   return (
-    <motion.div className={styles.cardContainer} style={{left: x+entourage.posX, top: y+entourage.posY}}>
+    <motion.div className={styles.cardContainer} style={{left: width < 480 ? x+.5*entourage.posX: x+entourage.posX, top: y+entourage.posY}}>
         <motion.div
           layout
             viewport={{ amount: 'all' }}
