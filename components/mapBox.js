@@ -5,7 +5,7 @@ import Map, { Source, Layer, Popup, useMap } from 'react-map-gl'
 import styles from '../styles/MapBox.module.css'
 import { Stack } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid'
-import stylesObject from '../pages/maps/mapStyles';
+import stylesObject from './mapStyles';
 import useWindowSize from '../hooks/useWindowSize';
 
 const { layersObject, highlightLayer, desktopPerspective } = stylesObject()
@@ -13,9 +13,6 @@ const { layersObject, highlightLayer, desktopPerspective } = stylesObject()
 mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
 export default function MapBox({ activeSource, risks }) {
     const { width } = useWindowSize()
-
-    console.log(stylesObject)
-
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
 
