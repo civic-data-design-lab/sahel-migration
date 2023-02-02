@@ -38,7 +38,7 @@
                 {
                     "id": "extremeHeat",
                     "layerNames": [
-                        ""
+                        "extremeHeatLayer"
                     ]
                 }
             ]
@@ -55,6 +55,10 @@
             {
                 "id": "origin-cities",
                 "url": "mapbox://mitcivicdata.biwrhf8h"
+            },
+            {
+                "id": "extreme-heat",
+                "url": "mapbox://mitcivicdata.27dxrfrn"
             }
         ]
     }

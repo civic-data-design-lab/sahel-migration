@@ -20,12 +20,9 @@
     font-family: Overpass;
     display: flex;
     flex-direction: column;
-    /* width: max(10vw, 5rem); */
     padding: 0.25rem;
     border-radius: 0.5rem;
-    /* position: absolute; */
     text-align: left;
-    /* background-color: rgba(255, 255, 255, 0.75); */
     color: black;
     font-size: 0.5rem;
 }
@@ -42,21 +39,6 @@
 .tooltipInfo span {
     font-size: 0.5rem;
 }
-
-/* .tooltip:before {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    position: absolute;
-
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid rgba(255, 255, 255, 0.9);
-    left: -6px;
-
-    top: 7px;
-} */
 
 .bar {
     display: flex;
