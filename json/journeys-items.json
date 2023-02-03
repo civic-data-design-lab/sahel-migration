@@ -81,23 +81,23 @@
             "posX": 150,
             "posY": -70,
             "scrollStart": 0.5,
-            "scrollEnd": 0.7
+            "scrollEnd": 0.9
           },
           {
             "id": 5,
             "body": "Trucks heading back to Agadez with workers from Libya. Majority converts earnings into goods (furniture, clothes, appliances and other household items) to bring home because the Libyan dinar is unstable",
-            "posX": 300,
+            "posX": 200,
             "posY": 0,
             "scrollStart": 0.80,
-            "scrollEnd": 0.95
+            "scrollEnd": 1
           },
           {
             "id": 6,
             "body": "Tombs marked by jagged stones, an empty water jug are found along the way. Migrants report the highest number of deaths (28% of migrants reporting) along this part of the Central Mediterranean Route (4mi)",
-            "posX": -100,
-            "posY": 80,
-            "scrollStart": 0.9,
-            "scrollEnd": 1
+            "posX": 0,
+            "posY": 10,
+            "scrollStart": 0.7,
+            "scrollEnd": 0.95
           }
         ]
       },

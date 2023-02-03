@@ -8,7 +8,7 @@ export default function Navigation({journeys, journey}) {
         <span className="material-symbols-outlined" style={{fontSize:'1.7rem'}}>navigate_before</span>
         <h7>{journey.id > 1 ? journeys.find(item => item.id === journey.id-1).title: ' '}</h7>
       </Link>:<div></div>}
-      <h7 className={styles.title}>{journey.title}</h7>
+      <h6 className={styles.title}>{journey.title}</h6>
       {journey.id < 7? <Link className={styles.button} href={'/journeys/[id]'} as={'/journeys/'+(journey.id+1)}>
         <h7>{journey.id < 7 ? journeys.find(item => item.id === journey.id+1).title: ' '}</h7>
         <span className="material-symbols-outlined" style={{fontSize:'1.7rem'}}>
