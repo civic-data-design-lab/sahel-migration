@@ -1,20 +1,19 @@
 .mapContainer {
-    font-size: 1rem;
-    font-family: Overpass;
+    width: 85vw;
+    height: 85%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
-.sidebar {
-    background-color: rgba(35, 55, 75, 0.9);
-    color: #fff;
-    padding: 6px 12px;
-    z-index: -100;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 12px;
-    border-radius: 4px;
-}
+@media (max-width:1000px) {
 
+    .mapContainer {
+        width: 100vw;
+        align-items: flex-end;
+        height: 50vh;
+    }
+}
 
 .tooltip {
     font-family: Overpass;

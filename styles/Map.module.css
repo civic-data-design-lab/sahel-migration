@@ -1,29 +1,36 @@
-.mapContainer p {
-    font-size: .625rem;
+.mapContainer {
+    inset: 0;
+    display: flex;
+    position: absolute;
+    background-color: var(--blue);
+    width: 100vw;
+    justify-content: flex-end;
+    align-items: center;
 }
 
-.container {
+.boxContainer {
     height: 100vh;
     width: 30vw;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
 }
 
-.sidebar {
+.contentBox {
     position: fixed;
     height: 65%;
     /* z-index: -1; */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.sidebar::-webkit-scrollbar {
+.contentBox::-webkit-scrollbar {
     display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.sidebar {
+.contentBox {
     -ms-overflow-style: none;
     /* IE and Edge */
     scrollbar-width: none;
@@ -49,15 +56,14 @@
 }
 
 @media (max-width:1000px) {
-    .map {
-        position: relative;
-        width: 100vw
-    }
+
 
     .mapContainer {
         height: clamp(30%, 35vh, 40%);
         width: 100%;
         bottom: 0;
+        align-items: flex-end;
+        position: absolute;
     }
 
     .textContainer {
@@ -69,27 +75,22 @@
 }
 
 @media (max-width:1000px) {
-    .map {
-        position: absolute;
-    }
 
     .mapContainer {
         position: absolute;
-        height: clamp(30%, 35vh, 50%);
         width: 100%;
-        bottom: 0;
-        right: 0;
-        left: 0;
+        height: 100%;
+        align-items: flex-end;
     }
 
-    .container {
+    .boxContainer {
         width: 100%;
-
+        align-items: unset;
     }
 
-    .sidebar {
-        height: 40%;
+    .contentBox {
+        height: 30%;
         position: relative;
-        top: -2rem;
+        margin-top: 5rem;
     }
 }

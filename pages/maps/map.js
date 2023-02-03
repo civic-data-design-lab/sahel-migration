@@ -29,8 +29,8 @@ export default function MainMap() {
 
         <ViewContext.Provider value={viewValue}>
             <Title />
-            <div className={styles.container}>
-                <div className={styles.sidebar} ref={sideBarRef}>
+            <div className={styles.boxContainer}>
+                <div className={styles.contentBox} ref={sideBarRef}>
                     <ContentBox scrollRef={sideBarRef} dataItems={riskItems.risks} />
                 </div>
             </div>

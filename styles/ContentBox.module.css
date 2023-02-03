@@ -1,4 +1,5 @@
 .container {
+    --line-height: 24px;
     /* display: flex; */
     flex-direction: column;
     align-items: center;
@@ -60,6 +61,7 @@
 
 .paragraph p {
     font-size: 0.625rem;
+    line-height: var(--line-height);
 }
 
 .paragraph h2 {
@@ -67,6 +69,10 @@
 }
 
 @media (max-width:1000px) {
+    .container {
+        --line-height: 20px
+    }
+
     .paragraph {
         justify-content: flex-start;
     }

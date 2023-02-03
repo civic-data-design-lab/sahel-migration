@@ -8,13 +8,14 @@ import { v4 as uuidv4 } from 'uuid'
 import stylesObject from './mapStyles';
 import useWindowSize from '../hooks/useWindowSize';
 
-const { layersObject, highlightLayer, desktopPerspective } = stylesObject()
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
 export default function MapBox({ activeSource, risks }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
+    const { layersObject, highlightLayer, desktopPerspective } = stylesObject(activeSource)
 
 
     const mapRef = useRef(null)
@@ -23,6 +24,37 @@ export default function MapBox({ activeSource, risks }) {
         if (600 < width < 1000) return { ...desktopPerspective, zoom: 2.5 }
         return { ...desktopPerspective, zoom: 2 }
     })
+
+    function renderMap(activeSource, styles) {
+        const layerInfo = styles.layers.find((layer) => activeSource === layer.id)
+        if (layerInfo) return (
+            <>
+                {
+                    layerInfo.layerNames.map((name) => {
+
+                        return (
+                            <div key={name}>
+                                <Layer {...layersObject[name]} />
+                            </div>
+                        )
+                    })
+                }
+            </>
+
+        )
+    }
+    function renderSource(activeSource, data) {
+        const sourceInfo = data.sources
+        if (sourceInfo) return (
+            <>
+                {
+                    sourceInfo.map((source) => {
+                        return <Source id={source.id} type='vector' url={source.url} key={source.id} />
+                    })
+                }
+            </>
+        )
+    }
 
 
     const onHover = useCallback(event => {
@@ -39,7 +71,6 @@ export default function MapBox({ activeSource, risks }) {
     useEffect(() => {
         if (!mapRef.current) return
         let feautureID = null
-        const testMap = mapRef.current.getMap()
 
         mapRef.current.on('mousemove', 'routes', (event) => {
             if (event.features.length === 0) return;
@@ -62,8 +93,6 @@ export default function MapBox({ activeSource, risks }) {
                 {
                     hover: true
                 })
-
-            const targetCoords = event.features[0].geometry.coordinates[0][30]
         })
 
         mapRef.current.on('mouseleave', 'routes', () => {
@@ -85,7 +114,7 @@ export default function MapBox({ activeSource, risks }) {
     })
 
     return (
-        <div style={{ zIndex: -5, position: 'absolute', inset: 0 }}>
+        <div className={styles.mapContainer}>
             <Map
                 initialViewState={{
                     longitude: persepctive.lng,
@@ -93,7 +122,7 @@ export default function MapBox({ activeSource, risks }) {
                     zoom: persepctive.zoom
                 }}
                 style={{
-                    width: '100vw', height: '100%'
+                    width: '100%', height: '100%'
                 }}
                 interactiveLayerIds={
                     activeSource === 'originCities' ? ['hoverable'] : []}
@@ -163,36 +192,7 @@ function Tooltip({ selectedCountry, hoverInfo }) {
 
 
 
-function renderMap(activeSource, styles) {
-    const layerInfo = styles.layers.find((layer) => activeSource === layer.id)
-    if (layerInfo) return (
-        <>
-            {
-                layerInfo.layerNames.map((name) => {
 
-                    return (
-                        <div key={name}>
-                            <Layer {...layersObject[name]} />
-                        </div>
-                    )
-                })
-            }
-        </>
-
-    )
-}
-function renderSource(activeSource, data) {
-    const sourceInfo = data.sources
-    if (sourceInfo) return (
-        <>
-            {
-                sourceInfo.map((source) => {
-                    return <Source id={source.id} type='vector' url={source.url} key={source.id} />
-                })
-            }
-        </>
-    )
-}
 
 
 

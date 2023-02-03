@@ -18,6 +18,7 @@ export default function Home() {
       </Head>
       <main>
         <Menu />
+
         {/* <h1>HOME</h1> */}
         <MainMap />
         {/* <MapBox /> */}
