@@ -2,7 +2,7 @@
     z-index: 10;
     position: fixed;
     bottom: 2rem;
-
+    height: 2rem;
 }
 
 .toggleButton {

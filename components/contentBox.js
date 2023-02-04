@@ -21,9 +21,6 @@ function Paragraph({ children, data, items }) {
             setCurrentView(data.id)
         }
 
-        if (data === items[items.length - 1]) {
-            console.log('End of list')
-        }
     }, [isInView])
     return (
         <div
