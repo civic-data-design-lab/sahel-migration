@@ -1,4 +1,5 @@
 .mapContainer {
+    --menu-font: 20px;
     inset: 0;
     display: flex;
     position: absolute;

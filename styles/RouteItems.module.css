@@ -1,0 +1,14 @@
+.routeContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+
+.route {
+    display: flex;
+    font-family: Overpass;
+    font-size: var(--menu-font);
+    /* justify-content: space-around; */
+    align-items: center;
+}

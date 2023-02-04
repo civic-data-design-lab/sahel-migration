@@ -15,6 +15,11 @@
                 "id": "extremeHeat",
                 "heading": "Extreme Heat",
                 "body": "Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022)."
+            },
+            {
+                "id": "selectRoute",
+                "heading": " ",
+                "body": " "
             }
         ],
         "styles": {
@@ -43,6 +48,13 @@
                         "countryLayer",
                         "cityStyle",
                         "countryLabels"
+                    ]
+                },
+                {
+                    "id": "selectRoute",
+                    "layerNames": [
+                        "routeStyle",
+                        "routeHighlightLayer"
                     ]
                 }
             ]

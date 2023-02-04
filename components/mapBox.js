@@ -140,6 +140,7 @@ export default function MapBox({ activeSource, risks }) {
                 {activeSource === 'overallRoutes' && (renderMap(activeSource, risks.styles))}
                 {activeSource === 'originCities' && (renderMap(activeSource, risks.styles))}
                 {activeSource === 'extremeHeat' && (renderMap(activeSource, risks.styles))}
+                {activeSource === 'selectRoute' && (renderMap(activeSource, risks.styles))}
                 {activeSource === 'originCities' && (<Layer {...highlightLayer} filter={filter} />)}
             </Map>
         </div >
