@@ -14,13 +14,12 @@
 }
 .stepperLine {
   content: '';
-  border: solid;
+  border: .07rem solid;
   background-color: var(--dark);
   position: absolute;
   top: 50%;
   /*transform: translateY(-50%);*/
   transform: translate(180%,-65%);
-  width: 0.1rem;
   height: 70%;
   z-index: 0;
 }
