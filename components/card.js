@@ -49,7 +49,7 @@ export default function Card({svgRef, entourage, width,height, scrollRef}) {
         <motion.div
           layout
             viewport={{ amount: 'all' }}
-            transition={{duration: .7}}
+            transition={{duration: .35}}
             onHoverStart={() => {setIsOpen(true)}}
             onHoverEnd={() => {setIsOpen(false)}}
             className={styles.card}
