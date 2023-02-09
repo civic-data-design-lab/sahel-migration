@@ -49,13 +49,9 @@
     .navigationBar {
         bottom: 6%;
     }
-    .title {
-        bottom: 0;
-        width: 5rem;
-    }
     .button {
-        width: 7rem;
-        height: 4rem;
+        height: 3rem;
+        width: 3rem;
         align-items: flex-end;
     }
     .button h7 {
