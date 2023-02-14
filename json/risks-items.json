@@ -37,7 +37,8 @@
                     "id": "overallRoutes",
                     "layerNames": [
                         "routeStyle",
-                        "routeHighlightLayer"
+                        "routeHighlightLayer",
+                        "libyaSelect"
                     ]
                 },
                 {

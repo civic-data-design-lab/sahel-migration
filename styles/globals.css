@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&display=swap');
 
 :root {
   --brown: #463c35;
@@ -11,7 +12,9 @@
 
   --max-width: 1100px;
   --border-radius: 12px;
-  font-family: 'Overpass', sans-serif;
+  font-family: 'Assistant', sans-serif;
+  font-family: 'El Messiri', sans-serif;
+  --primary-font-fam: 'El Messiri', sans-serif
 }
 
 * {
