@@ -15,35 +15,43 @@
 .title {
     position: absolute;
     font-weight: bold;
-    top: 50%;
+    top:95%;
     left: 50%;
     transform: translate(-50%, -50%)
 }
 
-.button {
+.navigationContainer {
     display: flex;
-    align-items: center;
-    align-content: center;
-    text-align: center;
-    align-self: center;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.button {
+    margin-top: 1rem;
     pointer-events: all;
+    border: .1rem solid;
+    border-radius: 50%;
+    background: none;
+    height: 2rem;
+    width: 2rem;
+
 }
 
 .button:hover {
-    opacity: 0.75;
+    /*opacity: 0.75;*/
+    cursor: pointer;
+    background-color: var(--brown);
+    color: white;
+    border-color: var(--brown);
 }
 
 @media only screen and (max-width: 480px) {
     .navigationBar {
         bottom: 6%;
     }
-    .title {
-        bottom: 0;
-        width: 5rem;
-    }
     .button {
-        width: 7rem;
-        height: 4rem;
+        height: 3rem;
+        width: 3rem;
         align-items: flex-end;
     }
     .button h7 {
