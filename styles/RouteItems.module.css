@@ -7,7 +7,7 @@
 
 .route {
     display: flex;
-    font-family: Overpass;
+    font-family: var(--primary-font-fam);
     font-size: var(--menu-font);
     /* justify-content: space-around; */
     align-items: center;

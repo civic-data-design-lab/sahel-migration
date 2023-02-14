@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Overpass;
+    font-family: var(--primary-font-fam);
     padding: 2rem;
     width: 100%;
     background: none;

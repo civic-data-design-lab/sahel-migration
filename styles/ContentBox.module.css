@@ -8,6 +8,8 @@
     height: 100%;
     overflow-y: scroll;
     position: relative;
+    font-family: var(--primary-font-fam);
+    backdrop-filter: blur(10px);
     /* scroll-snap-type: y mandatory; */
 }
 
@@ -41,7 +43,6 @@
 }
 
 .paragraph {
-    font-family: Overpass;
     align-self: normal;
     height: 100%;
     display: flex;
@@ -66,6 +67,18 @@
 
 .paragraph h2 {
     font-size: 1rem;
+}
+
+
+.scrollButton {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    left: 45%;
+    right: 45%;
+    bottom: -2rem;
+    display: block;
 }
 
 @media (max-width:1000px) {

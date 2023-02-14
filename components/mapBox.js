@@ -1,12 +1,11 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import Map, { Source, Layer, Popup, useMap } from 'react-map-gl'
+import Map, { Source, Layer } from 'react-map-gl'
 import styles from '../styles/MapBox.module.css'
-import { Stack } from 'react-bootstrap';
-import { v4 as uuidv4 } from 'uuid'
 import stylesObject from './mapStyles';
 import useWindowSize from '../hooks/useWindowSize';
+import Tooltip from './toooltip';
 
 
 
@@ -21,7 +20,7 @@ export default function MapBox({ activeSource, risks }) {
     const mapRef = useRef(null)
     const persepctive = useMemo(() => {
         if (width > 1000) return { ...desktopPerspective }
-        if (600 < width < 1000) return { ...desktopPerspective, zoom: 2.5 }
+        if (600 < width < 1000) return { ...desktopPerspective, lat: 30, zoom: 2.7 }
         return { ...desktopPerspective, zoom: 2 }
     })
 
@@ -71,6 +70,7 @@ export default function MapBox({ activeSource, risks }) {
     useEffect(() => {
         if (!mapRef.current) return
         let feautureID = null
+
 
         mapRef.current.on('mousemove', 'routes', (event) => {
             if (event.features.length === 0) return;
@@ -147,48 +147,48 @@ export default function MapBox({ activeSource, risks }) {
     )
 }
 
-function Tooltip({ selectedCountry, hoverInfo }) {
+// function Tooltip({ selectedCountry, hoverInfo }) {
 
-    return (
-        <Popup style={{
-            width: '240px',
-            display: 'flex',
-            flexDirection: 'column-reverse',
-        }}
-            longitude={hoverInfo.longitude}
-            latitude={hoverInfo.latitude}
-            offset={[0, -10]}
-            anchor={'bottom'}
-            closeButton={false}
-            className="county-info"
-        >
-            <div className={styles.tooltip}>
-                <h2>{selectedCountry}</h2>
-                <div className={styles.tooltipInfo}>
-                    <Stack>
-                        <span>xxx,xxx {selectedCountry} mirgants in Libya</span>
-                        <span>xxx,xxx km from start to end</span>
-                    </Stack>
-                    <Stack style={{ marginTop: '0.5rem' }}>
-                        <span>Top origin cities of {selectedCountry} migrants</span>
-                        {['15%', '14%', '13%', '12%'].map((entries, i) => {
-                            return <span key={uuidv4()}>{entries} {i}</span>
-                        })}
-                    </Stack>
-                </div>
-                <span style={{ marginTop: '0.5rem' }}>IPC Food Security in Origin Country</span>
-                <div className={styles.bar}>
-                    <div style={{ flexBasis: '70%', backgroundColor: '#B9BF8B' }}></div>
-                    <div style={{ flex: 1, backgroundColor: '#EADD97' }}></div>
-                    <div style={{ flex: 1, backgroundColor: '#DF9B6F' }}></div>
-                </div>
-                <div style={{ width: '100%', display: 'flex', position: 'relative', justifyContent: 'flex-end' }}>
-                    <span style={{ textAlign: 'right', right: '0', width: '70%' }}>Moderatel or Serverly Food Insecure</span>
-                </div>
-            </div >
-        </Popup>
-    )
-}
+//     return (
+//         <Popup style={{
+//             width: '240px',
+//             display: 'flex',
+//             flexDirection: 'column-reverse',
+//         }}
+//             longitude={hoverInfo.longitude}
+//             latitude={hoverInfo.latitude}
+//             offset={[0, -10]}
+//             anchor={'bottom'}
+//             closeButton={false}
+//             className="county-info"
+//         >
+//             <div className={styles.tooltip}>
+//                 <h2>{selectedCountry}</h2>
+//                 <div className={styles.tooltipInfo}>
+//                     <Stack>
+//                         <span>xxx,xxx {selectedCountry} mirgants in Libya</span>
+//                         <span>xxx,xxx km from start to end</span>
+//                     </Stack>
+//                     <Stack style={{ marginTop: '0.5rem' }}>
+//                         <span>Top origin cities of {selectedCountry} migrants</span>
+//                         {['15%', '14%', '13%', '12%'].map((entries, i) => {
+//                             return <span key={uuidv4()}>{entries} {i}</span>
+//                         })}
+//                     </Stack>
+//                 </div>
+//                 <span style={{ marginTop: '0.5rem' }}>IPC Food Security in Origin Country</span>
+//                 <div className={styles.bar}>
+//                     <div style={{ flexBasis: '70%', backgroundColor: '#B9BF8B' }}></div>
+//                     <div style={{ flex: 1, backgroundColor: '#EADD97' }}></div>
+//                     <div style={{ flex: 1, backgroundColor: '#DF9B6F' }}></div>
+//                 </div>
+//                 <div style={{ width: '100%', display: 'flex', position: 'relative', justifyContent: 'flex-end' }}>
+//                     <span style={{ textAlign: 'right', right: '0', width: '70%' }}>Moderatel or Serverly Food Insecure</span>
+//                 </div>
+//             </div >
+//         </Popup>
+//     )
+// }
 
 
 

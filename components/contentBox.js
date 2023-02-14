@@ -5,6 +5,8 @@ import { ViewContext } from '../pages/maps/map'
 import { v4 as uuidv4 } from 'uuid'
 import RouteMenu from './routeMenu'
 import RouteMenuToggle from './routeMenuToggle'
+import { animated, useSpring } from "react-spring";
+import useWindowSize from '../hooks/useWindowSize'
 
 
 function Paragraph({ children, data, items }) {
@@ -34,14 +36,53 @@ function Paragraph({ children, data, items }) {
     )
 }
 
+function ScrollButton({ onClick, currentView }) {
+    const exploreAvailable = currentView === 'selectRoute' ? true : false
+    const { width } = useWindowSize()
+    return (
+        <>
+            <button className={styles.scrollButton} onClick={onClick}>
+                <animated.div>
+                    {
+                        exploreAvailable ?
+                            <span class="material-symbols-outlined" > keyboard_double_arrow_up</span> :
+                            <span class="material-symbols-outlined">keyboard_double_arrow_down</span>
+                    }
+                </animated.div>
+            </button>
+        </>
+    )
+}
+
 export default function ContentBox({ dataItems }) {
     const contentRef = useRef(null)
     const [isOpen, toggleOpen] = useState(false);
+    const [scroll, setScroll] = useState()
+    const [isClicked, toggleClick] = useState(false)
     const { currentView, setCurrentView } = useContext(ViewContext)
 
     const handleToggle = () => {
         toggleOpen(!isOpen);
     };
+
+    useEffect(() => {
+        const contentBox = contentRef.current
+        if (currentView === 'selectRoute') toggleClick(false)
+        if (currentView === 'selectRoute' && isClicked) {
+            setTimeout(contentBox.scrollTo({
+                top: scroll,
+                behavior: 'smooth'
+            }), 100
+
+            )
+
+        }
+    })
+
+    const scrollUp = () => {
+        setScroll(1200)
+        toggleClick(!isClicked)
+    }
     return (
         <>
             <div ref={contentRef} className={styles.container}>
@@ -67,9 +108,13 @@ export default function ContentBox({ dataItems }) {
                     })
                 }
 
-                <RouteMenu isOpen={isOpen} />
+
 
             </div >
+            <ScrollButton currentView={currentView} onClick={scrollUp} />
+            <RouteMenu isOpen={isOpen} />
+
+
             <RouteMenuToggle isOpen={isOpen} toggleOpen={handleToggle} currentView={currentView} />
 
         </>

@@ -1,8 +1,10 @@
+import { bounceIn } from '@popmotion/easing'
 import type { FillLayer, LineLayer, HeatmapLayer } from 'react-map-gl'
 
 
 
 const BORDER_COlOR = '#ffffff'
+const TRANSPARENT = 'rgba(0,0,0,0)'
 const COUNTRY_FILL_COLOR = '#f2f2f2'
 const TRANSITION_TIME = 3000
 
@@ -42,19 +44,39 @@ export default function stylesObject(activeSource) {
         }
     }
 
+    const libyaSelect = {
+        'id': 'libya-select',
+        'type': 'line',
+        "source-layer": 'WA_SelectedCountries2-3495m1',
+        'source': 'selected-countries',
+        'paint': {
+            'line-color': ['case',
+                ['==', ['get', 'ADM0_NAME'], 'Libya'],
+                BORDER_COlOR,
+                TRANSPARENT],
+            'line-width': ['case',
+                ['==', ['get', 'ADM0_NAME'], 'Libya'],
+                1.5,
+                0],
+        },
+    }
+
     const countryBorderStyle = {
         'id': 'country-outline',
         'type': 'line',
         "source-layer": 'WA_SelectedCountries2-3495m1',
         'source': 'selected-countries',
         'paint': {
-            'line-color': BORDER_COlOR,
-            'line-width': 1
+            'line-color': ['case',
+                ['!=', ['get', 'ADM0_NAME'], 'Libya'],
+                BORDER_COlOR,
+                TRANSPARENT
+            ],
+            'line-width': ['case',
+                ['!=', ['get', 'ADM0_NAME'], 'Libya'],
+                1.5,
+                0],
         },
-        "transition": {
-            "duration": 300,
-            "delay": 0
-        }
     };
 
     const countryLabels = {
@@ -177,6 +199,7 @@ export default function stylesObject(activeSource) {
 
     const layersObject = {
         'routeStyle': routeStyle,
+        'libyaSelect': libyaSelect,
         'countryLabels': countryLabels,
         'cityStyle': cityStyle,
         'countryBorderStyle': countryBorderStyle,
