@@ -22,6 +22,36 @@
                 "body": " "
             }
         ],
+        "transectRisks": [
+            {
+                "id": "migrationRisks",
+                "heading": "Migration Risks"
+            },
+            {
+                "id": "urbanProximity",
+                "heading": "Proximity to Urban Areas"
+            },
+            {
+                "id": "migrationPolicy",
+                "heading": "Irregular Migration Plociy"
+            },
+            {
+                "id": "reportedViolence",
+                "heading": "Reported Violence"
+            },
+            {
+                "id": "conflictAreas",
+                "heading": "Conlfict Areas"
+            },
+            {
+                "id": "foodPrices",
+                "heading": "Food Prices"
+            },
+            {
+                "id": "photos",
+                "heading": "Photos"
+            }
+        ],
         "styles": {
             "layers": [
                 {
