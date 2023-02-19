@@ -5,8 +5,8 @@ import styles from '../styles/Menu.module.css';
 import Link from "next/link";
 import Card from "./card";
 import useSWR from "swr";
-import {fetcher} from "../hooks/useFetch";
-export default function Menu({journeys}) {
+import { fetcher } from "../hooks/useFetch";
+export default function Menu({ journeys }) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleToggle = () => {
@@ -29,7 +29,7 @@ export default function Menu({journeys}) {
   const fullScreenFill = useSpring({
     opacity: menuOpen ? 1 : 0,
   })
-  if (!journeys) return<></>;
+  if (!journeys) return <></>;
   return (
     <nav>
       <span className={styles.menuContainer}>
@@ -51,28 +51,24 @@ export default function Menu({journeys}) {
         )}
       </span>
       <div>
-        <animated.div  style={fullScreenFill} className={styles.screenCover}/>
+        <animated.div style={fullScreenFill} className={styles.screenCover} />
         <animated.div style={fullscreenMenu} className={styles.navBar}>
-          <ul>
+          <ul className={styles.listContainer}>
             <li>
               <Link className={styles.route} onClick={handleRouting('/')} href="/">
                 Map
               </Link>
             </li>
             <li>
-              Journey
-              <ul>
+              <span className={styles.route}>Journey</span>
+              <ul className={styles.journeyContainer}>
                 {journeys.map((journey) => (
-                  <li key={journey.id}>
-                    <Link className={styles.route} key={journey.id} onClick={handleRouting('/journeys/'+journey.id)} href={'/journeys/'+journey.id}>{journey.title}</Link>
+                  <li key={journey.id} className={styles.journeyItem}>
+                    {/* <span className="material-symbols-outlined"> arrow_forward</span> */}
+                    <Link className={styles.route} key={journey.id} onClick={handleRouting('/journeys/' + journey.id)} href={'/journeys/' + journey.id}>{journey.title}</Link>
                   </li>
                 ))}
               </ul>
-            </li>
-            <li>
-              <Link className={styles.route} onClick={handleRouting('/about')} href="/about">
-                Current Conditions in Libya
-              </Link>
             </li>
             <li>
               <Link className={styles.route} onClick={handleRouting('/about')} href="/data-source">

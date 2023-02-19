@@ -4,10 +4,16 @@ import { Inter } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import MainMap from './maps/map';
 import MapBox from '../components/mapBox';
-
+import DataTabToggle from '../components/dataTabToggle';
+import DataTab from '../components/dataTab'
 const inter = Inter({ subsets: ['latin'] });
+import { useAppContext } from '../context/journeys';
+
+
+
 
 export default function Home() {
+  const journeys = useAppContext()
   return (
     <>
       <Head>
@@ -17,11 +23,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Menu />
-
+        <Menu journeys={journeys} />
         {/* <h1>HOME</h1> */}
         <MainMap />
         {/* <MapBox /> */}
+        <DataTab />
+        <DataTabToggle />
 
       </main>
     </>
