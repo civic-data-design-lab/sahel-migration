@@ -4,23 +4,32 @@
   "total-dist": 4935318,
   "borders": [
     {
-      "location_start": 0,
-      "ADM0_CODE": 182,
-      "ADM0_NAME": "Nigeria",
-      "trans_len": 1040752
+      "location": 1693230,
+      "city1": "NIGERIA",
+      "city2": "NIGER"
     },
     {
-      "location_start": 1040752,
-      "ADM0_CODE": 181,
-      "ADM0_NAME": "Niger",
-      "len": 4935318.4040000001,
-      "trans_len": 1704135
+      "location": 2744887,
+      "city1": "NIGER",
+      "city2": "LIBYA"
+    }
+  ],
+  "cities": [
+    {
+      "name": "Lagos",
+      "location": 0
     },
     {
-      "location_start": 2744887,
-      "ADM0_CODE": 145,
-      "ADM0_NAME": "Libya",
-      "trans_len": 2190432
+      "name": "Ibadan, Oyo",
+      "location": 250000
+    },
+    {
+      "name": "Ilorin, Kwara",
+      "location": 500000
+    },
+    {
+      "name": "Tripoli",
+      "location": 4935319
     }
   ],
   "risks": {

@@ -4,7 +4,7 @@ import DataTabToggle from "./dataTabToggle";
 import styles from "../styles/DataTab.module.css";
 import Link from "next/link";
 import useWindowSize from "../hooks/useWindowSize";
-// import TransectPlots from "./transectPlots";
+import TransectPlots from "./transectPlots";
 
 export default function DataTab() {
   const [isOpen, toggleOpen] = useState(false);
@@ -31,7 +31,7 @@ export default function DataTab() {
       <animated.div  style={fullScreenFill} className={styles.screenCover}/>
         <animated.div style={fullscreenTab} className={styles.tab}>
           <DataTabToggle isOpen={isOpen} toggleOpen={handleToggle}/>
-          {/*<TransectPlots/>*/}
+          <TransectPlots isOpen={isOpen}/>
         </animated.div>
     </>);
 }

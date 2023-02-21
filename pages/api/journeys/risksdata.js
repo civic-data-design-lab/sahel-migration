@@ -10,12 +10,20 @@ export default async function handler(req, res) {
     'utf8',
   );
   let obj= null
-  if (req.query.id === 'risks') {
-    obj = JSON.parse(fileContents).risks
-    console.log("RISK",obj)
-  } else if (req.query.id ==='borders') {
-    obj = JSON.parse(fileContents).borders
-    console.log("BORDER", obj)
+
+  switch (req.query.id) {
+    case 'risks':
+      obj = JSON.parse(fileContents).risks
+      console.log("RISK",obj)
+      break;
+    case 'borders':
+      obj = JSON.parse(fileContents).borders
+      console.log("BORDER", obj)
+      break;
+    case 'cities':
+      obj = JSON.parse(fileContents).cities
+      console.log("CITIES", obj)
+      break;
   }
 
 
