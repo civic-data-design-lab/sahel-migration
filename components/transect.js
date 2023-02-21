@@ -39,7 +39,7 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
     let borders = d3.axisBottom(xScale);
     borders.tickValues(borderData.map(d => d.location));
     borders.tickSize(-200);
-    borders.tickFormat((d,i)=> `${borderData[i].city1} ${borderData[i].city2}`);
+    borders.tickFormat((d,i)=> `${borderData[i].country1} ${borderData[i].country2}`);
     let borderAxis = svg.append("g").call(borders)
     borderAxis.attr("transform",`translate(${margin.left},${h+2*margin.bottom})`).selectAll(".tick line")
       .style("stroke-dasharray", ("3, 3")).attr("stroke-width","3");

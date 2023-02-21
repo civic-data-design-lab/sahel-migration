@@ -5,13 +5,13 @@
   "borders": [
     {
       "location": 1693230,
-      "city1": "NIGERIA",
-      "city2": "NIGER"
+      "country1": "NIGERIA",
+      "country2": "NIGER"
     },
     {
       "location": 2744887,
-      "city1": "NIGER",
-      "city2": "LIBYA"
+      "country1": "NIGER",
+      "country2": "LIBYA"
     }
   ],
   "cities": [
