@@ -3,8 +3,8 @@ import React, {useState} from "react";
 import DataTabToggle from "./dataTabToggle";
 import styles from "../styles/DataTab.module.css";
 import Link from "next/link";
-import RiskItems from "./riskItems";
 import useWindowSize from "../hooks/useWindowSize";
+import TransectPlots from "./transectPlots";
 
 export default function DataTab() {
   const [isOpen, toggleOpen] = useState(false);
@@ -31,7 +31,7 @@ export default function DataTab() {
       <animated.div  style={fullScreenFill} className={styles.screenCover}/>
         <animated.div style={fullscreenTab} className={styles.tab}>
           <DataTabToggle isOpen={isOpen} toggleOpen={handleToggle}/>
-          <RiskItems isOpen={isOpen}/>
+          <TransectPlots/>
         </animated.div>
     </>);
 }

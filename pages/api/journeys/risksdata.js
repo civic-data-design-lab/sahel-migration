@@ -6,12 +6,19 @@ export default async function handler(req, res) {
   const jsonDirectory = path.join(process.cwd(), 'json');
   //Read the json data file data.json
   const fileContents = await fs.readFile(
-    jsonDirectory + '/risks-items.json',
+    jsonDirectory + '/transect-items.json',
     'utf8',
   );
-  const obj = JSON.parse(fileContents).items.risks.find(
-    (risk) => risk.id == req.query.id,
-  );
+  let obj= null
+  if (req.query.id === 'risks') {
+    obj = JSON.parse(fileContents).risks
+    console.log("RISK",obj)
+  } else if (req.query.id ==='borders') {
+    obj = JSON.parse(fileContents).borders
+    console.log("BORDER", obj)
+  }
+
+
   //Return the content of the data file in json format
   res.status(200).json(obj);
 }
