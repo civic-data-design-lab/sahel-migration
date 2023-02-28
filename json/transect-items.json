@@ -17,19 +17,23 @@
   "cities": [
     {
       "name": "Lagos",
-      "location": 0
+      "location": 0,
+      "y": 0
     },
     {
       "name": "Ibadan, Oyo",
-      "location": 250000
+      "location": 250000,
+      "y": 90
     },
     {
       "name": "Ilorin, Kwara",
-      "location": 500000
+      "location": 500000,
+      "y": 80
     },
     {
       "name": "Tripoli",
-      "location": 4935319
+      "location": 4935319,
+      "y": 20
     }
   ],
   "risks": {
