@@ -27,7 +27,6 @@ export default function Home() {
         {/* <h1>HOME</h1> */}
         <MainMap />
         {/* <MapBox /> */}
-
       </main>
     </>
   );
