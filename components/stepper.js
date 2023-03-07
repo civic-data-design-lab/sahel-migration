@@ -24,7 +24,7 @@ export default function Stepper({ totalSteps, stepNumber, journeys, reversed, is
   }
   return (
     <motion.div className={styles.stepperContainer} animate={isActive ? "open" : "closed"} variants={variants}>
-      <div className={styles.stepperLine} style={{transform: reversed? "translate(8rem,-65%)": ''}}/>
+      <div className={styles.stepperLine} style={{transform: reversed? "translate(7.7rem,-65%)": ''}}/>
       <motion.div className={styles.stepper} animate={isActive ? "open" : "closed"} variants={variants}>
         {steps.map((currentStep) => renderSteps(currentStep, stepNumber))}
       </motion.div>
