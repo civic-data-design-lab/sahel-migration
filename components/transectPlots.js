@@ -3,6 +3,7 @@ import useSWR from "swr";
 import {fetcher} from "../hooks/useFetch";
 import Transect from "./transect";
 import {motion, AnimatePresence} from "framer-motion";
+import TransectToggle from "./transectToggle";
 
 export default function TransectPlots ({isOpen}) {
   const { data: borders, errorBorders } = useSWR(['/api/journeys/risksdata', 'borders'], fetcher);
@@ -19,6 +20,10 @@ export default function TransectPlots ({isOpen}) {
     2: 'red',
   }
 
+  const [items, setItems] = useState([
+    {type: "policy", show: false},
+    {type: "heat", show: false} ,
+  ]);
 
 
 
@@ -40,24 +45,53 @@ export default function TransectPlots ({isOpen}) {
   if (!borders) return <div>loading borders...</div>;
   if (!risks) return <div>loading risks...</div>;
   if (!cities) return <div>loading cities...</div>;
+  const data = {
+    "policy": risks.policy,
+    "heat": risks.extreme_heat,
+  }
+  const riskColors = {
+    "policy": policyRisksColors,
+    "heat": heatRisksColors,
+  }
   const policyData = [risks.policy]
   const heatData = [risks.extreme_heat]
-  const allData = [...policyData, ...heatData];
-  const allRiskColors = [policyRisksColors, heatRisksColors]
-  const combinedTransects = allData.map((d,i) => {
-   return (<Transect key={i} layerData={[d]} borderData={borders} citiesData={cities} riskColors={[allRiskColors[i]]}/>)
+  // const allData = [...policyData, ...heatData];
+  // const allRiskColors = [policyRisksColors, heatRisksColors]
+
+
+  const toggleItem = (item) => {
+    const newItems = items.map((i) => {
+      if (i.type === item.type) {
+        return {
+          ...i,
+          show: !i.show,
+        };
+      }
+      return i;
+    });
+    setItems(newItems);
+  };
+  const filteredData = items.filter((item) => item.show)
+  const allData = filteredData.map((item) => {
+   return data[item.type]
   })
+  const allRiskColors = filteredData.map((item) => {
+    return riskColors[item.type]
+  })
+
+
 
 
 
   return (
     <div style={{overflowX:"scroll", scrollbarWidth:"none" }}>
+      <TransectToggle items={items} toggleItem={toggleItem}/>
       <Transect layerData={allData} borderData={borders} citiesData={cities} riskColors={allRiskColors}/>
       <AnimatePresence>
         {isOpen &&<motion.div initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}>
-        {combinedTransects}
+        {/*{combinedTransects}*/}
       </motion.div>}
       </AnimatePresence>
         {/*<button onClick={combinePlot}>Combine Risks</button>*/}

@@ -24,9 +24,11 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
     const h = height - margin.top - margin.bottom;
     const svg = d3.select(svgRef.current)
 
+    d3.selectAll("svg > *").remove();
     svg
       .attr("width", width)
       .attr("height", height+margin.bottom)
+
 
 
     const xScale = d3
@@ -35,9 +37,8 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
       .range([0, w]);
 
 
-
-
     //Bar Data
+
     layerData.forEach((data,i) => {
       console.log(data)
       svg
@@ -52,7 +53,8 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
         // .attr("y", height  - margin.bottom)
         .attr("width", (d) => xScale(d.location_end) - xScale(d.location_start))
         .attr("height", h+margin.bottom);
-      }
+    }
+
     )
 
 
@@ -128,7 +130,6 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
       .attr("y2", (d) => height -d.y)
       .style("stroke", "black")
       .style("stroke-width", 1);
-
   }
 
 
@@ -137,7 +138,7 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
     if (!layerData) return;
     drawLayers(svgRef,2*width,150,layerData, borderData, citiesData,riskColors);
 
-  }, [layerData, width, height, svgRef]);
+  }, [layerData, width, height, svgRef,riskColors]);
 
   return (
     <div>
