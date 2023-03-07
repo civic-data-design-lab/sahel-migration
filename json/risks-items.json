@@ -49,7 +49,14 @@
             },
             {
                 "id": "photos",
-                "heading": "Photos"
+                "heading": "Photos",
+                "imageUrls": [
+                    "/images/drafts/1-img01.jpeg",
+                    "/images/drafts/2-img01.png",
+                    "/images/drafts/2-img02.jpeg",
+                    "/images/drafts/4-img01.jpg",
+                    "/images/drafts/7-img01.jpeg"
+                ]
             }
         ],
         "styles": {

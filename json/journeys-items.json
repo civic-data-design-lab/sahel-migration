@@ -33,17 +33,101 @@
           }
         ]
       },
-      {"id": 2,
+      {
+        "id": 2,
         "title": "In Transit",
         "body": "The Central Mediterranean Route is long and dangerous, so most migrants rely on smugglers throughout their journey to navigate across borders or treacherous environments.",
-        "imageUrl": "/images/journeys/3-sahara.svg",
-        "entourages": []
+        "imageUrl": "/images/journeys/2-in transit.svg",
+        "entourages": [
+          {
+            "id": 1,
+            "body": "20 percent of migrants concerned about personal safety 14 percent of migrants had issue with shelter 18 percent of migrants affected by food insecurity .",
+            "posX": 200,
+            "posY": 0,
+            "scrollStart": 0,
+            "scrollEnd": 0.10
+          },
+          {
+            "id": 2,
+            "body": "Many migrants hire smugglers to help along the journey. The decisions they make in regards to smuggling impact their levels of vulnerability.",
+            "posX": 120,
+            "posY": 50,
+            "scrollStart": 0.12,
+            "scrollEnd": 0.36
+          },
+          {
+            "id": 3,
+            "body": "In organized smuggling, the whole journey is organized and migrants are accompanied for most of the journey",
+            "posX": 1000,
+            "posY": 300,
+            "scrollStart": 0.35,
+            "scrollEnd": 0.50
+          },
+          {
+            "id": 4,
+            "body": "In step-by-step smuggling, migrants mostly travel on their own and only use a smuggler for certain segments of the journey, like crossing a border or the desert.",
+            "posX": 250,
+            "posY": 80,
+            "scrollStart": 0.5,
+            "scrollEnd": 0.9
+          },
+          {
+            "id": 5,
+            "body": "Migrants heading to Libya through the Central Mediterranean route typically originate from the Economic Community of West African States (ECOWAS), and carry passports which allow them to pass through most country borders along the way without a visa. ",
+            "posX": 200,
+            "posY": 0,
+            "scrollStart": 0.80,
+            "scrollEnd": 1
+          },
+          {
+            "id": 6,
+            "body": "",
+            "posX": 300,
+            "posY": 0,
+            "scrollStart": 1.0,
+            "scrollEnd": 1.2
+          }
+        ]
       },
-      {"id": 3,
+      {
+        "id": 3,
         "title": "Passing Through Agadez",
         "body": "Cities, such as Agadez, serve as transitory destinations along the Central Mediterranean route. Some migrants stop here to find smugglers, while others stop for extended periods of time to find work to fund the next part of their journey.",
-        "imageUrl": "/images/journeys/3-sahara.svg",
-        "entourages": []
+        "imageUrl": "/images/journeys/3-Transit Hub Agadez.svg",
+        "entourages": [
+          {
+            "id": 1,
+            "body": "Most migrants are continuously on the move. Only 10 percent of migrants stop in a place for longer than 1 month before reaching Libya.",
+            "posX": 500,
+            "posY": 450,
+            "scrollStart": 0,
+            "scrollEnd": 0.10
+          },
+          {
+            "id": 2,
+            "body": "Migrants’ cannot use their ECOWAS passports at the Libya border, so they need to locate smugglers in Agadez to help them cross into Libya.",
+            "posX": 800,
+            "posY": 400,
+            "scrollStart": 0.12,
+            "scrollEnd": 0.36
+          },
+          {
+            "id": 3,
+            "body": "In Agadez, migrants must remain hidden in crowded small houses with many other migrants in the outskirts of the city, as they await smuggler transport to Libya.",
+            "posX": 1400,
+            "posY": 450,
+            "scrollStart": 0.35,
+            "scrollEnd": 0.50
+          },
+          {
+            "id": 4,
+            "body": "",
+            "posX": 2200,
+            "posY": 400,
+            "scrollStart": 0.5,
+            "scrollEnd": 0.9
+          }
+        ]
       },
       {
         "id": 4,
@@ -101,25 +185,62 @@
           }
         ]
       },
-      {"id": 5,
+      {
+        "id": 5,
         "title": "Entering Libya",
         "body": "When migrants enter Libya they face heightened risks including detention, risks to personal safety, and food insecurity.",
-        "imageUrl": "/images/journeys/3-sahara.svg",
-        "entourages": []
+        "imageUrl": "/images/journeys/5-Entering Libya.svg",
+        "entourages": [
+          {
+            "id": 1,
+            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "posX": 100,
+            "posY": 50,
+            "scrollStart": 0,
+            "scrollEnd": 0.10
+          },
+          {
+            "id": 2,
+            "body": "Ethnic militia groups have control over northern Niger and southern Libya–including the migrant smuggling economy and security checkpoints",
+            "posX": 0,
+            "posY": 0,
+            "scrollStart": 0.12,
+            "scrollEnd": 0.36
+          },
+          {
+            "id": 3,
+            "body": "In Libya, many migrants face detention by the DCIM. In detention centers, migrants are often subject to harsh living conditions, physical violence, and death.",
+            "posX": 250,
+            "posY": 80,
+            "scrollStart": 0.35,
+            "scrollEnd": 0.50
+          },
+          {
+            "id": 4,
+            "body": "",
+            "posX": 50,
+            "posY": 50,
+            "scrollStart": 0.5,
+            "scrollEnd": 0.9
+          }
+        ]
       },
-      {"id": 6,
+      {
+        "id": 6,
         "title": " Passing Through Sabha",
         "body": "Sabha is one of the first major cities migrants pass through after arriving in Libya. Most migrants use Sabha as a transit point, rather than a place to settle.",
         "imageUrl": "/images/journeys/3-sahara.svg",
         "entourages": []
       },
-      {"id": 7,
+      {
+        "id": 7,
         "title": "Reaching Tripoli",
         "body": "While Tripoli serves as a disembarkation point for migrants taking the sea route to Europe, it is also a place where many migrants choose to settle.",
         "imageUrl": "/images/journeys/3-sahara.svg",
         "entourages": []
       },
-      {"id": 8,
+      {
+        "id": 8,
         "title": "Current Conditions in Libya",
         "body": "Migrants in Libya experience a range of outcomes. Some leave the country by embarking to Europe or through deportation, while others may stay to work. Each pathway exposes migrants to a different set of risks.",
         "imageUrl": "/images/journeys/3-sahara.svg",
