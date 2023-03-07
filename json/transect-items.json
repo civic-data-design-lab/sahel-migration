@@ -1,0 +1,84 @@
+{
+  "origin-city": "Lagos",
+  "origin_country": "Nigeria",
+  "total-dist": 4935318,
+  "borders": [
+    {
+      "location": 1693230,
+      "country1": "NIGERIA",
+      "country2": "NIGER"
+    },
+    {
+      "location": 2744887,
+      "country1": "NIGER",
+      "country2": "LIBYA"
+    }
+  ],
+  "cities": [
+    {
+      "name": "Lagos",
+      "location": 0,
+      "y": 0
+    },
+    {
+      "name": "Ibadan, Oyo",
+      "location": 250000,
+      "y": 90
+    },
+    {
+      "name": "Ilorin, Kwara",
+      "location": 500000,
+      "y": 80
+    },
+    {
+      "name": "Tripoli",
+      "location": 4935319,
+      "y": 20
+    }
+  ],
+  "risks": {
+    "policy": [
+      {  "location_start": 0,
+        "location_end": 1693230,
+        "trans_len": 1693230,
+        "NAME_0": null,
+        "Risk": 0 },
+      {"location_start": 1693230,
+        "location_end": 2744887,
+        "trans_len": 1051657,
+        "NAME_0": "North Niger to Libya Border",
+        "Risk": 2
+      },
+      { "location_start": 2744887,
+        "location_end": 4935319,
+        "trans_len": 2190432, "NAME_0": "Libya", "Risk": 1 }
+    ],
+    "extreme_heat": [
+      {  "location_start": 0,
+        "location_end": 1700000,
+        "trans_len": 1693230,
+        "NAME_0": null,
+        "Risk": 2 },
+      {"location_start": 1700000,
+        "location_end": 2800000,
+        "trans_len": 1051657,
+        "NAME_0": "North Niger to Libya Border",
+        "Risk": 0
+      },
+      { "location_start": 2800000,
+        "location_end": 4935319,
+        "trans_len": 2190432, "NAME_0": "Libya", "Risk": 1 }
+    ],
+    "remoteness": [
+      { "trans_len": 387227, "risk": 0 },
+      { "trans_len": 341000, "risk": 1 },
+      { "trans_len": 639760, "risk": 0 },
+      { "trans_len": 31057, "risk": 1 },
+      { "trans_len": 222280, "risk": 0 },
+      { "trans_len": 1522303, "risk": 1 },
+      { "trans_len": 86606, "risk": 0 },
+      { "trans_len": 1319991, "risk": 1 },
+      { "trans_len": 385094, "risk": 0 }
+    ]
+  }
+}
