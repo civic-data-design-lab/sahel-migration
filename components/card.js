@@ -7,7 +7,7 @@ import useWindowSize from "../hooks/useWindowSize";
 
 export default function Card({svgRef, entourage, width,height, scrollRef}) {
   const { scrollXProgress } = useScroll({ target: scrollRef });
-  const [isOpen, setIsOpen] = useState(scrollXProgress.get() >= entourage.scrollStart && scrollXProgress.get() <= entourage.scrollEnd);
+  const [isOpen, setIsOpen] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
@@ -18,17 +18,19 @@ export default function Card({svgRef, entourage, width,height, scrollRef}) {
       setX(bbox.x)
       setY(bbox.y)
       // setbboxWidth(bbox.width)
+      svg.selectAll("#outline-"+entourage.id).style("opacity", 0);
       svg.selectAll("#fig-"+entourage.id).style("cursor", "pointer")
+        .on("mouseout", function () {
+          svg.select("#outline-"+entourage.id)
+            .style("opacity", 0);
+          setIsOpen(false)
+        })
         .on("mouseover", function () {
           svg.select("#outline-"+entourage.id)
             .style("opacity", 1);
           setIsOpen(true)
         })
-        .on("mouseout", function () {
-          svg.select("#outline-"+entourage.id)
-            .style("opacity", 0);
-          setIsOpen(false)
-        });
+
     });
     scrollXProgress.on("change", latest =>setIsOpen(latest >= entourage.scrollStart && latest <= entourage.scrollEnd))
   }, [entourage.id, entourage.scrollEnd, entourage.scrollStart, isOpen, scrollXProgress, svgRef])

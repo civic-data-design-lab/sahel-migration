@@ -8,12 +8,6 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
   // const width = 600 - margin.left - margin.right;
   // const height = 400 - margin.top - margin.bottom;
 
-  const dataTest = [
-    { location_start: 0, location_end: 1693230, risk: 0, NAME_0: "North Niger to Libya Border"},
-    { location_start: 1693230, location_end: 2744887, risk: 1, NAME_0: "Libya"},
-    { location_start: 2744887, location_end: 4935319, risk: 2, NAME_0: "Libya 2"},
-    // add more data points as needed
-  ];
   const svgRef = useRef(null);
 
   function drawLayers(svgRef,width,height,layerData, borderData, citiesData, riskColors) {
