@@ -32,7 +32,7 @@ html {
   font-size: 20pt;
   color: var(--brown);
   scroll-snap-type: x mandatory;
-  font-family: (var(--primary-font-fam));
+  font-family: var(--primary-font-fam);
 }
 
 body {
