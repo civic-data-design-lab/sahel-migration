@@ -1,13 +1,13 @@
 .cardContainer {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   /*width: fit-content;*/
   transform: translate(0%, -100%);
 }
 
 .card {
-  font-size: 0.4rem;
+  /* font-size: 0.4rem; */
   display: flex;
   /*border-radius: 50%;*/
   border-radius: 10px;
@@ -22,22 +22,23 @@
 }
 
 .expandedCard {
-  width: 15rem;
-  max-width: 15vw;
+  font-weight: lighter;
+  width: 21rem;
+  max-width: 45vw;
   background: white;
   border-radius: 10px;
-  line-height: 150%;
 }
 
 @media only screen and (max-width: 480px) {
-   .expandedCard {
-     width: 10rem;
-     max-width: 100rem;
-     /*overflow-y: scroll;*/
-     max-height: 20rem;
-   }
+  .expandedCard {
+    width: 10rem;
+    max-width: 100rem;
+    /*overflow-y: scroll;*/
+    max-height: 20rem;
+  }
+
   .card {
     font-size: .6rem;
-   }
+  }
 
 }

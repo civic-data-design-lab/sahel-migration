@@ -37,7 +37,7 @@ export default function Menu({ journeys }) {
           <button onClick={handleToggle} className={styles.menuButton}>
             <span
               class="material-symbols-outlined"
-              style={{ color: 'black' }}
+              style={{ color: 'black', fontSize: '2rem' }}
             >
               menu
             </span>

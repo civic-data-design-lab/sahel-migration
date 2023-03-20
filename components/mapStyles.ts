@@ -190,9 +190,9 @@ export default function stylesObject(activeSource) {
 
 
     const desktopPerspective = {
-        lng: 3,
-        lat: 25,
-        zoom: 3.65
+        lng: -4,
+        lat: 20,
+        zoom: 4
     }
 
 

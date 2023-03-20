@@ -1,5 +1,5 @@
 .tooltip {
-    font-family: Overpass;
+    font-family: var(--primary-font-fam);
     display: flex;
     flex-direction: column;
     padding: 0.25rem;

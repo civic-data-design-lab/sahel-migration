@@ -8,7 +8,7 @@
 .route {
     display: flex;
     font-family: var(--primary-font-fam);
-    font-size: var(--menu-font);
+    font-size: var(--fs-body-1);
     /* justify-content: space-around; */
     align-items: center;
 }

@@ -8,7 +8,9 @@
   justify-content: flex-start;
   flex-direction: column;
   z-index: 5;
-  color: var(--brown);
+  /* color: var(--brown);
+  font-size: var(--fs-body-1);
+  font-family: var(--primary-font-fam); */
 }
 
 @media only screen and (max-width: 480px) {
@@ -21,8 +23,8 @@
   .main small {
     width: 15rem;
     height: auto;
-    line-height: 1rem;
-    font-size: .7rem;
+    /* line-height: 1rem;
+    font-size: .7rem; */
   }
 
 }

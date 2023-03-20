@@ -35,9 +35,9 @@ export default function Tooltip({ selectedCountry, hoverInfo }) {
                 </div>
                 <span style={{ marginTop: '0.5rem' }}>IPC Food Security in Origin Country</span>
                 <div className={styles.bar}>
-                    <div style={{ flexBasis: '70%', backgroundColor: '#B9BF8B' }}></div>
-                    <div style={{ flex: 1, backgroundColor: '#EADD97' }}></div>
-                    <div style={{ flex: 1, backgroundColor: '#DF9B6F' }}></div>
+                    <div style={{ flexBasis: '70%', backgroundColor: '#C2C93E' }}></div>
+                    <div style={{ flex: 1, backgroundColor: '#F5E86D' }}></div>
+                    <div style={{ flex: 1, backgroundColor: '#F15A24' }}></div>
                 </div>
                 <div style={{ width: '100%', display: 'flex', position: 'relative', justifyContent: 'flex-end' }}>
                     <span style={{ textAlign: 'right', right: '0', width: '70%' }}>Moderatel or Serverly Food Insecure</span>

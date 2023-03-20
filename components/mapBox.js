@@ -20,8 +20,8 @@ export default function MapBox({ activeSource, risks }) {
     const mapRef = useRef(null)
     const persepctive = useMemo(() => {
         if (width > 1000) return { ...desktopPerspective }
-        if (600 < width < 1000) return { ...desktopPerspective, lat: 30, zoom: 2.7 }
-        return { ...desktopPerspective, zoom: 2 }
+        if (600 < width < 1000) return { ...desktopPerspective, lat: 37, zoom: 2.9 }
+        // return { ...desktopPerspective, zoom: 1, lat: -10, }
     })
 
     function renderMap(activeSource, styles) {

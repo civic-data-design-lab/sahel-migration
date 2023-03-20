@@ -2,10 +2,11 @@ import { useRouter, withRouter } from 'next/router';
 import useSWR from 'swr';
 import Menu from '../../components/menu';
 import DataTab from '../../components/dataTab';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react'
+import styles from '../../styles/Journeys.module.css';
 
 import ImageBox from '../../components/imageBox';
-import {fetcher} from "../../hooks/useFetch";
+import { fetcher } from "../../hooks/useFetch";
 import Navigation from "../../components/navigation";
 import Title from "../../components/title";
 
@@ -28,11 +29,15 @@ export default function JourneysPage() {
   if (!journey) return <div>loading...</div>;
   return (
     <>
-      <Title/>
-      <Menu journeys={journeys}/>
-      <Navigation journeys={journeys} journey={journey}/>
-      <DataTab />
-      <ImageBox journey={journey} id="image-box" />
+      <div className={styles.journeyContainer}>
+        <div className={styles.gridContainer}>
+          <Title />
+          <Menu journeys={journeys} />
+          <Navigation journeys={journeys} journey={journey} />
+          <DataTab />
+          <ImageBox journey={journey} id="image-box" />
+        </div>
+      </div>
     </>
   );
 }

@@ -4,6 +4,7 @@
     background: white;
     z-index: 7;
     top: 75%;
+    font-family: var(--primary-font-fam);
 }
 
 .screenCover {
@@ -25,6 +26,4 @@
     }
 }
 
-.risksSelection {
-
-}
+.risksSelection {}

@@ -79,7 +79,7 @@
 
 .route {
   text-decoration: none;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-body-1);
   font-weight: bold;
   line-height: 0.5rem;
   color: var(--brown);

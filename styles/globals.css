@@ -15,10 +15,47 @@
   font-family: 'Assistant', sans-serif;
   font-family: 'El Messiri', sans-serif;
   --primary-font-fam: 'El Messiri', sans-serif;
-  --fs-h1: 48pt;
-  --fs-h2: 28pt;
+  --fs-large: 2.75rem;
+  --fs-body-1: clamp(1rem, 20px, 1.5rem);
   --fs-h3: 0.75rem;
 
+}
+
+.header-1 {
+  font-family: var(--primary-font-fam);
+  font-size: clamp(1.5rem, 2.5vw, 3.67rem);
+  line-height: clamp(1rem, 2.5vw, 4.33rem);
+  font-weight: bold;
+}
+
+.header-2 {}
+
+.header-3 {
+  font-family: var(--primary-font-fam);
+  font-size: clamp(0.75rem, 2.5vw, 1.5rem);
+  line-height: clamp(1.5rem, 2.5vw, 2.33rem);
+  font-weight: bold;
+}
+
+.body-1 {
+  font-family: var(--primary-font-fam);
+  font-size: 24pt;
+  line-height: 32pt;
+  font-weight: medium;
+}
+
+.body-2 {
+  font-family: var(--primary-font-fam);
+  font-size: 20pt;
+  line-height: 28pt;
+  font-weight: medium;
+}
+
+.body-3 {
+  font-family: var(--primary-font-fam);
+  font-size: clamp(0.89rem, 1.3vw, 1.08rem);
+  line-height: 20pt;
+  font-weight: initial;
 }
 
 * {
@@ -29,14 +66,14 @@
 
 html {
   /* max-width: 100vw; */
-  font-size: 20pt;
+  font-size: var(--fs-norm);
   color: var(--brown);
   scroll-snap-type: x mandatory;
   font-family: (var(--primary-font-fam));
 }
 
 body {
-  font-size: 20pt;
+  font-size: var(--fs-body-1);
   color: var(--brown);
   scroll-snap-type: x mandatory;
   overflow-y: hidden;
@@ -55,7 +92,7 @@ body {
 
 h1 {
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: var(--fs-large);
   line-height: 52pt;
 }
 
@@ -87,8 +124,8 @@ p {
 
 small {
   font-weight: medium;
-  line-height: 16pt;
-  font-size: 0.6rem;
+  /* line-height: 16pt;
+  font-size: var(--fs-body-1); */
 }
 
 h6 {
