@@ -55,7 +55,11 @@ export default function MainMap() {
 
         <ViewContext.Provider value={viewValue}>
             <div className={styles.gridContainer}>
-                <Title />
+                <div style={{
+                    gridArea: '1/1/1/4'
+                }}>
+                    <Title />
+                </div>
                 <div className={styles.boxContainer}>
                     <div className={styles.contentBox} ref={sideBarRef}>
                         <ContentBox scrollRef={sideBarRef} dataItems={riskItems.risks} mapToggle={hideMap} />
