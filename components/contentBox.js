@@ -29,9 +29,13 @@ function Paragraph({ children, data, items }) {
             className={styles.paragraph}
             ref={ref}
         >
-            {children}
-            <h2>{data.heading}</h2>
-            <p>{data.body}</p>
+            <h2 className='header-3'>{data.heading}</h2>
+            <p
+                className='header-3'
+                style={{
+                    fontWeight: 'initial'
+                }}
+            >{data.body}</p>
         </div>
     )
 }
@@ -54,12 +58,17 @@ function ScrollButton({ onClick, currentView }) {
     )
 }
 
-export default function ContentBox({ dataItems }) {
+export default function ContentBox({ dataItems, mapToggle }) {
     const contentRef = useRef(null)
     const [isOpen, toggleOpen] = useState(false);
     const [scroll, setScroll] = useState()
     const [isClicked, toggleClick] = useState(false)
     const { currentView, setCurrentView } = useContext(ViewContext)
+
+    const handleMapAnimation = () => {
+        toggleOpen(!isOpen);
+        mapToggle()
+    }
 
     const handleToggle = () => {
         toggleOpen(!isOpen);
@@ -112,7 +121,7 @@ export default function ContentBox({ dataItems }) {
 
             </div >
             <ScrollButton currentView={currentView} onClick={scrollUp} />
-            <RouteMenu isOpen={isOpen} />
+            <RouteMenu isOpen={isOpen} mapToggle={handleMapAnimation} />
 
 
             <RouteMenuToggle isOpen={isOpen} toggleOpen={handleToggle} currentView={currentView} />

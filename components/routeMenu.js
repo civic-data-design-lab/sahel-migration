@@ -6,7 +6,7 @@ import Link from "next/link";
 import useWindowSize from "../hooks/useWindowSize";
 import RouteItems from "./routeItems";
 
-export default function RouteMenu({ isOpen }) {
+export default function RouteMenu({ isOpen, mapToggle }) {
     const { width, height } = useWindowSize()
 
 
@@ -27,7 +27,7 @@ export default function RouteMenu({ isOpen }) {
         <>
             <animated.div style={fullScreenFill} className={styles.screenCover} />
             <animated.div style={fullscreenTab} className={styles.tab}>
-                <RouteItems />
+                <RouteItems mapToggle={mapToggle} />
             </animated.div>
         </>);
 }

@@ -9,6 +9,7 @@ import ContentBox from "../../components/contentBox";
 import Title from "../../components/title";
 import { animated, useSpring } from "react-spring";
 import Menu from "../../components/menu";
+import MapJourney from "../../components/mapJouney";
 
 
 
@@ -25,14 +26,27 @@ export default function MainMap() {
     const sideBarRef = useRef(null)
     const [currentView, setCurrentView] = useState('overallRoutes')
     const viewValue = { currentView, setCurrentView }
+    const [routeClicked, setRoute] = useState(false)
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', mapFetcher)
 
 
     const isActive = currentView === 'selectRoute' ? true : false
 
     const exploreRoutes = useSpring({
-        marginBottom: (isActive && width < 480) ? '0rem' : '0'
+        opacity: routeClicked ? 0 : 1,
+        zIndex: routeClicked ? 0 : 1,
+        marginBottom: (isActive && width < 480) ? '0rem' : '0',
     });
+
+    const revealJourney = useSpring({
+        zIndex: routeClicked ? 3 : -1,
+    });
+
+    function hideMap() {
+        setRoute(true)
+    }
+
+    console.log(routeClicked)
 
     if (risksError) return <div>Map not found</div>;
     if (!riskItems) return <div>loading...</div>;
@@ -40,22 +54,26 @@ export default function MainMap() {
     return (
 
         <ViewContext.Provider value={viewValue}>
-            <Title />
-            {/* <Menu journeys={journeys} /> */}
-
-            <div className={styles.boxContainer}>
-                <div className={styles.contentBox} ref={sideBarRef}>
-                    <ContentBox scrollRef={sideBarRef} dataItems={riskItems.risks} />
+            <div className={styles.gridContainer}>
+                <Title />
+                <div className={styles.boxContainer}>
+                    <div className={styles.contentBox} ref={sideBarRef}>
+                        <ContentBox scrollRef={sideBarRef} dataItems={riskItems.risks} mapToggle={hideMap} />
+                    </div>
+                </div>
+                <div className={styles.mapContainer}>
+                    <animated.div style={exploreRoutes} className={styles.mapHolder}>
+                        <MapBox
+                            activeSource={currentView}
+                            risks={riskItems}
+                        />
+                    </animated.div>
                 </div>
             </div>
-            <div className={styles.mapContainer}>
-                <animated.div style={exploreRoutes} className={styles.mapHolder}>
-                    <MapBox
-                        activeSource={currentView}
-                        risks={riskItems}
-                    />
-                </animated.div>
-            </div>
+            <MapJourney
+                explorable={routeClicked}
+                style={revealJourney}
+            />
         </ViewContext.Provider>
 
 
