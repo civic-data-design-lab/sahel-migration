@@ -112,34 +112,38 @@ export const SlideShow = ({ images, currentIndex }: any) => {
   return (
     <div className={styles["example-container"]}>
       <AnimatePresence initial={false} custom={direction}>
-        <motion.img
-          key={page}
-          src={images[(imageIndex + currentIndex) % images.length]}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            x: { type: "spring", stiffness: 300, damping: 30 },
-            opacity: { duration: 0.2 }
-          }}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={1}
-          onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x);
+        <div className={styles.imgContainer}>
 
-            if (swipe < -swipeConfidenceThreshold) {
-              paginate(1);
-            } else if (swipe > swipeConfidenceThreshold) {
-              paginate(-1);
-            }
-          }}
-        />
-        <div className={styles.caption}>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio corporis minus nam, possimus beatae natus repudiandae officia aspernatur, fugiat, dolores earum ipsam. Dicta iusto asperiores soluta accusamus, voluptate obcaecati atque!</p>
+          <motion.img
+            key={page}
+            src={images[(imageIndex + currentIndex) % images.length]}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 }
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+
+              if (swipe < -swipeConfidenceThreshold) {
+                paginate(1);
+              } else if (swipe > swipeConfidenceThreshold) {
+                paginate(-1);
+              }
+            }}
+          />
+          <div className={styles.caption}>
+            <p>A truck joins a convoy with armed military escort as it begins crossing the Sahara Desert from Niger north to Libya, overloaded with Nigerien workers and families destined for work in mines, on October 8, 2018 in Agadez, Niger. Aside from civilian convoys, National Guard patrols hunt armed Islamists in this Sahel region half the size of Texas. In a bid to stem irregular migration from Africa to Europe, the EU is spending $270 million on an "Emergency Trust Fund" for programs in Niger, part of a security-development package that has seen the number of migrants heading north drop from 334,000 in 2016 to fewer than 50,000 in 2018. </p>
+          </div>
         </div>
+
       </AnimatePresence>
       <div className={styles.next} onClick={() => paginate(1)}>
         <span className="material-symbols-outlined">

@@ -41,12 +41,11 @@ export default function ImageCarousel({ isOpen }) {
                                     layout
                                     onClick={() => (modalOpen ? closeModal() : openModal(i))}
                                     whileHover={{
-                                        aspectRatio: `${width}/${height}`,
-                                        // scaleX: 2,
+                                        // aspectRatio: `${width}/${height}`,
                                         transition: {
                                             type: 'spring',
-                                            stiffness: 50,
-                                            duration: 0.5,
+                                            stiffness: 37.5,
+                                            duration: 0.75,
                                         }
                                     }}
                                     transition={{
