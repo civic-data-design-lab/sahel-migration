@@ -74,7 +74,7 @@
           {
             "id": 5,
             "body": "Migrants heading to Libya through the Central Mediterranean route typically originate from the Economic Community of West African States (ECOWAS), and carry passports which allow them to pass through most country borders along the way without a visa. ",
-            "posX": 200,
+            "posX": 50,
             "posY": 0,
             "scrollStart": 0.80,
             "scrollEnd": 1
@@ -98,7 +98,7 @@
           {
             "id": 1,
             "body": "Most migrants are continuously on the move. Only 10 percent of migrants stop in a place for longer than 1 month before reaching Libya.",
-            "posX": 500,
+            "posX": 400,
             "posY": 450,
             "scrollStart": 0,
             "scrollEnd": 0.10
@@ -138,8 +138,8 @@
           {
             "id": 1,
             "body": "pickup trucks with ~25 passengers on the back (migrants from West Africa and short-time laborers from Niger). Migrants wrap their heads in turbans for sun protection and brace themselves with stick to keep from falling out of the truck.",
-            "posX": 300,
-            "posY": -50,
+            "posX": 200,
+            "posY": 0,
             "scrollStart": 0,
             "scrollEnd": 0.10
           },
@@ -170,14 +170,14 @@
           {
             "id": 5,
             "body": "Trucks heading back to Agadez with workers from Libya. Majority converts earnings into goods (furniture, clothes, appliances and other household items) to bring home because the Libyan dinar is unstable",
-            "posX": 200,
+            "posX": 50,
             "posY": 0,
             "scrollStart": 0.80,
             "scrollEnd": 1
           },
           {
             "id": 6,
-            "body": "Tombs marked by jagged stones, an empty water jug are found along the way. Migrants report the highest number of deaths (28% of migrants reporting) along this part of the Central Mediterranean Route (4mi)",
+            "body": "Tombs sarked by jagged stones, an empty water jug are found along the way. Migrants report the highest number of deaths (28% of migrants reporting) along this part of the Central Mediterranean Route (4mi)",
             "posX": 0,
             "posY": 10,
             "scrollStart": 0.7,
@@ -229,21 +229,21 @@
         "id": 6,
         "title": " Passing Through Sabha",
         "body": "Sabha is one of the first major cities migrants pass through after arriving in Libya. Most migrants use Sabha as a transit point, rather than a place to settle.",
-        "imageUrl": "/images/journeys/3-sahara.svg",
+        "imageUrl": "/images/journeys/6-Transit Hub Sabha.svg",
         "entourages": []
       },
       {
         "id": 7,
         "title": "Reaching Tripoli",
         "body": "While Tripoli serves as a disembarkation point for migrants taking the sea route to Europe, it is also a place where many migrants choose to settle.",
-        "imageUrl": "/images/journeys/3-sahara.svg",
+        "imageUrl": "/images/journeys/7-Transit Hub Tripoli.svg",
         "entourages": []
       },
       {
         "id": 8,
         "title": "Current Conditions in Libya",
         "body": "Migrants in Libya experience a range of outcomes. Some leave the country by embarking to Europe or through deportation, while others may stay to work. Each pathway exposes migrants to a different set of risks.",
-        "imageUrl": "/images/journeys/3-sahara.svg",
+        "imageUrl": "/images/journeys/8-Current Migrant Condition in Libya.svg",
         "entourages": []
       }
     ]
