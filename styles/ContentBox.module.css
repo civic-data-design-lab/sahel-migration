@@ -59,17 +59,6 @@
     padding: 2rem;
 }
 
-.paragraph p {
-    /* font-size: var(--fs-body-1);
-    line-height: var(--line-height);
-    font-weight: lighter; */
-}
-
-.paragraph h2 {
-    /* font-size: var(--fs-body-1);
-    font-weight: bolder; */
-}
-
 
 .scrollButton {
     outline: none;
