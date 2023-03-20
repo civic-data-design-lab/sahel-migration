@@ -68,7 +68,7 @@ html {
   font-size: var(--fs-norm);
   color: var(--brown);
   scroll-snap-type: x mandatory;
-  font-family: (var(--primary-font-fam));
+  font-family: var(--primary-font-fam);
 }
 
 body {

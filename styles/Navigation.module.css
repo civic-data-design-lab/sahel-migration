@@ -27,13 +27,13 @@
 }
 
 .button {
-    margin-top: 1rem;
+    /*margin-top: 1rem;*/
     pointer-events: all;
     border: .1rem solid;
     border-radius: 50%;
     background: none;
-    height: 2rem;
-    width: 2rem;
+    height: 1.4rem;
+    width: 1.4rem;
 
 }
 
