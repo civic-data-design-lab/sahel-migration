@@ -1,0 +1,44 @@
+.selectors {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin: 1rem;
+}
+
+.button {
+    background: none;
+    border: none;
+    margin: .5rem;
+    display: flex;
+    flex-direction: row;
+    /*z-index: 7;*/
+}
+.button:hover {
+    cursor: pointer;
+}
+
+.selector {
+    --dark: #463c35;
+    --light: #ffffff;
+    background: var(--light);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    width: .8rem;
+    height: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.1rem solid var(--dark);
+    margin-top: .6rem;
+    opacity: 1;
+}
+
+.descriptor {
+    margin: .5rem;
+}
+
+.show {
+    background: #d66937;
+}
+
+

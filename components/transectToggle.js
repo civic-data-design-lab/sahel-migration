@@ -1,16 +1,21 @@
 import React, { useState } from "react";
+import styles from "../styles/Toggle.module.css";
 
 const TransectToggle = ({items, toggleItem}) => {
 
   return (
-    <div>
+    <div className={styles.selectors}>
       {
         items.map((item) => (
-          <div key={item.id}>
-          <button onClick={() => toggleItem(item)}>
-            {item.type}-{item.show.toString()}
+          <span key={item.id}>
+
+          <button className={styles.button} onClick={() => toggleItem(item)}>
+            <div className={`${styles.selector} ${item.show? styles.show: ''}`}/>
+            <span className={styles.descriptor}>
+              {item.type}
+            </span>
           </button>
-          </div>
+          </span>
         ))
         }
     </div>
