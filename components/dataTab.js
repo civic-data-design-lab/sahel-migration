@@ -1,5 +1,5 @@
 import { animated, useSpring } from "react-spring";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import DataTabToggle from "./dataTabToggle";
 import styles from "../styles/DataTab.module.css";
 import Link from "next/link";
@@ -13,7 +13,6 @@ export default function DataTab() {
   const handleToggle = () => {
     toggleOpen(!isOpen);
   };
-
   const fullScreenFill = useSpring({
     opacity: isOpen ? 1 : 0,
   })
@@ -31,8 +30,7 @@ export default function DataTab() {
     <>
       <animated.div style={fullScreenFill} className={styles.screenCover} />
       <animated.div style={fullscreenTab} className={styles.tab}>
-        <DataTabToggle isOpen={isOpen} toggleOpen={handleToggle} />
-        <TransectPlots isOpen={isOpen} />
+        <TransectPlots isOpen={isOpen} toggleOpen={handleToggle}/>
         <ImageCarousel isOpen={isOpen} />
       </animated.div>
     </>);

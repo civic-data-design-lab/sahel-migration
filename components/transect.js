@@ -135,10 +135,10 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
   }, [layerData, width, height, svgRef,riskColors]);
 
   return (
-    <div>
+    <div style={{marginTop:"3rem"}}>
       {/*hello*/}
       {/*{data.map(d=> d.location_start)}*/}
-      <svg ref={svgRef} width={width} height={height}  style={{margin:"10px"}}/>
+      <svg ref={svgRef} width={width} height={height}  style={{marginTop:"10px"}}/>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../styles/Toggle.module.css";
+import styles from "../styles/TransectToggle.module.css";
 
 const TransectToggle = ({items, toggleItem}) => {
 

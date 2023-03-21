@@ -1,8 +1,12 @@
 .selectors {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: right;
-    margin: 1rem;
+    margin-top: .5rem;
+    margin-right: 1rem;
 }
 
 .button {
@@ -30,11 +34,12 @@
     justify-content: center;
     border: 0.1rem solid var(--dark);
     margin-top: .6rem;
+    margin-bottom: 0;
     opacity: 1;
 }
 
 .descriptor {
-    margin: .5rem;
+    margin: .5rem .5rem 0;
 }
 
 .show {
