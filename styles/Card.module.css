@@ -10,10 +10,10 @@
   /* font-size: 0.4rem; */
   display: flex;
   /*border-radius: 50%;*/
-  border-radius: 10px;
-  /*padding: 0.4rem;*/
+  border-radius: 12px;
+  padding: 0.4rem;
   border: solid black;
-  background: white;
+  background: rgba(255, 255, 255, 0.65);
   align-items: center;
   justify-content: center;
   object-position: left top;
@@ -25,7 +25,6 @@
   font-weight: lighter;
   width: 21rem;
   max-width: 45vw;
-  background: white;
   border-radius: 10px;
 }
 

@@ -19,6 +19,7 @@ export default function Card({ svgRef, entourage, width, height, scrollRef }) {
       setY(bbox.y)
       // setbboxWidth(bbox.width)
       svg.selectAll("#outline-" + entourage.id).style("opacity", 0);
+
       svg.selectAll("#fig-" + entourage.id).style("cursor", "pointer")
         .on("mouseout", function () {
           svg.select("#outline-" + entourage.id)
@@ -31,7 +32,7 @@ export default function Card({ svgRef, entourage, width, height, scrollRef }) {
           setIsOpen(true)
         })
     });
-    scrollXProgress.on("change", latest => setIsOpen(latest >= entourage.scrollStart && latest <= entourage.scrollEnd))
+    scrollXProgress.on("change", setBoundingBox)
   }, [entourage.id, entourage.scrollEnd, entourage.scrollStart, isOpen, scrollXProgress, svgRef])
 
   useLayoutEffect(() => {
@@ -45,6 +46,13 @@ export default function Card({ svgRef, entourage, width, height, scrollRef }) {
     }
 
   }, [width, height, svgRef, entourage.id])
+
+  const setBoundingBox = (latest) => {
+    const svg = d3.select(svgRef.current.contentDocument.documentElement);
+      setIsOpen(latest >= entourage.scrollStart && latest <= entourage.scrollEnd)
+      svg.select("#outline-" + entourage.id).style("opacity", isOpen ? 1 : 0);
+  }
+
   return (
     <motion.div className={styles.cardContainer} style={{ left: width < 480 ? x + .5 * entourage.posX : x + entourage.posX, top: y + entourage.posY }}>
       <motion.div

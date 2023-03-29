@@ -4,8 +4,9 @@ import {fetcher} from "../hooks/useFetch";
 import Transect from "./transect";
 import {motion, AnimatePresence} from "framer-motion";
 import TransectToggle from "./transectToggle";
+import DataTabToggle from "./dataTabToggle";
 
-export default function TransectPlots ({isOpen}) {
+export default function TransectPlots ({isOpen, toggleOpen}) {
   const { data: borders, errorBorders } = useSWR(['/api/journeys/risksdata', 'borders'], fetcher);
   const { data: cities, errorCities } = useSWR(['/api/journeys/risksdata', 'cities'], fetcher);
   const { data: risks, errorRisks} = useSWR(['/api/journeys/risksdata', 'risks'], fetcher);
@@ -85,7 +86,10 @@ export default function TransectPlots ({isOpen}) {
 
   return (
     <div style={{overflowX:"scroll", scrollbarWidth:"none" }}>
-      <TransectToggle items={items} toggleItem={toggleItem}/>
+      <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+        <DataTabToggle isOpen={isOpen} toggleOpen={toggleOpen} />
+        <TransectToggle items={items} toggleItem={toggleItem}/>
+      </div>
       <Transect layerData={allData} borderData={borders} citiesData={cities} riskColors={allRiskColors}/>
       <AnimatePresence>
         {isOpen &&<motion.div initial={{ opacity: 0 }}

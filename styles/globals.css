@@ -57,6 +57,9 @@
   font-weight: initial;
 }
 
+button {
+  font-family: var(--primary-font-fam);
+}
 * {
   box-sizing: border-box;
   padding: 0;

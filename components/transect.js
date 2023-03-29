@@ -48,14 +48,13 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
         .attr("width", (d) => xScale(d.location_end) - xScale(d.location_start))
         .attr("height", h+margin.bottom);
     }
-
     )
 
 
     //Arc
     let semicircleData = [
-      { x: 250000, y: 90,  radius: 30 },
-      { x: 500000, y:80, radius: 40 },
+      { x: 250000, y: 30,  radius: 30 },
+      { x: 500000, y:35, radius: 40 },
       { x: 4935319, y: 20,  radius: 50 },
     ];
     let semicircleGroup = svg.append("g")
@@ -83,7 +82,7 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
 
 
     // Elevation Data
-    let elevationData = [{x:0,y:+margin.top},{x:250000,y:90},{x:500000,y:80},{x:4935319,y:20}]
+    let elevationData = [{x:0,y:margin.top},{x:250000,y:30},{x:500000,y:35},{x:4935319,y:20}]
 
     let lineFunc = d3.line()
       .x(function(d) { return margin.left +xScale(d.x)})
@@ -135,10 +134,10 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
   }, [layerData, width, height, svgRef,riskColors]);
 
   return (
-    <div>
+    <div style={{marginTop:"3rem"}}>
       {/*hello*/}
       {/*{data.map(d=> d.location_start)}*/}
-      <svg ref={svgRef} width={width} height={height}  style={{margin:"10px"}}/>
+      <svg ref={svgRef} width={width} height={height}  style={{marginTop:"10px"}}/>
     </div>
   )
 }
