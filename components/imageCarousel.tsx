@@ -1,6 +1,6 @@
 import styles from '../styles/ImageCarousel.module.css'
 
-import { animated, useSpring, motion, AnimatePresence } from "framer-motion";
+import { useSpring, motion, AnimatePresence } from "framer-motion";
 import { useState } from 'react';
 import useSWR from 'swr';
 import { v4 as uuidv4 } from 'uuid'
@@ -14,6 +14,14 @@ export default function ImageCarousel({ isOpen }) {
     const [modalOpen, setModalOpen] = useState(false)
     const [currentImageIndex, setIndex] = useState(0)
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', fetcher)
+
+    const colorMap = {
+        0: '#C2C93E',
+        1: 'red',
+        2: 'skyblue',
+        3: 'magenta',
+        4: '#F15A24'
+    }
 
     const closeModal = () => setModalOpen(false);
     const openModal = (i) => {
@@ -46,15 +54,33 @@ export default function ImageCarousel({ isOpen }) {
                                             type: 'spring',
                                             stiffness: 37.5,
                                             duration: 0.75,
-                                        }
+
+                                        },
+                                        // ['--color' as any]: `none`,
+                                        ['--opacity' as any]: 0
+
+
                                     }}
                                     transition={{
                                         ease: 'easeInOut'
                                     }}
                                     className={styles.image}
                                     key={uuidv4()}
+                                    style={{
+                                        backgroundImage: `url(${url})`,
+                                        width: `${width / height * 10}rem`,
+                                        ['--color' as any]: `${colorMap[i]}`,
+                                        ['--opacity' as any]: 1
+                                        // ['--color' as any]: `hsl(${30 * i}, 100%, 50%)`
+
+                                    }}
                                 >
-                                    <img src={url}></img>
+
+                                    {/* <img src={url}></img> */}
+                                    {/* <div className={styles.imgFilter}
+                                        style={{
+                                            backgroundColor: `hsl(${30 * i}, 100%, 50%)`
+                                        }}></div> */}
                                 </motion.div>
 
                             )
@@ -64,12 +90,12 @@ export default function ImageCarousel({ isOpen }) {
                         initial={false}
                         mode='wait'
                         onExitComplete={() => null}
-                        currentIndex
+                    // currentIndex
                     >
                         {modalOpen &&
                             <ImageModal
                                 currentIndex={currentImageIndex}
-                                modalOpen={modalOpen}
+                                // modalOpen={modalOpen}
                                 handleClose={closeModal}
                                 images={riskItems.transectRisks[6].imageUrls}
                             />
