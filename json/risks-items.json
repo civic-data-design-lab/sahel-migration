@@ -67,7 +67,8 @@
                         "countryBorderStyle",
                         "countryLayer",
                         "cityStyle",
-                        "countryLabels"
+                        "countryLabels",
+                        "migrationRouteStyle"
                     ]
                 },
                 {
@@ -114,6 +115,153 @@
                 "id": "extreme-heat",
                 "url": "mapbox://mitcivicdata.27dxrfrn"
             }
-        ]
+        ],
+        "migrationRoutes": [
+            {
+                "id": "nra",
+                "geojson": {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "coordinates": [
+                                    [
+                                        6.890383,
+                                        6.994800
+                                    ],
+                                    [
+                                        7,
+                                        26
+                                    ],
+                                    [
+                                        12,
+                                        24
+                                    ],
+                                    [
+                                        13.19,
+                                        32.8
+                                    ]
+                                ],
+                                "type": "LineString"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "ghan",
+                "geojson": {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "coordinates": [
+                                    [
+                                        -1.3,
+                                        8
+                                    ],
+                                    [
+                                        13,
+                                        14
+                                    ],
+                                    [
+                                        13.19,
+                                        32.8
+                                    ]
+                                ],
+                                "type": "LineString"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "mali",
+                "geojson": {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "coordinates": [
+                                    [
+                                        -5,
+                                        15
+                                    ],
+                                    [
+                                        3.58,
+                                        29
+                                    ],
+                                    [
+                                        13.19,
+                                        32.8
+                                    ]
+                                ],
+                                "type": "LineString"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "chad",
+                "geojson": {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "coordinates": [
+                                    [
+                                        18,
+                                        16
+                                    ],
+                                    [
+                                        13.19,
+                                        32.8
+                                    ]
+                                ],
+                                "type": "LineString"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "nir",
+                "geojson": {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "coordinates": [
+                                    [
+                                        8.79,
+                                        16.7
+                                    ],
+                                    [
+                                        13.19,
+                                        32.8
+                                    ]
+                                ],
+                                "type": "LineString"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "paths": {
+            "id": "migration-routes",
+            "url": "mapbox://mitcivicdata.clfrhweu804q72dpuo8lnhmvn-5kz5v"
+        }
     }
 }

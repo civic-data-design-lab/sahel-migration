@@ -6,6 +6,7 @@ import styles from '../styles/MapBox.module.css'
 import stylesObject from './mapStyles';
 import useWindowSize from '../hooks/useWindowSize';
 import Tooltip from './toooltip';
+import routeObject from './routePaths'
 
 
 
@@ -15,6 +16,25 @@ export default function MapBox({ activeSource, risks }) {
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
     const { layersObject, highlightLayer, desktopPerspective } = stylesObject(activeSource)
+    const { pathsObject } = routeObject()
+    const [dashStep, setDashStep] = useState(0)
+
+    const dashArraySequence = [
+        [0, 4, 3],
+        [0.5, 4, 2.5],
+        [1, 4, 2],
+        [1.5, 4, 1.5],
+        [2, 4, 1],
+        [2.5, 4, 0.5],
+        [3, 4, 0],
+        [0, 0.5, 3, 3.5],
+        [0, 1, 3, 3],
+        [0, 1.5, 3, 2.5],
+        [0, 2, 3, 2],
+        [0, 2.5, 3, 1.5],
+        [0, 3, 3, 1],
+        [0, 3.5, 3, 0.5]
+    ];
 
 
     const mapRef = useRef(null)
@@ -49,6 +69,23 @@ export default function MapBox({ activeSource, risks }) {
                 {
                     sourceInfo.map((source) => {
                         return <Source id={source.id} type='vector' url={source.url} key={source.id} />
+                    })
+                }
+            </>
+        )
+    }
+
+    function renderGeoJson(data) {
+        const sourceInfo = data.migrationRoutes
+        if (sourceInfo) return (
+            <>
+                {
+                    sourceInfo.map((source) => {
+                        return (
+                            <Source id={source.id} type='geojson' data={source.geojson} key={source.id} >
+                                <Layer {...pathsObject[`${source.id}-path`]}></Layer>
+                            </Source>
+                        )
                     })
                 }
             </>
@@ -113,6 +150,28 @@ export default function MapBox({ activeSource, risks }) {
 
     })
 
+    useEffect(() => {
+        function animateDashArray(timestamp) {
+            // Update line-dasharray using the next value in dashArraySequence. The
+            // divisor in the expression `timestamp / 50` controls the animation speed.
+            const newStep = parseInt(
+                (timestamp / 1000) % dashArraySequence.length
+            );
+
+            if (newStep !== dashStep) {
+                setDashStep(newStep)
+            }
+
+            // Request the next frame of the animation.
+            requestAnimationFrame(animateDashArray);
+        }
+        console.log(dashArraySequence[dashStep])
+        // start the animation
+        animateDashArray(0);
+    }, [dashStep])
+
+
+
     return (
         <div className={styles.mapContainer}>
             <Map
@@ -137,7 +196,13 @@ export default function MapBox({ activeSource, risks }) {
                     <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
                 )}
                 {renderSource(activeSource, risks)}
+                {/* {renderGeoJson(risks)} */}
                 {activeSource === 'overallRoutes' && (renderMap(activeSource, risks.styles))}
+                {/* {(renderMap(activeSource, risks.styles))} */}
+                <Source id={risks.paths.id} type='vector' url={risks.paths.url} >
+                    {/* {console.log(dashArraySequence[dashStep])} */}
+                    <Layer {...layersObject["migrationRouteStyle"]} />
+                </Source>
                 {activeSource === 'originCities' && (renderMap(activeSource, risks.styles))}
                 {activeSource === 'extremeHeat' && (renderMap(activeSource, risks.styles))}
                 {activeSource === 'selectRoute' && (renderMap(activeSource, risks.styles))}
@@ -146,51 +211,6 @@ export default function MapBox({ activeSource, risks }) {
         </div >
     )
 }
-
-// function Tooltip({ selectedCountry, hoverInfo }) {
-
-//     return (
-//         <Popup style={{
-//             width: '240px',
-//             display: 'flex',
-//             flexDirection: 'column-reverse',
-//         }}
-//             longitude={hoverInfo.longitude}
-//             latitude={hoverInfo.latitude}
-//             offset={[0, -10]}
-//             anchor={'bottom'}
-//             closeButton={false}
-//             className="county-info"
-//         >
-//             <div className={styles.tooltip}>
-//                 <h2>{selectedCountry}</h2>
-//                 <div className={styles.tooltipInfo}>
-//                     <Stack>
-//                         <span>xxx,xxx {selectedCountry} mirgants in Libya</span>
-//                         <span>xxx,xxx km from start to end</span>
-//                     </Stack>
-//                     <Stack style={{ marginTop: '0.5rem' }}>
-//                         <span>Top origin cities of {selectedCountry} migrants</span>
-//                         {['15%', '14%', '13%', '12%'].map((entries, i) => {
-//                             return <span key={uuidv4()}>{entries} {i}</span>
-//                         })}
-//                     </Stack>
-//                 </div>
-//                 <span style={{ marginTop: '0.5rem' }}>IPC Food Security in Origin Country</span>
-//                 <div className={styles.bar}>
-//                     <div style={{ flexBasis: '70%', backgroundColor: '#B9BF8B' }}></div>
-//                     <div style={{ flex: 1, backgroundColor: '#EADD97' }}></div>
-//                     <div style={{ flex: 1, backgroundColor: '#DF9B6F' }}></div>
-//                 </div>
-//                 <div style={{ width: '100%', display: 'flex', position: 'relative', justifyContent: 'flex-end' }}>
-//                     <span style={{ textAlign: 'right', right: '0', width: '70%' }}>Moderatel or Serverly Food Insecure</span>
-//                 </div>
-//             </div >
-//         </Popup>
-//     )
-// }
-
-
 
 
 

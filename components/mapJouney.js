@@ -3,14 +3,17 @@ import mapboxgl from '!mapbox-gl';
 import styles from '../styles/MapJourney.module.css'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
-export default function MapJourney({ data, explorable }) {
+export default function MapJourney({ explorable }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(3);
     const [lat, setLat] = useState(25);
     const [zoom, setZoom] = useState(3.65);
-
+    const [canExplore, setExplore] = useState(false)
+    console.log(explorable, 'explore')
     useEffect(() => {
+        setExplore(true)
+
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
@@ -19,10 +22,8 @@ export default function MapJourney({ data, explorable }) {
             zoom: zoom
         });
         map.current.setProjection('mercator')
-        if (explorable) {
-            setTimeout(() => {
-                map.current.setProjection('globe')
-            }, 5000)
+        if (canExplore) {
+            map.current.setProjection('globe')
             setTimeout(() => {
                 map.current.flyTo({
                     center: [4, 30],
@@ -36,9 +37,8 @@ export default function MapJourney({ data, explorable }) {
                     }
                 })
             }, 7000)
-
         }
-    }, [explorable]);
+    }, [canExplore]);
 
     return (
         <div className={styles.container}>
