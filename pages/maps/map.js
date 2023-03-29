@@ -43,7 +43,7 @@ export default function MainMap() {
     });
 
     function hideMap() {
-        setRoute(true)
+        setRoute(!routeClicked)
     }
 
     console.log(routeClicked)

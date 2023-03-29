@@ -92,6 +92,17 @@ export default function stylesObject(activeSource) {
         },
     }
 
+    const migrationRouteStyle: LineLayer = {
+        "id": 'migration',
+        "type": 'line',
+        'source-layer': 'placeholder_routes',
+        "source": 'migration-routes',
+        "paint": {
+            'line-color': DOT_COLOR_SCALE.bold,
+            'line-width': 5
+        }
+    }
+
     const routeStyle: LineLayer = {
         id: 'routes',
         type: 'line',
@@ -199,6 +210,7 @@ export default function stylesObject(activeSource) {
 
     const layersObject = {
         'routeStyle': routeStyle,
+        'migrationRouteStyle': migrationRouteStyle,
         'libyaSelect': libyaSelect,
         'countryLabels': countryLabels,
         'cityStyle': cityStyle,
