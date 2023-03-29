@@ -41,7 +41,7 @@ const Backdrop = ({ children, onClick }) => {
   );
 };
 
-const ImageModal = ({ handleClose, text, images, currentIndex }) => {
+const ImageModal = ({ handleClose, images, currentIndex }) => {
 
   return (
     <Backdrop onClick={handleClose}>
@@ -140,6 +140,7 @@ export const SlideShow = ({ images, currentIndex }: any) => {
             }}
           />
           <div className={styles.caption}>
+            <span>Image {(imageIndex + currentIndex) % images.length + 1}/ {images.length}</span>
             <p>{`A truck joins a convoy with armed military escort as it begins crossing the Sahara Desert from Niger north to Libya, overloaded with Nigerien workers and families destined for work in mines, on October 8, 2018 in Agadez, Niger. Aside from civilian convoys, National Guard patrols hunt armed Islamists in this Sahel region half the size of Texas. In a bid to stem irregular migration from Africa to Europe, the EU is spending $270 million on an "Emergency Trust Fund" for programs in Niger, part of a security-development package that has seen the number of migrants heading north drop from 334,000 in 2016 to fewer than 50,000 in 2018.`}</p>
           </div>
         </div>

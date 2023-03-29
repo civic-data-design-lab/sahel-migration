@@ -23,7 +23,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/imageModal.js"
+    "components/imageModal.js",
+    "components/imageCarousel.tsx"
   ],
   "exclude": [
     "node_modules"
