@@ -18,111 +18,97 @@ export default function Transect ({layerData, borderData, citiesData, riskColors
     const h = height - margin.top - margin.bottom;
     const svg = d3.select(svgRef.current)
 
-    d3.selectAll("svg > *").remove();
+    // d3.selectAll("svg > *").remove();
     svg
       .attr("width", width)
       .attr("height", height+margin.bottom)
+      .append("g")
+      .attr("transform",
+        `translate(${margin.left}, ${10*margin.top})`);
 
 
-
-    const xScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(citiesData, (d) => d.location)])
-      .range([0, w]);
-
-
-    //Bar Data
-
-    layerData.forEach((data,i) => {
+    d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/5_OneCatSevNumOrdered_wide.csv").then(function(data) {
       console.log(data)
+      // List of groups = header of the csv files
+      const keys = data.columns.slice(1)
+
+      // Add X axis
+      const x = d3.scaleLinear()
+        .domain(d3.extent(data, function(d) { return d.year; }))
+        .range([ 0, width ]);
+      svg.append("g")
+        .attr("transform", `translate(0, ${height*0.8})`)
+        .call(d3.axisBottom(x).tickSize(-height*.7).tickValues([1900, 1925, 1975, 2000]))
+        .select(".domain").remove()
+      // Customization
+      svg.selectAll(".tick line").attr("stroke", "#b8b8b8")
+
+      // Add X axis label:
+      svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", width)
+        .attr("y", height-30 )
+        .text("Distance");
+
+      // Add Y axis
+      const y = d3.scaleLinear()
+        .domain([-100000, 200000])
+        .range([ height, 0]);
+
+      // color palette
+      const color = d3.scaleOrdinal()
+        .domain(keys)
+        .range(d3.schemeDark2);
+
+      //stack the data?
+      const stackedData = d3.stack()
+        .keys(keys)
+        (data)
+
+      // create a tooltip
+      const Tooltip = svg
+        .append("text")
+        .attr("x", 0)
+        .attr("y", 0)
+        .style("opacity", 0)
+        .style("font-size", 17)
+
+      // Three function that change the tooltip when user hover / move / leave a cell
+      const mouseover = function(event,d) {
+        Tooltip.style("opacity", 1)
+        d3.selectAll(".myArea").style("opacity", .2)
+        d3.select(this)
+          .style("stroke", "black")
+          .style("opacity", 1)
+      }
+      const mousemove = function(event,d,i) {
+        const grp = d.key
+        Tooltip.text(grp)
+      }
+      const mouseleave = function(event,d) {
+        Tooltip.style("opacity", 0)
+        d3.selectAll(".myArea").style("opacity", 1).style("stroke", "none")
+      }
+
+      // Area generator
+      const area = d3.area()
+        .x(function(d) { return x(d.data.year); })
+        .y0(function(d) { return y(d[0]); })
+        .y1(function(d) { return y(d[1]); })
+
+      // Show the areas
       svg
-        .selectAll(".bar")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "bar"+i)
-        .attr("fill", (d) => riskColors[i][d.Risk])
-        .attr("opacity", 0.5)
-        .attr("x", (d) => margin.left + xScale(d.location_start))
-        // .attr("y", height  - margin.bottom)
-        .attr("width", (d) => xScale(d.location_end) - xScale(d.location_start))
-        .attr("height", h+margin.bottom);
-    }
-    )
+        .selectAll("mylayers")
+        .data(stackedData)
+        .join("path")
+        .attr("class", "myArea")
+        .style("fill", function(d) { return color(d.key); })
+        .attr("d", area)
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
 
-
-    //Arc
-    let semicircleData = [
-      { x: 250000, y: 30,  radius: 30 },
-      { x: 500000, y:35, radius: 40 },
-      { x: 4935319, y: 20,  radius: 50 },
-    ];
-    let semicircleGroup = svg.append("g")
-      // .attr("transform", "translate(0," + height / 2 + ")");
-
-    let semicircleArc = d3.arc()
-      .innerRadius(0)
-      .outerRadius(function(d) { return d.radius; })
-      .startAngle(0)
-      .endAngle(Math.PI);
-
-    // Bind the semicircle data to path elements
-    let semicircles = semicircleGroup.selectAll("path")
-      .data(semicircleData);
-
-    semicircles.enter()
-      .append("path")
-      .attr("d", semicircleArc)
-      .attr("transform", function(d) {
-        let xVal = xScale(d.x)+margin.left
-        let yVal = height-d.y
-        return "translate(" + xVal + "," + yVal + ") rotate(-90)  ";
-      })
-      .attr("fill", "white");
-
-
-    // Elevation Data
-    let elevationData = [{x:0,y:margin.top},{x:250000,y:30},{x:500000,y:35},{x:4935319,y:20}]
-
-    let lineFunc = d3.line()
-      .x(function(d) { return margin.left +xScale(d.x)})
-      .y(function(d) { return height-d.y })
-
-    svg.append("path").attr('d', lineFunc(elevationData))
-      .attr('stroke', 'brown')
-      .attr('fill', 'white');
-
-    //Border Data
-    let borders = d3.axisBottom(xScale);
-    borders.tickValues(borderData.map(d => d.location));
-    borders.tickSize(-200);
-    borders.tickFormat((d,i)=> `${borderData[i].country1} ${borderData[i].country2}`);
-    let borderAxis = svg.append("g").call(borders)
-    borderAxis.attr("transform",`translate(${margin.left},${h+2*margin.bottom})`).selectAll(".tick line")
-      .style("stroke-dasharray", ("3, 3")).attr("stroke-width","3");
-    borderAxis.select(".domain").remove()
-
-
-    //Cities Data
-    let cities = d3.axisBottom(xScale);
-    cities.tickValues(citiesData.map(d => d.location));
-    cities.tickFormat((d,i)=> citiesData[i].name);
-    let citiesAxis = svg.append("g").call(cities)
-    citiesAxis.attr("transform",`translate(${margin.left},${h+1.5*margin.bottom})`).selectAll(".tick line")
-    citiesAxis.select(".domain").remove()
-
-    //Cities tickers
-    citiesData[0].y = margin.top
-    const lines = svg.selectAll(".line")
-      .data(citiesData);
-    lines.enter()
-      .append("line")
-      .attr("x1", (d) => margin.left + xScale(d.location))
-      .attr("y1", height)
-      .attr("x2", (d) => margin.left + xScale(d.location))
-      .attr("y2", (d) => height -d.y)
-      .style("stroke", "black")
-      .style("stroke-width", 1);
+    })
   }
 
 
