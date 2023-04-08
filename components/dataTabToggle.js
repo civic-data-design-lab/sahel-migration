@@ -1,5 +1,4 @@
 import styles from '../styles/DataTabToggle.module.css'
-import TransectToggle from "./transectToggle";
 
 export default function DataTabToggle({ isOpen, toggleOpen }) {
   return (<>
@@ -12,3 +11,4 @@ export default function DataTabToggle({ isOpen, toggleOpen }) {
     </button>
   </>)
 }
+
