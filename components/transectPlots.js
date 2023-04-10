@@ -4,6 +4,7 @@ import {fetcher} from "../hooks/useFetch";
 import Transect from "./transect";
 import {motion, AnimatePresence} from "framer-motion";
 import DataTabToggle from "./dataTabToggle";
+import ImageCarousel from "./imageCarousel";
 
 export default function TransectPlots ({isOpen, toggleOpen}) {
   const contentRef = useRef(null);
@@ -47,14 +48,9 @@ export default function TransectPlots ({isOpen, toggleOpen}) {
         transition={{ duration: 0.2 }}>
         {<Transect risk={"all"}/>}
       </motion.div>
-      {/*<AnimatePresence*/}
-      {/*>*/}
-      {/*  {!isOpen &&*/}
-      {/*    <Transect risk={"all"}/>*/}
-      {/*  }*/}
-      {/*</AnimatePresence>*/}
-      <motion.div style={{paddingTop:"5rem"}}>
+      <motion.div style={{paddingTop:"4rem"}}>
         {TransectLayers}
+        <ImageCarousel isOpen={isOpen} />
       </motion.div>
     </div>
   );

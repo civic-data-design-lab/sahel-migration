@@ -31,7 +31,7 @@ export default function DataTab() {
       <animated.div style={fullScreenFill} className={styles.screenCover} />
       <animated.div style={fullscreenTab} className={styles.tab}>
         <TransectPlots isOpen={isOpen} toggleOpen={handleToggle}/>
-        {/*<ImageCarousel isOpen={isOpen} />*/}
+
       </animated.div>
     </>);
 }
