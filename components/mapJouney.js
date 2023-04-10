@@ -10,7 +10,7 @@ export default function MapJourney({ explorable }) {
     const [lat, setLat] = useState(25);
     const [zoom, setZoom] = useState(3.65);
     const [canExplore, setExplore] = useState(false)
-    console.log(explorable, 'explore')
+    // console.log(explorable, 'explore')
     useEffect(() => {
         setExplore(true)
 

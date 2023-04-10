@@ -64,19 +64,21 @@
                 {
                     "id": "originCities",
                     "layerNames": [
+                        "libyaSelect",
                         "countryBorderStyle",
                         "countryLayer",
-                        "cityStyle",
-                        "countryLabels",
-                        "migrationRouteStyle"
+                        "migrationRouteStyle",
+                        "migrationBuffer"
                     ]
                 },
                 {
                     "id": "overallRoutes",
                     "layerNames": [
-                        "routeStyle",
-                        "routeHighlightLayer",
-                        "libyaSelect"
+                        "libyaSelect",
+                        "countryBorderStyle",
+                        "countryLayer",
+                        "migrationRouteStyle",
+                        "migrationBuffer"
                     ]
                 },
                 {
@@ -85,15 +87,17 @@
                         "extremeHeatLayer",
                         "countryBorderStyle",
                         "countryLayer",
-                        "cityStyle",
-                        "countryLabels"
+                        "migrationRouteStyle",
+                        "migrationBuffer"
                     ]
                 },
                 {
                     "id": "selectRoute",
                     "layerNames": [
                         "routeStyle",
-                        "routeHighlightLayer"
+                        "routeHighlightLayer",
+                        "migrationRouteStyle",
+                        "migrationBuffer"
                     ]
                 }
             ]
@@ -114,6 +118,10 @@
             {
                 "id": "extreme-heat",
                 "url": "mapbox://mitcivicdata.27dxrfrn"
+            },
+            {
+                "id": "migration-routes",
+                "url": "mapbox://mitcivicdata.04ugw1cd"
             }
         ],
         "migrationRoutes": [
@@ -259,9 +267,18 @@
                 }
             }
         ],
+        "vignetteUrls": [
+            "/images/journeys/thumbnails/2-in transit.png",
+            "/images/journeys/thumbnails/3-sahara.png",
+            "/images/journeys/thumbnails/3-Transit Hub Agadez.png",
+            "/images/journeys/thumbnails/5-Entering Libya.png",
+            "/images/journeys/thumbnails/6-Transit Hub Sabha.png",
+            "/images/journeys/thumbnails/7-Transit Hub Tripoli.png",
+            "/images/journeys/thumbnails/8-Current Migrant Condition in Libya.png"
+        ],
         "paths": {
             "id": "migration-routes",
-            "url": "mapbox://mitcivicdata.clfrhweu804q72dpuo8lnhmvn-5kz5v"
+            "url": "mapbox://mitcivicdata.709o03gi"
         }
     }
 }

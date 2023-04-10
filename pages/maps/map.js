@@ -19,6 +19,7 @@ export const ViewContext = createContext({
     setCurrentView: (() => { })
 })
 
+
 export default function MainMap() {
 
 
@@ -26,6 +27,7 @@ export default function MainMap() {
     const sideBarRef = useRef(null)
     const [currentView, setCurrentView] = useState('overallRoutes')
     const viewValue = { currentView, setCurrentView }
+
     const [routeClicked, setRoute] = useState(false)
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', mapFetcher)
 
@@ -46,7 +48,7 @@ export default function MainMap() {
         setRoute(!routeClicked)
     }
 
-    console.log(routeClicked)
+    // console.log(sectionValue)
 
     if (risksError) return <div>Map not found</div>;
     if (!riskItems) return <div>loading...</div>;

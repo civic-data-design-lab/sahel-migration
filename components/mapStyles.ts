@@ -25,7 +25,7 @@ export default function stylesObject(activeSource) {
         "source-layer": 'WA_SelectedCountries2-3495m1',
         paint: {
             'fill-outline-color': 'rgba(255,255,255,1)',
-            'fill-color': 'rgba(0,0,0,0.1)'
+            'fill-color': 'rgba(255,255,255,0)'
         }
     };
 
@@ -41,6 +41,16 @@ export default function stylesObject(activeSource) {
                 delay: 1000,
                 duration: 9000
             }
+        }
+    }
+    const countryFill: FillLayer = {
+        id: 'country-fill',
+        type: 'fill',
+        "source-layer": 'WA_SelectedCountries2-3495m1',
+        source: 'selected-countries',
+        paint: {
+            'fill-outline-color': 'rgba(255,255,255,1)',
+            'fill-color': 'rgba(255,255,255,0.5)'
         }
     }
 
@@ -95,11 +105,39 @@ export default function stylesObject(activeSource) {
     const migrationRouteStyle: LineLayer = {
         "id": 'migration',
         "type": 'line',
-        'source-layer': 'placeholder_routes',
+        'source-layer': 'route-final_split-55pcyx',
         "source": 'migration-routes',
         "paint": {
-            'line-color': DOT_COLOR_SCALE.bold,
-            'line-width': 5
+            'line-color': '#f48532',
+            'line-width': 5,
+        },
+        "layout": {
+            "line-cap": 'round'
+        }
+    }
+    const migrationHover: LineLayer = {
+        "id": 'migration-hover',
+        "type": 'line',
+        'source-layer': 'route-final_split-55pcyx',
+        "source": 'migration-routes',
+        "paint": {
+            'line-color': '#74401a',
+            'line-width': 5,
+        },
+        "layout": {
+            "line-cap": 'round'
+        }
+    }
+
+    const migrationBuffer: LineLayer = {
+        "id": 'migration-buffer',
+        "type": 'line',
+        'source-layer': 'route-final_split-55pcyx',
+        "source": 'migration-routes',
+        "paint": {
+            'line-color': 'red',
+            'line-width': 15,
+            'line-opacity': 0
         }
     }
 
@@ -201,23 +239,26 @@ export default function stylesObject(activeSource) {
 
 
     const desktopPerspective = {
-        lng: -4,
+        lng: -10,
         lat: 20,
-        zoom: 4
+        zoom: 3.7
     }
 
 
 
     const layersObject = {
         'routeStyle': routeStyle,
-        'migrationRouteStyle': migrationRouteStyle,
         'libyaSelect': libyaSelect,
         'countryLabels': countryLabels,
         'cityStyle': cityStyle,
         'countryBorderStyle': countryBorderStyle,
         'countryLayer': countryLayer,
+        'countryFill': countryFill,
         'highlightLayer': highlightLayer,
         'routeHighlightLayer': routeHighlightLayer,
+        'migrationRouteStyle': migrationRouteStyle,
+        'migrationHover': migrationHover,
+        'migrationBuffer': migrationBuffer,
         'extremeHeatLayer': extremeHeatLayer
     }
 

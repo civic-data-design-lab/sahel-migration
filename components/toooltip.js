@@ -20,29 +20,46 @@ export default function Tooltip({ selectedCountry, hoverInfo }) {
             className="county-info"
         >
             <div className={styles.tooltip}>
-                <h2>{selectedCountry}</h2>
-                <div className={styles.tooltipInfo}>
+                <span style={{ fontWeight: 'bold' }}>{selectedCountry}</span>
+                <div className={styles['tooltipInfo body-2']}>
                     <Stack>
                         <span>xxx,xxx {selectedCountry} mirgants in Libya</span>
                         <span>xxx,xxx km from start to end</span>
                     </Stack>
                     <Stack style={{ marginTop: '0.5rem' }}>
                         <span>Top origin cities of {selectedCountry} migrants</span>
-                        {['15%', '14%', '13%', '12%'].map((entries, i) => {
-                            return <span key={uuidv4()}>{entries} {i}</span>
+                        {['City A', 'City B', 'City C', 'City D'].map((entries) => {
+                            return <Separator info1={entries} info2="xx%" key={uuidv4()}>{entries}</Separator>
                         })}
                     </Stack>
                 </div>
-                <span style={{ marginTop: '0.5rem' }}>IPC Food Security in Origin Country</span>
-                <div className={styles.bar}>
-                    <div style={{ flexBasis: '70%', backgroundColor: '#C2C93E' }}></div>
-                    <div style={{ flex: 1, backgroundColor: '#F5E86D' }}></div>
-                    <div style={{ flex: 1, backgroundColor: '#F15A24' }}></div>
-                </div>
-                <div style={{ width: '100%', display: 'flex', position: 'relative', justifyContent: 'flex-end' }}>
-                    <span style={{ textAlign: 'right', right: '0', width: '70%' }}>Moderatel or Serverly Food Insecure</span>
+                <span style={{ marginTop: '0.5rem', fontWeight: 'bold' }}>IPC Food Security</span>
+                <div
+                    style={{
+                        width: '100%',
+                        display: 'flex',
+                        position: 'relative',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end'
+                    }}>
+                    {['Food Secure', 'Moderately food insecure', 'Serverly food insecure'].map((entries) => {
+                        return <Separator info1={entries} info2="xx%" key={uuidv4()}>{entries}</Separator>
+                    })}
                 </div>
             </div >
         </Popup>
+    )
+}
+
+function Separator({ info1, info2 }) {
+    return (
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "space-between"
+            }}>
+            <span>{info1}</span>
+            <span>{info2}</span>
+        </div>
     )
 }

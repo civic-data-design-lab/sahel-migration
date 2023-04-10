@@ -8,12 +8,20 @@ import DataTabToggle from '../components/dataTabToggle';
 import DataTab from '../components/dataTab'
 const inter = Inter({ subsets: ['latin'] });
 import { useAppContext } from '../context/journeys';
+import JourneyNav from '../components/journeyNav';
+import { createContext, useState } from 'react';
 
 
+export const SectionContext = createContext({
+  currentSection: null,
+  setSection: (() => { }),
+})
 
 
 export default function Home() {
   const journeys = useAppContext()
+  const [currentSection, setSection] = useState(null)
+  const sectionValue = { currentSection, setSection }
   return (
     <>
       <Head>
@@ -23,10 +31,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Menu journeys={journeys} />
-        {/* <h1>HOME</h1> */}
-        <MainMap />
-        {/* <MapBox /> */}
+        <SectionContext.Provider value={sectionValue}>
+
+          <Menu journeys={journeys} />
+          {/* <h1>HOME</h1> */}
+          <MainMap />
+          {/* <MapBox /> */}
+          <JourneyNav journeys={journeys} />
+        </SectionContext.Provider>
+
       </main>
     </>
   );
