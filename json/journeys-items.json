@@ -42,7 +42,7 @@
           {
             "id": 1,
             "body": "20 percent of migrants concerned about personal safety 14 percent of migrants had issue with shelter 18 percent of migrants affected by food insecurity .",
-            "posX": 200,
+            "posX": 100,
             "posY": 0,
             "scrollStart": 0,
             "scrollEnd": 0.10
@@ -50,7 +50,7 @@
           {
             "id": 2,
             "body": "Many migrants hire smugglers to help along the journey. The decisions they make in regards to smuggling impact their levels of vulnerability.",
-            "posX": 120,
+            "posX": -50,
             "posY": 50,
             "scrollStart": 0.12,
             "scrollEnd": 0.36
@@ -59,33 +59,25 @@
             "id": 3,
             "body": "In organized smuggling, the whole journey is organized and migrants are accompanied for most of the journey",
             "posX": 1000,
-            "posY": 300,
+            "posY": 320,
             "scrollStart": 0.35,
             "scrollEnd": 0.50
           },
           {
             "id": 4,
             "body": "In step-by-step smuggling, migrants mostly travel on their own and only use a smuggler for certain segments of the journey, like crossing a border or the desert.",
-            "posX": 250,
-            "posY": 80,
+            "posX": 200,
+            "posY": 0,
             "scrollStart": 0.5,
-            "scrollEnd": 0.9
+            "scrollEnd": 0.7
           },
           {
             "id": 5,
             "body": "Migrants heading to Libya through the Central Mediterranean route typically originate from the Economic Community of West African States (ECOWAS), and carry passports which allow them to pass through most country borders along the way without a visa. ",
-            "posX": 50,
+            "posX": 0,
             "posY": 0,
-            "scrollStart": 0.80,
+            "scrollStart": 0.75,
             "scrollEnd": 1
-          },
-          {
-            "id": 6,
-            "body": "",
-            "posX": 300,
-            "posY": 0,
-            "scrollStart": 1.0,
-            "scrollEnd": 1.2
           }
         ]
       },
@@ -101,31 +93,23 @@
             "posX": 400,
             "posY": 450,
             "scrollStart": 0,
-            "scrollEnd": 0.10
+            "scrollEnd": 0.30
           },
           {
             "id": 2,
             "body": "Migrants’ cannot use their ECOWAS passports at the Libya border, so they need to locate smugglers in Agadez to help them cross into Libya.",
             "posX": 800,
             "posY": 400,
-            "scrollStart": 0.12,
-            "scrollEnd": 0.36
+            "scrollStart": 0.2,
+            "scrollEnd": 0.6
           },
           {
             "id": 3,
             "body": "In Agadez, migrants must remain hidden in crowded small houses with many other migrants in the outskirts of the city, as they await smuggler transport to Libya.",
             "posX": 1400,
             "posY": 450,
-            "scrollStart": 0.35,
-            "scrollEnd": 0.50
-          },
-          {
-            "id": 4,
-            "body": "",
-            "posX": 2200,
-            "posY": 400,
-            "scrollStart": 0.5,
-            "scrollEnd": 0.9
+            "scrollStart": 0.7,
+            "scrollEnd": 1
           }
         ]
       },
@@ -197,31 +181,31 @@
             "posX": 100,
             "posY": 50,
             "scrollStart": 0,
-            "scrollEnd": 0.10
+            "scrollEnd": 0.2
           },
           {
             "id": 2,
-            "body": "Ethnic militia groups have control over northern Niger and southern Libya–including the migrant smuggling economy and security checkpoints",
+            "body": "Since the fall of Gaddafi in 2011, ethnic militia groups have control over northern Niger and southern Libya–including the migrant smuggling economy and security checkpoints. These groups are constantly vying for control of the border areas--which means migrants must adapt to constantly changing smuggling dynamics",
             "posX": 0,
             "posY": 0,
-            "scrollStart": 0.12,
-            "scrollEnd": 0.36
+            "scrollStart": 0.25,
+            "scrollEnd": 0.4
           },
           {
             "id": 3,
             "body": "In Libya, many migrants face detention by the DCIM. In detention centers, migrants are often subject to harsh living conditions, physical violence, and death.",
             "posX": 250,
             "posY": 80,
-            "scrollStart": 0.35,
-            "scrollEnd": 0.50
+            "scrollStart": 0.5,
+            "scrollEnd": 0.75
           },
           {
             "id": 4,
-            "body": "",
+            "body": "After crossing into Libya, smugglers place migrants in holding locations in border towns like Qatrun where they are often subject to extortion.",
             "posX": 50,
             "posY": 50,
-            "scrollStart": 0.5,
-            "scrollEnd": 0.9
+            "scrollStart": 0.8,
+            "scrollEnd": 1
           }
         ]
       },
@@ -230,14 +214,80 @@
         "title": " Passing Through Sabha",
         "body": "Sabha is one of the first major cities migrants pass through after arriving in Libya. Most migrants use Sabha as a transit point, rather than a place to settle.",
         "imageUrl": "/images/journeys/6-Transit Hub Sabha.svg",
-        "entourages": []
+        "entourages": [
+          {
+            "id": 1,
+            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "posX": 100,
+            "posY": 200,
+            "scrollStart": 0,
+            "scrollEnd": 0.2
+          },
+          {
+            "id": 2,
+            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "posX": 50,
+            "posY": 0,
+            "scrollStart": 0.25,
+            "scrollEnd": 0.45
+          },
+          {
+            "id": 3,
+            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "posX": 100,
+            "posY": 50,
+            "scrollStart": 0.5,
+            "scrollEnd": 0.7
+          },
+          {
+            "id": 4,
+            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "posX": 100,
+            "posY": 0,
+            "scrollStart": 0.75,
+            "scrollEnd": 1
+          }
+        ]
       },
       {
         "id": 7,
         "title": "Reaching Tripoli",
         "body": "While Tripoli serves as a disembarkation point for migrants taking the sea route to Europe, it is also a place where many migrants choose to settle.",
         "imageUrl": "/images/journeys/7-Transit Hub Tripoli.svg",
-        "entourages": []
+        "entourages": [
+          {
+            "id": 1,
+            "body": "Tripoli serves more as a place of resettlement for migrants compared to Sabha. 31 percent of migrants in Tripoli consider it to be their final destination.",
+            "posX": 100,
+            "posY": 0,
+            "scrollStart": 0,
+            "scrollEnd": 0.2
+          },
+          {
+            "id": 2,
+            "body": "As a place of resettlement, economic conditions take greater importance in Tripoli. The risks migrants in Tripoli most commonly face are low income (66%), lack of employment (60%), and food insecurity (22%)",
+            "posX": 200,
+            "posY": 50,
+            "scrollStart": 0.25,
+            "scrollEnd": 0.45
+          },
+          {
+            "id": 3,
+            "body": "Employment increases the likelihood of vulnerability for migrants. Contributing to higher employment-related vulnerability are factors such as informal work contracts, and lack of access to digital banking services.",
+            "posX": 100,
+            "posY": 50,
+            "scrollStart": 0.5,
+            "scrollEnd": 0.7
+          },
+          {
+            "id": 4,
+            "body": "Departures from Libya: Some migrants attempt to make the sea crossing from Libya to Europe. This part of the journey can be very dangerous–and many migrants die at sea. Migrants intercepted by the Libyan coast guard are often sent to detention centers in Libya.",
+            "posX": 0,
+            "posY": 0,
+            "scrollStart": 0.75,
+            "scrollEnd": 1
+          }
+        ]
       },
       {
         "id": 8,
