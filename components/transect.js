@@ -3,7 +3,6 @@ import * as d3 from "d3";
 import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph from "./streamgraph";
 
-
 export default function Transect ({risk}) {
   const { width, height } = useWindowSize();
   // const width = 600 - margin.left - margin.right;
@@ -17,15 +16,26 @@ export default function Transect ({risk}) {
     "heat": "#3F231B",
   }
 
+  const title = {
+    "4mi": "4mi",
+    "ACLED": "ACLED",
+    "food security": "Food Security",
+    "smuggler": "Smuggler Need",
+    "remoteness": "Remoteness",
+    "heat": "Heat",
+  }
+
   const svgRef = useRef(null);
 
   function drawLayers(svgRef,width,height) {
     // const svg = d3.select(svgRef.current);
 
     const svg = d3.select(svgRef.current)
-
     d3.csv("/data/transect_combined.csv").then(function (data) {
+      let yLabel = ""
       if (risk !== "all") {
+        yLabel = title[risk]
+        height = height * .37
         for (const color in colors) {
           if (color !== risk) {
             colors[color] = "white"
@@ -36,7 +46,7 @@ export default function Transect ({risk}) {
         x: d => d.distance,
         y: d => d.value,
         z: d => d.risk,
-        // yLabel: "Risk",
+        yLabel: yLabel,
         width: width,
         height: height,
         svg: svg,

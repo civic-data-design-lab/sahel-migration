@@ -4,7 +4,6 @@ import {fetcher} from "../hooks/useFetch";
 import Transect from "./transect";
 import {motion, AnimatePresence} from "framer-motion";
 import DataTabToggle from "./dataTabToggle";
-import Accordion from "./accordion";
 
 export default function TransectPlots ({isOpen, toggleOpen}) {
   const contentRef = useRef(null);
@@ -42,8 +41,19 @@ export default function TransectPlots ({isOpen, toggleOpen}) {
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}} >
         <DataTabToggle isOpen={isOpen} toggleOpen={toggleOpen} />
       </div>
-      <motion.div>
-        <Transect risk={"all"}/>
+      <motion.div
+        style={{ height: !isOpen ? "auto" : 0, opacity: !isOpen ? 1 : 0, pointerEvents: "none" }}
+        animate={{ height: !isOpen ? "auto" : 0, opacity: !isOpen ? 1 : 0}}
+        transition={{ duration: 0.2 }}>
+        {<Transect risk={"all"}/>}
+      </motion.div>
+      {/*<AnimatePresence*/}
+      {/*>*/}
+      {/*  {!isOpen &&*/}
+      {/*    <Transect risk={"all"}/>*/}
+      {/*  }*/}
+      {/*</AnimatePresence>*/}
+      <motion.div style={{paddingTop:"5rem"}}>
         {TransectLayers}
       </motion.div>
     </div>

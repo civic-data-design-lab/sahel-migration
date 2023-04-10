@@ -66,7 +66,8 @@ export default function Streamgraph(data, {
   const area = d3.area()
     .x(({i}) => xScale(X[i]))
     .y0(([y1]) => yScale(y1))
-    .y1(([, y2]) => yScale(y2));
+    .y1(([, y2]) => yScale(y2))
+    // .curve(d3.curveBasis);
 
   svg
     .attr("width", width)
@@ -79,7 +80,7 @@ export default function Streamgraph(data, {
     .attr("fill", ([{i}]) => colors[Z[i]])
     .attr("d", area)
     .append("title")
-    .text(([{i}]) => Z[i]);
+    .text(([{i}]) => Z[i])
 
   svg.append("g")
     .attr("transform", `translate(0,${height - marginBottom})`)
@@ -87,12 +88,12 @@ export default function Streamgraph(data, {
     .call(g => g.select(".domain").remove());
 
   svg.append("g")
-    .attr("transform", `translate(${marginLeft},0)`)
+    .attr("transform", `translate(${marginLeft+20},0)`)
     .call(g => g.append("text")
       .attr("x", -marginLeft)
-      .attr("y", 10)
-      .attr("font-family", "sans-serif")
-      .attr("font-size", 10)
+      .attr("y", 20)
+      .attr("font-weight", "bold")
+      .attr("font-size", 18)
       .text(yLabel));
 
 }
