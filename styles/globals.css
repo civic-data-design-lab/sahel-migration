@@ -31,7 +31,7 @@
 
 .header-3 {
   font-family: var(--primary-font-fam);
-  font-size: clamp(0.75rem, 2.5vw, 1.5rem);
+  font-size: clamp(0.75rem, 2vw, 1.5rem);
   line-height: clamp(1.5rem, 2.5vw, 2.33rem);
   font-weight: bold;
 }
@@ -60,6 +60,7 @@
 button {
   font-family: var(--primary-font-fam);
 }
+
 * {
   box-sizing: border-box;
   padding: 0;
