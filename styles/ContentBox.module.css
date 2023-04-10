@@ -75,11 +75,11 @@
     .container {
         --line-height: 20px;
         /* backdrop-filter: blur(10px); */
-        background-color: #AEB3C4;
+        /* background-color: #AEB3C4; */
 
     }
 
-    .paragraph {
+    /* .paragraph {
         justify-content: flex-start;
-    }
+    } */
 }

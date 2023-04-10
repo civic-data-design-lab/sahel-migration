@@ -33,14 +33,30 @@ export default function MapBox({ activeSource, risks }) {
     const { pathsObject } = routeObject()
     const { currentSection, setSection } = useContext(SectionContext)
 
+    function zoomFunction(number) {
+        const x = number / 100
+        // return 3.8 + 0.4 * Math.tanh((x - 8.5) / 1.5) + 0.3 * Math.tanh((x - 12.5) / 2.5) + 0.3 * Math.exp(-((x - 19) ** 2) / 2)
+        // return -(1 / (2.5 * (Math.E ** ((number / 100 - 7) ** 2)))) + 3.7
+        if (x <= 6) return 3.5
+        if (6 <= x <= 19) return 3.26923076923 + 0.038461538461 * x
+        return 4
+    }
+    function latFunction(number) {
+        return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
+    }
+
+    function lngFunction(number) {
+        const exponent = -(number * 2.5 / 100 - 20)
+        return 5 - (15 / (1 + Math.E ** exponent))
+    }
 
 
     const mapRef = useRef(null)
     const persepctive = useMemo(() => {
-        if (width > 1000) return { ...desktopPerspective }
-        if (600 < width < 1000) return { ...desktopPerspective, lat: 37, zoom: 2.9 }
-        // return { ...desktopPerspective, zoom: 1, lat: -10, }
-    })
+        return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) }
+    }, [width])
+
+    console.log(`width: ${width}, zoom: ${persepctive.zoom}`,)
 
     function renderMap(activeSource, styles) {
         const layerInfo = styles.layers.find((layer) => activeSource === layer.id)
@@ -151,6 +167,8 @@ export default function MapBox({ activeSource, risks }) {
                         latitude: persepctive.lat,
                         zoom: persepctive.zoom
                     }}
+                    latitude={persepctive.lat}
+                    longitude={persepctive.lng}
                     style={{
                         width: '100%', height: '100%'
                     }}
@@ -170,9 +188,6 @@ export default function MapBox({ activeSource, risks }) {
                         <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
                     )}
                     {(selectedCountry && activeSource === 'extremeHeat') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
-                    )}
-                    {(selectedCountry && activeSource === 'selectRoute') && (
                         <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
                     )}
                     {renderSource(activeSource, risks)}

@@ -11,6 +11,8 @@ import { animated, useSpring } from "react-spring";
 import Menu from "../../components/menu";
 import MapJourney from "../../components/mapJouney";
 
+import ScrollIndicator from "../../components/scrollIndicator";
+
 
 
 const mapFetcher = (url) => fetch(url).then((res) => res.json());
@@ -75,6 +77,7 @@ export default function MainMap() {
                         />
                     </animated.div>
                 </div>
+                <ScrollIndicator />
             </div>
             <MapJourney
                 explorable={routeClicked}

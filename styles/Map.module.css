@@ -27,7 +27,7 @@
     align-items: center;
 }
 
-@media (max-width:1000px) {
+@media (max-width:600px) {
 
     .mapHolder {
         width: 100vw;
@@ -56,6 +56,13 @@
     position: fixed;
     height: 65%;
     /* z-index: -1; */
+}
+
+@media (max-width: 800px) {
+    .contentBox {
+        height: 45%;
+    }
+
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -89,7 +96,7 @@
     font-size: 0.6rem;
 }
 
-@media (max-width:1000px) {
+@media (max-width:600px) {
 
 
     .mapContainer {
@@ -108,7 +115,7 @@
     }
 }
 
-@media (max-width:1000px) {
+@media (max-width:600px) {
 
     .mapContainer {
         position: absolute;
