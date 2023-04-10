@@ -158,6 +158,7 @@ export default function MapBox({ activeSource, risks }) {
                     zoom={persepctive.zoom}
                     mapStyle={mapStyle}
                     ref={mapRef}
+                    doubleClickZoom={false}
                     onMouseMove={onHover}
                     dragPan={false}
                     scrollZoom={false}
@@ -166,6 +167,12 @@ export default function MapBox({ activeSource, risks }) {
                         <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
                     )}
                     {(selectedCountry && activeSource === 'overallRoutes') && (
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
+                    )}
+                    {(selectedCountry && activeSource === 'extremeHeat') && (
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
+                    )}
+                    {(selectedCountry && activeSource === 'selectRoute') && (
                         <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
                     )}
                     {renderSource(activeSource, risks)}
@@ -184,6 +191,20 @@ export default function MapBox({ activeSource, risks }) {
                         </>
                     )}
                     {activeSource === 'overallRoutes' && (
+                        <>
+                            <Layer {...highlightLayer} filter={filter} />
+                            <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
+                            <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
+                        </>
+                    )}
+                    {activeSource === 'extremeHeat' && (
+                        <>
+                            <Layer {...highlightLayer} filter={filter} />
+                            <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
+                            <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
+                        </>
+                    )}
+                    {activeSource === 'selectRoute' && (
                         <>
                             <Layer {...highlightLayer} filter={filter} />
                             <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
