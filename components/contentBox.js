@@ -120,7 +120,6 @@ export default function ContentBox({ dataItems, mapToggle }) {
 
 
             </div >
-            <ScrollButton currentView={currentView} onClick={scrollUp} />
             <RouteMenu isOpen={isOpen} mapToggle={handleMapAnimation} />
 
 

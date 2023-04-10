@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ['latin'] });
 import { useAppContext } from '../context/journeys';
 import JourneyNav from '../components/journeyNav';
 import { createContext, useState } from 'react';
+import useWindowSize from '../hooks/useWindowSize';
 
 
 export const SectionContext = createContext({
@@ -22,6 +23,7 @@ export default function Home() {
   const journeys = useAppContext()
   const [currentSection, setSection] = useState(null)
   const sectionValue = { currentSection, setSection }
+  const { width } = useWindowSize()
   return (
     <>
       <Head>
@@ -37,7 +39,7 @@ export default function Home() {
           {/* <h1>HOME</h1> */}
           <MainMap />
           {/* <MapBox /> */}
-          <JourneyNav journeys={journeys} />
+          {width > 600 && <JourneyNav journeys={journeys} />}
         </SectionContext.Provider>
 
       </main>
