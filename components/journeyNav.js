@@ -67,7 +67,6 @@ export default function JourneyNav({ journeys }) {
                     >
                     </img>
                     <Link
-                        // key={`${journey.id}${uuidv4}`}
                         href={'/journeys/' + journey.id}
                         className={styles.journeyLink}
                     >{journey.title}
