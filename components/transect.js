@@ -35,12 +35,9 @@ export default function Transect ({risk}) {
       let yLabel = ""
       if (risk !== "all") {
         yLabel = title[risk]
+        data = data.filter(d => d.risk === risk)
         height = height * .37
-        for (const color in colors) {
-          if (color !== risk) {
-            colors[color] = "white"
-          }
-        }
+
       }
       Streamgraph(data, {
         x: d => d.distance,
