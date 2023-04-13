@@ -30,9 +30,12 @@ export default function Streamgraph(data, {
   svg,
   margin
 } = {}) {
+  // interpolate curve values
+  const interpolator = d3.interpolateBasis(d3.map(data, y));
   // Compute values.
   const X = d3.map(data, x);
   const Y = d3.map(data, y);
+//   const Y = d3.quantize(interpolator, data.length).map(d => +d.toFixed(3));
   const Z = d3.map(data, z);
   // Compute default x- and z-domains, and unique the z-domain.
   if (xDomain === undefined) xDomain = [X[0],X[X.length - 1]];
@@ -67,7 +70,7 @@ export default function Streamgraph(data, {
     .x(({i}) => xScale(X[i]))
     .y0(([y1]) => yScale(y1))
     .y1(([, y2]) => yScale(y2))
-    // .curve(d3.curveBasis);
+    .curve(d3.curveBasis);
 
   svg
     .attr("width", width)
