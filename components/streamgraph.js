@@ -4,31 +4,24 @@
 
 import * as d3 from "d3";
 
-const risks = [
-    {"risk": "4mi", "label": "Reported Violence", "color": "#5D3435"},
-    {"risk": "acled", "label": "Conflict Events", "color": "#985946"},
-    {"risk": "food", "label": "Food Insecurity", "color": "#9A735A"},
-    {"risk": "smuggler", "label": "Smuggler Assistance", "color": "#F48532"},
-    {"risk": "remoteness", "label": "Remoteness", "color": "#624B44"},
-    {"risk": "heat", "label": "Extreme Heat", "color": "#3F231B"}
-];
-
 export default function Streamgraph(data, {
   x = ([x]) => x, // given d in data, returns the (ordinal) x-value
   y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
   z = () => 1, // given d in data, returns the (categorical) z-value
-  marginTop = 0, // top margin, in pixels
-  marginRight = 20, // right margin, in pixels
-  marginBottom = 20, // bottom margin, in pixels
-  marginLeft = 20, // left margin, in pixels
-  width = 640, // outer width, in pixels
-  height = 400, // outer height, in pixels
+  width,
+  height,
+  margin = {
+    "top": 0,
+    "right": 20,
+    "left": 20,
+    "bottom": 20
+  },
   xType = d3.scaleLinear, // type of x-scale
   xDomain, // [xmin, xmax]
-  xRange = [marginLeft, width - marginRight], // [left, right]
+  xRange = [margin.left, width - margin.right], // [left, right]
   yType = d3.scaleLinear, // type of y-scale
   yDomain, // [ymin, ymax]
-  yRange = [height - marginBottom, marginTop], // [bottom, top]
+  yRange = [height - margin.right, margin.top], // [bottom, top]
   zDomain, // array of z-values
   offset = d3.stackOffsetNone, // stack offset method
   order = d3.stackOrderNone, // stack order method
@@ -36,7 +29,7 @@ export default function Streamgraph(data, {
   yFormat, // a format specifier string for the y-axis
   yLabel, // a label for the y-axis
   svg,
-  margin
+  risks
 } = {}) {
 
   // Compute values.
@@ -77,32 +70,36 @@ export default function Streamgraph(data, {
     .y1(([, y2]) => yScale(y2))
     .curve(d3.curveBasis);
 
+  // define svg
   svg
-    .attr("width", width)
-    .attr("height", height)
+    .attr("id", "viz-transect")
+    .attr("viewBox", [0, 0, width, height]) // [x-pos, y-pos, width, height]
 
+  // define path
   svg.append("g")
+        .attr("class", "combined-risk")
     .selectAll("path")
     .data(series)
     .join("path")
-    .attr("fill", ([{i}]) => risks.find(item => item.risk == Z[i]).color)
-    .attr("d", area)
+        .attr("id", ([{i}]) => Z[i])
+        .attr("fill", ([{i}]) => risks[Z[i]].color)
+        .attr("d", area)
     .append("title")
-    .text(([{i}]) => risks.find(item => item.risk == Z[i]).label)
+        .text(([{i}]) => risks[Z[i]].label)
 
+// define x-axis
   svg.append("g")
-    .attr("transform", `translate(0,${height - marginBottom})`)
+    .attr("transform", `translate(0,${height - margin.right})`)
     .call(xAxis)
     .call(g => g.select(".domain").remove());
 
+  // labels for x-axis
   svg.append("g")
-    .attr("transform", `translate(${marginLeft+20},0)`)
+    .attr("transform", `translate(${margin.left+20},0)`)
     .call(g => g.append("text")
-      .attr("x", -marginLeft)
+      .attr("x", -margin.left)
       .attr("y", 20)
       .attr("font-weight", "bold")
       .attr("font-size", 18)
       .text(yLabel));
-
 }
-
