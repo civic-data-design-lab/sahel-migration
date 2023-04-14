@@ -3,29 +3,48 @@ import * as d3 from "d3";
 import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph from "./streamgraph";
 
-// declared in both steamgraph.js and transect.js, where should this constant be declared globally?
-const risks = [
-    {"risk": "4mi", "label": "Reported Violence", "color": "#5D3435"},
-    {"risk": "acled", "label": "Conflict Events", "color": "#985946"},
-    {"risk": "food", "label": "Food Insecurity", "color": "#9A735A"},
-    {"risk": "smuggler", "label": "Smuggler Assistance", "color": "#F48532"},
-    {"risk": "remoteness", "label": "Remoteness", "color": "#624B44"},
-    {"risk": "heat", "label": "Extreme Heat", "color": "#5D3435"}
-];
-
-let riskWeight = {
-    "4mi": 100/6,
-    "acled": 100/6,
-    "food": 100/6,
-    "smuggler": 100/6,
-    "remoteness": 100/6,
-    "heat": 100/6
-};
-
 export default function Transect ({risk}) {
   const { width, height } = useWindowSize();
-  // const width = 600 - margin.left - margin.right;
-  // const height = 400 - margin.top - margin.bottom;
+  
+  let risks = {
+    "4mi": {
+        "index": 0,
+        "label": "Reported Violence", 
+        "color": "#5D3435",
+        "weight": 100/6
+    },
+    "acled": {
+        "index": 1,
+        "label": "Conflict Events", 
+        "color": "#985946",
+        "weight": 100/6
+    },
+    "food": {
+        "index": 2,
+        "label": "Food Insecurity", 
+        "color": "#9A735A",
+        "weight": 100/6
+    },
+    "smuggler": {
+        "index": 3,
+        "label": "Smuggler Assistance", 
+        "color": "#F48532",
+        "weight": 100/6
+    },
+    "remoteness": {
+        "index": 4,
+        "label": "Remoteness", 
+        "color": "#624B44",
+        "weight": 100/6
+    },
+    "heat": {
+        "index": 5,
+        "label": "Extreme Heat", 
+        "color": "#3F231B",
+        "weight": 100/6
+    }
+  };
+
   const colors = {
     "4mi": "#5D3435",
     "ACLED": "#985946",
@@ -57,15 +76,18 @@ export default function Transect ({risk}) {
     //   map data to tidy data format for stacked area chart
       let dataStackedArea = []
       for (let i=0; i < data.length; i++) {
-          for (let r=0; r < risks.length; r++) {
+        let riskList = Object.keys(risks);
+          for (let r=0; r < riskList.length; r++) {
               let item = {};
-              let risk = risks[r].risk;
+              let risk = riskList[r];
+              let weight = risks[risk].weight;
 
             //   filter data by every 50 data points (to achieve curved look)
               if (i !== data.length-1 && i % 50 == 0) {
                 item.distance = +data[i].distance;
                 item.risk = risk;
-                item.value = +data[i]["risk_" + risk] * riskWeight[risk];
+                // item.value = +data[i]["risk_" + risk];
+                item.value = +data[i]["risk_" + risk] * weight;
                 dataStackedArea.push(item)
               }
               
@@ -86,7 +108,8 @@ export default function Transect ({risk}) {
         width: width,
         height: height,
         svg: svg,
-        colors: colors
+        colors: colors,
+        risks: risks
       })
     })
   }
@@ -100,7 +123,8 @@ export default function Transect ({risk}) {
     <div style={{marginTop:"0rem"}}>
       {/*hello*/}
       {/*{data.map(d=> d.location_start)}*/}
-      <svg ref={svgRef} width={width} height={height}  style={{marginTop:"10px"}}/>
+      {/* <svg ref={svgRef} width={width} height={height}  style={{marginTop:"10px"}}/> */}
+      <svg ref={svgRef} />
     </div>
   )
 }
