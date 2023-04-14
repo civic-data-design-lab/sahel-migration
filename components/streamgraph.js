@@ -4,6 +4,15 @@
 
 import * as d3 from "d3";
 
+const risks = [
+    {"risk": "4mi", "label": "Reported Violence", "color": "#5D3435"},
+    {"risk": "acled", "label": "Conflict Events", "color": "#985946"},
+    {"risk": "food", "label": "Food Insecurity", "color": "#9A735A"},
+    {"risk": "smuggler", "label": "Smuggler Assistance", "color": "#F48532"},
+    {"risk": "remoteness", "label": "Remoteness", "color": "#624B44"},
+    {"risk": "heat", "label": "Extreme Heat", "color": "#3F231B"}
+];
+
 export default function Streamgraph(data, {
   x = ([x]) => x, // given d in data, returns the (ordinal) x-value
   y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
@@ -26,16 +35,13 @@ export default function Streamgraph(data, {
   xFormat, // a format specifier string for the x-axis
   yFormat, // a format specifier string for the y-axis
   yLabel, // a label for the y-axis
-  colors = d3.schemeSet1,
   svg,
   margin
 } = {}) {
-  // interpolate curve values
-  const interpolator = d3.interpolateBasis(d3.map(data, y));
+
   // Compute values.
   const X = d3.map(data, x);
   const Y = d3.map(data, y);
-//   const Y = d3.quantize(interpolator, data.length).map(d => +d.toFixed(3));
   const Z = d3.map(data, z);
   // Compute default x- and z-domains, and unique the z-domain.
   if (xDomain === undefined) xDomain = [X[0],X[X.length - 1]];
@@ -63,7 +69,6 @@ export default function Streamgraph(data, {
   // Construct scales and axes.
   const xScale = xType(xDomain, xRange);
   const yScale = yType(yDomain, yRange);
-  // const color = d3.scaleOrdinal(zDomain, colors);
 
   const xAxis = d3.axisBottom(xScale).ticks(width / 100, xFormat).tickSizeOuter(0);
   const area = d3.area()
@@ -80,10 +85,10 @@ export default function Streamgraph(data, {
     .selectAll("path")
     .data(series)
     .join("path")
-    .attr("fill", ([{i}]) => colors[Z[i]])
+    .attr("fill", ([{i}]) => risks.find(item => item.risk == Z[i]).color)
     .attr("d", area)
     .append("title")
-    .text(([{i}]) => Z[i])
+    .text(([{i}]) => risks.find(item => item.risk == Z[i]).label)
 
   svg.append("g")
     .attr("transform", `translate(0,${height - marginBottom})`)

@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph from "./streamgraph";
 
+// declared in both steamgraph.js and transect.js, where should this constant be declared globally?
 const risks = [
     {"risk": "4mi", "label": "Reported Violence", "color": "#5D3435"},
     {"risk": "acled", "label": "Conflict Events", "color": "#985946"},
@@ -10,7 +11,7 @@ const risks = [
     {"risk": "smuggler", "label": "Smuggler Assistance", "color": "#F48532"},
     {"risk": "remoteness", "label": "Remoteness", "color": "#624B44"},
     {"risk": "heat", "label": "Extreme Heat", "color": "#5D3435"}
-]
+];
 
 let riskWeight = {
     "4mi": 100/6,
@@ -19,7 +20,7 @@ let riskWeight = {
     "smuggler": 100/6,
     "remoteness": 100/6,
     "heat": 100/6
-}
+};
 
 export default function Transect ({risk}) {
   const { width, height } = useWindowSize();
