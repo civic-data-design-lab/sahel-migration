@@ -13,9 +13,7 @@ export default async function handler(req, res) {
 
   switch (req.query.id) {
     case 'risks':
-      obj = JSON.parse(fileContents).features
-      obj = obj.map(d => d.properties)
-      console.log("RISK",obj)
+      obj = JSON.parse(fileContents)
       break;
     // case 'borders':
     //   obj = JSON.parse(fileContents).borders

@@ -2,44 +2,45 @@ import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
 import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph from "./streamgraph";
+import {fetcher} from "../hooks/useFetch";
+import useSWR from "swr";
 
-export default function Transect ({risk}) {
+export default function Transect ({risk, data}) {
   const { width, height } = useWindowSize();
-  
   let risks = {
     "4mi": {
         "index": 0,
-        "label": "Reported Violence", 
+        "label": "Reported Violence",
         "color": "#5D3435",
         "weight": 100/6
     },
     "acled": {
         "index": 1,
-        "label": "Conflict Events", 
+        "label": "Conflict Events",
         "color": "#985946",
         "weight": 100/6
     },
     "food": {
         "index": 2,
-        "label": "Food Insecurity", 
+        "label": "Food Insecurity",
         "color": "#9A735A",
         "weight": 100/6
     },
     "smuggler": {
         "index": 3,
-        "label": "Smuggler Assistance", 
+        "label": "Smuggler Assistance",
         "color": "#F48532",
         "weight": 100/6
     },
     "remoteness": {
         "index": 4,
-        "label": "Remoteness", 
+        "label": "Remoteness",
         "color": "#624B44",
         "weight": 100/6
     },
     "heat": {
         "index": 5,
-        "label": "Extreme Heat", 
+        "label": "Extreme Heat",
         "color": "#3F231B",
         "weight": 100/6
     }
@@ -70,55 +71,34 @@ export default function Transect ({risk}) {
 
     const svg = d3.select(svgRef.current)
     // d3.csv("/data/transect_combined.csv").then(function (data) {
-    d3.csv("/data/transectsegment.csv").then(function (data) {
-      let yLabel = "";
+    const dataStackedArea  = data.filter(d => d.index % 50 === 0)
+    let yLabel = ""
 
-    //   map data to tidy data format for stacked area chart
-      let dataStackedArea = []
-      for (let i=0; i < data.length; i++) {
-        let riskList = Object.keys(risks);
-          for (let r=0; r < riskList.length; r++) {
-              let item = {};
-              let risk = riskList[r];
-              let weight = risks[risk].weight;
+    if (risk !== "all") {
+      yLabel = title[risk]
+      data = data.filter(d => d.risk === risk)
+      height = height * .37
 
-            //   filter data by every 50 data points (to achieve curved look)
-              if (i !== data.length-1 && i % 50 == 0) {
-                item.distance = +data[i].distance;
-                item.risk = risk;
-                // item.value = +data[i]["risk_" + risk];
-                item.value = +data[i]["risk_" + risk] * weight;
-                dataStackedArea.push(item)
-              }
-              
-          }
-      }
-      if (risk !== "all") {
-        yLabel = title[risk]
-        data = data.filter(d => d.risk === risk)
-        height = height * .37
-
-      }
-    //   Streamgraph(data, {
+    }
     Streamgraph(dataStackedArea, {
-        x: d => d.distance,
-        y: d => d.value,
-        z: d => d.risk,
-        yLabel: yLabel,
-        width: width,
-        height: height,
-        svg: svg,
-        colors: colors,
-        risks: risks
-      })
+      x: d => d.distance,
+      y: d => d.value,
+      z: d => d.risk,
+      yLabel: yLabel,
+      width: width,
+      height: height,
+      svg: svg,
+      colors: colors,
+      risks: risks
     })
   }
 
   useEffect(() => {
+    console.log("DATA:", data)
+    if (!data) return;
     drawLayers(svgRef,width,height*.22, risk);
 
-  }, [width, height, svgRef]);
-
+  }, [data, svgRef]);
   return (
     <div style={{marginTop:"0rem"}}>
       {/*hello*/}
