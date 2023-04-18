@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const jsonDirectory = path.join(process.cwd(), 'json');
   //Read the json data file data.json
   const fileContents = await fs.readFile(
-    jsonDirectory + '/transect.json',
+    jsonDirectory + '/transect-small.json',
     'utf8',
   );
   let obj= null
@@ -14,7 +14,6 @@ export default async function handler(req, res) {
   switch (req.query.id) {
     case 'risks':
       obj = JSON.parse(fileContents)
-      console.log("RISKS", obj)
       break;
     // case 'borders':
     //   obj = JSON.parse(fileContents).borders
