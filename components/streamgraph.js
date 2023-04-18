@@ -3,6 +3,52 @@
 // https://observablehq.com/@d3/streamgraph
 
 import * as d3 from "d3";
+const colors = {
+  "4mi": "#5D3435",
+  "ACLED": "#985946",
+  "food security": "#9A735A",
+  "smuggler": "#F48532",
+  "remoteness": "#624B44",
+  "heat": "#3F231B",
+}
+const title = {
+  "4mi": "4mi",
+  "ACLED": "ACLED",
+  "food security": "Food Security",
+  "smuggler": "Smuggler Need",
+  "remoteness": "Remoteness",
+  "heat": "Heat",
+}
+export function PlotTransectLayers(data, {
+  width,
+  height,
+  yLabel, // a label for the y-axis
+  svg,
+  risks,
+} = {}) {
+
+  svg
+    .attr("id", "viz-transect-layers")
+    .attr("viewBox", [0, 0, width, .6*height])
+    .style("pointer-events", "all")
+  Object.keys(risks).forEach((risk) => {
+    yLabel = title[risk]
+    let dataStackedArea  = data.filter(d => d.risk === risk)
+    Streamgraph(dataStackedArea, {
+      x: d => d.distance,
+      y: d => d.value,
+      z: d => d.risk,
+      yLabel: yLabel,
+      width: width,
+      height: .08*height,
+      svg: svg,
+      colors: colors,
+      risks: risks,
+      risk: risk
+    })
+  })
+
+}
 
 export default function Streamgraph(data, {
   x = ([x]) => x, // given d in data, returns the (ordinal) x-value
@@ -29,7 +75,8 @@ export default function Streamgraph(data, {
   yFormat, // a format specifier string for the y-axis
   yLabel, // a label for the y-axis
   svg,
-  risks
+  risks,
+  risk,
 } = {}) {
 
   // Compute values.
@@ -71,12 +118,14 @@ export default function Streamgraph(data, {
     .curve(d3.curveBasis);
 
   // define svg
-  svg
-    .attr("id", "viz-transect")
+  const plot = svg.append("g")
+    .attr("id", "viz-transect-"+risk)
+    .attr("class", "viz-transect")
     .attr("viewBox", [0, 0, width, height]) // [x-pos, y-pos, width, height]
 
+
   // define path
-  svg.append("g")
+  plot.append("g")
         .attr("class", "combined-risk")
     .selectAll("path")
     .data(series)
@@ -86,15 +135,15 @@ export default function Streamgraph(data, {
         .attr("d", area)
     .append("title")
         .text(([{i}]) => risks[Z[i]].label)
-
-// define x-axis
-  svg.append("g")
+    .style("pointer-events", "all")
+  // define x-axis
+  plot.append("g")
     .attr("transform", `translate(0,${height - margin.right})`)
     .call(xAxis)
     .call(g => g.select(".domain").remove());
 
   // labels for x-axis
-  svg.append("g")
+  plot.append("g")
     .attr("transform", `translate(${margin.left+20},0)`)
     .call(g => g.append("text")
       .attr("x", -margin.left)
@@ -102,4 +151,68 @@ export default function Streamgraph(data, {
       .attr("font-weight", "bold")
       .attr("font-size", 18)
       .text(yLabel));
+  if (risk !== "all"){
+    // const graph = d3.select("#viz-transect-"+risk);
+    plot.attr("transform", `translate(0,${100*risks[risk].index})`);
+  }
+
+}
+
+export function DrawTooltip(config) {
+  const {
+    width,
+    height,
+    data,
+    svgRef,
+    tooltipRef,
+    xScale,
+    margin
+  } = config;
+
+  const svg = d3.select(svgRef.current);
+  const tooltip = d3.select(tooltipRef.current);
+
+  // const focus = svg
+  //   .append('g')
+  //   .attr('class', 'focus')
+  //   .style('display', 'none');
+
+
+  const line = svg.append("line")
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .attr("opacity", 0);
+
+  svg
+    .append('rect')
+    .attr('id', 'overlay')
+    .attr('width', width)
+    .attr('height', height)
+    // .attr("zIndex", 10)
+    .style('opacity', 0)
+    .style("pointer-events", "all")
+    .raise()
+    .on('mouseover', () => {
+      // focus.style('display', null);
+    })
+    .on('mouseout',mouseout)
+    .on('mousemove', mousemove);
+
+  function mouseout(event) {
+    line.attr("opacity", 0);
+  }
+  function mousemove(event) {
+
+    const bisect = d3.bisector((d) => d.distance).left;
+    const xPos = d3.pointer(event)[0];
+    const x0 = bisect(data, xScale.invert(xPos));
+    const d0 = data[x0];
+    console.log(d0)
+    line.attr("x1", xPos)
+      .attr("y1", 0)
+      .attr("x2", xPos)
+      .attr("y2", height)
+      .attr("opacity", 1);
+
+  }
 }
