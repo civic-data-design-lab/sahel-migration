@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
 import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph, {DrawTooltip, PlotTransectLayers} from "./streamgraph";
+import styles from '../styles/TransectTooltip.module.css'
 
 export default function Transect ({isOpen}) {
   const { width, height } = useWindowSize();
@@ -96,7 +97,6 @@ export default function Transect ({isOpen}) {
             tooltipRef: tooltipRef,
             xScale: xScale,
           })
-
         } else {
           svg
             .attr("id", "viz-transect-layers")
@@ -122,7 +122,6 @@ export default function Transect ({isOpen}) {
             svgRef: svgRef,
             tooltipRef: tooltipRef,
             xScale: xScale,
-
           })
         }
       })
@@ -139,7 +138,31 @@ export default function Transect ({isOpen}) {
     <>
       <svg ref={svgRef} />
       {/*<svg ref={tooltipRef} />*/}
+      {/* <div className={styles.transectTooltip}>
+        <h4>Overall Risk
+            <span className="label-data risk-total">152</span>/360
+        </h4>
+        <p>Reported Violence
+            <span className="label-data risk-4mi">12</span>
+        </p>
+        <p>Armed Conflict
+            <span className="label-data risk-acled">0</span>
+        </p>
+        <p>Food Insecurity
+            <span className="label-data risk-food">40</span>
+        </p>
+        <p>Smuggler Assistance
+            <span className="label-data risk-smuggler">0</span>
+        </p>
+        <p>Remoteness
+            <span className="label-data risk-remoteness">20</span>
+        </p>
+        <p>Extreme Heat
+            <span className="label-data risk-heat">80</span>
+        </p>
+        <h4>Migrants Along the Route</h4>
+        <p><span className="migrants-count">100</span> migrants per 10km</p>
+      </div> */}
     </>
-
   )
 }

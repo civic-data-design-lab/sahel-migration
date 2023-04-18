@@ -202,12 +202,11 @@ export function DrawTooltip(config) {
     line.attr("opacity", 0);
   }
   function mousemove(event) {
-
     const bisect = d3.bisector((d) => d.distance).left;
     const xPos = d3.pointer(event)[0];
     const x0 = bisect(data, xScale.invert(xPos));
     const d0 = data[x0];
-    console.log(d0)
+    // console.log(d0)
     line.attr("x1", xPos)
       .attr("y1", 0)
       .attr("x2", xPos)
