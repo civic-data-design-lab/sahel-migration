@@ -5,9 +5,12 @@ import DataTabToggle from "./dataTabToggle";
 import ImageCarousel from "./imageCarousel";
 
 import useWindowSize from "../hooks/useWindowSize";
+import useSWR from "swr";
+import {fetcher} from "../hooks/useFetch";
 
-export default function TransectPlots ({data, isOpen, toggleOpen}) {
+export default function TransectPlots ({ isOpen, toggleOpen}) {
   const contentRef = useRef(null);
+  const { data: data, errorRisks} = useSWR(['/api/journeys/risksdata', 'risks'], fetcher);
   const { width, height } = useWindowSize();
   const containerStyles = {
     overflow: "hidden",
@@ -17,9 +20,8 @@ export default function TransectPlots ({data, isOpen, toggleOpen}) {
 
 
   useEffect( () => {
-    if (!data) return;
   },[contentRef, height, data, width,isOpen])
-
+  if (errorRisks) return <div>Transects not found</div>;
 
 
   return (

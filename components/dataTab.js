@@ -12,7 +12,7 @@ import {fetcher} from "../hooks/useFetch";
 export default function DataTab() {
   const [isOpen, toggleOpen] = useState(false);
   const { width, height } = useWindowSize()
-  const { data: risks, errorRisks} = useSWR(['/api/journeys/risksdata', 'risks'], fetcher);
+
   const handleToggle = () => {
     toggleOpen(!isOpen);
   };
@@ -28,12 +28,12 @@ export default function DataTab() {
     height: isOpen ? height * .9 : height * .25,
     width: width
   });
-  if (errorRisks) return <div>Transects not found</div>;
+
   return (
     <>
       <animated.div style={fullScreenFill} className={styles.screenCover} />
       <animated.div style={fullscreenTab} className={styles.tab}>
-        <TransectPlots isOpen={isOpen} toggleOpen={handleToggle} data={risks}/>
+        <TransectPlots isOpen={isOpen} toggleOpen={handleToggle}/>
       </animated.div>
     </>);
 }
