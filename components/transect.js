@@ -70,62 +70,64 @@ export default function Transect ({isOpen}) {
       bottom: 20
     }
 
+    d3.csv('/data/transectsegment.csv').then(function (data) {
+      d3.json("/data/transect.json").then(function (stackedAreaData) {
+        let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0)
+        let yLabel = ""
+        svg.selectAll("*").remove()
+        const xDomain = [filteredStackedAreaData[0].distance,filteredStackedAreaData[filteredStackedAreaData.length-1].distance]
+        const xRange = [margin.left, width - margin.right]
+        const xScale = d3.scaleLinear().domain(xDomain).range(xRange)
+        if (isOpen) {
+          PlotTransectLayers(filteredStackedAreaData, {
+            yLabel: yLabel,
+            width: width,
+            height: height,
+            svg: svg,
+            colors: colors,
+            risks: risks,
+            margin: margin,
+          })
+          DrawTooltip({
+            width: width,
+            height: height,
+            data: data,
+            svgRef: svgRef,
+            tooltipRef: tooltipRef,
+            xScale: xScale,
+          })
 
-    d3.json("/data/transect.json").then(function (data) {
-    let dataStackedArea  = data.filter(d => d.index % 50 === 0)
-    let yLabel = ""
-    svg.selectAll("*").remove()
-    const xDomain = [dataStackedArea[0].index,dataStackedArea[dataStackedArea.length-1].index]
-    const xRange = [margin.left, width - margin.right]
-    const xScale = d3.scaleLinear().domain(xDomain).range(xRange)
-    if (isOpen) {
-      PlotTransectLayers(dataStackedArea, {
-        yLabel: yLabel,
-        width: width,
-        height: height,
-        svg: svg,
-        colors: colors,
-        risks: risks,
-        margin: margin,
-      })
-      DrawTooltip({
-        width: width,
-        height: height,
-        data: dataStackedArea,
-        svgRef: svgRef,
-        tooltipRef: tooltipRef,
-        xScale: xScale,
-      })
+        } else {
+          svg
+            .attr("id", "viz-transect-layers")
+            .attr("class", "viz-transect")
+            .attr("viewBox", [0, 0, width, .33*height])
+          Streamgraph(filteredStackedAreaData, {
+            x: d => d.distance,
+            y: d => d.value,
+            z: d => d.risk,
+            yLabel: yLabel,
+            width: width,
+            height: .22*height,
+            svg: svg,
+            colors: colors,
+            risks: risks,
+            risk: "all",
+            margin: margin,
+          })
+          DrawTooltip({
+            width: width,
+            height: height,
+            data: filteredStackedAreaData,
+            svgRef: svgRef,
+            tooltipRef: tooltipRef,
+            xScale: xScale,
 
-    } else {
-      svg
-        .attr("id", "viz-transect-layers")
-        .attr("class", "viz-transect")
-        .attr("viewBox", [0, 0, width, .33*height])
-      Streamgraph(dataStackedArea, {
-        x: d => d.distance,
-        y: d => d.value,
-        z: d => d.risk,
-        yLabel: yLabel,
-        width: width,
-        height: .22*height,
-        svg: svg,
-        colors: colors,
-        risks: risks,
-        risk: "all",
-        margin: margin,
+          })
+        }
       })
-        DrawTooltip({
-          width: width,
-          height: height,
-          data: dataStackedArea,
-          svgRef: svgRef,
-          tooltipRef: tooltipRef,
-          xScale: xScale,
-
-        })
-    }
     })
+
   }
 
 
