@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph, {DrawTooltip, PlotTransectLayers} from "./streamgraph";
 
-export default function Transect ({isOpen, data}) {
+export default function Transect ({isOpen}) {
   const { width, height } = useWindowSize();
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
@@ -71,7 +71,7 @@ export default function Transect ({isOpen, data}) {
     }
 
 
-    // d3.csv("/data/transect_combined.csv").then(function (data) {
+    d3.json("/data/transect.json").then(function (data) {
     let dataStackedArea  = data.filter(d => d.index % 50 === 0)
     let yLabel = ""
     svg.selectAll("*").remove()
@@ -125,15 +125,14 @@ export default function Transect ({isOpen, data}) {
 
         })
     }
-    }
+    })
+  }
 
 
   useEffect(() => {
-    console.log("DATA:", data)
-    if (!data) return;
     drawLayers(svgRef,width,height,isOpen);
 
-  }, [data, height, svgRef, width, isOpen]);
+  }, [height, svgRef, width, isOpen]);
   return (
     <>
       <svg ref={svgRef} />
