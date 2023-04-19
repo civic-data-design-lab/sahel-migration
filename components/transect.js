@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
 import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph, {DrawTooltip, PlotTransectLayers} from "./streamgraph";
+import styles from '../styles/TransectTooltip.module.css'
 
 export default function Transect ({isOpen}) {
   const { width, height } = useWindowSize();
@@ -46,17 +47,6 @@ export default function Transect ({isOpen}) {
     }
   };
 
-  //TODO: refactor this to be a single object
-  const colors = {
-    "4mi": "#5D3435",
-    "ACLED": "#985946",
-    "food security": "#9A735A",
-    "smuggler": "#F48532",
-    "remoteness": "#624B44",
-    "heat": "#3F231B",
-  }
-
-
   function drawLayers(svgRef,width,height, isOpen) {
     // const svg = d3.select(svgRef.current);
     const windowWidth = width;
@@ -70,62 +60,70 @@ export default function Transect ({isOpen}) {
       bottom: 20
     }
 
-
-    d3.json("/data/transect.json").then(function (data) {
-    let dataStackedArea  = data.filter(d => d.index % 50 === 0)
-    let yLabel = ""
-    svg.selectAll("*").remove()
-    const xDomain = [dataStackedArea[0].index,dataStackedArea[dataStackedArea.length-1].index]
-    const xRange = [margin.left, width - margin.right]
-    const xScale = d3.scaleLinear().domain(xDomain).range(xRange)
-    if (isOpen) {
-      PlotTransectLayers(dataStackedArea, {
-        yLabel: yLabel,
-        width: width,
-        height: height,
-        svg: svg,
-        colors: colors,
-        risks: risks,
-        margin: margin,
+    // d3.csv('/data/transectsegment.csv').then(function (data) {
+    d3.json('/data/transect_all.json').then(function (data) {
+      d3.json("/data/transect.json").then(function (stackedAreaData) {
+        let filteredData = data.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
+        let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
+        let yLabel = "";
+        svg.selectAll("*").remove();
+        const xDomain = [filteredStackedAreaData[0].distance,filteredStackedAreaData[filteredStackedAreaData.length-1].distance];
+        const xRange = [margin.left, width - margin.right];
+        const xScale = d3.scaleLinear().domain(xDomain).range(xRange);
+        if (isOpen) {
+          PlotTransectLayers(filteredStackedAreaData, {
+            yLabel: yLabel,
+            width: width,
+            height: height,
+            svg: svg,
+            risks: risks,
+            xScale: xScale,
+            margin: margin,
+            risksData: filteredData
+          })
+          DrawTooltip({
+            width: width,
+            height: height,
+            data: filteredStackedAreaData,
+            svgRef: svgRef,
+            tooltipRef: tooltipRef,
+            xScale: xScale,
+            risks: risks,
+            risksData: filteredData
+          })
+        } else {
+          svg
+            .attr("id", "viz-transect-layers")
+            .attr("class", "viz-transect")
+            .attr("viewBox", [0, 0, width, .33*height])
+          Streamgraph(filteredStackedAreaData, {
+            x: d => d.distance,
+            y: d => d.value,
+            z: d => d.risk,
+            yLabel: yLabel,
+            width: width,
+            height: .22*height,
+            svg: svg,
+            risks: risks,
+            risk: "all",
+            margin: margin,
+            xScale: xScale,
+            risksData: filteredData,
+          })
+          DrawTooltip({
+            width: width,
+            height: height,
+            data: filteredStackedAreaData,
+            svgRef: svgRef,
+            tooltipRef: tooltipRef,
+            xScale: xScale,
+            risks: risks,
+            risksData: filteredData
+          })
+        }
       })
-      DrawTooltip({
-        width: width,
-        height: height,
-        data: dataStackedArea,
-        svgRef: svgRef,
-        tooltipRef: tooltipRef,
-        xScale: xScale,
-      })
-
-    } else {
-      svg
-        .attr("id", "viz-transect-layers")
-        .attr("class", "viz-transect")
-        .attr("viewBox", [0, 0, width, .33*height])
-      Streamgraph(dataStackedArea, {
-        x: d => d.distance,
-        y: d => d.value,
-        z: d => d.risk,
-        yLabel: yLabel,
-        width: width,
-        height: .22*height,
-        svg: svg,
-        colors: colors,
-        risks: risks,
-        risk: "all",
-        margin: margin,
-      })
-        DrawTooltip({
-          width: width,
-          height: height,
-          data: dataStackedArea,
-          svgRef: svgRef,
-          tooltipRef: tooltipRef,
-          xScale: xScale,
-
-        })
-    }
     })
+
   }
 
 
@@ -137,7 +135,29 @@ export default function Transect ({isOpen}) {
     <>
       <svg ref={svgRef} />
       {/*<svg ref={tooltipRef} />*/}
+      {/* <div id="transect-tooltip" className={[styles.transectTooltip, styles.template]}>
+        <h4>Overall Risk
+            <span id="risk-total" className={styles.labelData}>152/360</span>
+        </h4>
+        <p className={styles.risk4mi}>Reported Violence
+            <span id="risk-4mi" className={styles.labelData}>12</span>
+        </p>
+        <p className={styles.riskAcled}>Armed Conflict
+            <span id="risk-acled" className={styles.labelData}>0</span>
+        </p>
+        <p className={styles.riskFood}>Food Insecurity
+            <span id="risk-food" className={styles.labelData}>40</span>
+        </p>
+        <p className={styles.riskSmuggler}>Smuggler Assistance
+            <span id="risk-smuggler" className={styles.labelData}>0</span>
+        </p>
+        <p className={styles.riskRemoteness}>Remoteness
+            <span id="risk-remoteness" className={styles.labelData}>20</span>
+        </p>
+        <p className={styles.riskHeat}>Extreme Heat
+            <span id="risk-heat" className={styles.labelData}>80</span>
+        </p>
+      </div> */}
     </>
-
   )
 }

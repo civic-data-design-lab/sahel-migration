@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
 
 :root {
   --brown: #463c35;
@@ -12,7 +13,7 @@
 
   --max-width: 1100px;
   --border-radius: 12px;
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-family: 'El Messiri', sans-serif;
   --primary-font-fam: 'El Messiri', sans-serif;
   --fs-large: 2.75rem;
@@ -192,4 +193,63 @@ g {
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
   border-top-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* transect tooltip */
+.hidden {
+    display: none;
+}
+.transectTooltip {
+    position: absolute;
+    z-index: 100;
+    /* top: 0; */
+    /* left: 0; */
+    background-color: rgba(255,255,255,0.8);
+    font-family: 'Inter', sans-serif;
+    width: 14rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0rem 0rem 0.5rem rgba(0,0,0,0.2);
+}
+
+.transectTooltip h4 {
+    margin-bottom: 0.5rem;
+}
+
+.transectTooltip p::before {
+    content: '';
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    /* background: #000; */
+    margin-right: 0.5rem;
+}
+
+.transectTooltip p.risk-4mi::before {
+    background: #5D3435;
+}
+.transectTooltip p.risk-food::before {
+    background: #985946;
+}
+.transectTooltip p.risk-acled::before {
+    background: #9A735A;
+}
+.transectTooltip p.risk-smuggler::before {
+    background: #F48532;
+}
+.transectTooltip p.risk-remoteness::before {
+    background: #624B44;
+}
+.transectTooltip p.risk-heat::before {
+    background: #3F231B;
+}
+
+.transectTooltip p {
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+    margin: 0;
+}
+
+.labelData {
+    float: right;
 }
