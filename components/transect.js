@@ -71,9 +71,11 @@ export default function Transect ({isOpen}) {
       bottom: 20
     }
 
-    d3.csv('/data/transectsegment.csv').then(function (data) {
+    // d3.csv('/data/transectsegment.csv').then(function (data) {
+    d3.json('/data/transect_all.json').then(function (data) {
       d3.json("/data/transect.json").then(function (stackedAreaData) {
-        let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0)
+        let filteredData = data.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1)
+        let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1)
         let yLabel = ""
         svg.selectAll("*").remove()
         const xDomain = [filteredStackedAreaData[0].distance,filteredStackedAreaData[filteredStackedAreaData.length-1].distance]
@@ -87,7 +89,9 @@ export default function Transect ({isOpen}) {
             svg: svg,
             colors: colors,
             risks: risks,
+            xScale: xScale,
             margin: margin,
+            risksData: filteredData
           })
           DrawTooltip({
             width: width,
@@ -96,6 +100,8 @@ export default function Transect ({isOpen}) {
             svgRef: svgRef,
             tooltipRef: tooltipRef,
             xScale: xScale,
+            risks: risks,
+            risksData: filteredData
           })
         } else {
           svg
@@ -114,6 +120,7 @@ export default function Transect ({isOpen}) {
             risks: risks,
             risk: "all",
             margin: margin,
+            risksData: filteredData
           })
           DrawTooltip({
             width: width,
@@ -122,6 +129,8 @@ export default function Transect ({isOpen}) {
             svgRef: svgRef,
             tooltipRef: tooltipRef,
             xScale: xScale,
+            risks: risks,
+            risksData: filteredData
           })
         }
       })
@@ -138,30 +147,28 @@ export default function Transect ({isOpen}) {
     <>
       <svg ref={svgRef} />
       {/*<svg ref={tooltipRef} />*/}
-      {/* <div className={styles.transectTooltip}>
+      {/* <div id="transect-tooltip" className={[styles.transectTooltip, styles.template]}>
         <h4>Overall Risk
-            <span className="label-data risk-total">152</span>/360
+            <span id="risk-total" className={styles.labelData}>152/360</span>
         </h4>
-        <p>Reported Violence
-            <span className="label-data risk-4mi">12</span>
+        <p className={styles.risk4mi}>Reported Violence
+            <span id="risk-4mi" className={styles.labelData}>12</span>
         </p>
-        <p>Armed Conflict
-            <span className="label-data risk-acled">0</span>
+        <p className={styles.riskAcled}>Armed Conflict
+            <span id="risk-acled" className={styles.labelData}>0</span>
         </p>
-        <p>Food Insecurity
-            <span className="label-data risk-food">40</span>
+        <p className={styles.riskFood}>Food Insecurity
+            <span id="risk-food" className={styles.labelData}>40</span>
         </p>
-        <p>Smuggler Assistance
-            <span className="label-data risk-smuggler">0</span>
+        <p className={styles.riskSmuggler}>Smuggler Assistance
+            <span id="risk-smuggler" className={styles.labelData}>0</span>
         </p>
-        <p>Remoteness
-            <span className="label-data risk-remoteness">20</span>
+        <p className={styles.riskRemoteness}>Remoteness
+            <span id="risk-remoteness" className={styles.labelData}>20</span>
         </p>
-        <p>Extreme Heat
-            <span className="label-data risk-heat">80</span>
+        <p className={styles.riskHeat}>Extreme Heat
+            <span id="risk-heat" className={styles.labelData}>80</span>
         </p>
-        <h4>Migrants Along the Route</h4>
-        <p><span className="migrants-count">100</span> migrants per 10km</p>
       </div> */}
     </>
   )

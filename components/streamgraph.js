@@ -24,7 +24,9 @@ export function PlotTransectLayers(data, {
   height,
   yLabel, // a label for the y-axis
   svg,
+  xScale,
   risks,
+  risksData
 } = {}) {
 
   svg
@@ -32,7 +34,7 @@ export function PlotTransectLayers(data, {
     .attr("viewBox", [0, 0, width, .6*height])
     .style("pointer-events", "all")
   Object.keys(risks).forEach((risk) => {
-    yLabel = title[risk]
+    yLabel = risks[risk].label
     let dataStackedArea  = data.filter(d => d.risk === risk)
     Streamgraph(dataStackedArea, {
       x: d => d.distance,
@@ -42,9 +44,11 @@ export function PlotTransectLayers(data, {
       width: width,
       height: .08*height,
       svg: svg,
+      xScale: xScale,
       colors: colors,
       risks: risks,
-      risk: risk
+      risk: risk,
+      risksData: risksData
     })
   })
 
@@ -77,6 +81,7 @@ export default function Streamgraph(data, {
   svg,
   risks,
   risk,
+  risksData
 } = {}) {
 
   // Compute values.
@@ -110,7 +115,7 @@ export default function Streamgraph(data, {
   const xScale = xType(xDomain, xRange);
   const yScale = yType(yDomain, yRange);
 
-  const xAxis = d3.axisBottom(xScale).ticks(width / 100, xFormat).tickSizeOuter(0);
+  const xAxis = d3.axisBottom(xScale).ticks(5, xFormat).tickSizeOuter(0);
   const area = d3.area()
     .x(({i}) => xScale(X[i]))
     .y0(([y1]) => yScale(y1))
@@ -136,13 +141,14 @@ export default function Streamgraph(data, {
     .append("title")
         .text(([{i}]) => risks[Z[i]].label)
     .style("pointer-events", "all")
+
   // define x-axis
   plot.append("g")
     .attr("transform", `translate(0,${height - margin.right})`)
     .call(xAxis)
     .call(g => g.select(".domain").remove());
 
-  // labels for x-axis
+//   labels for y-axis
   plot.append("g")
     .attr("transform", `translate(${margin.left+20},0)`)
     .call(g => g.append("text")
@@ -155,7 +161,6 @@ export default function Streamgraph(data, {
     // const graph = d3.select("#viz-transect-"+risk);
     plot.attr("transform", `translate(0,${100*risks[risk].index})`);
   }
-
 }
 
 export function DrawTooltip(config) {
@@ -166,17 +171,29 @@ export function DrawTooltip(config) {
     svgRef,
     tooltipRef,
     xScale,
-    margin
+    margin,
+    risks,
+    risksData
   } = config;
 
   const svg = d3.select(svgRef.current);
-  const tooltip = d3.select(tooltipRef.current);
+//   const tooltip = d3.select(tooltipRef.current);
+  const createTooltip = d3.select('#journey')
+        .append('div')
+            .attr('id', 'transectTooltip');
+  const tooltip = d3.select('#transectTooltip')
+        .style("top", 0)
+        .style("left", 0);
+    if (!document.getElementById("transectTooltip").hasChildNodes()) {
+        tooltip.attr('class', 'transectTooltip')
+            .html("<h4 class='risk-total'>Overall Risk<span id='data-total' class='labelData'>152/360</span></h4><p class='risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk-acled'>Armed Conflict<span id='data-acled' class='labelData'>0</span></p><p class='risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk-smuggler'>Smuggler Assistance<span id='data-smuggler' class='labelData'>0</span></p><p class='risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk-heat'>Extreme Heat<span id='data-heat' class='labelData'>80</span></p>")
+            .attr("class", "hidden transectTooltip");
+    }
 
   // const focus = svg
   //   .append('g')
   //   .attr('class', 'focus')
   //   .style('display', 'none');
-
 
   const line = svg.append("line")
     .attr("stroke", "black")
@@ -195,23 +212,55 @@ export function DrawTooltip(config) {
     .on('mouseover', () => {
       // focus.style('display', null);
     })
-    .on('mouseout',mouseout)
-    .on('mousemove', mousemove);
+    .on('mouseout', mouseout)
+    .on('mousemove', (event) => mousemove(event, risks, risksData));
 
   function mouseout(event) {
     line.attr("opacity", 0);
+    tooltip.attr("class", "hidden transectTooltip");
   }
-  function mousemove(event) {
+  function mousemove(event, risks, risksData) {
     const bisect = d3.bisector((d) => d.distance).left;
     const xPos = d3.pointer(event)[0];
     const x0 = bisect(data, xScale.invert(xPos));
-    const d0 = data[x0];
-    // console.log(d0)
+    const dIndex = data[x0].index;
+    const d0 = risksData.find(d => d.index === dIndex);
+    // console.log(d0);
+
     line.attr("x1", xPos)
       .attr("y1", 0)
       .attr("x2", xPos)
       .attr("y2", height)
       .attr("opacity", 1);
 
+    tooltip
+        .attr("class", "transectTooltip")
+        .style("top", (divHtml) => {
+            let mouseY = event.screenY;
+            // let mouseY = d3.pointer(event)[1];
+            let tooltipHeight = document.getElementById("transectTooltip").offsetHeight;
+            return (mouseY - 1.7*tooltipHeight) + "px"
+        })
+        .style("left", (divHtml) => {
+            let mouseX = d3.pointer(event)[0];
+            let tooltipWidth = document.getElementById("transectTooltip").offsetWidth;
+            let svgWidth = +svg.style("width").split("px")[0];
+            
+            if (mouseX + tooltipWidth + 10 > svgWidth) {
+                return (mouseX - tooltipWidth - 10) + "px"
+            }
+            else {
+                return (mouseX + 10) + "px"
+            }
+        })
+    tooltip.select(".risk-total").select("#data-total").html(Math.round(d0.risks_total) + "/360");
+    // update data in tooltip for each risk
+    for (let i = 0; i < Object.keys(risks).length; i++) {
+        let risk = Object.keys(risks)[i];
+        let riskClass = ".risk-" + risk;
+        let dataId = "#data-" + risk;
+        let dataValue = Math.round(d0["risk_" + risk]);
+        tooltip.select(riskClass).select(dataId).html(dataValue);
+    }
   }
 }
