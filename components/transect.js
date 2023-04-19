@@ -47,17 +47,6 @@ export default function Transect ({isOpen}) {
     }
   };
 
-  //TODO: refactor this to be a single object
-  const colors = {
-    "4mi": "#5D3435",
-    "ACLED": "#985946",
-    "food security": "#9A735A",
-    "smuggler": "#F48532",
-    "remoteness": "#624B44",
-    "heat": "#3F231B",
-  }
-
-
   function drawLayers(svgRef,width,height, isOpen) {
     // const svg = d3.select(svgRef.current);
     const windowWidth = width;
@@ -74,20 +63,19 @@ export default function Transect ({isOpen}) {
     // d3.csv('/data/transectsegment.csv').then(function (data) {
     d3.json('/data/transect_all.json').then(function (data) {
       d3.json("/data/transect.json").then(function (stackedAreaData) {
-        let filteredData = data.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1)
-        let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1)
-        let yLabel = ""
-        svg.selectAll("*").remove()
-        const xDomain = [filteredStackedAreaData[0].distance,filteredStackedAreaData[filteredStackedAreaData.length-1].distance]
-        const xRange = [margin.left, width - margin.right]
-        const xScale = d3.scaleLinear().domain(xDomain).range(xRange)
+        let filteredData = data.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
+        let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
+        let yLabel = "";
+        svg.selectAll("*").remove();
+        const xDomain = [filteredStackedAreaData[0].distance,filteredStackedAreaData[filteredStackedAreaData.length-1].distance];
+        const xRange = [margin.left, width - margin.right];
+        const xScale = d3.scaleLinear().domain(xDomain).range(xRange);
         if (isOpen) {
           PlotTransectLayers(filteredStackedAreaData, {
             yLabel: yLabel,
             width: width,
             height: height,
             svg: svg,
-            colors: colors,
             risks: risks,
             xScale: xScale,
             margin: margin,
@@ -96,7 +84,7 @@ export default function Transect ({isOpen}) {
           DrawTooltip({
             width: width,
             height: height,
-            data: data,
+            data: filteredStackedAreaData,
             svgRef: svgRef,
             tooltipRef: tooltipRef,
             xScale: xScale,
@@ -116,11 +104,11 @@ export default function Transect ({isOpen}) {
             width: width,
             height: .22*height,
             svg: svg,
-            colors: colors,
             risks: risks,
             risk: "all",
             margin: margin,
-            risksData: filteredData
+            xScale: xScale,
+            risksData: filteredData,
           })
           DrawTooltip({
             width: width,

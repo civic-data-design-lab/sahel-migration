@@ -3,22 +3,6 @@
 // https://observablehq.com/@d3/streamgraph
 
 import * as d3 from "d3";
-const colors = {
-  "4mi": "#5D3435",
-  "ACLED": "#985946",
-  "food security": "#9A735A",
-  "smuggler": "#F48532",
-  "remoteness": "#624B44",
-  "heat": "#3F231B",
-}
-const title = {
-  "4mi": "4mi",
-  "ACLED": "ACLED",
-  "food security": "Food Security",
-  "smuggler": "Smuggler Need",
-  "remoteness": "Remoteness",
-  "heat": "Heat",
-}
 export function PlotTransectLayers(data, {
   width,
   height,
@@ -45,7 +29,6 @@ export function PlotTransectLayers(data, {
       height: .08*height,
       svg: svg,
       xScale: xScale,
-      colors: colors,
       risks: risks,
       risk: risk,
       risksData: risksData
@@ -60,15 +43,14 @@ export default function Streamgraph(data, {
   z = () => 1, // given d in data, returns the (categorical) z-value
   width,
   height,
+  xScale,
   margin = {
     "top": 0,
     "right": 20,
     "left": 20,
     "bottom": 20
   },
-  xType = d3.scaleLinear, // type of x-scale
   xDomain, // [xmin, xmax]
-  xRange = [margin.left, width - margin.right], // [left, right]
   yType = d3.scaleLinear, // type of y-scale
   yDomain, // [ymin, ymax]
   yRange = [height - margin.right, margin.top], // [bottom, top]
@@ -112,10 +94,15 @@ export default function Streamgraph(data, {
   if (yDomain === undefined) yDomain = d3.extent(series.flat(2));
 
   // Construct scales and axes.
-  const xScale = xType(xDomain, xRange);
   const yScale = yType(yDomain, yRange);
 
-  const xAxis = d3.axisBottom(xScale).ticks(5, xFormat).tickSizeOuter(0);
+  const xAxis = d3.axisBottom(xScale)
+    .ticks(5, xFormat)
+    .tickSizeOuter(0)
+    .tickFormat((d, i) => {
+        return (d == 0) ? d + " km" 
+        : d + ",000 km"
+    });
   const area = d3.area()
     .x(({i}) => xScale(X[i]))
     .y0(([y1]) => yScale(y1))
