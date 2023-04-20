@@ -16,6 +16,7 @@
   font-family: 'Inter', sans-serif;
   font-family: 'El Messiri', sans-serif;
   --primary-font-fam: 'El Messiri', sans-serif;
+  --sans-font-fam:  'Inter', sans-serif;
   --fs-large: 2.75rem;
   --fs-body-1: clamp(1rem, 20px, 1.5rem);
   --fs-h3: 0.75rem;
@@ -60,6 +61,10 @@
 
 button {
   font-family: var(--primary-font-fam);
+}
+
+.font-sans {
+    font-family: var(--sans-font-fam);
 }
 
 * {
@@ -196,16 +201,33 @@ g {
 }
 
 /* transect svg */
-#viz-transect-layers {
+/* #viz-transect-layers {
     margin-top: 1.5rem;
-}
+} */
 #viz-transect-layers .x-axis text {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--sans-font-fam);
 }
 #viz-transect-layers .label-risk text {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--sans-font-fam);
     font-weight: 600;
     font-size: 0.9rem;
+}
+#viz-transect-layers .label-journey {
+    font-size: 1rem;
+}
+#viz-transect-layers .text-expand {
+    position: relative;
+    font-family: var(--sans-font-fam);
+    font-size: 0.6rem;
+}
+#viz-transect-layers .text-expand::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 1rem solid transparent;
+    border-bottom: 1rem solid transparent;
+    border-right: 1rem solid black;
+    position: relative;
 }
 
 /* transect tooltip */

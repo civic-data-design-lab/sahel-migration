@@ -165,7 +165,7 @@ export default function Streamgraph(data, {
   if (risk == "all") {
     // transparent rects for focus area for this journey
     svg.append("g")
-            .attr("class", "journey-focus")
+            .attr("class", "journey-focus-rect")
         .selectAll("rect")
             .data(journeyFocusData)
             .enter()
@@ -182,7 +182,6 @@ export default function Streamgraph(data, {
     const bracketList = ["top", "bottom"];
     const bracket = svg.append("g")
             .attr("class", "journey-bracket")
-    
     // vertical bracket line
     bracket.append("g")
             .attr("class", "bracket-vert")
@@ -211,12 +210,12 @@ export default function Streamgraph(data, {
             .enter()
         .append("line")
             .attr("x1", d => {
-                return (d.xPos == "start") ? xScale(d.x2) - bracketLen
-                : xScale(d.x1)
+                return (d.xPos == "start") ? xScale(d.x2)
+                : xScale(d.x1) - bracketLen
             })
             .attr("x2", d => {
-                return (d.xPos == "start") ? xScale(d.x2)
-                : xScale(d.x1) + bracketLen
+                return (d.xPos == "start") ? xScale(d.x2) + bracketLen
+                : xScale(d.x1)
             })
             .attr("y1", d => {
                 return (yPos == "top") ? margin.top
@@ -228,11 +227,69 @@ export default function Streamgraph(data, {
             })
             .attr("stroke", "#000")
             .attr("stroke-width", 2);
-        });
-  };
+    });
+
+    // label for expand & collapse journey
+    const xCenter = xScale(journeyFocusData[0].x2 + (journeyFocusData[1].x1 - journeyFocusData[0].x2)/2);
+    const xOffset = 64;
+    const yBase = yScale(yDomain[1]);
+    const triSize = 10;
+    const journeyText = svg.append("g")
+            .attr("class", "journey-text");
+    // text for journey title
+    journeyText.append("text")
+                .attr("class", "label-journey")
+            .attr("x", d => {
+                return (journey.id == 2) ? xCenter + 80
+                : xCenter
+            })
+            .attr("y", yBase - 20)
+            .attr("dy", "-0.125em")
+            .attr("text-anchor", "middle")
+            .attr("fill", "#000")
+            .text(journey.title);
+    // text for expand this section
+    journeyText.append("text")
+                .attr("class", "text-expand")
+            .attr("x", d => {
+                return (journey.id == 2) ? xCenter + 80
+                : xCenter
+            })
+            .attr("y", yBase - 5)
+            .attr("dy", "-0.125em")
+            .attr("text-anchor", "middle")
+            .attr("fill", "#000")
+            .text("Expand this section");
+    // triangles for expand
+    // path for left arrow
+    journeyText.append("path")
+            .attr("d", "M " + (xCenter - xOffset + triSize/2) + " " + (yBase - 14 + triSize/2) + " L " + (xCenter - xOffset + triSize) + " " + (yBase - 14) + " L " + (xCenter - xOffset + triSize) + " " + (yBase - 14 + triSize) + " Z")
+    // path for right arrow
+    journeyText.append("path")
+            .attr("d", "M " + (xCenter + xOffset - triSize/2) + " " + (yBase - 14 + triSize/2) + " L " + (xCenter + xOffset - triSize) + " " + (yBase - 14) + " L " + (xCenter + xOffset - triSize) + " " + (yBase - 14 + triSize) + " Z");
+
+    // rect overlay for on-click to expand trigger
+    svg.append("rect")
+            .attr("class", "overlay-journey")
+        .attr("width", xScale(journeyFocusData[1].x1) - xScale(journeyFocusData[0].x2))
+        .attr("height", height)
+        .attr("x", xScale(journeyFocusData[0].x2))
+        .attr("y", 0)
+        .attr("opacity", 0)
+        .style("pointer-events", "all")
+        .raise()
+        .on("click", expandSection);
+
+    // click to expand journey section
+    function expandSection() {
+        // this is not clickable yet???
+        console.log("expandSection clicked");
+        console.log("journey id: " + journey.id + ", segment_index: " + journey.id-1);
+    };
+    };
 
   if (risk !== "all"){
-    // const graph = d3.select("#viz-transect-"+risk);
+    const graph = d3.select("#viz-transect-"+risk);
     plot.attr("transform", `translate(0,${100*risks[risk].index})`);
   }
 }

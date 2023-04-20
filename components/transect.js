@@ -53,7 +53,7 @@ export default function Transect ({isOpen, journey}) {
     const windowHeight = height;
     const svg = d3.select(svgRef.current)
     const margin = {
-      top: 10,
+      top: 50,
       right: 25,
       bottom: 20,
       left: 15
