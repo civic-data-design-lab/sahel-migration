@@ -4,7 +4,7 @@ import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph, {DrawTooltip, PlotTransectLayers} from "./streamgraph";
 import styles from '../styles/TransectTooltip.module.css'
 
-export default function Transect ({isOpen}) {
+export default function Transect ({isOpen, journey}) {
   const { width, height } = useWindowSize();
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
@@ -52,7 +52,7 @@ export default function Transect ({isOpen}) {
     const windowWidth = width;
     const windowHeight = height;
     const svg = d3.select(svgRef.current)
-
+    console.log(journey.title)
     const margin = {
       top: 10,
       right: 20,

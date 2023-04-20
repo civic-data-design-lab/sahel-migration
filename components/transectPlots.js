@@ -7,7 +7,7 @@ import ImageCarousel from "./imageCarousel";
 import useWindowSize from "../hooks/useWindowSize";
 
 
-export default function TransectPlots ({ isOpen, toggleOpen}) {
+export default function TransectPlots ({ isOpen, toggleOpen, journey}) {
   const contentRef = useRef(null);
   const { width, height } = useWindowSize();
   const containerStyles = {
@@ -31,10 +31,10 @@ export default function TransectPlots ({ isOpen, toggleOpen}) {
           style={{ height: !isOpen ? "auto" : 0, opacity: !isOpen ? 1 : 0, pointerEvents: "none" }}
           animate={{ height: !isOpen ? "auto" : 0, opacity: !isOpen ? 1 : 0}}
           transition={{ duration: 0.3 }}>
-          <Transect isOpen={isOpen}/>
+          <Transect isOpen={isOpen} journey={journey}/>
         </motion.div>
         <motion.div style={{paddingTop:"4rem"}}>
-          <Transect isOpen={isOpen} />
+          <Transect isOpen={isOpen} journey={journey}/>
           <ImageCarousel isOpen={isOpen}/>
         </motion.div>
 

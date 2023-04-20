@@ -34,7 +34,7 @@ export default function JourneysPage() {
           <Title />
           <Menu journeys={journeys} />
           <Navigation journeys={journeys} journey={journey} />
-          <DataTab />
+          <DataTab journey={journey}/>
           <ImageBox journey={journey} id="image-box" />
         </div>
       </div>
