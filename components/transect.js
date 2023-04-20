@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
 import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph, {DrawTooltip, PlotTransectLayers} from "./streamgraph";
-import styles from '../styles/TransectTooltip.module.css'
+import styles from '../styles/Transect.module.css'
 
 export default function Transect ({isOpen, journey}) {
   const { width, height } = useWindowSize();
@@ -29,7 +29,7 @@ export default function Transect ({isOpen, journey}) {
     },
     "smuggler": {
         "index": 3,
-        "label": "Smuggler Assistance",
+        "label": "Need for a Smuggler",
         "color": "#F48532",
         "weight": 100/6
     },
@@ -52,12 +52,11 @@ export default function Transect ({isOpen, journey}) {
     const windowWidth = width;
     const windowHeight = height;
     const svg = d3.select(svgRef.current)
-    console.log(journey.title)
     const margin = {
       top: 10,
-      right: 20,
-      left: 20,
-      bottom: 20
+      right: 25,
+      bottom: 20,
+      left: 15
     }
 
     // d3.csv('/data/transectsegment.csv').then(function (data) {
@@ -67,8 +66,11 @@ export default function Transect ({isOpen, journey}) {
         let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
         let yLabel = "";
         svg.selectAll("*").remove();
-        const xDomain = [filteredStackedAreaData[0].distance,filteredStackedAreaData[filteredStackedAreaData.length-1].distance];
+        // Construct data domains
+        const xDomain = [filteredStackedAreaData[0].distance, filteredStackedAreaData[filteredStackedAreaData.length-1].distance];
+        // Construct svg ranges
         const xRange = [margin.left, width - margin.right];
+        // Construct scales and axes
         const xScale = d3.scaleLinear().domain(xDomain).range(xRange);
         if (isOpen) {
           PlotTransectLayers(filteredStackedAreaData, {
@@ -79,7 +81,8 @@ export default function Transect ({isOpen, journey}) {
             risks: risks,
             xScale: xScale,
             margin: margin,
-            risksData: filteredData
+            risksData: filteredData,
+            journey: journey
           })
           DrawTooltip({
             width: width,
@@ -109,6 +112,7 @@ export default function Transect ({isOpen, journey}) {
             margin: margin,
             xScale: xScale,
             risksData: filteredData,
+            journey: journey
           })
           DrawTooltip({
             width: width,

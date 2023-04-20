@@ -35,7 +35,8 @@
       },
       {
         "id": 2,
-        "title": "In Transit",
+        "route": "beginning",
+        "title": "Beginning the Journey",
         "body": "The Central Mediterranean Route is long and dangerous, so most migrants rely on smugglers throughout their journey to navigate across borders or treacherous environments.",
         "imageUrl": "/images/journeys/2-in transit.svg",
         "entourages": [
@@ -83,6 +84,7 @@
       },
       {
         "id": 3,
+        "route": "passing-agadez",
         "title": "Passing Through Agadez",
         "body": "Cities, such as Agadez, serve as transitory destinations along the Central Mediterranean route. Some migrants stop here to find smugglers, while others stop for extended periods of time to find work to fund the next part of their journey.",
         "imageUrl": "/images/journeys/3-Transit Hub Agadez.svg",
@@ -115,6 +117,7 @@
       },
       {
         "id": 4,
+        "route": "sahara-desert",
         "title": "Crossing the Sahara Desert",
         "body": "Smugglers drive migrants in pick-up trucks for 3 days across the Sahara Desert. This informal route is the most dangerous part of the journey, where migrants risk violence, extortion, nutrition deficiencies, and vehicle accidents.",
         "imageUrl": "/images/journeys/3-sahara.svg",
@@ -171,6 +174,7 @@
       },
       {
         "id": 5,
+        "route": "entering-libya",
         "title": "Entering Libya",
         "body": "When migrants enter Libya they face heightened risks including detention, risks to personal safety, and food insecurity.",
         "imageUrl": "/images/journeys/5-Entering Libya.svg",
@@ -211,6 +215,7 @@
       },
       {
         "id": 6,
+        "route": "sabha",
         "title": " Passing Through Sabha",
         "body": "Sabha is one of the first major cities migrants pass through after arriving in Libya. Most migrants use Sabha as a transit point, rather than a place to settle.",
         "imageUrl": "/images/journeys/6-Transit Hub Sabha.svg",
@@ -251,6 +256,7 @@
       },
       {
         "id": 7,
+        "route": "tripoli",
         "title": "Reaching Tripoli",
         "body": "While Tripoli serves as a disembarkation point for migrants taking the sea route to Europe, it is also a place where many migrants choose to settle.",
         "imageUrl": "/images/journeys/7-Transit Hub Tripoli.svg",
@@ -291,6 +297,7 @@
       },
       {
         "id": 8,
+        "route": "current-conditions-libya",
         "title": "Current Conditions in Libya",
         "body": "Migrants in Libya experience a range of outcomes. Some leave the country by embarking to Europe or through deportation, while others may stay to work. Each pathway exposes migrants to a different set of risks.",
         "imageUrl": "/images/journeys/8-Current Migrant Condition in Libya.svg",
