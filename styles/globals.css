@@ -195,16 +195,29 @@ g {
   border-top-color: rgba(255, 255, 255, 0.75) !important;
 }
 
+/* transect svg */
+#viz-transect-layers {
+    margin-top: 1.5rem;
+}
+#viz-transect-layers .x-axis text {
+    font-family: 'Inter', sans-serif;
+}
+#viz-transect-layers .label-risk text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
 /* transect tooltip */
 .hidden {
     display: none;
 }
 .transectTooltip {
-    position: absolute;
+    position: fixed;
     z-index: 100;
     /* top: 0; */
     /* left: 0; */
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255,255,255,0.9);
     font-family: 'Inter', sans-serif;
     width: 14rem;
     padding: 1rem;

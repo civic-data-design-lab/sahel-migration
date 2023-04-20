@@ -3,18 +3,21 @@
 // https://observablehq.com/@d3/streamgraph
 
 import * as d3 from "d3";
+import styles from "../styles/Transect.module.css";
+
 export function PlotTransectLayers(data, {
   width,
   height,
+  margin,
   yLabel, // a label for the y-axis
   svg,
   xScale,
   risks,
-  risksData
+  risksData,
+  journey
 } = {}) {
 
   svg
-    .attr("id", "viz-transect-layers")
     .attr("viewBox", [0, 0, width, .6*height])
     .style("pointer-events", "all")
   Object.keys(risks).forEach((risk) => {
@@ -27,11 +30,13 @@ export function PlotTransectLayers(data, {
       yLabel: yLabel,
       width: width,
       height: .08*height,
+      margin: margin,
       svg: svg,
       xScale: xScale,
       risks: risks,
       risk: risk,
-      risksData: risksData
+      risksData: risksData,
+      journey: journey
     })
   })
 
@@ -43,17 +48,10 @@ export default function Streamgraph(data, {
   z = () => 1, // given d in data, returns the (categorical) z-value
   width,
   height,
+  margin,
   xScale,
-  margin = {
-    "top": 0,
-    "right": 20,
-    "left": 20,
-    "bottom": 20
-  },
   xDomain, // [xmin, xmax]
-  yType = d3.scaleLinear, // type of y-scale
   yDomain, // [ymin, ymax]
-  yRange = [height - margin.right, margin.top], // [bottom, top]
   zDomain, // array of z-values
   offset = d3.stackOffsetNone, // stack offset method
   order = d3.stackOrderNone, // stack order method
@@ -63,9 +61,12 @@ export default function Streamgraph(data, {
   svg,
   risks,
   risk,
-  risksData
+  risksData,
+  journey
 } = {}) {
 
+  // Range
+  const yRange = [height - margin.right, margin.top]; // [bottom, top]
   // Compute values.
   const X = d3.map(data, x);
   const Y = d3.map(data, y);
@@ -94,20 +95,36 @@ export default function Streamgraph(data, {
   if (yDomain === undefined) yDomain = d3.extent(series.flat(2));
 
   // Construct scales and axes.
-  const yScale = yType(yDomain, yRange);
+  const yScale = d3.scaleLinear(yDomain, yRange);
 
   const xAxis = d3.axisBottom(xScale)
-    .ticks(5, xFormat)
+    .tickValues([0, 10, 20, 30, 40, xDomain[1].toFixed(2)])
+    .ticks(5)
     .tickSizeOuter(0)
-    .tickFormat((d, i) => {
-        return (d == 0) ? d + " km" 
-        : d + ",000 km"
-    });
+    .tickFormat((d, i) => (d*100).toLocaleString("en-US") + " km");
+
   const area = d3.area()
     .x(({i}) => xScale(X[i]))
     .y0(([y1]) => yScale(y1))
     .y1(([, y2]) => yScale(y2))
     .curve(d3.curveBasis);
+
+  // define journey highlighed regions
+  const journeyData = data.filter(d => d.segment_index == journey.id - 1);
+  const journeyDistStart = journeyData[0].distance;
+  const journeyDistEnd = journeyData[journeyData.length - 1].distance;
+  const journeyFocusData = [
+    {
+        "xPos": "start",
+        "x1": xDomain[0],
+        "x2": journeyDistStart
+    },
+    {
+        "xPos": "end",
+        "x1": journeyDistEnd,
+        "x2": xDomain[1]
+    }
+  ];
 
   // define svg
   const plot = svg.append("g")
@@ -131,19 +148,89 @@ export default function Streamgraph(data, {
 
   // define x-axis
   plot.append("g")
+    .attr("class", "x-axis")
     .attr("transform", `translate(0,${height - margin.right})`)
     .call(xAxis)
     .call(g => g.select(".domain").remove());
 
 //   labels for y-axis
   plot.append("g")
-    .attr("transform", `translate(${margin.left+20},0)`)
+    .attr("class", "label-risk")
+    .attr("transform", `translate(${margin.left},0)`)
     .call(g => g.append("text")
-      .attr("x", -margin.left)
+      .attr("x", 0)
       .attr("y", 20)
-      .attr("font-weight", "bold")
-      .attr("font-size", 18)
       .text(yLabel));
+  
+  if (risk == "all") {
+    // transparent rects for focus area for this journey
+    svg.append("g")
+            .attr("class", "journey-focus")
+        .selectAll("rect")
+            .data(journeyFocusData)
+            .enter()
+        .append("rect")
+            .attr("width", d => xScale(d.x2) - xScale(d.x1))
+            .attr("height", yScale(yDomain[0]) - yScale(yDomain[1]))
+            .attr("x", d => xScale(d.x1))
+            .attr("y", margin.top)
+            .attr("fill", "#fff")
+            .attr("opacity", 0.3);
+
+    const bracketGap = 5;
+    const bracketLen = 5;
+    const bracketList = ["top", "bottom"];
+    const bracket = svg.append("g")
+            .attr("class", "journey-bracket")
+    
+    // vertical bracket line
+    bracket.append("g")
+            .attr("class", "bracket-vert")
+        .selectAll("line")
+            .data(journeyFocusData)
+            .enter()
+        .append("line")
+            .attr("x1", d => {
+                return (d.xPos == "start") ? xScale(d.x2)
+                : xScale(d.x1)
+            })
+            .attr("x2", d => {
+                return (d.xPos == "start") ? xScale(d.x2)
+                : xScale(d.x1)
+            })
+            .attr("y1", margin.top - 1)
+            .attr("y2", yScale(yDomain[0]) + bracketGap + 1)
+            .attr("stroke", "#000")
+            .attr("stroke-width", 2)
+    // horizontal bracket lines top and bottom
+    bracketList.forEach(yPos => {
+        bracket.append("g")
+            .attr("class", "bracket-horiz-" + yPos)
+        .selectAll("line")
+            .data(journeyFocusData)
+            .enter()
+        .append("line")
+            .attr("x1", d => {
+                return (d.xPos == "start") ? xScale(d.x2) - bracketLen
+                : xScale(d.x1)
+            })
+            .attr("x2", d => {
+                return (d.xPos == "start") ? xScale(d.x2)
+                : xScale(d.x1) + bracketLen
+            })
+            .attr("y1", d => {
+                return (yPos == "top") ? margin.top
+                : yScale(yDomain[0]) + bracketGap
+            })
+            .attr("y2", d => {
+                return (yPos == "top") ? margin.top
+                : yScale(yDomain[0]) + bracketGap
+            })
+            .attr("stroke", "#000")
+            .attr("stroke-width", 2);
+        });
+  };
+
   if (risk !== "all"){
     // const graph = d3.select("#viz-transect-"+risk);
     plot.attr("transform", `translate(0,${100*risks[risk].index})`);
@@ -163,7 +250,8 @@ export function DrawTooltip(config) {
     risksData
   } = config;
 
-  const svg = d3.select(svgRef.current);
+  const svg = d3.select(svgRef.current)
+                .attr("id", "viz-transect-layers");
 //   const tooltip = d3.select(tooltipRef.current);
   const createTooltip = d3.select('#journey')
         .append('div')
@@ -173,7 +261,7 @@ export function DrawTooltip(config) {
         .style("left", 0);
     if (!document.getElementById("transectTooltip").hasChildNodes()) {
         tooltip.attr('class', 'transectTooltip')
-            .html("<h4 class='risk-total'>Overall Risk<span id='data-total' class='labelData'>152/360</span></h4><p class='risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk-acled'>Armed Conflict<span id='data-acled' class='labelData'>0</span></p><p class='risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk-smuggler'>Smuggler Assistance<span id='data-smuggler' class='labelData'>0</span></p><p class='risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk-heat'>Extreme Heat<span id='data-heat' class='labelData'>80</span></p>")
+            .html("<h4 class='risk-total'>Overall Risk<span id='data-total' class='labelData'>152/360</span></h4><p class='risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk-acled'>Armed Conflict<span id='data-acled' class='labelData'>0</span></p><p class='risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk-smuggler'>Need for a Smuggler<span id='data-smuggler' class='labelData'>0</span></p><p class='risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk-heat'>Extreme Heat<span id='data-heat' class='labelData'>80</span></p>")
             .attr("class", "hidden transectTooltip");
     }
 
@@ -196,12 +284,16 @@ export function DrawTooltip(config) {
     .style('opacity', 0)
     .style("pointer-events", "all")
     .raise()
-    .on('mouseover', () => {
-      // focus.style('display', null);
-    })
+    .on('mouseenter', mouseenter)
+    // .on('mouseover', () => {
+    //   // focus.style('display', null);
+    // })
     .on('mouseout', mouseout)
     .on('mousemove', (event) => mousemove(event, risks, risksData));
 
+  function mouseenter(event) {
+    line.attr("opacity", 1);
+  }
   function mouseout(event) {
     line.attr("opacity", 0);
     tooltip.attr("class", "hidden transectTooltip");
@@ -210,15 +302,27 @@ export function DrawTooltip(config) {
     const bisect = d3.bisector((d) => d.distance).left;
     const xPos = d3.pointer(event)[0];
     const x0 = bisect(data, xScale.invert(xPos));
-    const dIndex = data[x0].index;
-    const d0 = risksData.find(d => d.index === dIndex);
-    // console.log(d0);
+    if (0 <= x0 && x0 < data.length) {
+        // console.log(x0);
+        const dIndex = data[x0].index;
+        const d0 = risksData.find(d => d.index === dIndex);
+        // console.log(d0);
 
+        tooltip.select(".risk-total").select("#data-total").html(Math.round(d0.risks_total) + "/360");
+        // update data in tooltip for each risk
+        for (let i = 0; i < Object.keys(risks).length; i++) {
+            let risk = Object.keys(risks)[i];
+            let riskClass = ".risk-" + risk;
+            let dataId = "#data-" + risk;
+            let dataValue = Math.round(d0["risk_" + risk]);
+            tooltip.select(riskClass).select(dataId).html(dataValue);
+        }
+    }
+    
     line.attr("x1", xPos)
       .attr("y1", 0)
       .attr("x2", xPos)
-      .attr("y2", height)
-      .attr("opacity", 1);
+      .attr("y2", height);
 
     tooltip
         .attr("class", "transectTooltip")
@@ -240,14 +344,5 @@ export function DrawTooltip(config) {
                 return (mouseX + 10) + "px"
             }
         })
-    tooltip.select(".risk-total").select("#data-total").html(Math.round(d0.risks_total) + "/360");
-    // update data in tooltip for each risk
-    for (let i = 0; i < Object.keys(risks).length; i++) {
-        let risk = Object.keys(risks)[i];
-        let riskClass = ".risk-" + risk;
-        let dataId = "#data-" + risk;
-        let dataValue = Math.round(d0["risk_" + risk]);
-        tooltip.select(riskClass).select(dataId).html(dataValue);
-    }
   }
 }
