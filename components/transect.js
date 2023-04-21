@@ -13,37 +13,37 @@ export default function Transect ({isOpen, journey}) {
         "index": 0,
         "label": "Reported Violence",
         "color": "#5D3435",
-        "weight": 100/6
+        "weight": 1/6
     },
     "acled": {
         "index": 1,
         "label": "Conflict Events",
         "color": "#985946",
-        "weight": 100/6
+        "weight": 1/6
     },
     "food": {
         "index": 2,
         "label": "Food Insecurity",
         "color": "#9A735A",
-        "weight": 100/6
+        "weight": 1/6
     },
     "smuggler": {
         "index": 3,
         "label": "Need for a Smuggler",
         "color": "#F48532",
-        "weight": 100/6
+        "weight": 1/6
     },
     "remoteness": {
         "index": 4,
         "label": "Remoteness",
         "color": "#624B44",
-        "weight": 100/6
+        "weight": 1/6
     },
     "heat": {
         "index": 5,
         "label": "Extreme Heat",
         "color": "#3F231B",
-        "weight": 100/6
+        "weight": 1/6
     }
   };
 

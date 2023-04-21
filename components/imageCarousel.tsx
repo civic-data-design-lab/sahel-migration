@@ -5,6 +5,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import { v4 as uuidv4 } from 'uuid'
 import ImageModal from './imageModal';
+import ImageFilter from 'react-image-filter';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -14,14 +15,6 @@ export default function ImageCarousel({ isOpen }) {
     const [modalOpen, setModalOpen] = useState(false)
     const [currentImageIndex, setIndex] = useState(0)
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', fetcher)
-
-    const colorMap = {
-        0: '#C2C93E',
-        1: 'red',
-        2: 'skyblue',
-        3: 'magenta',
-        4: '#F15A24'
-    }
 
     const closeModal = () => setModalOpen(false);
     const openModal = (i) => {
@@ -67,15 +60,18 @@ export default function ImageCarousel({ isOpen }) {
                                     className={styles.image}
                                     key={uuidv4()}
                                     style={{
-                                        backgroundImage: `url(${url})`,
-                                        width: `${width / height * 10}rem`,
-                                        ['--color' as any]: `${colorMap[i]}`,
+                                        width: `2rem`,
                                         ['--opacity' as any]: 1
-                                        // ['--color' as any]: `hsl(${30 * i}, 100%, 50%)`
-
                                     }}
                                 >
-
+                                    <ImageFilter 
+                                        image={url} 
+                                        filter={'duotone'}
+                                        preserveAspectRatio="cover"
+                                        // colorOne={[93, 53, 53]}
+                                        colorOne={[116, 70, 63]}
+                                        colorTwo={[247, 245, 239]}
+                                    />
                                     {/* <img src={url}></img> */}
                                     {/* <div className={styles.imgFilter}
                                         style={{

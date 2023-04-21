@@ -24,7 +24,6 @@ export default function Navigation({ journeys, journey }) {
           : <div></div>}
       </div>
 
-      <h2 className={styles.title}>{journey.title}</h2>
       <div className={styles.navigationContainer}>
 
         {journey.id < 7 ?
