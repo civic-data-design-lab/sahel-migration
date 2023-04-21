@@ -140,7 +140,7 @@ export default function Transect ({isOpen, journey}) {
       <svg ref={svgRef} />
       {/*<svg ref={tooltipRef} />*/}
       {/* <div id="transect-tooltip" className={[styles.transectTooltip, styles.template]}>
-        <h4>Overall Risk
+        <h4>Combined Risk
             <span id="risk-total" className={styles.labelData}>152/360</span>
         </h4>
         <p className={styles.risk4mi}>Reported Violence
