@@ -54,10 +54,17 @@
 
 .body-3 {
   font-family: var(--primary-font-fam);
-  font-size: clamp(0.89rem, 1.3vw, 1.08rem);
-  line-height: 20pt;
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  line-height: 1.4rem;
   font-weight: initial;
 }
+
+.body-4 {
+    font-family: var(--primary-font-fam);
+    font-size: clamp(0.6rem, 1.3vw, 0.8rem);
+    line-height: 1.2rem;
+    font-weight: initial;
+  }
 
 button {
   font-family: var(--primary-font-fam);
@@ -239,12 +246,13 @@ g {
     z-index: 100;
     /* top: 0; */
     /* left: 0; */
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255,255,255,0.8);
     font-family: 'Inter', sans-serif;
     width: 14rem;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0rem 0rem 0.5rem rgba(0,0,0,0.2);
+    backdrop-filter: blur(3px);
 }
 
 .transectTooltip h4 {

@@ -234,13 +234,15 @@ export default function Streamgraph(data, {
     const xOffset = 64;
     const yBase = yScale(yDomain[1]);
     const triSize = 10;
+    const xOffsetJourney2 = 80;
+
     const journeyText = svg.append("g")
             .attr("class", "journey-text");
     // text for journey title
     journeyText.append("text")
                 .attr("class", "label-journey")
             .attr("x", d => {
-                return (journey.id == 2) ? xCenter + 80
+                return (journey.id == 2) ? xCenter + xOffsetJourney2
                 : xCenter
             })
             .attr("y", yBase - 20)
@@ -252,7 +254,7 @@ export default function Streamgraph(data, {
     journeyText.append("text")
                 .attr("class", "text-expand")
             .attr("x", d => {
-                return (journey.id == 2) ? xCenter + 80
+                return (journey.id == 2) ? xCenter + xOffsetJourney2
                 : xCenter
             })
             .attr("y", yBase - 5)
@@ -263,10 +265,16 @@ export default function Streamgraph(data, {
     // triangles for expand
     // path for left arrow
     journeyText.append("path")
-            .attr("d", "M " + (xCenter - xOffset + triSize/2) + " " + (yBase - 14 + triSize/2) + " L " + (xCenter - xOffset + triSize) + " " + (yBase - 14) + " L " + (xCenter - xOffset + triSize) + " " + (yBase - 14 + triSize) + " Z")
+            .attr("d", d => {
+                return (journey.id == 2) ? "M " + (xCenter - xOffset + triSize/2 + xOffsetJourney2) + " " + (yBase - 14 + triSize/2) + " L " + (xCenter - xOffset + triSize + xOffsetJourney2) + " " + (yBase - 14) + " L " + (xCenter - xOffset + triSize + xOffsetJourney2) + " " + (yBase - 14 + triSize) + " Z"
+                : "M " + (xCenter - xOffset + triSize/2) + " " + (yBase - 14 + triSize/2) + " L " + (xCenter - xOffset + triSize) + " " + (yBase - 14) + " L " + (xCenter - xOffset + triSize) + " " + (yBase - 14 + triSize) + " Z"
+            })
     // path for right arrow
     journeyText.append("path")
-            .attr("d", "M " + (xCenter + xOffset - triSize/2) + " " + (yBase - 14 + triSize/2) + " L " + (xCenter + xOffset - triSize) + " " + (yBase - 14) + " L " + (xCenter + xOffset - triSize) + " " + (yBase - 14 + triSize) + " Z");
+            .attr("d", d => {
+                return (journey.id == 2) ? "M " + (xCenter + xOffset - triSize/2 + xOffsetJourney2) + " " + (yBase - 14 + triSize/2) + " L " + (xCenter + xOffset - triSize + xOffsetJourney2) + " " + (yBase - 14) + " L " + (xCenter + xOffset - triSize + xOffsetJourney2) + " " + (yBase - 14 + triSize) + " Z"
+                : "M " + (xCenter + xOffset - triSize/2) + " " + (yBase - 14 + triSize/2) + " L " + (xCenter + xOffset - triSize) + " " + (yBase - 14) + " L " + (xCenter + xOffset - triSize) + " " + (yBase - 14 + triSize) + " Z"
+            });
 
     // rect overlay for on-click to expand trigger
     svg.append("rect")
@@ -318,7 +326,7 @@ export function DrawTooltip(config) {
         .style("left", 0);
     if (!document.getElementById("transectTooltip").hasChildNodes()) {
         tooltip.attr('class', 'transectTooltip')
-            .html("<h4 class='risk-total'>Overall Risk<span id='data-total' class='labelData'>152/360</span></h4><p class='risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk-acled'>Armed Conflict<span id='data-acled' class='labelData'>0</span></p><p class='risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk-smuggler'>Need for a Smuggler<span id='data-smuggler' class='labelData'>0</span></p><p class='risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk-heat'>Extreme Heat<span id='data-heat' class='labelData'>80</span></p>")
+            .html("<h4 class='risk-total'>Overall Risk<span id='data-total' class='labelData'>152</span></h4><p class='risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk-acled'>Armed Conflict<span id='data-acled' class='labelData'>0</span></p><p class='risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk-smuggler'>Need for a Smuggler<span id='data-smuggler' class='labelData'>0</span></p><p class='risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk-heat'>Extreme Heat<span id='data-heat' class='labelData'>80</span></p>")
             .attr("class", "hidden transectTooltip");
     }
 
@@ -365,15 +373,19 @@ export function DrawTooltip(config) {
         const d0 = risksData.find(d => d.index === dIndex);
         // console.log(d0);
 
-        tooltip.select(".risk-total").select("#data-total").html(Math.round(d0.risks_total) + "/360");
+        let combinedRiskValue = 0;
         // update data in tooltip for each risk
         for (let i = 0; i < Object.keys(risks).length; i++) {
             let risk = Object.keys(risks)[i];
             let riskClass = ".risk-" + risk;
             let dataId = "#data-" + risk;
-            let dataValue = Math.round(d0["risk_" + risk]);
+            let dataValue = Math.round(d0["risk_" + risk] * risks[risk].weight);
+            combinedRiskValue += dataValue;
             tooltip.select(riskClass).select(dataId).html(dataValue);
         }
+        // update data in tooltip for total risks
+        tooltip.select(".risk-total").select("#data-total").html(Math.round(d0.risks_total));
+        tooltip.select(".risk-total").select("#data-total").html(Math.round(combinedRiskValue));
     }
     
     line.attr("x1", xPos)
