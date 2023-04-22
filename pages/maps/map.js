@@ -10,6 +10,7 @@ import Title from "../../components/title";
 import { animated, useSpring } from "react-spring";
 import Menu from "../../components/menu";
 import MapJourney from "../../components/mapJouney";
+import MapLegend from '../../components/mapLegend'
 
 import ScrollIndicator from "../../components/scrollIndicator";
 
@@ -77,12 +78,13 @@ export default function MainMap() {
                         />
                     </animated.div>
                 </div>
+                {/* <MapLegend activeSource={currentView} /> */}
                 <ScrollIndicator />
             </div>
-            <MapJourney
+            {/* <MapJourney
                 explorable={routeClicked}
                 style={revealJourney}
-            />
+            /> */}
         </ViewContext.Provider>
 
 

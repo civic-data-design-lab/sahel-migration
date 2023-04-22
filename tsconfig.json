@@ -24,7 +24,8 @@
     "**/*.ts",
     "**/*.tsx",
     "components/imageModal.js",
-    "components/imageCarousel.tsx"
+    "components/imageCarousel.tsx",
+    "components/citytip.js"
   ],
   "exclude": [
     "node_modules"

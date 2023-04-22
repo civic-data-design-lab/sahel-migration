@@ -11,10 +11,10 @@ const TRANSITION_TIME = 3000
 const MAX_ZOOM_LEVEL = 9;
 
 const DOT_COLOR_SCALE = {
-    light: 'hsl(16, 72%, 95%)',
-    medium: 'hsl(16, 72%, 75%)',
-    deep: 'hsl(16, 72%, 65%)',
-    bold: 'hsl(16, 72%, 55%)',
+    light: '#FCDED3',
+    medium: '#F9BDA7',
+    deep: '#F79C7C',
+    bold: '#F15A24',
 }
 
 export default function stylesObject(activeSource) {
@@ -24,7 +24,7 @@ export default function stylesObject(activeSource) {
         source: 'selected-countries',
         "source-layer": 'WA_SelectedCountries2-3495m1',
         paint: {
-            'fill-outline-color': 'rgba(255,255,255,1)',
+            // 'fill-outline-color': 'rgba(255,255,255,1)',
             'fill-color': 'rgba(255,255,255,0)'
         }
     };
@@ -49,7 +49,6 @@ export default function stylesObject(activeSource) {
         "source-layer": 'WA_SelectedCountries2-3495m1',
         source: 'selected-countries',
         paint: {
-            'fill-outline-color': 'rgba(255,255,255,1)',
             'fill-color': 'rgba(255,255,255,0.5)'
         }
     }
@@ -62,8 +61,8 @@ export default function stylesObject(activeSource) {
         'paint': {
             'line-color': ['case',
                 ['==', ['get', 'ADM0_NAME'], 'Libya'],
-                BORDER_COlOR,
-                TRANSPARENT],
+                'red',
+                'white'],
             'line-width': ['case',
                 ['==', ['get', 'ADM0_NAME'], 'Libya'],
                 1.5,
@@ -77,15 +76,21 @@ export default function stylesObject(activeSource) {
         "source-layer": 'WA_SelectedCountries2-3495m1',
         'source': 'selected-countries',
         'paint': {
-            'line-color': ['case',
-                ['!=', ['get', 'ADM0_NAME'], 'Libya'],
-                BORDER_COlOR,
-                TRANSPARENT
+            'line-color': [
+                "match",
+                ["get", "ADM0_NAME"],
+                [
+                    "Benin",
+                    "Chad",
+                    "Côte d'Ivoire",
+                    "Ghana",
+                    "Mali",
+                    "Niger",
+                    "Nigeria"
+                ],
+                "hsl(0, 0%, 100%)",
+                "hsla(0, 0%, 100%, 0)"
             ],
-            'line-width': ['case',
-                ['!=', ['get', 'ADM0_NAME'], 'Libya'],
-                1.5,
-                0],
         },
     };
 
@@ -138,6 +143,20 @@ export default function stylesObject(activeSource) {
             'line-color': 'red',
             'line-width': 15,
             'line-opacity': 0
+        }
+    }
+
+    const countryOverlay: FillLayer = {
+        id: 'overlay',
+        type: 'fill',
+        "source-layer": 'country_boundaries',
+        "source": 'country-overlay',
+        "paint": {
+            "fill-color": "hsl(0, 20%, 100%)",
+            "fill-opacity-transition": {
+                duration: 2000
+            },
+            "fill-opacity": 0.5
         }
     }
 
@@ -219,9 +238,13 @@ export default function stylesObject(activeSource) {
                 DOT_COLOR_SCALE.medium,
                 5,
                 DOT_COLOR_SCALE.deep,
-                22,
+                10,
                 DOT_COLOR_SCALE.bold
             ],
+            "circle-opacity-transition": {
+                duration: 2000
+            },
+
             'circle-radius': [
                 'interpolate',
                 ['linear'],
@@ -231,8 +254,6 @@ export default function stylesObject(activeSource) {
                 3.65,
                 ['*', ['^', ['get', 'count'], 0.25], 6]
             ],
-            'circle-stroke-color': 'white',
-            'circle-stroke-width': 1,
         },
     };
 
@@ -250,6 +271,7 @@ export default function stylesObject(activeSource) {
         'routeStyle': routeStyle,
         'libyaSelect': libyaSelect,
         'countryLabels': countryLabels,
+        'countryOverlay': countryOverlay,
         'cityStyle': cityStyle,
         'countryBorderStyle': countryBorderStyle,
         'countryLayer': countryLayer,

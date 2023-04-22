@@ -13,8 +13,78 @@
             },
             {
                 "id": "extremeHeat",
-                "heading": "Extreme Heat",
-                "body": "Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022)."
+                "heading": "Risk levels for migrants vary along the route",
+                "body": "Some northern countries in Africa, such as Algeria, Libya, Morocco, Tunisia, and Niger, have harsh policies to prosecute irregular migrants. This puts migrants at higher risk, often resorting to alternative means of traveling through more remote areas and hiring smugglers for assistance crossing through treacherous terrain."
+            }
+        ],
+        "migrantData": [
+            {
+                "countryId": "Benin",
+                "migrantCount": 19
+            },
+            {
+                "countryId": "Burkina Faso",
+                "migrantCount": 13
+            },
+            {
+                "countryId": "Cameroon",
+                "migrantCount": 3
+            },
+            {
+                "countryId": "Chad",
+                "migrantCount": 95
+            },
+            {
+                "countryId": "Côte d'Ivoire",
+                "migrantCount": 17
+            },
+            {
+                "countryId": "Gambia",
+                "migrantCount": 7
+            },
+            {
+                "countryId": "Ghana",
+                "migrantCount": 32
+            },
+            {
+                "countryId": "Guinea",
+                "migrantCount": 5
+            },
+            {
+                "countryId": "Guinea Bissau",
+                "migrantCount": 7
+            },
+            {
+                "countryId": "Liberia",
+                "migrantCount": 4
+            },
+            {
+                "countryId": "Libya",
+                "migrantCount": 0
+            },
+            {
+                "countryId": "Mali",
+                "migrantCount": 39
+            },
+            {
+                "countryId": "Niger",
+                "migrantCount": 0
+            },
+            {
+                "countryId": "Nigeria",
+                "migrantCount": 80
+            },
+            {
+                "countryId": "Senegal",
+                "migrantCount": 11
+            },
+            {
+                "countryId": "Sierra Leone",
+                "migrantCount": 1
+            },
+            {
+                "countryId": "Togo",
+                "migrantCount": 14
             }
         ],
         "transectRisks": [
@@ -55,6 +125,7 @@
             }
         ],
         "styles": {
+            "allLayers": [],
             "layers": [
                 {
                     "id": "originCities",
@@ -109,6 +180,10 @@
             {
                 "id": "migration-routes",
                 "url": "mapbox://mitcivicdata.04ugw1cd"
+            },
+            {
+                "id": "country-overlay",
+                "url": "mapbox://mapbox.country-boundaries-v1"
             }
         ],
         "migrationRoutes": [

@@ -9,6 +9,7 @@ import useWindowSize from '../hooks/useWindowSize';
 import Tooltip from './toooltip';
 import routeObject from './routePaths'
 import { SectionContext } from '../pages';
+import CityTip from './citytip';
 
 
 
@@ -25,13 +26,17 @@ export default function MapBox({ activeSource, risks }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
+    const [cityInfo, setCityInfo] = useState(null);
     const [feature, setFeature] = useState(null)
     const [point, setPoint] = useState(null)
     const [routeClicked, toggleClick] = useState(false)
     const routeValue = { feature, point, setFeature, setPoint }
-    const { layersObject, highlightLayer, desktopPerspective } = stylesObject(activeSource)
-    const { pathsObject } = routeObject()
+    const { layersObject, highlightLayer } = stylesObject(activeSource)
     const { currentSection, setSection } = useContext(SectionContext)
+
+    const [opacity, setOpacity] = useState(0)
+    // const cityLayer = { ...layersObject["cityStyle"], paint: { "circle-opacity": opacity && 1 } }
+
 
     function zoomFunction(number) {
         const x = number / 100
@@ -56,26 +61,6 @@ export default function MapBox({ activeSource, risks }) {
         return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) }
     }, [width])
 
-    console.log(`width: ${width}, zoom: ${persepctive.zoom}`,)
-
-    function renderMap(activeSource, styles) {
-        const layerInfo = styles.layers.find((layer) => activeSource === layer.id)
-        if (layerInfo) return (
-            <>
-                {
-                    layerInfo.layerNames.map((name) => {
-
-                        return (
-                            <div key={name}>
-                                <Layer {...layersObject[name]} />
-                            </div>
-                        )
-                    })
-                }
-            </>
-
-        )
-    }
     function renderSource(activeSource, data) {
         const sourceInfo = data.sources
         if (sourceInfo) return (
@@ -89,22 +74,30 @@ export default function MapBox({ activeSource, risks }) {
         )
     }
     const onHover = useCallback(event => {
-        const country = event.features && event.features[0];
+        const region = event.features && event.features[0];
         setSection({
-            index: country && country.properties.SEGMENT_INDEX,
-            routeId: country && country.properties.SEGMENT
+            index: region && region.properties.SEGMENT_INDEX,
+            routeId: region && region.properties.SEGMENT
+        })
+        setCityInfo({
+            longitude: event.lngLat.lng,
+            latitude: event.lngLat.lat,
+            cityName: region && region.properties.city_origin,
+            countryName: region && region.properties.country_origin,
+            migrantCount: region && region.properties.count
         })
 
         setHoverInfo({
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
-            countryName: country && country.properties.ADM0_NAME
+            countryName: region && region.properties.ADM0_NAME
         });
     }, []);
 
 
 
     const selectedCountry = (hoverInfo && hoverInfo.countryName) || '';
+    const selectedCity = (cityInfo && cityInfo.cityName) || '';
     const selectedSegment = (currentSection && currentSection.routeId) || '';
     const countryNames = !selectedCountry ? [] : ['Ghana', 'Mali', 'Nigeria', 'Niger', 'Chad'].filter((elem) => {
         return elem !== selectedCountry
@@ -113,51 +106,13 @@ export default function MapBox({ activeSource, risks }) {
     const highlightFilter = useMemo(() => ['in', ['get', 'ADM0_NAME'], ["literal", countryNames]], [selectedCountry]);
     const routeFilter = useMemo(() => ['in', 'SEGMENT', selectedSegment], [selectedSegment]);
 
-    // useEffect(() => {
-    //     if (!mapRef.current) return
-    //     let feautureID = null
+    useEffect(() => {
+        if (activeSource == "originCities") {
+            setOpacity(1)
+        }
 
-    //     mapRef.current.on('mousemove', 'routes', (event) => {
-    //         if (event.features.length === 0) return;
-
-    //         if (feautureID !== null) {
-    //             mapRef.current.removeFeatureState({
-    //                 source: 'overall-routes',
-    //                 id: feautureID,
-    //                 sourceLayer: 'route_lagos-tripoli-9p3vru',
-    //             });
-    //         }
-
-    //         feautureID = event.features[0].id
-    //         mapRef.current.setFeatureState(
-    //             {
-    //                 source: 'overall-routes',
-    //                 id: feautureID,
-    //                 sourceLayer: 'route_lagos-tripoli-9p3vru',
-    //             },
-    //             {
-    //                 hover: true
-    //             })
-    //     })
-
-    //     mapRef.current.on('mouseleave', 'routes', () => {
-    //         if (feautureID !== null) {
-    //             mapRef.current.setFeatureState(
-    //                 {
-    //                     source: 'overall-routes',
-    //                     id: feautureID,
-    //                     sourceLayer: 'route_lagos-tripoli-9p3vru',
-    //                 },
-    //                 {
-    //                     hover: false
-    //                 }
-    //             );
-    //         }
-    //         feautureID = null
-    //     })
-
-    // },)
-
+        else setOpacity(0)
+    })
     return (
         <RouteContext.Provider value={routeValue}>
             <div className={styles.mapContainer}>
@@ -172,7 +127,9 @@ export default function MapBox({ activeSource, risks }) {
                     style={{
                         width: '100%', height: '100%'
                     }}
-                    interactiveLayerIds={activeSource ? ['migration-buffer', "hoverable"] : []}
+                    attributionControl={false}
+                    interactiveLayerIds={activeSource === "originCities" ? ['migration-buffer', "hoverable", "cities"] :
+                        activeSource ? ['migration-buffer', "hoverable"] : []}
                     zoom={persepctive.zoom}
                     mapStyle={mapStyle}
                     ref={mapRef}
@@ -182,50 +139,32 @@ export default function MapBox({ activeSource, risks }) {
                     scrollZoom={false}
                 >
                     {(selectedCountry && activeSource === 'originCities') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
+                    )}
+                    {(selectedCity && activeSource === 'originCities') && (
+                        <CityTip hoverInfo={cityInfo} data={risks} />
                     )}
                     {(selectedCountry && activeSource === 'overallRoutes') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
                     )}
                     {(selectedCountry && activeSource === 'extremeHeat') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
                     )}
                     {renderSource(activeSource, risks)}
 
+                    <Layer {...highlightLayer} filter={filter} />
+                    <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
+                    <Layer {...layersObject["countryLayer"]} />
+                    <Layer {...layersObject["migrationRouteStyle"]} lineJoin="round" />
+                    <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
+                    <Layer {...layersObject["migrationBuffer"]} />
+                    <Layer {...layersObject["countryBorderStyle"]} />
+                    <Layer {...layersObject["cityStyle"]}
+                        paint={{
+                            ...layersObject["cityStyle"].paint,
+                            "circle-opacity": opacity,
 
-
-                    {activeSource === 'overallRoutes' && (renderMap(activeSource, risks.styles))}
-                    {activeSource === 'originCities' && (renderMap(activeSource, risks.styles))}
-                    {activeSource === 'extremeHeat' && (renderMap(activeSource, risks.styles))}
-                    {activeSource === 'selectRoute' && (renderMap(activeSource, risks.styles))}
-                    {activeSource === 'originCities' && (
-                        <>
-                            <Layer {...highlightLayer} filter={filter} />
-                            <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
-                            <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
-                        </>
-                    )}
-                    {activeSource === 'overallRoutes' && (
-                        <>
-                            <Layer {...highlightLayer} filter={filter} />
-                            <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
-                            <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
-                        </>
-                    )}
-                    {activeSource === 'extremeHeat' && (
-                        <>
-                            <Layer {...highlightLayer} filter={filter} />
-                            <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
-                            <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
-                        </>
-                    )}
-                    {activeSource === 'selectRoute' && (
-                        <>
-                            <Layer {...highlightLayer} filter={filter} />
-                            <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
-                            <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
-                        </>
-                    )}
+                        }} />
 
                     {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
 

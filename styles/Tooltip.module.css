@@ -1,29 +1,51 @@
 .tooltip {
-    font-family: var(--primary-font-fam);
+    font-family: Inter;
     display: flex;
     flex-direction: column;
-    padding: 0.25rem;
+    padding: 0 0.5rem;
     border-radius: 0.5rem;
     text-align: left;
-    color: black;
     font-size: 0.9rem;
-}
-
-.tooltip h2 {
-    /* font-size: 0.75rem; */
-}
-
-.tooltipInfo {
-    /* border-top: 2px solid black;
-    border-bottom: 1px solid black; */
-}
-
-.tooltipInfo span {
-    /* font-size: 0.5rem; */
 }
 
 .bar {
     display: flex;
     width: 100%;
     height: 0.5rem;
+}
+
+.header {
+    width: max-content;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 0.875rem;
+}
+
+
+.infoBox {
+    padding: 0 var(--paddingFactor);
+    display: flex;
+    justify-content: var(--alignment);
+    gap: 1rem;
+}
+
+.infoBox h4 {
+    font-weight: var(--weight);
+}
+
+
+.infoBox p {
+    line-height: 18px;
+    font-size: var(--size);
+    margin: 0;
+}
+
+.city {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.875rem;
+    gap: 0.25rem;
 }
