@@ -29,12 +29,12 @@ export default function JourneysPage() {
   if (!journey) return <div>loading...</div>;
   return (
     <>
-      <div className={styles.journeyContainer}>
+      <div id="journey" className={styles.journeyContainer}>
         <div className={styles.gridContainer}>
           <Title />
           <Menu journeys={journeys} />
           <Navigation journeys={journeys} journey={journey} />
-          <DataTab />
+          <DataTab journey={journey}/>
           <ImageBox journey={journey} id="image-box" />
         </div>
       </div>

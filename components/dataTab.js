@@ -6,10 +6,13 @@ import Link from "next/link";
 import useWindowSize from "../hooks/useWindowSize";
 import ImageCarousel from "./imageCarousel";
 import TransectPlots from "./transectPlots";
+import useSWR from "swr";
+import {fetcher} from "../hooks/useFetch";
 
-export default function DataTab() {
+export default function DataTab({journey}) {
   const [isOpen, toggleOpen] = useState(false);
   const { width, height } = useWindowSize()
+
   const handleToggle = () => {
     toggleOpen(!isOpen);
   };
@@ -30,8 +33,7 @@ export default function DataTab() {
     <>
       <animated.div style={fullScreenFill} className={styles.screenCover} />
       <animated.div style={fullscreenTab} className={styles.tab}>
-        <TransectPlots isOpen={isOpen} toggleOpen={handleToggle}/>
-
+        <TransectPlots isOpen={isOpen} toggleOpen={handleToggle} journey={journey}/>
       </animated.div>
     </>);
 }

@@ -61,8 +61,8 @@ export default function Card({ svgRef, entourage, width, height, scrollRef }) {
         transition={{ duration: .35 }}
         onHoverStart={() => { setIsOpen(true) }}
         onHoverEnd={() => { setIsOpen(false) }}
-        className={`${styles.card} body-3`}
-        style={{ border: isOpen ? 'none' : 'black solid', padding: isOpen ? '0.4rem' : '0.2rem' }}
+        className={`${styles.card} body-4`}
+        style={{ border: isOpen ? 'none' : 'black solid', padding: isOpen ? '0.6rem' : '0.2rem' }}
       >
         <AnimatePresence>
           {isOpen && <motion.div
