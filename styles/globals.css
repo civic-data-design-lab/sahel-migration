@@ -209,6 +209,11 @@ g {
 /* .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
   border-top-color: rgba(255, 255, 255, 0.75) !important;
 } */
+
+.county-info.mapboxgl-popup.mapboxgl-popup-anchor-center {
+  max-width: 400px !important;
+}
+
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
   border-top-color: none !important;
 }
