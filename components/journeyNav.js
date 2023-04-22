@@ -1,5 +1,5 @@
 import { useState, useRef, useContext, useEffect, Fragment } from "react";
-import { useSpring, motion, AnimatePresence } from "framer-motion";
+import { useSpring, motion, AnimatePresence, useTransform, useMotionValue } from "framer-motion";
 import styles from "./../styles/JourneyNav.module.css"
 import { SectionContext } from '../pages';
 import useSWR from 'swr';
@@ -16,6 +16,13 @@ export default function JourneyNav({ journeys }) {
     const svgRef = useRef(null);
     const zip = (a, b) => Array.from(Array(Math.max(b.length, a.length)), (_, i) => [a[i], b[i]]);
 
+    const y = useMotionValue(0)
+    const positionY = useTransform(
+        y,
+        [0, 100],
+        [0, 100]
+    )
+
 
     const { currentSection, setSection } = useContext(SectionContext)
     const sectionIndex = currentSection && currentSection.index
@@ -27,38 +34,35 @@ export default function JourneyNav({ journeys }) {
 
     const vignettes = zip(riskItems.vignetteUrls, journeys.slice(1)).map((journeyPackage, index) => {
         const [url, journey] = journeyPackage
+
         const routeHovered = index == parseInt(sectionIndex)
         return (
             <Fragment
                 key={`${index}${uuidv4}`}>
                 <motion.div
+                    data-title={journey.title}
+                    data-url={'/journeys/' + journey.id}
                     ref={boxRef}
                     className={styles.vignettes}
                     animate={{
-                        filter: routeHovered ? 'grayscale(0)' : 'grayscale(1)',
-                        scaleY: routeHovered ? 1.1 : 1,
-                        width: routeHovered ? ref.current && ref.current.offsetWidth / 7 * 1.1 : 'initial',
+                        y: routeHovered ? 0 : 80,
                     }}
-                    transition={{ type: "tween", duration: 0.75 }}
+                    transition={{ type: "spring", duration: 0.75 }}
                     whileHover={{
-                        transition: {
-                            type: 'tween',
-                            stiffness: 37.5,
-                            duration: 0.75,
-                        },
-                        width: ref.current && ref.current.offsetWidth / 7 * 1.1,
-                        scaleY: 1.1,
-                        filter: 'grayscale(0)',
-                        zIndex: 6,
-                        border: "2px solid white"
-                    }}
-                    style={{
-                        filter: 'grayscale(1)',
-                        border: routeHovered ? "2px solid white" : 'initial',
                         transition: {
                             type: 'spring',
                             stiffness: 37.5,
-                            duration: 0.75,
+                            duration: 0.8,
+                        },
+                        y: 0,
+                        zIndex: 6,
+                    }}
+                    style={{
+                        y: 80,
+                        transition: {
+                            type: 'spring',
+                            stiffness: 37.5,
+                            duration: 0.8,
                         },
                     }}
                 >
@@ -66,12 +70,12 @@ export default function JourneyNav({ journeys }) {
                         src={url}
                     >
                     </img>
-                    <Link
+                    {<Link
                         href={'/journeys/' + journey.id}
                         className={styles.journeyLink}
                     >{journey.title}
 
-                    </Link>
+                    </Link>}
                 </motion.div>
 
 

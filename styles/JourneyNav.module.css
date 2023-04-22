@@ -2,6 +2,7 @@
     display: grid;
     /* display: flex; */
     height: 10vh;
+    font-family: var(--primary-font-fam);
     position: absolute;
     width: 100%;
     z-index: 5;
@@ -19,19 +20,23 @@
     /* background-position: center; */
     /* grid-area: 1/ span 2; */
     background-color: #D9D9D9;
+    border-top: 0.5rem solid #F15A24;
+
 
 }
 
-/* .journeyContainer .vignettes:hover {
-    grid-area: 1/ span 3;
-} */
-
-/* .journeyContainer:hover>.vignettes:not(:hover) {
-    scale: 0.99;
-} */
-
-.journeyContainer:hover {
-    /* grid-template-columns: repeat(8, 1fr); */
+.vignettes::after {
+    position: absolute;
+    content: ' ';
+    background-color: black;
+    width: 0.15rem;
+    height: 1.5rem;
+    right: 0;
+    z-index: 10;
+    top: -15%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .vignettes img {
@@ -45,8 +50,10 @@
 .journeyLink {
     z-index: 7;
     position: absolute;
+    transform: translateY(-45%);
     width: 100%;
     inset: 0;
+    text-align: center;
     text-decoration: none;
     color: black;
 }
