@@ -1,0 +1,12 @@
+.legend {
+    z-index: 10;
+    grid-area: 1/10/1/12;
+    pointer-events: none;
+}
+
+.routes {
+    position: fixed;
+    bottom: 10%;
+
+    border-bottom: 1.5px solid #985946;
+}
