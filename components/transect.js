@@ -4,7 +4,7 @@ import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph, {DrawTooltip, PlotTransectLayers} from "./streamgraph";
 import styles from '../styles/Transect.module.css'
 
-export default function Transect ({isOpen, journey,containerHeight}) {
+export default function Transect ({isOpen, journey,dataTabHeight}) {
   const { width, height } = useWindowSize();
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
@@ -97,14 +97,14 @@ export default function Transect ({isOpen, journey,containerHeight}) {
           svg
             .attr("id", "viz-transect-layers")
             .attr("class", "viz-transect")
-            .attr("viewBox", [0, 0, width, containerHeight])
+            .attr("viewBox", [0, 0, width, dataTabHeight])
           Streamgraph(filteredStackedAreaData, {
             x: d => d.distance,
             y: d => d.value,
             z: d => d.risk,
             yLabel: yLabel,
             width: width,
-            height: containerHeight,
+            height: dataTabHeight,
             svg: svg,
             risks: risks,
             risk: "all",
@@ -115,7 +115,7 @@ export default function Transect ({isOpen, journey,containerHeight}) {
           })
           DrawTooltip({
             width: width,
-            height: containerHeight,
+            height: dataTabHeight,
             data: filteredStackedAreaData,
             svgRef: svgRef,
             tooltipRef: tooltipRef,
@@ -133,7 +133,7 @@ export default function Transect ({isOpen, journey,containerHeight}) {
   useEffect(() => {
     drawLayers(svgRef,width,height,isOpen);
 
-  }, [containerHeight,height, svgRef, width, isOpen]);
+  }, [dataTabHeight,height, svgRef, width, isOpen]);
   return (
     <>
       <svg ref={svgRef} />

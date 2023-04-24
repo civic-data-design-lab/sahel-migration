@@ -34,7 +34,7 @@ export default function TransectPlots ({ isOpen, toggleOpen, journey}) {
         {/*  <Transect isOpen={isOpen} journey={journey} containerHeight={containerHeight}/>*/}
         {/*</motion.div>*/}
         <motion.div >
-          <Transect isOpen={isOpen} journey={journey} containerHeight={.25*height}/>
+          <Transect isOpen={isOpen} journey={journey} dataTabHeight={.25*height}/>
           <ImageCarousel isOpen={isOpen}/>
         </motion.div>
 
