@@ -3,8 +3,8 @@
   /* width: 100%; */
   /*max-width: 22rem;*/
   overflow-x: hidden;
+  margin-top: 0.5rem;
   margin-left: 1rem;
-  margin-top: .5rem;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
