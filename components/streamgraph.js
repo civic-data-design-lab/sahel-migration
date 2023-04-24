@@ -18,10 +18,11 @@ export function PlotTransectLayers(data, {
 } = {}) {
 
   svg
-    .attr("viewBox", [0, 0, width, .6*height])
+    .attr("viewBox", [0, 0, width, height])
     .style("pointer-events", "all")
   Object.keys(risks).forEach((risk) => {
     yLabel = risks[risk].label
+    //TODO: plot only changing areas
     let dataStackedArea  = data.filter(d => d.risk === risk)
     Streamgraph(dataStackedArea, {
       x: d => d.distance,
@@ -29,7 +30,7 @@ export function PlotTransectLayers(data, {
       z: d => d.risk,
       yLabel: yLabel,
       width: width,
-      height: .08*height,
+      height: 150,
       margin: margin,
       svg: svg,
       xScale: xScale,
@@ -161,7 +162,7 @@ export default function Streamgraph(data, {
       .attr("x", 0)
       .attr("y", 20)
       .text(yLabel));
-  
+
   if (risk == "all") {
     // transparent rects for focus area for this journey
     svg.append("g")
@@ -387,7 +388,7 @@ export function DrawTooltip(config) {
         tooltip.select(".risk-total").select("#data-total").html(Math.round(d0.risks_total));
         tooltip.select(".risk-total").select("#data-total").html(Math.round(combinedRiskValue));
     }
-    
+
     line.attr("x1", xPos)
       .attr("y1", 0)
       .attr("x2", xPos)
@@ -405,7 +406,7 @@ export function DrawTooltip(config) {
             let mouseX = d3.pointer(event)[0];
             let tooltipWidth = document.getElementById("transectTooltip").offsetWidth;
             let svgWidth = +svg.style("width").split("px")[0];
-            
+
             if (mouseX + tooltipWidth + 10 > svgWidth) {
                 return (mouseX - tooltipWidth - 10) + "px"
             }

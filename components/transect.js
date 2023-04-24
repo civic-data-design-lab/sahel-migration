@@ -4,7 +4,7 @@ import useWindowSize from "../hooks/useWindowSize";
 import Streamgraph, {DrawTooltip, PlotTransectLayers} from "./streamgraph";
 import styles from '../styles/Transect.module.css'
 
-export default function Transect ({isOpen, journey}) {
+export default function Transect ({isOpen, journey,containerHeight}) {
   const { width, height } = useWindowSize();
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
@@ -49,8 +49,7 @@ export default function Transect ({isOpen, journey}) {
 
   function drawLayers(svgRef,width,height, isOpen) {
     // const svg = d3.select(svgRef.current);
-    const windowWidth = width;
-    const windowHeight = height;
+    const openedTabHeight = .80*height;
     const svg = d3.select(svgRef.current)
     const margin = {
       top: 50,
@@ -76,7 +75,7 @@ export default function Transect ({isOpen, journey}) {
           PlotTransectLayers(filteredStackedAreaData, {
             yLabel: yLabel,
             width: width,
-            height: height,
+            height: openedTabHeight,
             svg: svg,
             risks: risks,
             xScale: xScale,
@@ -86,7 +85,7 @@ export default function Transect ({isOpen, journey}) {
           })
           DrawTooltip({
             width: width,
-            height: height,
+            height: openedTabHeight,
             data: filteredStackedAreaData,
             svgRef: svgRef,
             tooltipRef: tooltipRef,
@@ -98,14 +97,14 @@ export default function Transect ({isOpen, journey}) {
           svg
             .attr("id", "viz-transect-layers")
             .attr("class", "viz-transect")
-            .attr("viewBox", [0, 0, width, .33*height])
+            .attr("viewBox", [0, 0, width, containerHeight])
           Streamgraph(filteredStackedAreaData, {
             x: d => d.distance,
             y: d => d.value,
             z: d => d.risk,
             yLabel: yLabel,
             width: width,
-            height: .22*height,
+            height: containerHeight,
             svg: svg,
             risks: risks,
             risk: "all",
@@ -116,7 +115,7 @@ export default function Transect ({isOpen, journey}) {
           })
           DrawTooltip({
             width: width,
-            height: height,
+            height: containerHeight,
             data: filteredStackedAreaData,
             svgRef: svgRef,
             tooltipRef: tooltipRef,
@@ -134,7 +133,7 @@ export default function Transect ({isOpen, journey}) {
   useEffect(() => {
     drawLayers(svgRef,width,height,isOpen);
 
-  }, [height, svgRef, width, isOpen]);
+  }, [containerHeight,height, svgRef, width, isOpen]);
   return (
     <>
       <svg ref={svgRef} />

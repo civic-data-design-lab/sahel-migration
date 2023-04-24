@@ -1,6 +1,5 @@
 import { animated, useSpring } from "react-spring";
 import React, {useEffect, useState} from "react";
-import DataTabToggle from "./dataTabToggle";
 import styles from "../styles/DataTab.module.css";
 import Link from "next/link";
 import useWindowSize from "../hooks/useWindowSize";
