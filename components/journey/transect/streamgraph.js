@@ -63,11 +63,13 @@ export default function Streamgraph(data, {
   risks,
   risk,
   risksData,
+  cities,
+  borders,
   journey
 } = {}) {
 
   // Range
-  const yRange = [height - margin.right, margin.top]; // [bottom, top]
+  const yRange = [height - margin.bottom, margin.top]; // [bottom, top]
   // Compute values.
   const X = d3.map(data, x);
   const Y = d3.map(data, y);
@@ -133,7 +135,6 @@ export default function Streamgraph(data, {
     .attr("class", "viz-transect")
     .attr("viewBox", [0, 0, width, height]) // [x-pos, y-pos, width, height]
 
-
   // define path
   plot.append("g")
         .attr("class", "combined-risk")
@@ -147,23 +148,38 @@ export default function Streamgraph(data, {
         .text(([{i}]) => risks[Z[i]].label)
     .style("pointer-events", "all")
 
-  // define x-axis
+  // x-axis baseline
   plot.append("g")
-    .attr("class", "x-axis")
-    .attr("transform", `translate(0,${height - margin.right})`)
-    .call(xAxis)
-    .call(g => g.select(".domain").remove());
+        .attr("class", "x-axis-line")
+    .append("line")
+        .attr("x1", d => xScale(0))
+        .attr("x2", d => xScale(xDomain[1]))
+        .attr("y1", yScale(0))
+        .attr("y2", yScale(0))
+        .attr("stroke", "#463C35")
+        .attr("stroke-width", 1)
 
-//   labels for y-axis
+  // labels for y-axis
   plot.append("g")
-    .attr("class", "label-risk")
-    .attr("transform", `translate(${margin.left},0)`)
+        .attr("class", "label-risk")
     .call(g => g.append("text")
-      .attr("x", 0)
-      .attr("y", 20)
-      .text(yLabel));
+      .attr("x", margin.left)
+      .attr("y", margin.top + 10)
+      .text(yLabel))
+        .attr("fill", "#463C35");
 
   if (risk == "all") {
+    // define x-axis (distance in km)
+    plot.append("g")
+        .attr("class", "x-axis-dist")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(xAxis)
+        .call(g => g.select(".domain").remove());
+    // define ticks for city names
+    plot.append("g")
+            .attr("class", "x-axis-cities")
+        .attr()
+
     // transparent rects for focus area for this journey
     svg.append("g")
             .attr("class", "journey-focus-rect")

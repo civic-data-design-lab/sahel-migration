@@ -1,0 +1,5 @@
+DIST_KM,DURATION_H,PROFILE,PREF,OPTIONS,FROM_ID,vertex_ind,vertex_par,vertex_p_1,distance,angle,Id_count,score,shared_id,CITY_50km,BORDER_50km,COUNTRY,BORDER
+4858.818,81.794,driving-car,fastest,None,,2592,0,2592,3.797292105,130.9198066,891,7.578,4,Sikasso,,Burkina Faso,Burkina Faso
+4858.818,81.794,driving-car,fastest,None,,18234,0,18234,32.12875228,359.87453,8124,69.093,16,,North Niger / Libya Border,Libya,Libya
+4858.818,81.794,driving-car,fastest,None,,7842,0,7842,11.79273476,29.30520931,1887,16.049,4,,,Niger,Niger
+4858.818,81.794,driving-car,fastest,None,,13111,0,13111,22.15738515,82.27237316,0,0,15,Agadez,North Niger / Libya Border,Niger,North Niger / Libya

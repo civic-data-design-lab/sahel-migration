@@ -1,0 +1,112 @@
+[
+    {
+        "distance": 0,
+        "country": "Mali",
+        "city": "Bamako"
+    },
+    {
+        "distance": 3.38230205,
+        "country": "Mali",
+        "city": "Sikasso"
+    },
+    {
+        "distance": 4.283173671,
+        "country": "Burkina Faso",
+        "city": "Orodara"
+    },
+    {
+        "distance": 4.343541748,
+        "country": "Burkina Faso",
+        "city": "Banfora"
+    },
+    {
+        "distance": 4.989096733,
+        "country": "Burkina Faso",
+        "city": "Bobo Dioulasso"
+    },
+    {
+        "distance": 7.377398542,
+        "country": "Burkina Faso",
+        "city": "Reo"
+    },
+    {
+        "distance": 7.38054865,
+        "country": "Burkina Faso",
+        "city": "Koudougou"
+    },
+    {
+        "distance": 8.098662909,
+        "country": "Burkina Faso",
+        "city": "Ouagadougou"
+    },
+    {
+        "distance": 8.339250241,
+        "country": "Burkina Faso",
+        "city": "Kombissiri"
+    },
+    {
+        "distance": 8.502160884,
+        "country": "Burkina Faso",
+        "city": "Ziniare"
+    },
+    {
+        "distance": 9.219195703,
+        "country": "Burkina Faso",
+        "city": "Boulsa"
+    },
+    {
+        "distance": 9.22356026,
+        "country": "Burkina Faso",
+        "city": "Zorgo"
+    },
+    {
+        "distance": 9.489912876,
+        "country": "Burkina Faso",
+        "city": "Koupela"
+    },
+    {
+        "distance": 9.567133897,
+        "country": "Burkina Faso",
+        "city": "Tenkodogo"
+    },
+    {
+        "distance": 10.23846669,
+        "country": "Burkina Faso",
+        "city": "Fada Ngourma"
+    },
+    {
+        "distance": 12.90135784,
+        "country": "Niger",
+        "city": "Niamey"
+    },
+    {
+        "distance": 14.14608659,
+        "country": "Niger",
+        "city": "Dosso"
+    },
+    {
+        "distance": 17.88625481,
+        "country": "Niger",
+        "city": "Tahoua"
+    },
+    {
+        "distance": 21.60253781,
+        "country": "Niger",
+        "city": "Agadez"
+    },
+    {
+        "distance": 37.5232645,
+        "country": "Libya",
+        "city": "Sabha"
+    },
+    {
+        "distance": 43.78088842,
+        "country": "Libya",
+        "city": "Gharyan"
+    },
+    {
+        "distance": 44.36720061,
+        "country": "Libya",
+        "city": "Az Zawiyah"
+    }
+]

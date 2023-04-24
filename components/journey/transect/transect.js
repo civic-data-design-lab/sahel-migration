@@ -54,7 +54,7 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
     const margin = {
       top: 50,
       right: 25,
-      bottom: 20,
+      bottom: 50,
       left: 15
     }
 
@@ -63,6 +63,18 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
       d3.json("/data/transect.json").then(function (stackedAreaData) {
         let filteredData = data.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
         let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
+        let cities = data.filter(d => !!d.city).map(d => {
+            let item = {};
+            item.distance = +d.distance;
+            item.city = d.city;
+            item.country = d.country;
+        });
+        let borders = data.filter(d => !!d.border_2).filter(d => !!d.city).map(d => {
+            let item = {};
+            item.distance = +d.distance;
+            item.border_1 = d.border_1;
+            item.border_2 = d.border_2;
+        });
         let yLabel = "";
         svg.selectAll("*").remove();
         // Construct data domains
@@ -81,6 +93,8 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
             xScale: xScale,
             margin: margin,
             risksData: filteredData,
+            cities: cities,
+            border: borders,
             journey: journey
           })
           DrawTooltip({
@@ -111,6 +125,8 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
             margin: margin,
             xScale: xScale,
             risksData: filteredData,
+            cities: cities,
+            border: borders,
             journey: journey
           })
           DrawTooltip({
@@ -138,29 +154,6 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
     <>
       <svg ref={svgRef} />
       {/*<svg ref={tooltipRef} />*/}
-      {/* <div id="transect-tooltip" className={[styles.transectTooltip, styles.template]}>
-        <h4>Combined Risk
-            <span id="risk-total" className={styles.labelData}>152/360</span>
-        </h4>
-        <p className={styles.risk4mi}>Reported Violence
-            <span id="risk-4mi" className={styles.labelData}>12</span>
-        </p>
-        <p className={styles.riskAcled}>Armed Conflict
-            <span id="risk-acled" className={styles.labelData}>0</span>
-        </p>
-        <p className={styles.riskFood}>Food Insecurity
-            <span id="risk-food" className={styles.labelData}>40</span>
-        </p>
-        <p className={styles.riskSmuggler}>Smuggler Assistance
-            <span id="risk-smuggler" className={styles.labelData}>0</span>
-        </p>
-        <p className={styles.riskRemoteness}>Remoteness
-            <span id="risk-remoteness" className={styles.labelData}>20</span>
-        </p>
-        <p className={styles.riskHeat}>Extreme Heat
-            <span id="risk-heat" className={styles.labelData}>80</span>
-        </p>
-      </div> */}
     </>
   )
 }

@@ -6,8 +6,9 @@ export default function Title() {
 
   return (
     <div className={styles.main}>
-      <h2 className='header-1'>Migrants on the Move</h2>
-      <h6 className='header-3'>Risks of West African Migration</h6>
+        <a href="/">
+            <img className={styles.title} src="../images/logo_Migrants on the Move.svg" alt="Migrants on the Move: Risks of West African Migration logo" />
+        </a>
     </div>
   );
 }
