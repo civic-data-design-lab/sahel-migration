@@ -1,4 +1,4 @@
-import styles from '../styles/DataTabToggle.module.css'
+import styles from '../../../styles/DataTabToggle.module.css'
 
 export default function DataTabToggle({ isOpen, toggleOpen }) {
   return (<>

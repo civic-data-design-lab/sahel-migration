@@ -1,4 +1,4 @@
-import styles from '../styles/DescriptionTab.module.css';
+import styles from '../../styles/DescriptionTab.module.css';
 
 export default function DescriptionTab({ title, body }) {
   return (

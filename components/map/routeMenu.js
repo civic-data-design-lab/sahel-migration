@@ -1,9 +1,9 @@
 import { animated, useSpring } from "react-spring";
 import React, { useState } from "react";
-import DataTabToggle from "./dataTabToggle";
-import styles from "../styles/RouteMenu.module.css";
+import DataTabToggle from "../journey/transect/dataTabToggle";
+import styles from "../../styles/RouteMenu.module.css";
 import Link from "next/link";
-import useWindowSize from "../hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
 import RouteItems from "./routeItems";
 
 export default function RouteMenu({ isOpen, mapToggle }) {

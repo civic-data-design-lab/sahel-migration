@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import * as d3 from "d3";
-import useWindowSize from "../hooks/useWindowSize";
+import useWindowSize from "../../../hooks/useWindowSize";
 import Streamgraph, {DrawTooltip, PlotTransectLayers} from "./streamgraph";
-import styles from '../styles/Transect.module.css'
+import styles from '../../../styles/Transect.module.css'
 
 export default function Transect ({isOpen, journey,dataTabHeight}) {
   const { width, height } = useWindowSize();

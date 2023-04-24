@@ -3,12 +3,12 @@ import React, { useRef, useEffect, useState, useCallback, useMemo, createContext
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import Map, { Source, Layer } from 'react-map-gl'
-import styles from '../styles/MapBox.module.css'
+import styles from '../../styles/MapBox.module.css'
 import stylesObject from './mapStyles';
-import useWindowSize from '../hooks/useWindowSize';
+import useWindowSize from '../../hooks/useWindowSize';
 import Tooltip from './toooltip';
 import routeObject from './routePaths'
-import { SectionContext } from '../pages';
+import { SectionContext } from '../../pages';
 import CityTip from './citytip';
 
 

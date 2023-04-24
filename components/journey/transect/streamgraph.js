@@ -3,7 +3,7 @@
 // https://observablehq.com/@d3/streamgraph
 
 import * as d3 from "d3";
-import styles from "../styles/Transect.module.css";
+import styles from "../../../styles/Transect.module.css";
 
 export function PlotTransectLayers(data, {
   width,

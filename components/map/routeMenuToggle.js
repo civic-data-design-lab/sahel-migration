@@ -1,4 +1,4 @@
-import styles from '../styles/RouteMenuToggle.module.css'
+import styles from '../../styles/RouteMenuToggle.module.css'
 import { animated, useSpring } from "react-spring";
 
 export default function RouteMenuToggle({ isOpen, toggleOpen, currentView }) {

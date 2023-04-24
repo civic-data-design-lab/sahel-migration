@@ -1,8 +1,8 @@
 import { motion, AnimatePresence, useScroll } from "framer-motion"
-import styles from '../styles/Card.module.css';
+import styles from '../../styles/Card.module.css';
 import { useEffect, useLayoutEffect, useState } from "react";
 import * as d3 from "d3";
-import useWindowSize from "../hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
 
 
 export default function Card({ svgRef, entourage, width, height, scrollRef }) {

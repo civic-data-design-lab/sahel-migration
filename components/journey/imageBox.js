@@ -1,9 +1,9 @@
 import Card from './card';
-import styles from '../styles/ImageBox.module.css';
-import useWindowSize from '../hooks/useWindowSize';
-import Title from './title';
+import styles from '../../styles/ImageBox.module.css';
+import useWindowSize from '../../hooks/useWindowSize';
+import Title from '../title';
 import { useState, useRef, useEffect } from 'react';
-import DescriptionTab from './descriptionTab';
+import DescriptionTab from '../map/descriptionTab';
 import * as d3 from "d3";
 import {
   motion,

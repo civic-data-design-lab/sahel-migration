@@ -4,13 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/Map.module.css'
 import useWindowSize from '../../hooks/useWindowSize'
 import useSWR from 'swr'
-import MapBox from "../../components/mapBox";
-import ContentBox from "../../components/contentBox";
+import MapBox from "../../components/map/mapBox";
+import ContentBox from "../../components/map/contentBox";
 import Title from "../../components/title";
 import { animated, useSpring } from "react-spring";
 import Menu from "../../components/menu";
-import MapJourney from "../../components/mapJouney";
-import MapLegend from '../../components/mapLegend'
+import MapJourney from "../../components/map/mapJouney";
+import MapLegend from '../../components/map/mapLegend'
 
 import ScrollIndicator from "../../components/scrollIndicator";
 

@@ -1,12 +1,12 @@
 import { animated, useSpring } from "react-spring";
 import React, {useEffect, useState} from "react";
-import styles from "../styles/DataTab.module.css";
+import styles from "../../../styles/DataTab.module.css";
 import Link from "next/link";
-import useWindowSize from "../hooks/useWindowSize";
-import ImageCarousel from "./imageCarousel";
+import useWindowSize from "../../../hooks/useWindowSize";
+import ImageCarousel from "../../map/imageCarousel";
 import TransectPlots from "./transectPlots";
 import useSWR from "swr";
-import {fetcher} from "../hooks/useFetch";
+import {fetcher} from "../../../hooks/useFetch";
 
 export default function DataTab({journey}) {
   const [isOpen, toggleOpen] = useState(false);

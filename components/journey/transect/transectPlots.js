@@ -2,9 +2,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import Transect from "./transect";
 import {motion,} from "framer-motion";
 import DataTabToggle from "./dataTabToggle";
-import ImageCarousel from "./imageCarousel";
+import ImageCarousel from "../../map/imageCarousel";
 
-import useWindowSize from "../hooks/useWindowSize";
+import useWindowSize from "../../../hooks/useWindowSize";
 
 
 export default function TransectPlots ({ isOpen, toggleOpen, journey}) {

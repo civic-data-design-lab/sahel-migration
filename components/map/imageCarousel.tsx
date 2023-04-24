@@ -1,4 +1,4 @@
-import styles from '../styles/ImageCarousel.module.css'
+import styles from '../../styles/ImageCarousel.module.css'
 
 import { useSpring, motion, AnimatePresence } from "framer-motion";
 import { useState } from 'react';
@@ -64,8 +64,8 @@ export default function ImageCarousel({ isOpen }) {
                                         ['--opacity' as any]: 1
                                     }}
                                 >
-                                    <ImageFilter 
-                                        image={url} 
+                                    <ImageFilter
+                                        image={url}
                                         filter={'duotone'}
                                         preserveAspectRatio="cover"
                                         // colorOne={[93, 53, 53]}

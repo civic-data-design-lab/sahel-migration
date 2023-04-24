@@ -1,11 +1,11 @@
 import { useRouter, withRouter } from 'next/router';
 import useSWR from 'swr';
 import Menu from '../../components/menu';
-import DataTab from '../../components/dataTab';
+import DataTab from '../../components/journey/transect/dataTab';
 import React, { useState, useRef, useEffect } from 'react'
 import styles from '../../styles/Journeys.module.css';
 
-import ImageBox from '../../components/imageBox';
+import ImageBox from '../../components/journey/imageBox';
 import { fetcher } from "../../hooks/useFetch";
 import Navigation from "../../components/navigation";
 import Title from "../../components/title";

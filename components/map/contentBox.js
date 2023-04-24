@@ -1,12 +1,12 @@
 import { useRef, useEffect, useContext, useState } from 'react'
 import { useInView } from 'framer-motion'
-import styles from './../styles/ContentBox.module.css'
-import { ViewContext } from '../pages/maps/map'
+import styles from '../../styles/ContentBox.module.css'
+import { ViewContext } from '../../pages/maps/map'
 import { v4 as uuidv4 } from 'uuid'
 import RouteMenu from './routeMenu'
 import RouteMenuToggle from './routeMenuToggle'
 import { animated, useSpring } from "react-spring";
-import useWindowSize from '../hooks/useWindowSize'
+import useWindowSize from '../../hooks/useWindowSize'
 
 
 function Paragraph({ children, data, items }) {

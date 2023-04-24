@@ -1,4 +1,4 @@
-import styles from '../styles/FloatButton.module.css'
+import styles from '../../styles/FloatButton.module.css'
 import Image from 'next/image'
 import Head from 'next/head'
 export default function FloatButton({ type }) {

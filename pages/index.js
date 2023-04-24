@@ -3,12 +3,12 @@ import Menu from '../components/menu';
 import { Inter } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import MainMap from './maps/map';
-import MapBox from '../components/mapBox';
-import DataTabToggle from '../components/dataTabToggle';
-import DataTab from '../components/dataTab'
+import MapBox from '../components/map/mapBox';
+import DataTabToggle from '../components/journey/transect/dataTabToggle';
+import DataTab from '../components/journey/transect/dataTab'
 const inter = Inter({ subsets: ['latin'] });
 import { useAppContext } from '../context/journeys';
-import JourneyNav from '../components/journeyNav';
+import JourneyNav from '../components/map/journeyNav';
 import { createContext, useState } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
