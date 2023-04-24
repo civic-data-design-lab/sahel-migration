@@ -63,17 +63,20 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
       d3.json("/data/transect.json").then(function (stackedAreaData) {
         let filteredData = data.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
         let filteredStackedAreaData  = stackedAreaData.filter(d => d.index % 50 === 0 || d.index === stackedAreaData.length - 1);
-        let cities = data.filter(d => !!d.city).map(d => {
+        let excludeCities = ['Sikasso', 'Orodara', 'Banfora', 'Reo', 'Koudougou', 'Kombissiri', 'Ziniare', 'Boulsa', 'Zorgo', 'Koupela', 'Tenkodogo', 'Fada Ngourma', 'Dosso', 'Gharyan', 'Az Zawiyah'];
+        let cities = data.filter(d => !!d.city && !excludeCities.includes(d.city)).map(d => {
             let item = {};
             item.distance = +d.distance;
             item.city = d.city;
             item.country = d.country;
+            return item;
         });
-        let borders = data.filter(d => !!d.border_2).filter(d => !!d.city).map(d => {
+        let borders = data.filter(d => !!d.border_2).map(d => {
             let item = {};
             item.distance = +d.distance;
             item.border_1 = d.border_1;
             item.border_2 = d.border_2;
+            return item;
         });
         let yLabel = "";
         svg.selectAll("*").remove();
@@ -94,7 +97,7 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
             margin: margin,
             risksData: filteredData,
             cities: cities,
-            border: borders,
+            borders: borders,
             journey: journey
           })
           DrawTooltip({
@@ -126,7 +129,7 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
             xScale: xScale,
             risksData: filteredData,
             cities: cities,
-            border: borders,
+            borders: borders,
             journey: journey
           })
           DrawTooltip({

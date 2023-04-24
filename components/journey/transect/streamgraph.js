@@ -100,11 +100,23 @@ export default function Streamgraph(data, {
   // Construct scales and axes.
   const yScale = d3.scaleLinear(yDomain, yRange);
 
+  // Construct x-axis labels  
   const xAxis = d3.axisBottom(xScale)
     .tickValues([0, 10, 20, 30, 40, xDomain[1].toFixed(2)])
     .ticks(5)
     .tickSizeOuter(0)
     .tickFormat((d, i) => (d*100).toLocaleString("en-US") + " km");
+  function xAxisTicks(ticksData) {
+    return d3.axisBottom(xScale)
+        .tickValues(ticksData.map(d => d.distance))
+        .tickSize(20)
+        .tickSizeOuter(0)
+        .tickFormat((d, i) => {
+            let labelData = ticksData[i];
+            return (labelData.hasOwnProperty("city")) ? labelData.city // cities
+            : labelData.border_2 + "    " + labelData.border_2 // borders
+        })
+  };
 
   const area = d3.area()
     .x(({i}) => xScale(X[i]))
@@ -178,7 +190,13 @@ export default function Streamgraph(data, {
     // define ticks for city names
     plot.append("g")
             .attr("class", "x-axis-cities")
-        .attr()
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(xAxisTicks(cities));
+    // define ticks for borders
+    // plot.append("g")
+    //         .attr("class", "x-axis-borders")
+    //         .attr("transform", `translate(0,${height - margin.bottom})`)
+    //     .call(xAxisTicks(borders));
 
     // transparent rects for focus area for this journey
     svg.append("g")
