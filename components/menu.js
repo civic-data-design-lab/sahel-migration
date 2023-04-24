@@ -3,7 +3,7 @@ import { useSpring, animated, useTransition, config, easings } from 'react-sprin
 import { useRouter } from 'next/router';
 import styles from '../styles/Menu.module.css';
 import Link from "next/link";
-import Card from "./card";
+import Card from "./journey/card";
 import useSWR from "swr";
 import { fetcher } from "../hooks/useFetch";
 export default function Menu({ journeys }) {

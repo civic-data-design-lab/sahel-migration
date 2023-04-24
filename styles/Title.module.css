@@ -13,14 +13,8 @@
   font-family: var(--primary-font-fam);
 }
 
-.main h2 {
-  /*padding-bottom: 0rem;*/
-  margin-bottom: -.4rem;
-}
-
-.main h6 {
-  margin-bottom: 1rem;
-
+.title {
+    width: 100%;
 }
 
 /* 
