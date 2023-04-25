@@ -152,7 +152,7 @@ export default function Transect ({isOpen, journey,dataTabHeight}) {
   useEffect(() => {
     drawLayers(svgRef,width,height,isOpen);
 
-  }, [dataTabHeight,height, svgRef, width, isOpen]);
+  }, [dataTabHeight,height, svgRef, width, isOpen, journey]);
   return (
     <>
       <svg ref={svgRef} />
