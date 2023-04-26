@@ -5,25 +5,23 @@ import styles from '../styles/Home.module.css';
 import MainMap from './maps/map';
 import MapBox from '../components/map/mapBox';
 import DataTabToggle from '../components/journey/transect/dataTabToggle';
-import DataTab from '../components/journey/transect/dataTab'
+import DataTab from '../components/journey/transect/dataTab';
 const inter = Inter({ subsets: ['latin'] });
 import { useAppContext } from '../context/journeys';
 import JourneyNav from '../components/map/journeyNav';
 import { createContext, useState } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
-
 export const SectionContext = createContext({
   currentSection: null,
-  setSection: (() => { }),
-})
-
+  setSection: () => {},
+});
 
 export default function Home() {
-  const journeys = useAppContext()
-  const [currentSection, setSection] = useState(null)
-  const sectionValue = { currentSection, setSection }
-  const { width } = useWindowSize()
+  const journeys = useAppContext();
+  const [currentSection, setSection] = useState(null);
+  const sectionValue = { currentSection, setSection };
+  const { width } = useWindowSize();
   return (
     <>
       <Head>
@@ -35,14 +33,12 @@ export default function Home() {
       </Head>
       <main>
         <SectionContext.Provider value={sectionValue}>
-
           <Menu journeys={journeys} />
           {/* <h1>HOME</h1> */}
           <MainMap />
           {/* <MapBox /> */}
           {width > 600 && <JourneyNav journeys={journeys} />}
         </SectionContext.Provider>
-
       </main>
     </>
   );

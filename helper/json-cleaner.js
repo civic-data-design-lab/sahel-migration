@@ -1,7 +1,6 @@
+const fs = require('fs');
 
-const fs = require("fs");
-
-const inputFile = "input.json";
+const inputFile = 'input.json';
 
 fs.readFile(inputFile, (err, data) => {
   if (err) {

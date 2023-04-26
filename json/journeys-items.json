@@ -46,7 +46,7 @@
             "posX": 100,
             "posY": 0,
             "scrollStart": 0,
-            "scrollEnd": 0.10
+            "scrollEnd": 0.1
           },
           {
             "id": 2,
@@ -62,7 +62,7 @@
             "posX": 1000,
             "posY": 320,
             "scrollStart": 0.35,
-            "scrollEnd": 0.50
+            "scrollEnd": 0.5
           },
           {
             "id": 4,
@@ -95,7 +95,7 @@
             "posX": 400,
             "posY": 450,
             "scrollStart": 0,
-            "scrollEnd": 0.30
+            "scrollEnd": 0.3
           },
           {
             "id": 2,
@@ -128,7 +128,7 @@
             "posX": 200,
             "posY": 0,
             "scrollStart": 0,
-            "scrollEnd": 0.10
+            "scrollEnd": 0.1
           },
           {
             "id": 2,
@@ -144,7 +144,7 @@
             "posX": 250,
             "posY": -80,
             "scrollStart": 0.35,
-            "scrollEnd": 0.50
+            "scrollEnd": 0.5
           },
           {
             "id": 4,
@@ -159,7 +159,7 @@
             "body": "Trucks heading back to Agadez with workers from Libya. Majority converts earnings into goods (furniture, clothes, appliances and other household items) to bring home because the Libyan dinar is unstable",
             "posX": 50,
             "posY": 0,
-            "scrollStart": 0.80,
+            "scrollStart": 0.8,
             "scrollEnd": 1
           },
           {

@@ -1,33 +1,31 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { Carousel } from "react-bootstrap";
-import styles from '../../styles/ImageCarousel.module.css'
-import { v4 as uuidv4 } from 'uuid'
-import { useState } from "react";
-import { wrap } from "framer-motion";
-
+import { motion, AnimatePresence } from 'framer-motion';
+import { Carousel } from 'react-bootstrap';
+import styles from '../../styles/ImageCarousel.module.css';
+import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
+import { wrap } from 'framer-motion';
 
 const dropIn = {
   hidden: {
-    y: "-100vh",
+    y: '-100vh',
     opacity: 0,
   },
   visible: {
-    y: "0",
+    y: '0',
     opacity: 1,
     transition: {
       duration: 0.1,
-      type: "spring",
+      type: 'spring',
       damping: 25,
       stiffness: 500,
     },
   },
   exit: {
-    y: "100vh",
+    y: '100vh',
     opacity: 0,
   },
 };
 const Backdrop = ({ children, onClick }) => {
-
   return (
     <motion.div
       onClick={onClick}
@@ -42,7 +40,6 @@ const Backdrop = ({ children, onClick }) => {
 };
 
 const ImageModal = ({ handleClose, images, currentIndex }) => {
-
   return (
     <Backdrop onClick={handleClose}>
       <motion.div
@@ -54,8 +51,6 @@ const ImageModal = ({ handleClose, images, currentIndex }) => {
         exit="exit"
       >
         <SlideShow images={images} currentIndex={currentIndex} />
-
-
       </motion.div>
       <button className={styles.exit} onClick={handleClose}>
         <span className="material-symbols-outlined">close</span>
@@ -68,21 +63,21 @@ const variants = {
   enter: (direction: number) => {
     return {
       x: direction > 0 ? 1000 : -1000,
-      opacity: 0
+      opacity: 0,
     };
   },
   center: {
     zIndex: 1,
     x: 0,
-    opacity: 1
+    opacity: 1,
   },
   exit: (direction: number) => {
     return {
       zIndex: 0,
       x: direction < 0 ? 1000 : -1000,
-      opacity: 0
+      opacity: 0,
     };
-  }
+  },
 };
 
 /**
@@ -110,10 +105,9 @@ export const SlideShow = ({ images, currentIndex }: any) => {
   };
 
   return (
-    <div className={styles["example-container"]}>
+    <div className={styles['example-container']}>
       <AnimatePresence initial={false} custom={direction}>
         <div className={styles.imgContainer}>
-
           <motion.img
             key={page}
             src={images[(imageIndex + currentIndex) % images.length]}
@@ -123,8 +117,8 @@ export const SlideShow = ({ images, currentIndex }: any) => {
             animate="center"
             exit="exit"
             transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 }
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -140,25 +134,21 @@ export const SlideShow = ({ images, currentIndex }: any) => {
             }}
           />
           <div className={styles.caption}>
-            <span>Image {(imageIndex + currentIndex) % images.length + 1}/ {images.length}</span>
+            <span>
+              Image {((imageIndex + currentIndex) % images.length) + 1}/ {images.length}
+            </span>
             <p>{`A truck joins a convoy with armed military escort as it begins crossing the Sahara Desert from Niger north to Libya, overloaded with Nigerien workers and families destined for work in mines, on October 8, 2018 in Agadez, Niger. Aside from civilian convoys, National Guard patrols hunt armed Islamists in this Sahel region half the size of Texas. In a bid to stem irregular migration from Africa to Europe, the EU is spending $270 million on an "Emergency Trust Fund" for programs in Niger, part of a security-development package that has seen the number of migrants heading north drop from 334,000 in 2016 to fewer than 50,000 in 2018.`}</p>
           </div>
         </div>
-
       </AnimatePresence>
       <div className={styles.next} onClick={() => paginate(1)}>
-        <span className="material-symbols-outlined">
-          navigate_next
-        </span>
+        <span className="material-symbols-outlined">navigate_next</span>
       </div>
       <div className={styles.prev} onClick={() => paginate(-1)}>
-        <span className="material-symbols-outlined">
-          navigate_before
-        </span>
+        <span className="material-symbols-outlined">navigate_before</span>
       </div>
     </div>
   );
 };
-
 
 export default ImageModal;

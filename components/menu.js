@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useSpring, animated, useTransition, config, easings } from 'react-spring';
 import { useRouter } from 'next/router';
 import styles from '../styles/Menu.module.css';
-import Link from "next/link";
-import Card from "./journey/card";
-import useSWR from "swr";
-import { fetcher } from "../hooks/useFetch";
+import Link from 'next/link';
+import Card from './journey/card';
+import useSWR from 'swr';
+import { fetcher } from '../hooks/useFetch';
 export default function Menu({ journeys }) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,24 +21,20 @@ export default function Menu({ journeys }) {
     };
   };
 
-
   const fullscreenMenu = useSpring({
-    from: { right: "-100%" },
-    right: menuOpen ? "0" : "-100%",
+    from: { right: '-100%' },
+    right: menuOpen ? '0' : '-100%',
   });
   const fullScreenFill = useSpring({
     opacity: menuOpen ? 1 : 0,
-  })
+  });
   if (!journeys) return <></>;
   return (
     <nav>
       <span className={styles.menuContainer}>
         {!menuOpen ? (
           <button onClick={handleToggle} className={styles.menuButton}>
-            <span
-              class="material-symbols-outlined"
-              style={{ color: 'black', fontSize: '2rem' }}
-            >
+            <span class="material-symbols-outlined" style={{ color: 'black', fontSize: '2rem' }}>
               menu
             </span>
           </button>
@@ -65,7 +61,14 @@ export default function Menu({ journeys }) {
                 {journeys.map((journey) => (
                   <li key={journey.id} className={styles.journeyItem}>
                     {/* <span className="material-symbols-outlined"> arrow_forward</span> */}
-                    <Link className={styles.route} key={journey.id} onClick={handleRouting('/journeys/' + journey.id)} href={'/journeys/' + journey.id}>{journey.title}</Link>
+                    <Link
+                      className={styles.route}
+                      key={journey.id}
+                      onClick={handleRouting('/journeys/' + journey.id)}
+                      href={'/journeys/' + journey.id}
+                    >
+                      {journey.title}
+                    </Link>
                   </li>
                 ))}
               </ul>
