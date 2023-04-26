@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Card from './journey/card';
 import useSWR from 'swr';
 import { fetcher } from '../hooks/useFetch';
+import { index } from 'd3';
 export default function Menu({ journeys }) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,20 +35,20 @@ export default function Menu({ journeys }) {
       <span className={styles.menuContainer}>
         {!menuOpen ? (
           <button onClick={handleToggle} className={styles.menuButton}>
-            <span class="material-symbols-outlined" style={{ color: 'black', fontSize: '2rem' }}>
+            <span class="material-symbols-outlined" style={{ color: '#463c35', fontSize: '2rem' }}>
               menu
             </span>
           </button>
         ) : (
           <button onClick={handleToggle} className={styles.menuButton}>
-            <span class="material-symbols-outlined" style={{ color: 'black' }}>
+            <span class="material-symbols-outlined" style={{ color: '#463c35', fontSize: '2rem' }}>
               close
             </span>
           </button>
         )}
       </span>
       <div>
-        <animated.div style={fullScreenFill} className={styles.screenCover} />
+        {/* <animated.div style={fullScreenFill} className={styles.screenCover} /> */}
         <animated.div style={fullscreenMenu} className={styles.navBar}>
           <ul className={styles.listContainer}>
             <li>
