@@ -24,7 +24,7 @@ function Paragraph({ children, data, items }) {
     <div className={styles.paragraph} ref={ref}>
       <h2 className="header-3">{data.heading}</h2>
       <p
-        className="header-3"
+        className="body-3"
         style={{
           fontWeight: 'initial',
         }}

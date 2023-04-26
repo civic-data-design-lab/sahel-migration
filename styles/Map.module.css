@@ -54,7 +54,8 @@
 
 .contentBox {
     position: fixed;
-    height: 65%;
+    height: 90vh;
+    bottom: 0;
     /* z-index: -1; */
 }
 
