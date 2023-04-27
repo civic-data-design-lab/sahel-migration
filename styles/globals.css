@@ -31,6 +31,13 @@
   font-weight: bold;
 }
 
+/* font style for header of data transect */
+.header-2 {
+  font-family: var(--sans-font-fam);
+  font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+  font-weight: 520;
+}
+
 /* font style for header of main narrative text */
 .header-3 {
   font-family: var(--primary-font-fam);
@@ -234,8 +241,8 @@ g {
 
 #viz-transect-layers .label-risk text {
   font-family: var(--sans-font-fam);
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 500;
+  font-size: 0.85rem;
 }
 
 #viz-transect-layers .label-journey {
