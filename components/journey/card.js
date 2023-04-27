@@ -76,7 +76,7 @@ export default function Card({ svgRef, entourage, width, height, scrollRef }) {
           setIsOpen(false);
         }}
         className={`${styles.card} body-4`}
-        style={{ border: isOpen ? 'none' : ('2.5px #463C35 solid'), padding: isOpen ? '0.6rem' : '0.15rem' }}
+        style={{ border: isOpen ? 'none' : ('2px #463C35 solid'), padding: isOpen ? '0.6rem' : '0.15rem' }}
       >
         <AnimatePresence>
           {isOpen && <motion.div className={styles.expandedCard}>{entourage.body}</motion.div>}
