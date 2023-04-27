@@ -4,7 +4,7 @@ import styles from '../../../styles/DataTab.module.css';
 import Link from 'next/link';
 import useWindowSize from '../../../hooks/useWindowSize';
 import ImageCarousel from '../../map/imageCarousel';
-import TransectPlots from './transectPlots';
+import TransectContainer from './transectContainer';
 import useSWR from 'swr';
 import { fetcher } from '../../../hooks/useFetch';
 
@@ -32,7 +32,7 @@ export default function DataTab({ journey }) {
     <>
       <animated.div style={fullScreenFill} className={styles.screenCover} />
       <animated.div style={fullscreenTab} className={styles.tab}>
-        <TransectPlots isOpen={isOpen} toggleOpen={handleToggle} journey={journey} />
+        <TransectContainer isOpen={isOpen} toggleOpen={handleToggle} journey={journey} />
       </animated.div>
     </>
   );

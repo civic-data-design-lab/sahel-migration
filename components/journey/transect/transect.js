@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import * as d3 from 'd3';
 import useWindowSize from '../../../hooks/useWindowSize';
-import Streamgraph, { DrawTooltip, PlotTransectLayers } from './streamgraph';
+import PlotAllTransectLayers, {
+  PlotCombinedTransectLayers,
+} from './transectPlots';
 import styles from '../../../styles/Transect.module.css';
 
 export default function Transect({ isOpen, journey, dataTabHeight }) {
   const { width, height } = useWindowSize();
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
+
   let risks = {
     '4mi': {
       index: 0,
@@ -114,69 +117,49 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         // Construct scales and axes
         const xScale = d3.scaleLinear().domain(xDomain).range(xRange);
         if (isOpen) {
-          PlotTransectLayers(filteredStackedAreaData, {
+          PlotAllTransectLayers(filteredStackedAreaData, {
             yLabel: yLabel,
             width: width,
             height: openedTabHeight,
             svg: svg,
-            risks: risks,
-            xScale: xScale,
             margin: margin,
-            risksData: filteredData,
             cities: cities,
             borders: borders,
             journey: journey,
-          });
-          DrawTooltip({
-            width: width,
-            height: openedTabHeight,
-            data: filteredStackedAreaData,
             svgRef: svgRef,
             tooltipRef: tooltipRef,
             xScale: xScale,
             risks: risks,
             risksData: filteredData,
-          });
+          })
         } else {
-          svg
-            .attr('id', 'viz-transect-layers')
-            .attr('class', 'viz-transect')
-            .attr('viewBox', [0, 0, width, dataTabHeight]);
-          Streamgraph(filteredStackedAreaData, {
-            x: (d) => d.distance,
-            y: (d) => d.value,
-            z: (d) => d.risk,
-            yLabel: yLabel,
+          PlotCombinedTransectLayers(filteredStackedAreaData, {
+            svg: svg,
+            svgRef: svgRef,
+            tooltipRef: tooltipRef,
             width: width,
             height: dataTabHeight,
-            svg: svg,
+            xDomain: xDomain,
             risks: risks,
-            risk: 'all',
+            yLabel: yLabel,
             margin: margin,
             xScale: xScale,
-            risksData: filteredData,
             cities: cities,
             borders: borders,
             journey: journey,
-          });
-          DrawTooltip({
-            width: width,
-            height: dataTabHeight,
-            data: filteredStackedAreaData,
-            svgRef: svgRef,
-            tooltipRef: tooltipRef,
-            xScale: xScale,
-            risks: risks,
             risksData: filteredData,
           });
-        }
+          }
       });
     });
   }
 
+  //TODO: optimize re-rendering for d3 plots
   useEffect(() => {
     drawLayers(svgRef, width, height, isOpen);
   }, [dataTabHeight, height, svgRef, width, isOpen, journey]);
+
+
   return (
     <>
       <svg ref={svgRef} />
