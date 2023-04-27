@@ -1,346 +1,304 @@
 {
-    "items": {
-        "risks": [
-            {
-                "id": "overallRoutes",
-                "heading": "Migration from West Africa to Libya is Risky",
-                "body": "Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022)."
-            },
-            {
-                "id": "originCities",
-                "heading": "Migrants were Surveyed in Libya",
-                "body": "In June and July 2021, migrants in Libya were surveyed  by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status.. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
-            },
-            {
-                "id": "extremeHeat",
-                "heading": "Risk levels for migrants vary along the route",
-                "body": "Some northern countries in Africa, such as Algeria, Libya, Morocco, Tunisia, and Niger, have harsh policies to prosecute irregular migrants. This puts migrants at higher risk, often resorting to alternative means of traveling through more remote areas and hiring smugglers for assistance crossing through treacherous terrain."
-            }
-        ],
-        "migrantData": [
-            {
-                "countryId": "Benin",
-                "migrantCount": 19
-            },
-            {
-                "countryId": "Burkina Faso",
-                "migrantCount": 13
-            },
-            {
-                "countryId": "Cameroon",
-                "migrantCount": 3
-            },
-            {
-                "countryId": "Chad",
-                "migrantCount": 95
-            },
-            {
-                "countryId": "Côte d'Ivoire",
-                "migrantCount": 17
-            },
-            {
-                "countryId": "Gambia",
-                "migrantCount": 7
-            },
-            {
-                "countryId": "Ghana",
-                "migrantCount": 32
-            },
-            {
-                "countryId": "Guinea",
-                "migrantCount": 5
-            },
-            {
-                "countryId": "Guinea Bissau",
-                "migrantCount": 7
-            },
-            {
-                "countryId": "Liberia",
-                "migrantCount": 4
-            },
-            {
-                "countryId": "Libya",
-                "migrantCount": 0
-            },
-            {
-                "countryId": "Mali",
-                "migrantCount": 39
-            },
-            {
-                "countryId": "Niger",
-                "migrantCount": 0
-            },
-            {
-                "countryId": "Nigeria",
-                "migrantCount": 80
-            },
-            {
-                "countryId": "Senegal",
-                "migrantCount": 11
-            },
-            {
-                "countryId": "Sierra Leone",
-                "migrantCount": 1
-            },
-            {
-                "countryId": "Togo",
-                "migrantCount": 14
-            }
-        ],
-        "transectRisks": [
-            {
-                "id": "migrationRisks",
-                "heading": "Migration Risks"
-            },
-            {
-                "id": "urbanProximity",
-                "heading": "Proximity to Urban Areas"
-            },
-            {
-                "id": "migrationPolicy",
-                "heading": "Irregular Migration Plociy"
-            },
-            {
-                "id": "reportedViolence",
-                "heading": "Reported Violence"
-            },
-            {
-                "id": "conflictAreas",
-                "heading": "Conlfict Areas"
-            },
-            {
-                "id": "foodPrices",
-                "heading": "Food Prices"
-            },
-            {
-                "id": "photos",
-                "heading": "Photos",
-                "imageUrls": [
-                    "/images/drafts/1-img01.jpeg",
-                    "/images/drafts/2-img01.png",
-                    "/images/drafts/2-img02.jpeg",
-                    "/images/drafts/4-img01.jpg",
-                    "/images/drafts/7-img01.jpeg"
-                ]
-            }
-        ],
-        "styles": {
-            "allLayers": [],
-            "layers": [
-                {
-                    "id": "originCities",
-                    "layerNames": [
-                        "libyaSelect",
-                        "countryBorderStyle",
-                        "countryLayer",
-                        "migrationRouteStyle",
-                        "migrationBuffer"
-                    ]
-                },
-                {
-                    "id": "overallRoutes",
-                    "layerNames": [
-                        "libyaSelect",
-                        "countryBorderStyle",
-                        "countryLayer",
-                        "migrationRouteStyle",
-                        "migrationBuffer"
-                    ]
-                },
-                {
-                    "id": "extremeHeat",
-                    "layerNames": [
-                        "extremeHeatLayer",
-                        "libyaSelect",
-                        "countryBorderStyle",
-                        "countryLayer",
-                        "migrationRouteStyle",
-                        "migrationBuffer"
-                    ]
-                }
-            ]
+  "items": {
+    "risks": [
+      {
+        "id": "overallRoutes",
+        "heading": "Migration from West Africa to Libya is Risky",
+        "body": "Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022)."
+      },
+      {
+        "id": "originCities",
+        "heading": "Migrants were Surveyed in Libya",
+        "body": "In June and July 2021, migrants in Libya were surveyed  by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status.. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
+      },
+      {
+        "id": "extremeHeat",
+        "heading": "Risk levels for migrants vary along the route",
+        "body": "Some northern countries in Africa, such as Algeria, Libya, Morocco, Tunisia, and Niger, have harsh policies to prosecute irregular migrants. This puts migrants at higher risk, often resorting to alternative means of traveling through more remote areas and hiring smugglers for assistance crossing through treacherous terrain."
+      }
+    ],
+    "migrantData": [
+      {
+        "countryId": "Benin",
+        "migrantCount": 19
+      },
+      {
+        "countryId": "Burkina Faso",
+        "migrantCount": 13
+      },
+      {
+        "countryId": "Cameroon",
+        "migrantCount": 3
+      },
+      {
+        "countryId": "Chad",
+        "migrantCount": 95
+      },
+      {
+        "countryId": "Côte d'Ivoire",
+        "migrantCount": 17
+      },
+      {
+        "countryId": "Gambia",
+        "migrantCount": 7
+      },
+      {
+        "countryId": "Ghana",
+        "migrantCount": 32
+      },
+      {
+        "countryId": "Guinea",
+        "migrantCount": 5
+      },
+      {
+        "countryId": "Guinea Bissau",
+        "migrantCount": 7
+      },
+      {
+        "countryId": "Liberia",
+        "migrantCount": 4
+      },
+      {
+        "countryId": "Libya",
+        "migrantCount": 0
+      },
+      {
+        "countryId": "Mali",
+        "migrantCount": 39
+      },
+      {
+        "countryId": "Niger",
+        "migrantCount": 0
+      },
+      {
+        "countryId": "Nigeria",
+        "migrantCount": 80
+      },
+      {
+        "countryId": "Senegal",
+        "migrantCount": 11
+      },
+      {
+        "countryId": "Sierra Leone",
+        "migrantCount": 1
+      },
+      {
+        "countryId": "Togo",
+        "migrantCount": 14
+      }
+    ],
+    "transectRisks": [
+      {
+        "id": "migrationRisks",
+        "heading": "Migration Risks"
+      },
+      {
+        "id": "urbanProximity",
+        "heading": "Proximity to Urban Areas"
+      },
+      {
+        "id": "migrationPolicy",
+        "heading": "Irregular Migration Plociy"
+      },
+      {
+        "id": "reportedViolence",
+        "heading": "Reported Violence"
+      },
+      {
+        "id": "conflictAreas",
+        "heading": "Conlfict Areas"
+      },
+      {
+        "id": "foodPrices",
+        "heading": "Food Prices"
+      },
+      {
+        "id": "photos",
+        "heading": "Photos",
+        "imageUrls": [
+          "/images/drafts/1-img01.jpeg",
+          "/images/drafts/2-img01.png",
+          "/images/drafts/2-img02.jpeg",
+          "/images/drafts/4-img01.jpg",
+          "/images/drafts/7-img01.jpeg"
+        ]
+      }
+    ],
+    "styles": {
+      "allLayers": [],
+      "layers": [
+        {
+          "id": "originCities",
+          "layerNames": [
+            "libyaSelect",
+            "countryBorderStyle",
+            "countryLayer",
+            "migrationRouteStyle",
+            "migrationBuffer"
+          ]
         },
-        "sources": [
-            {
-                "id": "overall-routes",
-                "url": "mapbox://mitcivicdata.a6m0ng2q"
-            },
-            {
-                "id": "selected-countries",
-                "url": "mapbox://mitcivicdata.111746lw"
-            },
-            {
-                "id": "origin-cities",
-                "url": "mapbox://mitcivicdata.biwrhf8h"
-            },
-            {
-                "id": "extreme-heat",
-                "url": "mapbox://mitcivicdata.27dxrfrn"
-            },
-            {
-                "id": "migration-routes",
-                "url": "mapbox://mitcivicdata.04ugw1cd"
-            },
-            {
-                "id": "country-overlay",
-                "url": "mapbox://mapbox.country-boundaries-v1"
-            }
-        ],
-        "migrationRoutes": [
-            {
-                "id": "nra",
-                "geojson": {
-                    "type": "FeatureCollection",
-                    "features": [
-                        {
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": {
-                                "coordinates": [
-                                    [
-                                        6.890383,
-                                        6.994800
-                                    ],
-                                    [
-                                        7,
-                                        26
-                                    ],
-                                    [
-                                        12,
-                                        24
-                                    ],
-                                    [
-                                        13.19,
-                                        32.8
-                                    ]
-                                ],
-                                "type": "LineString"
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "ghan",
-                "geojson": {
-                    "type": "FeatureCollection",
-                    "features": [
-                        {
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": {
-                                "coordinates": [
-                                    [
-                                        -1.3,
-                                        8
-                                    ],
-                                    [
-                                        13,
-                                        14
-                                    ],
-                                    [
-                                        13.19,
-                                        32.8
-                                    ]
-                                ],
-                                "type": "LineString"
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "mali",
-                "geojson": {
-                    "type": "FeatureCollection",
-                    "features": [
-                        {
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": {
-                                "coordinates": [
-                                    [
-                                        -5,
-                                        15
-                                    ],
-                                    [
-                                        3.58,
-                                        29
-                                    ],
-                                    [
-                                        13.19,
-                                        32.8
-                                    ]
-                                ],
-                                "type": "LineString"
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "chad",
-                "geojson": {
-                    "type": "FeatureCollection",
-                    "features": [
-                        {
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": {
-                                "coordinates": [
-                                    [
-                                        18,
-                                        16
-                                    ],
-                                    [
-                                        13.19,
-                                        32.8
-                                    ]
-                                ],
-                                "type": "LineString"
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "nir",
-                "geojson": {
-                    "type": "FeatureCollection",
-                    "features": [
-                        {
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": {
-                                "coordinates": [
-                                    [
-                                        8.79,
-                                        16.7
-                                    ],
-                                    [
-                                        13.19,
-                                        32.8
-                                    ]
-                                ],
-                                "type": "LineString"
-                            }
-                        }
-                    ]
-                }
-            }
-        ],
-        "vignetteUrls": [
-            "/images/journeys/thumbnails/2-in transit.png",
-            "/images/journeys/thumbnails/3-sahara.png",
-            "/images/journeys/thumbnails/3-Transit Hub Agadez.png",
-            "/images/journeys/thumbnails/5-Entering Libya.png",
-            "/images/journeys/thumbnails/6-Transit Hub Sabha.png",
-            "/images/journeys/thumbnails/7-Transit Hub Tripoli.png",
-            "/images/journeys/thumbnails/8-Current Migrant Condition in Libya.png"
-        ],
-        "paths": {
-            "id": "migration-routes",
-            "url": "mapbox://mitcivicdata.709o03gi"
+        {
+          "id": "overallRoutes",
+          "layerNames": [
+            "libyaSelect",
+            "countryBorderStyle",
+            "countryLayer",
+            "migrationRouteStyle",
+            "migrationBuffer"
+          ]
+        },
+        {
+          "id": "extremeHeat",
+          "layerNames": [
+            "extremeHeatLayer",
+            "libyaSelect",
+            "countryBorderStyle",
+            "countryLayer",
+            "migrationRouteStyle",
+            "migrationBuffer"
+          ]
         }
+      ]
+    },
+    "sources": [
+      {
+        "id": "overall-routes",
+        "url": "mapbox://mitcivicdata.a6m0ng2q"
+      },
+      {
+        "id": "selected-countries",
+        "url": "mapbox://mitcivicdata.111746lw"
+      },
+      {
+        "id": "origin-cities",
+        "url": "mapbox://mitcivicdata.biwrhf8h"
+      },
+      {
+        "id": "extreme-heat",
+        "url": "mapbox://mitcivicdata.27dxrfrn"
+      },
+      {
+        "id": "migration-routes",
+        "url": "mapbox://mitcivicdata.04ugw1cd"
+      },
+      {
+        "id": "country-overlay",
+        "url": "mapbox://mapbox.country-boundaries-v1"
+      }
+    ],
+    "migrationRoutes": [
+      {
+        "id": "nra",
+        "geojson": {
+          "type": "FeatureCollection",
+          "features": [
+            {
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                "coordinates": [
+                  [6.890383, 6.9948],
+                  [7, 26],
+                  [12, 24],
+                  [13.19, 32.8]
+                ],
+                "type": "LineString"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "ghan",
+        "geojson": {
+          "type": "FeatureCollection",
+          "features": [
+            {
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                "coordinates": [
+                  [-1.3, 8],
+                  [13, 14],
+                  [13.19, 32.8]
+                ],
+                "type": "LineString"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "mali",
+        "geojson": {
+          "type": "FeatureCollection",
+          "features": [
+            {
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                "coordinates": [
+                  [-5, 15],
+                  [3.58, 29],
+                  [13.19, 32.8]
+                ],
+                "type": "LineString"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "chad",
+        "geojson": {
+          "type": "FeatureCollection",
+          "features": [
+            {
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                "coordinates": [
+                  [18, 16],
+                  [13.19, 32.8]
+                ],
+                "type": "LineString"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "nir",
+        "geojson": {
+          "type": "FeatureCollection",
+          "features": [
+            {
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                "coordinates": [
+                  [8.79, 16.7],
+                  [13.19, 32.8]
+                ],
+                "type": "LineString"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "vignetteUrls": [
+      "/images/journeys/thumbnails/2-in transit.png",
+      "/images/journeys/thumbnails/3-sahara.png",
+      "/images/journeys/thumbnails/3-Transit Hub Agadez.png",
+      "/images/journeys/thumbnails/5-Entering Libya.png",
+      "/images/journeys/thumbnails/6-Transit Hub Sabha.png",
+      "/images/journeys/thumbnails/7-Transit Hub Tripoli.png",
+      "/images/journeys/thumbnails/8-Current Migrant Condition in Libya.png"
+    ],
+    "paths": {
+      "id": "migration-routes",
+      "url": "mapbox://mitcivicdata.709o03gi"
     }
+  }
 }

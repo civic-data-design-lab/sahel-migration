@@ -2,22 +2,20 @@ import { useRouter, withRouter } from 'next/router';
 import useSWR from 'swr';
 import Menu from '../../components/menu';
 import DataTab from '../../components/journey/transect/dataTab';
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import styles from '../../styles/Journeys.module.css';
 
 import ImageBox from '../../components/journey/imageBox';
-import { fetcher } from "../../hooks/useFetch";
-import Navigation from "../../components/navigation";
-import Title from "../../components/title";
-
+import { fetcher } from '../../hooks/useFetch';
+import Navigation from '../../components/navigation';
+import Title from '../../components/title';
 
 export default function JourneysPage() {
   const router = useRouter();
   const _id = router.query.id;
   const { data: journeys, errorJourneys } = useSWR(['/api/journeys/journeysdata', 'all'], fetcher);
   const { data: journey, errorJourney } = useSWR(['/api/journeys/journeysdata', _id], fetcher);
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   // const handleSelect = (selectedIndex, e) => {
   //   setIndex(selectedIndex);
@@ -34,11 +32,11 @@ export default function JourneysPage() {
           <Title />
           <Menu journeys={journeys} />
           <Navigation journeys={journeys} journey={journey} />
-          <DataTab journey={journey}/>
+          <DataTab journey={journey} />
           <ImageBox journey={journey} id="image-box" />
         </div>
         <div id="transectTooltip" className="transectTooltip hidden">
-            {/* <h4>Combined Risk
+          {/* <h4>Combined Risk
                 <span id="risk-total" className={styles.labelData}>152/360</span>
             </h4>
             <p className={styles.risk4mi}>Reported Violence

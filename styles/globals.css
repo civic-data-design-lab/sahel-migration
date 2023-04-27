@@ -31,12 +31,13 @@
   font-weight: bold;
 }
 
-
+/* font style for header of main narrative text */
 .header-3 {
   font-family: var(--primary-font-fam);
-  font-size: clamp(0.75rem, 1.25vw, 1.25rem);
-  line-height: clamp(1.5rem, 2.5vw, 2.33rem);
+  font-size: clamp(0.75rem, 1.25vw, 1.5rem);
+  /* line-height: clamp(1.5rem, 2.5vw, 2.33rem); */
   font-weight: bold;
+  color: var(--brown);
 }
 
 .body-1 {
@@ -53,12 +54,15 @@
   font-weight: medium;
 }
 
+/* font style for main narrative text */
 .body-3 {
   font-family: var(--primary-font-fam);
-  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
-  line-height: 1.4rem;
+  font-size: clamp(0.75rem, 1.25vw, 1.5rem);
+  /* line-height: 1.4rem; */
   font-weight: initial;
+  color: var(--brown);
 }
+
 /* font styles for transect tooltip */
 .body-4 {
   font-family: var(--primary-font-fam);
@@ -115,7 +119,7 @@ h1 {
 
 h2 {
   font-weight: bold;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 
 h3 {
@@ -135,8 +139,8 @@ h5 {
 
 p {
   font-weight: medium;
-  line-height: 24pt;
-  font-size: 1rem;
+  line-height: 2rem;
+  font-size: 1.5rem;
 }
 
 small {

@@ -1,43 +1,132 @@
-import React, {useEffect, useRef, useState} from 'react';
-import Transect from "./transect";
-import {motion,} from "framer-motion";
-import DataTabToggle from "./dataTabToggle";
-import ImageCarousel from "../../map/imageCarousel";
+import Streamgraph, { ExpandOverlay} from "./streamgraph";
+import Tooltip from "./tooltip";
 
-import useWindowSize from "../../../hooks/useWindowSize";
+//TODO: If we need an initializer instead of rerendering everything, we can do that here
+export default function PlotAllTransectLayers (
+  data,
+  {
+    width,
+    height,
+    margin,
+    yLabel, // a label for the y-axis
+    svg,
+    xScale,
+    risks,
+    risksData,
+    journeyFocusData,
+    journey,
+    svgRef,
+    tooltipRef,
+  } = {}
+) {
+  svg.attr('viewBox', [0, 0, width, height]).style('pointer-events', 'all');
+  Object.keys(risks).forEach((risk) => {
+    yLabel = risks[risk].label;
 
+    let dataStackedArea = data.filter((d) => d.risk === risk);
+    Streamgraph(dataStackedArea, {
+      x: (d) => d.distance,
+      y: (d) => d.value,
+      z: (d) => d.risk,
+      yLabel: yLabel,
+      width: width,
+      height: 150,
+      margin: margin,
+      svg: svg,
+      xScale: xScale,
+      risks: risks,
+      risk: risk,
+      risksData: risksData,
+      journeyFocusData: journeyFocusData,
+      journey: journey,
+    });
+  });
+  Tooltip({
+    width: width,
+    height: height,
+    data: data,
+    svgRef: svgRef,
+    tooltipRef: tooltipRef,
+    xScale: xScale,
+    risks: risks,
+    risksData: risksData,
+  });
+}
 
-export default function TransectPlots ({ isOpen, toggleOpen, journey}) {
-  const contentRef = useRef(null);
-  const { width, height } = useWindowSize();
-  const containerStyles = {
-    overflow: "hidden",
-    scrollbarWidth:"none"
-    /* Other styles */
-  };
+export function PlotCombinedTransectLayers (
+  data, //filteredStackedAreaData
+  {
+    svg,
+    svgRef,
+    tooltipRef,
+    width,
+    height, // dataTabHeight
+    xDomain,
+    risks,
+    yLabel,
+    margin,
+    xScale,
+    cities,
+    borders,
+    journey,
+    risksData, //filteredData
+  }
+) {
+  svg
+    .attr('id', 'viz-transect-layers')
+    .attr('class', 'viz-transect')
+    .attr('viewBox', [0, 0, width, height]);
+  const journeyData = data.filter((d) => d.segment_index == journey.id - 1);
+  const journeyDistStart = journeyData[0].distance;
+  const journeyDistEnd = journeyData[journeyData.length - 1].distance;
+  const journeyFocusData = [
+    {
+      xPos: 'start',
+      x1: xDomain[0],
+      x2: journeyDistStart,
+    },
+    {
+      xPos: 'end',
+      x1: journeyDistEnd,
+      x2: xDomain[1],
+    },
+  ];
 
+  Streamgraph(data, {
+    x: (d) => d.distance,
+    y: (d) => d.value,
+    z: (d) => d.risk,
+    yLabel: yLabel,
+    width: width,
+    height: height,
+    svg: svg,
+    risks: risks,
+    risk: 'all',
+    margin: margin,
+    xScale: xScale,
+    risksData: risksData,
+    journeyFocusData: journeyFocusData,
+    cities: cities,
+    borders: borders,
+    journey: journey,
+  });
+  Tooltip({
+    width: width,
+    height: height,
+    data: data,
+    svgRef: svgRef,
+    tooltipRef: tooltipRef,
+    xScale: xScale,
+    risks: risks,
+    risksData: risksData,
+  });
+  // rect overlay for on-click to expand trigger
+  ExpandOverlay({
+    svg,
+    xScale,
+    journeyFocusData,
+    journey,
+    height,
+  })
 
-  useEffect( () => {
-  },[contentRef, height, width,isOpen])
-
-
-  return (
-    <div style={containerStyles} ref={contentRef}>
-      <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}} >
-        <DataTabToggle isOpen={isOpen} toggleOpen={toggleOpen} />
-      </div>
-        {/*<motion.div*/}
-
-        {/*  style={{ height: !isOpen ? "auto" : 0, opacity: !isOpen ? 1 : 0, pointerEvents: "none" }}*/}
-        {/*  animate={{ height: !isOpen ? "auto" : 0, opacity: !isOpen ? 1 : 0}}*/}
-        {/*  transition={{ duration: 0.3 }}>*/}
-        {/*  <Transect isOpen={isOpen} journey={journey} containerHeight={containerHeight}/>*/}
-        {/*</motion.div>*/}
-        <motion.div >
-          <Transect isOpen={isOpen} journey={journey} dataTabHeight={.25*height}/>
-          <ImageCarousel isOpen={isOpen}/>
-        </motion.div>
-
-    </div>
-  );
 }
