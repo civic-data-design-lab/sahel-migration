@@ -1,6 +1,7 @@
-import * as d3 from "d3";
+import * as d3 from 'd3';
 
-const tooltipLayout = "<h4 class='risk-total'>Combined Risk<span id='data-total' class='labelData'>152</span></h4><p class='risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk-acled'>Armed Conflict<span id='data-acled' class='labelData'>0</span></p><p class='risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk-smuggler'>Need for a Smuggler<span id='data-smuggler' class='labelData'>0</span></p><p class='risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk-heat'>Extreme Heat<span id='data-heat' class='labelData'>80</span></p>"
+const tooltipLayout =
+  "<h4 class='risk-total'>Combined Risk<span id='data-total' class='labelData'>152</span></h4><p class='risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk-acled'>Armed Conflict<span id='data-acled' class='labelData'>0</span></p><p class='risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk-smuggler'>Need for a Smuggler<span id='data-smuggler' class='labelData'>0</span></p><p class='risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk-heat'>Extreme Heat<span id='data-heat' class='labelData'>80</span></p>";
 
 export default function Tooltip(config) {
   const { width, height, data, svgRef, tooltipRef, xScale, margin, risks, risksData } = config;
@@ -60,14 +61,13 @@ export default function Tooltip(config) {
 
       let combinedRiskValue = 0;
       // update data in tooltip for each risk
-      for (let i = 0; i < Object.keys(risks).length; i++) {
-        let risk = Object.keys(risks)[i];
-        let riskClass = '.risk-' + risk;
-        let dataId = '#data-' + risk;
-        let dataValue = Math.round(d0['risk_' + risk] * risks[risk].weight);
+      risks.forEach((risk) => {
+        let riskClass = '.risk-' + risk.id;
+        let dataId = '#data-' + risk.id;
+        let dataValue = Math.round(d0['risk_' + risk.id] * risk.weight);
         combinedRiskValue += dataValue;
         tooltip.select(riskClass).select(dataId).html(dataValue);
-      }
+      });
       // update data in tooltip for total risks
       tooltip.select('.risk-total').select('#data-total').html(Math.round(d0.risks_total));
       tooltip.select('.risk-total').select('#data-total').html(Math.round(combinedRiskValue));

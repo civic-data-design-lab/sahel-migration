@@ -22,7 +22,7 @@ export default function Streamgraph(
     yLabel, // a label for the y-axis
     svg,
     risks,
-    risk,
+    riskId, // The ID of the risk to plot, or "all" if plotting all
     journeyFocusData,
     cities,
     journey,
@@ -31,9 +31,16 @@ export default function Streamgraph(
   // Range
   const yRange = [height - margin.bottom, margin.top]; // [bottom, top]
   // Compute values.
+
+  /** X-scale, the distance along the path. */
   const X = d3.map(data, x);
+
+  /** The risk value (numeric, categorized by risk). */
   const Y = d3.map(data, y);
+
+  /** The risk category (index -> risk object). */
   const Z = d3.map(data, z);
+
   // Compute default x- and z-domains, and unique the z-domain.
   if (xDomain === undefined) xDomain = [X[0], X[X.length - 1]];
   if (zDomain === undefined) zDomain = Z;
@@ -59,7 +66,7 @@ export default function Streamgraph(
         (i) => Z[i]
       )
     )
-    .map((s) => s.map((d) => Object.assign(d, {i: d.data[1].get(s.key)})));
+    .map((s) => s.map((d) => Object.assign(d, { i: d.data[1].get(s.key) })));
 
   // Compute the default y-domain. Note: diverging stacks can be negative.
   if (yDomain === undefined) yDomain = d3.extent(series.flat(2));
@@ -91,7 +98,7 @@ export default function Streamgraph(
 
   const area = d3
     .area()
-    .x(({i}) => xScale(X[i]))
+    .x(({ i }) => xScale(X[i]))
     .y0(([y1]) => yScale(y1))
     .y1(([, y2]) => yScale(y2))
     .curve(d3.curveBasis);
@@ -101,7 +108,7 @@ export default function Streamgraph(
   // define svg
   const plot = svg
     .append('g')
-    .attr('id', 'viz-transect-' + risk)
+    .attr('id', 'viz-transect-' + riskId)
     .attr('class', 'viz-transect')
     .attr('viewBox', [0, 0, width, height]); // [x-pos, y-pos, width, height]
 
@@ -112,11 +119,11 @@ export default function Streamgraph(
     .selectAll('path')
     .data(series)
     .join('path')
-    .attr('id', ([{i}]) => Z[i])
-    .attr('fill', ([{i}]) => risks[Z[i]].color)
+    .attr('id', ([{ i }]) => Z[i].id)
+    .attr('fill', ([{ i }]) => Z[i].color)
     .attr('d', area)
     .append('title')
-    .text(([{i}]) => risks[Z[i]].label)
+    .text(([{ i }]) => Z[i].label)
     .style('pointer-events', 'all');
 
   // x-axis baseline
@@ -144,7 +151,7 @@ export default function Streamgraph(
     )
     .attr('fill', '#463C35');
 
-  if (risk == 'all') {
+  if (riskId === 'all') {
     // define x-axis (distance in km)
     plot
       .append('g')
@@ -170,15 +177,15 @@ export default function Streamgraph(
       xScale,
       yScale,
       yDomain,
-      margin
-    })
+      margin,
+    });
     bracket(journeyFocusData, {
       svg,
       xScale,
       yScale,
       yDomain,
-      margin
-    })
+      margin,
+    });
     // label for expand & collapse journey
     journeyText(journeyFocusData, {
       svg: svg,
@@ -186,24 +193,19 @@ export default function Streamgraph(
       xScale: xScale,
       yScale: yScale,
       yDomain: yDomain,
-    })
-    }
+    });
+  }
 
-    if (risk !== 'all') {
-      const graph = d3.select('#viz-transect-' + risk);
-      plot.attr('transform', `translate(0,${100 * risks[risk].index})`);
-    }
+  if (riskId !== 'all') {
+    const graph = d3.select('#viz-transect-' + riskId);
+    const riskIndex = risks.find((risk) => risk.id === riskId).index;
+    plot.attr('transform', `translate(0,${100 * riskIndex})`);
+  }
 }
 
-function focusArea (
+function focusArea(
   data, //journeyFocusData
-  {
-    svg,
-    xScale,
-    yScale,
-    yDomain,
-    margin
-  } = {}
+  { svg, xScale, yScale, yDomain, margin } = {}
 ) {
   svg
     .append('g')
@@ -220,15 +222,10 @@ function focusArea (
     .attr('opacity', 0.3);
 }
 
-function bracket (
+function bracket(
   data, //journeyFocusData
-  {
-    svg,
-    xScale,
-    yScale,
-    yDomain,
-    margin
-  } = {}) {
+  { svg, xScale, yScale, yDomain, margin } = {}
+) {
   const bracketGap = 5;
   const bracketLen = 5;
   const bracketList = ['top', 'bottom'];
@@ -275,22 +272,12 @@ function bracket (
       .attr('stroke', '#000')
       .attr('stroke-width', 2);
   });
-
 }
-function journeyText (
+function journeyText(
   data, //journeyFocusData
-  {
-    svg,
-    journey,
-    xScale,
-    yScale,
-    yDomain,
-  } = {}
-
+  { svg, journey, xScale, yScale, yDomain } = {}
 ) {
-  const xCenter = xScale(
-    data[0].x2 + (data[1].x1 - data[0].x2) / 2
-  );
+  const xCenter = xScale(data[0].x2 + (data[1].x1 - data[0].x2) / 2);
   const xOffset = 64;
   const yBase = yScale(yDomain[1]);
   const triSize = 10;
@@ -326,75 +313,65 @@ function journeyText (
   journeyText.append('path').attr('d', (d) => {
     return journey.id == 2
       ? 'M ' +
-      (xCenter - xOffset + triSize / 2 + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14 + triSize / 2) +
-      ' L ' +
-      (xCenter - xOffset + triSize + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14) +
-      ' L ' +
-      (xCenter - xOffset + triSize + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14 + triSize) +
-      ' Z'
+          (xCenter - xOffset + triSize / 2 + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14 + triSize / 2) +
+          ' L ' +
+          (xCenter - xOffset + triSize + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14) +
+          ' L ' +
+          (xCenter - xOffset + triSize + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14 + triSize) +
+          ' Z'
       : 'M ' +
-      (xCenter - xOffset + triSize / 2) +
-      ' ' +
-      (yBase - 14 + triSize / 2) +
-      ' L ' +
-      (xCenter - xOffset + triSize) +
-      ' ' +
-      (yBase - 14) +
-      ' L ' +
-      (xCenter - xOffset + triSize) +
-      ' ' +
-      (yBase - 14 + triSize) +
-      ' Z';
+          (xCenter - xOffset + triSize / 2) +
+          ' ' +
+          (yBase - 14 + triSize / 2) +
+          ' L ' +
+          (xCenter - xOffset + triSize) +
+          ' ' +
+          (yBase - 14) +
+          ' L ' +
+          (xCenter - xOffset + triSize) +
+          ' ' +
+          (yBase - 14 + triSize) +
+          ' Z';
   });
   // path for right arrow
   journeyText.append('path').attr('d', (d) => {
     return journey.id == 2
       ? 'M ' +
-      (xCenter + xOffset - triSize / 2 + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14 + triSize / 2) +
-      ' L ' +
-      (xCenter + xOffset - triSize + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14) +
-      ' L ' +
-      (xCenter + xOffset - triSize + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14 + triSize) +
-      ' Z'
+          (xCenter + xOffset - triSize / 2 + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14 + triSize / 2) +
+          ' L ' +
+          (xCenter + xOffset - triSize + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14) +
+          ' L ' +
+          (xCenter + xOffset - triSize + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14 + triSize) +
+          ' Z'
       : 'M ' +
-      (xCenter + xOffset - triSize / 2) +
-      ' ' +
-      (yBase - 14 + triSize / 2) +
-      ' L ' +
-      (xCenter + xOffset - triSize) +
-      ' ' +
-      (yBase - 14) +
-      ' L ' +
-      (xCenter + xOffset - triSize) +
-      ' ' +
-      (yBase - 14 + triSize) +
-      ' Z';
+          (xCenter + xOffset - triSize / 2) +
+          ' ' +
+          (yBase - 14 + triSize / 2) +
+          ' L ' +
+          (xCenter + xOffset - triSize) +
+          ' ' +
+          (yBase - 14) +
+          ' L ' +
+          (xCenter + xOffset - triSize) +
+          ' ' +
+          (yBase - 14 + triSize) +
+          ' Z';
   });
 }
 
-
-export function ExpandOverlay (
-  {
-    svg,
-    xScale,
-    journeyFocusData,
-    journey,
-    height,
-  } = {}
-) {
-
+export function ExpandOverlay({ svg, xScale, journeyFocusData, journey, height } = {}) {
   svg
     .append('rect')
     .attr('class', 'overlay-journey')
@@ -404,23 +381,22 @@ export function ExpandOverlay (
     .attr('y', 0)
     .attr('opacity', 0)
     .style('pointer-events', 'all')
-    .style("cursor", "pointer")
+    .style('cursor', 'pointer')
     .raise()
     .on('click', expandSection)
-    .on('mouseover',(event) => mouseover(event))
-    .on('mouseout',(event) => mouseout(event));
-
+    .on('mouseover', (event) => mouseover(event))
+    .on('mouseout', (event) => mouseout(event));
 
   function expandSection() {
     console.log('expandSection clicked');
     console.log('journey id: ' + journey.id + ', segment_index: ' + (journey.id - 1));
-    console.log("XSCALE", xScale)
+    console.log('XSCALE', xScale);
     //TODO Replot with new data
-
   }
 
   function pulse() {
-    d3.select(".journey-text").transition()
+    d3.select('.journey-text')
+      .transition()
       .duration(500)
       .attr('r', 20)
       .style('opacity', 0.5)
@@ -430,20 +406,18 @@ export function ExpandOverlay (
       .attr('r', 10)
       .style('opacity', 1)
       .ease(d3.easeCubicOut)
-      .on("end", pulse);
+      .on('end', pulse);
   }
 
   function mouseover(event) {
-     pulse();
+    pulse();
   }
   function mouseout(event) {
-    d3.select(".journey-text")
+    d3.select('.journey-text')
       .transition()
       .duration(500)
       .attr('r', 10)
       .style('opacity', 1)
-      .ease(d3.easeCubicOut)
+      .ease(d3.easeCubicOut);
   }
 }
-
-

@@ -1,54 +1,25 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import useWindowSize from '../../../hooks/useWindowSize';
-import PlotAllTransectLayers, {
-  PlotCombinedTransectLayers,
-} from './transectPlots';
+import PlotAllTransectLayers, { PlotCombinedTransectLayers } from './transectPlots';
 import styles from '../../../styles/Transect.module.css';
+
+const INITIAL_RISKS_DATA = [
+  { id: '4mi', index: 0, label: 'Reported Violence', color: '#5D3435', weight: 1 / 6 },
+  { id: 'acled', index: 1, label: 'Conflict Events', color: '#985946', weight: 1 / 6 },
+  { id: 'food', index: 2, label: 'Food Insecurity', color: '#9A735A', weight: 1 / 6 },
+  { id: 'smuggler', index: 3, label: 'Need for a Smuggler', color: '#F48532', weight: 1 / 6 },
+  { id: 'remoteness', index: 4, label: 'Remoteness', color: '#624B44', weight: 1 / 6 },
+  { id: 'heat', index: 5, label: 'Extreme Heat', color: '#3F231B', weight: 1 / 6 },
+];
 
 export default function Transect({ isOpen, journey, dataTabHeight }) {
   const { width, height } = useWindowSize();
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
-
-  let risks = {
-    '4mi': {
-      index: 0,
-      label: 'Reported Violence',
-      color: '#5D3435',
-      weight: 1 / 6,
-    },
-    acled: {
-      index: 1,
-      label: 'Conflict Events',
-      color: '#985946',
-      weight: 1 / 6,
-    },
-    food: {
-      index: 2,
-      label: 'Food Insecurity',
-      color: '#9A735A',
-      weight: 1 / 6,
-    },
-    smuggler: {
-      index: 3,
-      label: 'Need for a Smuggler',
-      color: '#F48532',
-      weight: 1 / 6,
-    },
-    remoteness: {
-      index: 4,
-      label: 'Remoteness',
-      color: '#624B44',
-      weight: 1 / 6,
-    },
-    heat: {
-      index: 5,
-      label: 'Extreme Heat',
-      color: '#3F231B',
-      weight: 1 / 6,
-    },
-  };
+  const [risks, setRisks] = useState(
+    INITIAL_RISKS_DATA.map((risk) => ({ ...risk, containerRef: useRef(null) }))
+  );
 
   function drawLayers(svgRef, width, height, isOpen) {
     // const svg = d3.select(svgRef.current);
@@ -131,7 +102,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             xScale: xScale,
             risks: risks,
             risksData: filteredData,
-          })
+          });
         } else {
           PlotCombinedTransectLayers(filteredStackedAreaData, {
             svg: svg,
@@ -149,7 +120,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             journey: journey,
             risksData: filteredData,
           });
-          }
+        }
       });
     });
   }
@@ -158,7 +129,6 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   useEffect(() => {
     drawLayers(svgRef, width, height, isOpen);
   }, [dataTabHeight, height, svgRef, width, isOpen, journey]);
-
 
   return (
     <>
