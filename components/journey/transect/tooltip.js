@@ -61,7 +61,7 @@ export default function Tooltip(config) {
       risks.forEach((risk) => {
         let riskClass = '.risk-' + risk.id;
         let dataId = '#data-' + risk.id;
-        let dataValue = Math.round(d0['risk_' + risk.id] * risk.weight);
+        let dataValue = Math.round(d0['risk_' + risk.id] * (risk.weight / 100));
         combinedRiskValue += dataValue;
         tooltip.select(riskClass).select(dataId).html(dataValue);
       });

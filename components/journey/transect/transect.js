@@ -8,12 +8,12 @@ import RiskWeightSlider from './RiskWeightSlider';
 import { createRoot } from 'react-dom/client';
 
 const INITIAL_RISKS_DATA = [
-  { id: '4mi', index: 0, label: 'Reported Violence', color: '#5D3435', weight: 1 / 6 },
-  { id: 'acled', index: 1, label: 'Conflict Events', color: '#985946', weight: 1 / 6 },
-  { id: 'food', index: 2, label: 'Food Insecurity', color: '#9A735A', weight: 1 / 6 },
-  { id: 'smuggler', index: 3, label: 'Need for a Smuggler', color: '#F48532', weight: 1 / 6 },
-  { id: 'remoteness', index: 4, label: 'Remoteness', color: '#624B44', weight: 1 / 6 },
-  { id: 'heat', index: 5, label: 'Extreme Heat', color: '#3F231B', weight: 1 / 6 },
+  { id: '4mi', index: 0, label: 'Reported Violence', color: '#5D3435', weight: 100 },
+  { id: 'acled', index: 1, label: 'Conflict Events', color: '#985946', weight: 100 },
+  { id: 'food', index: 2, label: 'Food Insecurity', color: '#9A735A', weight: 100 },
+  { id: 'smuggler', index: 3, label: 'Need for a Smuggler', color: '#F48532', weight: 100 },
+  { id: 'remoteness', index: 4, label: 'Remoteness', color: '#624B44', weight: 100 },
+  { id: 'heat', index: 5, label: 'Extreme Heat', color: '#3F231B', weight: 100 },
 ];
 
 const margin = {
@@ -157,8 +157,8 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         .append('foreignObject')
         .attr('width', 100)
         .attr('height', 100)
-        .attr('x', margin.left + 100)
-        .attr('y', margin.top + 100 * risk.index)
+        .attr('x', margin.left + 200)
+        .attr('y', margin.top + 100 * risk.index - 10)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
         .append('xhtml:div')
@@ -170,10 +170,10 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
 
       const sliderElement = svg
         .append('foreignObject')
-        .attr('width', 100)
-        .attr('height', 100)
+        .attr('width', 250)
+        .attr('height', 25)
         .attr('x', margin.left)
-        .attr('y', margin.top + 100 * risk.index + 20)
+        .attr('y', margin.top + 100 * risk.index + 15)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
         .append('xhtml:div')
@@ -188,6 +188,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     console.log('created roots', newRoots);
 
     return () => {
+      console.log('UNMOUNTING');
       roots.forEach((rootInfo) => {
         rootInfo.root.unmount();
       });

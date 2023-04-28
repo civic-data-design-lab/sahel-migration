@@ -2,29 +2,31 @@ import * as d3 from 'd3';
 import { useEffect } from 'react';
 
 const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
-  // useEffect(() => {
-  //   const riskLabelRefId = `#viz-transect-${riskId}`;
-  //   const svg = d3.select(svgRef.current);
-  //   console.log(svg);
-  //   const riskLabelRef = svg.select(riskLabelRefId);
+  const validateAndUpdate = (e) => {
+    const onlyNumeric = e.target.value.replace(/\D/g, '').trim();
 
-  //   try {
-  //     console.log(riskLabelRef);
-  //     const x = riskLabelRef.attr('x');
-  //     console.log(x);
-  //   } catch {
-  //     console.warn(`Could not find ${riskLabelRefId}`);
-  //   }
-  // }, [svgRef.current]);
+    let newVal = 0;
+    if (onlyNumeric !== '') {
+      newVal = parseInt(onlyNumeric);
+    }
+
+    if (newVal > 100) {
+      return;
+    }
+
+    onUpdate(newVal);
+  };
 
   return (
-    <>
+    <div style={{ display: 'flex', textAlign: 'center', alignItems: 'center', gap: '0.5rem' }}>
       <input
         type="text"
         value={riskWeight}
-        onChange={(e) => onUpdate(e.target.value.replace(/\D/g, ''))}
+        onChange={validateAndUpdate}
+        style={{ width: '30px', height: '20px' }}
       />
-    </>
+      <label>%</label>
+    </div>
   );
 };
 
