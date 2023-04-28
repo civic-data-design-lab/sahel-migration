@@ -34,12 +34,9 @@ export default function Tooltip(config) {
     .attr('height', height)
     .style('opacity', 0)
     .style('pointer-events', 'all')
-    .raise()
     .on('mouseenter', mouseenter)
-    // .on('mouseover', () => {
-    //   // focus.style('display', null);
-    // })
     .on('mouseout', mouseout)
+    // Need to pass in arguments to include them in scope
     .on('mousemove', (event) => mousemove(event, risks, risksData));
 
   function mouseenter(event) {

@@ -6,6 +6,7 @@ import * as d3 from 'd3';
 import { useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import RiskWeightSlider from './RiskWeightSlider';
+import RiskWeightTextInput from './RiskWeightTextInput';
 
 export default function Streamgraph(
   data,

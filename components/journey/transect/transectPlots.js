@@ -1,5 +1,8 @@
 import Streamgraph, { ExpandOverlay } from './streamgraph';
 import Tooltip from './tooltip';
+import { createRoot } from 'react-dom/client';
+import RiskWeightTextInput from './RiskWeightTextInput';
+import RiskWeightSlider from './RiskWeightSlider';
 
 //TODO: If we need an initializer instead of rerendering everything, we can do that here
 export default function PlotAllTransectLayers(
@@ -17,6 +20,7 @@ export default function PlotAllTransectLayers(
     journey,
     svgRef,
     tooltipRef,
+    updateRiskWeight,
   } = {}
 ) {
   svg.attr('viewBox', [0, 0, width, height]).style('pointer-events', 'all');
