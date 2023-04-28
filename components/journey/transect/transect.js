@@ -3,6 +3,8 @@ import * as d3 from 'd3';
 import useWindowSize from '../../../hooks/useWindowSize';
 import PlotAllTransectLayers, { PlotCombinedTransectLayers } from './transectPlots';
 import styles from '../../../styles/Transect.module.css';
+import RiskWeightTextInput from './RiskWeightTextInput';
+import RiskWeightSlider from './RiskWeightSlider';
 
 const INITIAL_RISKS_DATA = [
   { id: '4mi', index: 0, label: 'Reported Violence', color: '#5D3435', weight: 1 / 6 },
@@ -17,9 +19,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   const { width, height } = useWindowSize();
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
-  const [risks, setRisks] = useState(
-    INITIAL_RISKS_DATA.map((risk) => ({ ...risk, containerRef: useRef(null) }))
-  );
+  const [risks, setRisks] = useState([...INITIAL_RISKS_DATA]);
 
   function drawLayers(svgRef, width, height, isOpen) {
     // const svg = d3.select(svgRef.current);
@@ -130,10 +130,34 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     drawLayers(svgRef, width, height, isOpen);
   }, [dataTabHeight, height, svgRef, width, isOpen, journey]);
 
+  const updateRiskWeight = (riskId, newWeight) => {
+    setRisks((prev) =>
+      prev.map((risk) => (risk.id === riskId ? { ...risk, weight: newWeight } : risk))
+    );
+  };
+
   return (
     <>
       <svg ref={svgRef} />
-      {/*<svg ref={tooltipRef} />*/}
+      {isOpen &&
+        risks.map((risk) => (
+          <>
+            <RiskWeightTextInput
+              key={`text-box-${risk.id}`}
+              riskId={risk.id}
+              svgRef={svgRef}
+              riskWeight={risk.weight}
+              riskLabel={risk.label}
+              onUpdate={(val) => updateRiskWeight(risk.id, val)}
+            />
+            <RiskWeightSlider
+              key={`slider-${risk.id}`}
+              riskId={risk.id}
+              riskWeight={risk.weight}
+              onUpdate={(val) => updateRiskWeight(risk.id, val)}
+            />
+          </>
+        ))}
     </>
   );
 }

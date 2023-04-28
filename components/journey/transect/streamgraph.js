@@ -3,6 +3,9 @@
 // https://observablehq.com/@d3/streamgraph
 
 import * as d3 from 'd3';
+import { useMemo } from 'react';
+import { createRoot } from 'react-dom/client';
+import RiskWeightSlider from './RiskWeightSlider';
 
 export default function Streamgraph(
   data,
@@ -45,6 +48,9 @@ export default function Streamgraph(
   if (xDomain === undefined) xDomain = [X[0], X[X.length - 1]];
   if (zDomain === undefined) zDomain = Z;
   zDomain = new d3.InternSet(zDomain);
+
+  /** The risk information that is currently being displayed */
+  const riskInfo = risks.find((risk) => risk.id === riskId);
 
   // Omit any data not present in the z-domain.
   const I = d3.range(X.length).filter((i) => zDomain.has(Z[i]));
@@ -112,6 +118,9 @@ export default function Streamgraph(
     .attr('class', 'viz-transect')
     .attr('viewBox', [0, 0, width, height]); // [x-pos, y-pos, width, height]
 
+  // console.log(`Setting ${riskId} ref to ${plot.node()}`);
+  // getRiskContainerRefs().set(riskId, plot.node());
+
   // define path
   plot
     .append('g')
@@ -142,6 +151,7 @@ export default function Streamgraph(
   plot
     .append('g')
     .attr('class', 'label-risk')
+    .attr('id', `risk-label-${riskId}`)
     .call((g) =>
       g
         .append('text')
