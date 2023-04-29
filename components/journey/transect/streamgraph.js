@@ -29,6 +29,7 @@ export default function Streamgraph(
     riskId, // The ID of the risk to plot, or "all" if plotting all
     journeyFocusData,
     cities,
+    borders,
     journey,
   } = {}
 ) {
@@ -90,16 +91,20 @@ export default function Streamgraph(
     .tickFormat((d, i) => (d * 100).toLocaleString('en-US') + ' km');
 
   function xAxisTicks(ticksData) {
+    let tickSize = 20; // tick size for city
+    if (!ticksData[0].hasOwnProperty('city')) {
+      tickSize = 35; // tick size for borders
+    }
     return d3
       .axisBottom(xScale)
       .tickValues(ticksData.map((d) => d.distance))
-      .tickSize(20)
+      .tickSize(tickSize)
       .tickSizeOuter(0)
       .tickFormat((d, i) => {
         let labelData = ticksData[i];
-        return labelData.hasOwnProperty('city')
-          ? labelData.city // cities
-          : labelData.border_2 + '    ' + labelData.border_2; // borders
+        return labelData.hasOwnProperty('city') ? labelData.city // cities
+          : (labelData.hasOwnProperty('border_2') && i == 2) ? labelData.border_2 // imaginary line
+          : labelData.border_1 + ' – ' + labelData.border_2;
       });
   }
 
@@ -163,48 +168,95 @@ export default function Streamgraph(
     .attr('fill', '#463C35');
 
   if (riskId === 'all') {
+    // define ticks for country borders
+    plot
+      .append("g")
+      .attr("class", "x-axis-borders")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(xAxisTicks(borders))
+      .call((g) => g.select('.domain').remove())
+      .selectAll("text")
+        .attr("x", (d, i) => {
+          return (i == 0) ? 20 // mali - burkina faso
+          : (i == 1) ? -19 // burkina faso - niger
+          : (i == 2) ? -1 // imaginary line 
+          : 0;
+        })
+        .style("text-anchor", (d, i) => {
+          return (i == 2) ? "start" // imaginary line
+          : "middle";
+        });
+      // define ticks for city names
+    plot
+      .append('g')
+      .attr('class', 'x-axis-cities')
+      .attr('transform', `translate(0,${height - margin.bottom})`)
+      .call(xAxisTicks(cities))
+      .call((g) => g.select('.domain').remove())
+      .selectAll("text")
+        .style("text-anchor", (d, i) => {
+          return (i == 0) ? "start" // Bamako
+          : (i == 7) ? "end" // Tripoli
+          : "middle";
+        });
     // define x-axis (distance in km)
     plot
       .append('g')
       .attr('class', 'x-axis-dist')
       .attr('transform', `translate(0,${height - margin.bottom})`)
       .call(xAxis)
-      .call((g) => g.select('.domain').remove());
-    // define ticks for city names
-    plot
-      .append('g')
-      .attr('class', 'x-axis-cities')
-      .attr('transform', `translate(0,${height - margin.bottom})`)
-      .call(xAxisTicks(cities));
-    // define ticks for borders
-    // plot.append("g")
-    //         .attr("class", "x-axis-borders")
-    //         .attr("transform", `translate(0,${height - margin.bottom})`)
-    //     .call(xAxisTicks(borders));
+      .call((g) => g.select('.domain').remove())
+      .selectAll("text")
+        .attr("x", (d, i) => {
+          return (i == 0) ? 2 // 0 km
+          : (i == 5) ? -2 // total dist
+          : 0;
+        })
+        .style("text-anchor", (d, i) => {
+          return (i == 0) ? "start" // 0 km
+          : (i == 5) ? "end" // total dist
+          : "middle";
+        });
+    
+    // add white rect behind cities text labels
+    plot.select(".x-axis-cities")
+      .selectAll("g.tick")
+        .insert("rect", "text")
+        .attr("x", -35)
+        .attr("y", 21)
+        .attr("width", 70)
+        .attr("height", 11)
+        .style("fill", "white")
+        .style("opacity", (d, i) => {
+          return (i == 1 || i == 5) ? 0.8 // bobo dioulasso and agadez
+          : 0;
+        });
 
-    // transparent rects for focus area for this journey
-    focusArea(journeyFocusData, {
-      svg,
-      xScale,
-      yScale,
-      yDomain,
-      margin,
-    });
-    bracket(journeyFocusData, {
-      svg,
-      xScale,
-      yScale,
-      yDomain,
-      margin,
-    });
-    // label for expand & collapse journey
-    journeyText(journeyFocusData, {
-      svg: svg,
-      journey: journey,
-      xScale: xScale,
-      yScale: yScale,
-      yDomain: yDomain,
-    });
+    if (journey.id < 8) {
+      // transparent rects for focus area for this journey
+      focusArea(journeyFocusData, {
+        svg,
+        xScale,
+        yScale,
+        yDomain,
+        margin,
+      });
+      bracket(journeyFocusData, {
+        svg,
+        xScale,
+        yScale,
+        yDomain,
+        margin,
+      });
+      // label for expand & collapse journey
+      journeyText(journeyFocusData, {
+        svg: svg,
+        journey: journey,
+        xScale: xScale,
+        yScale: yScale,
+        yDomain: yDomain,
+      });
+    }
   }
 
   if (riskId !== 'all') {
@@ -383,28 +435,6 @@ function journeyText(
 }
 
 export function ExpandOverlay({ svg, xScale, journeyFocusData, journey, height } = {}) {
-  svg
-    .append('rect')
-    .attr('class', 'overlay-journey')
-    .attr('width', xScale(journeyFocusData[1].x1) - xScale(journeyFocusData[0].x2))
-    .attr('height', height)
-    .attr('x', xScale(journeyFocusData[0].x2))
-    .attr('y', 0)
-    .attr('opacity', 0)
-    .style('pointer-events', 'all')
-    .style('cursor', 'pointer')
-    .raise()
-    .on('click', expandSection)
-    .on('mouseover', (event) => mouseover(event))
-    .on('mouseout', (event) => mouseout(event));
-
-  function expandSection() {
-    console.log('expandSection clicked');
-    console.log('journey id: ' + journey.id + ', segment_index: ' + (journey.id - 1));
-    console.log('XSCALE', xScale);
-    //TODO Replot with new data
-  }
-
   function pulse() {
     d3.select('.journey-text')
       .transition()

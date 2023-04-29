@@ -19,7 +19,7 @@ const INITIAL_RISKS_DATA = [
 const margin = {
   top: 50,
   right: 25,
-  bottom: 50,
+  bottom: 60,
   left: 15,
 };
 
@@ -36,6 +36,12 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     // const svg = d3.select(svgRef.current);
     const openedTabHeight = 0.8 * height;
     const svg = d3.select(svgRef.current);
+    const margin = {
+      top: 50,
+      right: 25,
+      bottom: 60,
+      left: 15,
+    };
 
     // d3.csv('/data/transectsegment.csv').then(function (data) {
     d3.json('/data/transect_all.json').then(function (data) {
@@ -121,6 +127,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             yLabel: yLabel,
             margin: margin,
             xScale: xScale,
+            xRange: xRange,
             cities: cities,
             borders: borders,
             journey: journey,

@@ -16,6 +16,7 @@ export default function PlotAllTransectLayers(
     xScale,
     risks,
     risksData,
+    journeyData,
     journeyFocusData,
     journey,
     svgRef,
@@ -41,6 +42,7 @@ export default function PlotAllTransectLayers(
       risks: risks,
       riskId: risk.id,
       risksData: risksData,
+      journeyData: journeyData,
       journeyFocusData: journeyFocusData,
       journey: journey,
     });
@@ -54,6 +56,9 @@ export default function PlotAllTransectLayers(
     xScale: xScale,
     risks: risks,
     risksData: risksData,
+    journey: journey,
+    journeyData: journeyData,
+    journeyFocusData: journeyFocusData,
   });
 }
 
@@ -70,6 +75,7 @@ export function PlotCombinedTransectLayers(
     yLabel,
     margin,
     xScale,
+    xRange,
     cities,
     borders,
     journey,
@@ -80,21 +86,27 @@ export function PlotCombinedTransectLayers(
     .attr('id', 'viz-transect-layers')
     .attr('class', 'viz-transect')
     .attr('viewBox', [0, 0, width, height]);
-  const journeyData = data.filter((d) => d.segment_index == journey.id - 1);
-  const journeyDistStart = journeyData[0].distance;
-  const journeyDistEnd = journeyData[journeyData.length - 1].distance;
-  const journeyFocusData = [
-    {
-      xPos: 'start',
-      x1: xDomain[0],
-      x2: journeyDistStart,
-    },
-    {
-      xPos: 'end',
-      x1: journeyDistEnd,
-      x2: xDomain[1],
-    },
-  ];
+  
+  let journeyData = [];
+  let journeyFocusData = [];
+
+  if (journey.id < 8) {
+    journeyData = data.filter((d) => d.segment_index == journey.id - 1);
+    const journeyDistStart = journeyData[0].distance;
+    const journeyDistEnd = journeyData[journeyData.length - 1].distance;
+    journeyFocusData = [
+      {
+        xPos: 'start',
+        x1: xDomain[0],
+        x2: journeyDistStart,
+      },
+      {
+        xPos: 'end',
+        x1: journeyDistEnd,
+        x2: xDomain[1],
+      },
+    ];
+  }
 
   Streamgraph(data, {
     x: (d) => d.distance,
@@ -121,8 +133,13 @@ export function PlotCombinedTransectLayers(
     svgRef: svgRef,
     tooltipRef: tooltipRef,
     xScale: xScale,
+    xRange: xRange,
     risks: risks,
+    riskId: 'all',
     risksData: risksData,
+    journey: journey,
+    journeyData: journeyData,
+    journeyFocusData: journeyFocusData,
   });
   // rect overlay for on-click to expand trigger
   ExpandOverlay({
