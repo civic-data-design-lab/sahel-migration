@@ -11,7 +11,7 @@ const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
     }
 
     if (newVal > 100) {
-      return;
+      return riskWeight;
     }
 
     onUpdate(newVal);

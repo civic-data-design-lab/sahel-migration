@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import useWindowSize from '../../../hooks/useWindowSize';
 import PlotAllTransectLayers, { PlotCombinedTransectLayers } from './transectPlots';
@@ -8,12 +8,47 @@ import RiskWeightSlider from './RiskWeightSlider';
 import { createRoot } from 'react-dom/client';
 
 const INITIAL_RISKS_DATA = [
-  { id: '4mi', index: 0, label: 'Reported Violence', color: '#5D3435', weight: 100 },
-  { id: 'acled', index: 1, label: 'Conflict Events', color: '#985946', weight: 100 },
-  { id: 'food', index: 2, label: 'Food Insecurity', color: '#9A735A', weight: 100 },
-  { id: 'smuggler', index: 3, label: 'Need for a Smuggler', color: '#F48532', weight: 100 },
-  { id: 'remoteness', index: 4, label: 'Remoteness', color: '#624B44', weight: 100 },
-  { id: 'heat', index: 5, label: 'Extreme Heat', color: '#3F231B', weight: 100 },
+  {
+    id: '4mi',
+    index: 0,
+    label: 'Reported Violence',
+    color: '#5D3435',
+    weight: 100,
+    normWeight: 1 / 6,
+  },
+  {
+    id: 'acled',
+    index: 1,
+    label: 'Conflict Events',
+    color: '#985946',
+    weight: 100,
+    normWeight: 1 / 6,
+  },
+  {
+    id: 'food',
+    index: 2,
+    label: 'Food Insecurity',
+    color: '#9A735A',
+    weight: 100,
+    normWeight: 1 / 6,
+  },
+  {
+    id: 'smuggler',
+    index: 3,
+    label: 'Need for a Smuggler',
+    color: '#F48532',
+    weight: 100,
+    normWeight: 1 / 6,
+  },
+  {
+    id: 'remoteness',
+    index: 4,
+    label: 'Remoteness',
+    color: '#624B44',
+    weight: 100,
+    normWeight: 1 / 6,
+  },
+  { id: 'heat', index: 5, label: 'Extreme Heat', color: '#3F231B', weight: 100, normWeight: 1 / 6 },
 ];
 
 const margin = {
@@ -237,9 +272,19 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   }, [roots, risks]);
 
   const updateRiskWeight = (riskId, newWeight) => {
-    console.log('Received update!');
+    // Calculate the new normalized weights based on the new weight and previous
+    // weights
+    const totalWeight =
+      risks.filter((risk) => risk.id !== riskId).reduce((a, b) => a + b.weight, 0) + newWeight;
+
     setRisks((prev) =>
-      prev.map((risk) => (risk.id === riskId ? { ...risk, weight: newWeight } : risk))
+      prev.map((risk) => {
+        if (risk.id === riskId) {
+          // Make sure to update the weight properly
+          return { ...risk, weight: newWeight, normWeight: newWeight / totalWeight };
+        }
+        return { ...risk, normWeight: risk.weight / totalWeight };
+      })
     );
   };
 
