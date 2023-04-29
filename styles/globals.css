@@ -31,10 +31,17 @@
   font-weight: bold;
 }
 
+/* font style for header of data transect */
+.header-2 {
+  font-family: var(--sans-font-fam);
+  font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+  font-weight: 520;
+}
+
 /* font style for header of main narrative text */
 .header-3 {
   font-family: var(--primary-font-fam);
-  font-size: clamp(0.75rem, 1.25vw, 1.5rem);
+  font-size: clamp(1.15rem, 1.25vw, 1.5rem);
   /* line-height: clamp(1.5rem, 2.5vw, 2.33rem); */
   font-weight: bold;
   color: var(--brown);
@@ -57,9 +64,9 @@
 /* font style for main narrative text */
 .body-3 {
   font-family: var(--primary-font-fam);
-  font-size: clamp(0.75rem, 1.25vw, 1.5rem);
+  font-size: clamp(1.15rem, 1.25vw, 1.5rem);
   /* line-height: 1.4rem; */
-  font-weight: initial;
+  font-weight: medium;
   color: var(--brown);
 }
 
@@ -98,6 +105,7 @@ body {
   color: var(--brown);
   scroll-snap-type: x mandatory;
   overflow-y: hidden;
+  
 }
 
 @media only screen and (max-width: 480px) {
@@ -123,8 +131,9 @@ h2 {
 }
 
 h3 {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1.2rem;
+  color: var(--brown);
 }
 
 h4 {
@@ -232,8 +241,8 @@ g {
 
 #viz-transect-layers .label-risk text {
   font-family: var(--sans-font-fam);
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 500;
+  font-size: 0.85rem;
 }
 
 #viz-transect-layers .label-journey {
