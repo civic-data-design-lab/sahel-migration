@@ -76,8 +76,8 @@ export default function MapBox({ activeSource, risks }) {
     const onHover = useCallback(event => {
         const region = event.features && event.features[0];
         setSection({
-            index: region && region.properties.SEGMENT_INDEX,
-            routeId: region && region.properties.SEGMENT
+            index: region && region.properties.segement_i,
+            routeId: region && region.properties.segement_i
         })
         setCityInfo({
             longitude: event.lngLat.lng,
@@ -104,7 +104,8 @@ export default function MapBox({ activeSource, risks }) {
     })
     const filter = useMemo(() => ['in', 'ADM0_NAME', selectedCountry], [selectedCountry]);
     const highlightFilter = useMemo(() => ['in', ['get', 'ADM0_NAME'], ["literal", countryNames]], [selectedCountry]);
-    const routeFilter = useMemo(() => ['in', 'SEGMENT', selectedSegment], [selectedSegment]);
+    const routeFilter = useMemo(() => ['in', 'SEGMENT_ID', selectedSegment], [selectedSegment]);
+
 
     useEffect(() => {
         if (activeSource == "originCities") {

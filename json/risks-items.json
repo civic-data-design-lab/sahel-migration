@@ -179,7 +179,11 @@
             },
             {
                 "id": "migration-routes",
-                "url": "mapbox://mitcivicdata.04ugw1cd"
+                "url": "mapbox://mitcivicdata.transect-segments"
+            },
+            {
+                "id": "route-buffer",
+                "url": "mapbox://mitcivicdata.6egts54c"
             },
             {
                 "id": "country-overlay",

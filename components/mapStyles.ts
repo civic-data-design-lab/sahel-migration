@@ -110,11 +110,35 @@ export default function stylesObject(activeSource) {
     const migrationRouteStyle: LineLayer = {
         "id": 'migration',
         "type": 'line',
-        'source-layer': 'route-final_split-55pcyx',
+        'source-layer': 'transect-segments',
         "source": 'migration-routes',
         "paint": {
-            'line-color': '#f48532',
-            'line-width': 5,
+            'line-color': [
+                "interpolate",
+                ["linear"],
+                ["get", "risks_tota"],
+                21.625999450683594,
+                "#f9bda7",
+                98.1,
+                "#f79c7c",
+                148,
+                "#f47b50",
+                228,
+                "#f15a24",
+                281,
+                "#b5441b",
+                327.4641418457031,
+                "#792d12"
+            ],
+            'line-width': [
+                "interpolate",
+                ["linear"],
+                ["get", "risks_tota"],
+                21.625999450683594,
+                2,
+                327.4641418457031,
+                12
+            ],
         },
         "layout": {
             "line-cap": 'round'
@@ -123,11 +147,11 @@ export default function stylesObject(activeSource) {
     const migrationHover: LineLayer = {
         "id": 'migration-hover',
         "type": 'line',
-        'source-layer': 'route-final_split-55pcyx',
-        "source": 'migration-routes',
+        'source-layer': 'route-buffer-a8wlk1',
+        "source": 'route-buffer',
         "paint": {
-            'line-color': '#74401a',
-            'line-width': 5,
+            'line-color': 'white',
+            'line-width': 2,
         },
         "layout": {
             "line-cap": 'round'
@@ -137,7 +161,7 @@ export default function stylesObject(activeSource) {
     const migrationBuffer: LineLayer = {
         "id": 'migration-buffer',
         "type": 'line',
-        'source-layer': 'route-final_split-55pcyx',
+        'source-layer': 'transect-segments',
         "source": 'migration-routes',
         "paint": {
             'line-color': 'red',
