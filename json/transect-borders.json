@@ -1,0 +1,17 @@
+[
+  {
+    "distance": 3.797292105,
+    "country_1": "Mali",
+    "country_2": "Burkina Faso"
+  },
+  {
+    "distance": 11.79273476,
+    "country_1": "Burkina Faso",
+    "country_2": "Niger"
+  },
+  {
+    "distance": 32.12875228,
+    "country_1": "Niger",
+    "country_2": "Libya"
+  }
+]

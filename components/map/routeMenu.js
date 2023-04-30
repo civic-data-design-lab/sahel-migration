@@ -1,6 +1,6 @@
 import { animated, useSpring } from "react-spring";
 import React, { useState } from "react";
-import DataTabToggle from "./../dataTabToggle";
+import DataTabToggle from "./../journey/transect/dataTabToggle";
 import styles from "./../../styles/RouteMenu.module.css";
 import Link from "next/link";
 import useWindowSize from "./../../hooks/useWindowSize";

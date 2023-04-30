@@ -3,8 +3,8 @@
   /* width: 100%; */
   /*max-width: 22rem;*/
   overflow-x: hidden;
+  margin-top: 0.5rem;
   margin-left: 1rem;
-  margin-top: .5rem;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -13,14 +13,8 @@
   font-family: var(--primary-font-fam);
 }
 
-.main h2 {
-  /*padding-bottom: 0rem;*/
-  margin-bottom: -.4rem;
-}
-
-.main h6 {
-  margin-bottom: 1rem;
-
+.title {
+    width: 100%;
 }
 
 /* 

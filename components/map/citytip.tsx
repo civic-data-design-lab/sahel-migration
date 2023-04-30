@@ -23,7 +23,6 @@ export default function CityTip({ hoverInfo, data }) {
 
     const cityText = `of ${originCountry} migrants surveyed in Libya come from`
     const countryText = `${Math.floor(nationalMigrantCount * 100 / totalSurveyed)}% of all migrants surveyed in Libya come from`
-    console.log(Math.floor(nationalMigrantCount * 100 / totalSurveyed))
 
     return (
         <Popup style={{

@@ -38,36 +38,50 @@
   ],
   "risks": {
     "policy": [
-      {  "location_start": 0,
+      {
+        "location_start": 0,
         "location_end": 1693230,
         "trans_len": 1693230,
         "NAME_0": null,
-        "Risk": 0 },
-      {"location_start": 1693230,
+        "Risk": 0
+      },
+      {
+        "location_start": 1693230,
         "location_end": 2744887,
         "trans_len": 1051657,
         "NAME_0": "North Niger to Libya Border",
         "Risk": 2
       },
-      { "location_start": 2744887,
+      {
+        "location_start": 2744887,
         "location_end": 4935319,
-        "trans_len": 2190432, "NAME_0": "Libya", "Risk": 1 }
+        "trans_len": 2190432,
+        "NAME_0": "Libya",
+        "Risk": 1
+      }
     ],
     "extreme_heat": [
-      {  "location_start": 0,
+      {
+        "location_start": 0,
         "location_end": 1700000,
         "trans_len": 1693230,
         "NAME_0": null,
-        "Risk": 2 },
-      {"location_start": 1700000,
+        "Risk": 2
+      },
+      {
+        "location_start": 1700000,
         "location_end": 2800000,
         "trans_len": 1051657,
         "NAME_0": "North Niger to Libya Border",
         "Risk": 0
       },
-      { "location_start": 2800000,
+      {
+        "location_start": 2800000,
         "location_end": 4935319,
-        "trans_len": 2190432, "NAME_0": "Libya", "Risk": 1 }
+        "trans_len": 2190432,
+        "NAME_0": "Libya",
+        "Risk": 1
+      }
     ],
     "remoteness": [
       { "trans_len": 387227, "risk": 0 },
