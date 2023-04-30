@@ -1,4 +1,4 @@
-import styles from "../styles/MapLegend.module.css"
+import styles from "../../styles/MapLegend.module.css"
 export default function MapLegend({ activeSource }) {
 
     return (

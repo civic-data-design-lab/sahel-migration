@@ -1,7 +1,7 @@
 import { useState, useRef, useContext, useEffect, Fragment } from "react";
 import { useSpring, motion, AnimatePresence, useTransform, useMotionValue } from "framer-motion";
-import styles from "./../styles/JourneyNav.module.css"
-import { SectionContext } from '../pages';
+import styles from "./../../styles/JourneyNav.module.css"
+import { SectionContext } from '../../pages';
 import useSWR from 'swr';
 import { v4 as uuidv4 } from 'uuid'
 import Link from "next/link";

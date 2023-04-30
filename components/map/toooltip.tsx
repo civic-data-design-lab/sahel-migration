@@ -1,6 +1,6 @@
 import { Popup } from 'react-map-gl'
 import { Stack } from 'react-bootstrap'
-import styles from '../styles/Tooltip.module.css'
+import styles from './../../styles/Tooltip.module.css'
 import { v4 as uuidv4 } from 'uuid'
 
 

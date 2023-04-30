@@ -1,4 +1,4 @@
-import styles from '../styles/RouteItems.module.css'
+import styles from './../../styles/RouteItems.module.css'
 const originCountries = ["Niger", 'Chad', 'Nigeria', 'Mali', 'Ghana', "Cote d'Ivoire"]
 
 export default function RouteItems({ isOpen, mapToggle }) {
