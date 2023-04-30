@@ -35,7 +35,7 @@ export default function JourneyNav({ journeys }) {
     const vignettes = zip(riskItems.vignetteUrls, journeys.slice(1)).map((journeyPackage, index) => {
         const [url, journey] = journeyPackage
 
-        const routeHovered = index == parseInt(sectionIndex)
+        const routeHovered = index == parseInt(sectionIndex) - 1
         return (
             <Fragment
                 key={`${index}${uuidv4}`}>
