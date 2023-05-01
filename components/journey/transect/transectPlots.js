@@ -1,4 +1,5 @@
 import Streamgraph, { ExpandOverlay } from './streamgraph';
+import dotDensityPlot from './dotDensityPlot';
 import Tooltip from './tooltip';
 import { createRoot } from 'react-dom/client';
 import RiskWeightTextInput from './RiskWeightTextInput';
@@ -19,6 +20,7 @@ export default function PlotAllTransectLayers(
     journeyData,
     journeyFocusData,
     journey,
+    migrantRoutesData,
     svgRef,
     tooltipRef,
     updateRiskWeight,
@@ -46,6 +48,14 @@ export default function PlotAllTransectLayers(
       journeyFocusData: journeyFocusData,
       journey: journey,
     });
+  });
+  dotDensityPlot({
+    migrantRoutesData: migrantRoutesData,
+    width: width,
+    height: 150,
+    margin: margin,
+    svg: svg,
+    xScale: xScale,
   });
   Tooltip({
     width: width,

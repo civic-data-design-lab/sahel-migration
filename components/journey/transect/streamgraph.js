@@ -33,6 +33,8 @@ export default function Streamgraph(
     journey,
   } = {}
 ) {
+  const yPlotOffset = 100;
+
   // Range
   const yRange = [height - margin.bottom, margin.top]; // [bottom, top]
   // Compute values.
@@ -122,7 +124,6 @@ export default function Streamgraph(
     .append('g')
     .attr('id', 'viz-transect-' + riskId)
     .attr('class', 'viz-transect')
-    .attr('viewBox', [0, 0, width, height]); // [x-pos, y-pos, width, height]
 
   // console.log(`Setting ${riskId} ref to ${plot.node()}`);
   // getRiskContainerRefs().set(riskId, plot.node());
@@ -262,7 +263,7 @@ export default function Streamgraph(
   if (riskId !== 'all') {
     const graph = d3.select('#viz-transect-' + riskId);
     const riskIndex = risks.find((risk) => risk.id === riskId).index;
-    plot.attr('transform', `translate(0,${100 * riskIndex})`);
+    plot.attr('transform', `translate(0,${yPlotOffset * riskIndex})`);
   }
 }
 
