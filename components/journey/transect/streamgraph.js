@@ -64,7 +64,7 @@ export default function Streamgraph(
   const series = d3
     .stack()
     .keys(zDomain)
-    .value(([x, I], z) => Y[I.get(z)])
+    .value(([x, I], z) => Y[I.get(z)]*Z[I.get(z)].normWeight)
     .order(order)
     .offset(offset)(
       d3.rollup(
@@ -179,7 +179,7 @@ export default function Streamgraph(
         .attr("x", (d, i) => {
           return (i == 0) ? 20 // mali - burkina faso
           : (i == 1) ? -19 // burkina faso - niger
-          : (i == 2) ? -1 // imaginary line 
+          : (i == 2) ? -1 // imaginary line
           : 0;
         })
         .style("text-anchor", (d, i) => {
@@ -217,7 +217,7 @@ export default function Streamgraph(
           : (i == 5) ? "end" // total dist
           : "middle";
         });
-    
+
     // add white rect behind cities text labels
     plot.select(".x-axis-cities")
       .selectAll("g.tick")
