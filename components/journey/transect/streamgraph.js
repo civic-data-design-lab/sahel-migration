@@ -33,6 +33,8 @@ export default function Streamgraph(
     journey,
   } = {}
 ) {
+  const yPlotOffset = 100;
+
   // Range
   const yRange = [height - margin.bottom, margin.top]; // [bottom, top]
   // Compute values.
@@ -64,7 +66,7 @@ export default function Streamgraph(
   const series = d3
     .stack()
     .keys(zDomain)
-    .value(([x, I], z) => Y[I.get(z)])
+    .value(([x, I], z) => Y[I.get(z)]*Z[I.get(z)].normWeight)
     .order(order)
     .offset(offset)(
       d3.rollup(
@@ -122,7 +124,6 @@ export default function Streamgraph(
     .append('g')
     .attr('id', 'viz-transect-' + riskId)
     .attr('class', 'viz-transect')
-    .attr('viewBox', [0, 0, width, height]); // [x-pos, y-pos, width, height]
 
   // console.log(`Setting ${riskId} ref to ${plot.node()}`);
   // getRiskContainerRefs().set(riskId, plot.node());
@@ -179,7 +180,7 @@ export default function Streamgraph(
         .attr("x", (d, i) => {
           return (i == 0) ? 20 // mali - burkina faso
           : (i == 1) ? -19 // burkina faso - niger
-          : (i == 2) ? -1 // imaginary line 
+          : (i == 2) ? -1 // imaginary line
           : 0;
         })
         .style("text-anchor", (d, i) => {
@@ -217,7 +218,7 @@ export default function Streamgraph(
           : (i == 5) ? "end" // total dist
           : "middle";
         });
-    
+
     // add white rect behind cities text labels
     plot.select(".x-axis-cities")
       .selectAll("g.tick")
@@ -262,7 +263,7 @@ export default function Streamgraph(
   if (riskId !== 'all') {
     const graph = d3.select('#viz-transect-' + riskId);
     const riskIndex = risks.find((risk) => risk.id === riskId).index;
-    plot.attr('transform', `translate(0,${100 * riskIndex})`);
+    plot.attr('transform', `translate(0,${yPlotOffset * riskIndex})`);
   }
 }
 

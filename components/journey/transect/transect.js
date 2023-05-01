@@ -78,7 +78,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
       left: 15,
     };
 
-    // d3.csv('/data/transectsegment.csv').then(function (data) {
+    // d3.json('/data/route_traffic.json').then(function (routeData) {
     d3.json('/data/transect_all.json').then(function (data) {
       d3.json('/data/transect.json').then(function (stackedAreaData) {
         let filteredData = data.filter(
@@ -104,7 +104,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
           'Gharyan',
           'Az Zawiyah',
         ];
-        let cities = data
+        const cities = data
           .filter((d) => !!d.city && !excludeCities.includes(d.city))
           .map((d) => {
             let item = {};
@@ -113,7 +113,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             item.country = d.country;
             return item;
           });
-        let borders = data
+        const borders = data
           .filter((d) => !!d.border_2)
           .map((d) => {
             let item = {};
@@ -122,6 +122,36 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             item.border_2 = d.border_2;
             return item;
           });
+        const migrantRoutesData = data.reduce((a, d) => {
+          let i = d.route_index - 1;
+          if (!a[i]) {
+              let item = {};
+              item.route_index = d.route_index;
+              item.count_index = 1;
+              item.count_total = d.migrant_count;
+              item.count_avg = d.migrant_count;
+              item.count_min = d.migrant_count;
+              item.count_max = d.migrant_count;
+              item.dist_start = d.distance;
+              item.dist_end = d.distance;
+              item.dist_total = item.dist_end - item.dist_start;
+              item.count_per_km = Math.round(item.count_avg / item.dist_total);
+              a.push(item);
+          }
+          else {
+              a[i].route_index = d.route_index;
+              a[i].count_index += 1;
+              a[i].count_total += d.migrant_count;
+              a[i].count_avg = Math.round(a[i].count_total / a[i].count_index);
+              a[i].count_min = Math.min(a[i].count_min, d.migrant_count);
+              a[i].count_max = Math.max(a[i].count_max, d.migrant_count);
+              a[i].dist_start = Math.min(a[i].dist_start, d.distance);
+              a[i].dist_end = Math.max(a[i].dist_end, d.distance);
+              a[i].dist_total = a[i].dist_end - a[i].dist_start;
+              a[i].count_per_km = Math.round(a[i].count_avg / a[i].dist_total);
+          }
+          return a;
+        }, [])
         let yLabel = '';
         svg.selectAll('*').remove();
         // Construct data domains
@@ -148,6 +178,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             xScale: xScale,
             risks: risks,
             risksData: filteredData,
+            migrantRoutesData: migrantRoutesData,
             updateRiskWeight,
           });
         } else {
