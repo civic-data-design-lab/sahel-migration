@@ -17,6 +17,7 @@ export default function Streamgraph(
     width,
     height,
     margin,
+    yPlotOffset,
     xScale,
     xDomain, // [xmin, xmax]
     yDomain, // [ymin, ymax]
@@ -34,7 +35,6 @@ export default function Streamgraph(
     isExpanded,
   } = {}
 ) {
-  const yPlotOffset = 100;
 
   /** X-scale, the distance along the path. */
   const X = d3.map(data, x);
@@ -364,7 +364,7 @@ function journeyText(
   { svg, journey, xScale, yScale, yDomain, isExpanded } = {}
 ) {
   const xCenter = xScale(data[0].x2 + (data[1].x1 - data[0].x2) / 2);
-  const xOffset = 64;
+  const xOffset = isExpanded ? 54 : 64;
   const yBase = yScale(yDomain[1]);
   const triSize = 10;
   const xOffsetJourney2 = 80;
@@ -375,7 +375,7 @@ function journeyText(
     .append('text')
     .attr('class', 'label-journey')
     .attr('x', (d) => {
-      return journey.id == 2 ? xCenter + xOffsetJourney2 : xCenter;
+      return (journey.id == 2 && !isExpanded) ? xCenter + xOffsetJourney2 : xCenter;
     })
     .attr('y', yBase - 20)
     .attr('dy', '-0.125em')
@@ -383,12 +383,12 @@ function journeyText(
     .attr('fill', '#000')
     .text(journey.title);
   // text for expand this section
-  let label = isExpanded? 'Return to entire route' : 'Expand this section';
+  let label = isExpanded ? 'Return to entire route' : 'Expand this section';
   journeyText
     .append('text')
     .attr('class', 'text-expand')
     .attr('x', (d) => {
-      return journey.id == 2 ? xCenter + xOffsetJourney2 : xCenter;
+      return (journey.id == 2 && !isExpanded) ? xCenter + xOffsetJourney2 : xCenter;
     })
     .attr('y', yBase - 5)
     .attr('dy', '-0.125em')
@@ -398,64 +398,37 @@ function journeyText(
   // triangles for expand
   // path for left arrow
   const leftArrow = () => {
-    return journey.id == 2
-      ? 'M ' +
-      (xCenter - xOffset + triSize / 2 + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14 + triSize / 2) +
-      ' L ' +
-      (xCenter - xOffset + triSize + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14) +
-      ' L ' +
-      (xCenter - xOffset + triSize + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14 + triSize) +
-      ' Z'
-      : 'M ' +
-      (xCenter - xOffset + triSize / 2) +
-      ' ' +
-      (yBase - 14 + triSize / 2) +
-      ' L ' +
-      (xCenter - xOffset + triSize) +
-      ' ' +
-      (yBase - 14) +
-      ' L ' +
-      (xCenter - xOffset + triSize) +
-      ' ' +
-      (yBase - 14 + triSize) +
-      ' Z';
+    return (journey.id == 2 && !isExpanded) ?
+      'M ' + (xCenter - xOffset + triSize / 2 + xOffsetJourney2) + ' ' + (yBase - 14 + triSize / 2) +
+      ' L ' + (xCenter - xOffset + triSize + xOffsetJourney2) + ' ' + (yBase - 14) +
+      ' L ' + (xCenter - xOffset + triSize + xOffsetJourney2) + ' ' + (yBase - 14 + triSize) +
+      ' Z' // triangle points left and offset to avoid text overlap
+      : (isExpanded) ? 
+      'M ' + (xCenter - xOffset - triSize / 2) + ' ' + (yBase - 14 + triSize / 2) +
+      ' L ' + (xCenter - xOffset - triSize) + ' ' + (yBase - 14) +
+      ' L ' + (xCenter - xOffset - triSize) + ' ' + (yBase - 14 + triSize) +
+      ' Z' // triangle points right
+      : 'M ' + (xCenter - xOffset + triSize / 2) + ' ' + (yBase - 14 + triSize / 2) +
+      ' L ' + (xCenter - xOffset + triSize) + ' ' + (yBase - 14) +
+      ' L ' + (xCenter - xOffset + triSize) + ' ' + (yBase - 14 + triSize) +
+      ' Z'; // triangle points left
   }
   const rightArrow = () => {
-    return journey.id == 2
-      ? 'M ' +
-      (xCenter + xOffset - triSize / 2 + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14 + triSize / 2) +
-      ' L ' +
-      (xCenter + xOffset - triSize + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14) +
-      ' L ' +
-      (xCenter + xOffset - triSize + xOffsetJourney2) +
-      ' ' +
-      (yBase - 14 + triSize) +
-      ' Z'
-      : 'M ' +
-      (xCenter + xOffset - triSize / 2) +
-      ' ' +
-      (yBase - 14 + triSize / 2) +
-      ' L ' +
-      (xCenter + xOffset - triSize) +
-      ' ' +
-      (yBase - 14) +
-      ' L ' +
-      (xCenter + xOffset - triSize) +
-      ' ' +
-      (yBase - 14 + triSize) +
-      ' Z';
+    return (journey.id == 2 && !isExpanded) ? 
+      'M ' + (xCenter + xOffset - triSize / 2 + xOffsetJourney2) + ' ' + (yBase - 14 + triSize / 2) +
+      ' L ' + (xCenter + xOffset - triSize + xOffsetJourney2) + ' ' + (yBase - 14) +
+      ' L ' + (xCenter + xOffset - triSize + xOffsetJourney2) + ' ' + (yBase - 14 + triSize) +
+      ' Z' // triangle points right and offset to avoid text overlap
+      : (isExpanded) ? 
+      'M ' + (xCenter + xOffset + triSize / 2) + ' ' + (yBase - 14 + triSize / 2) +
+      ' L ' + (xCenter + xOffset + triSize) + ' ' + (yBase - 14) +
+      ' L ' + (xCenter + xOffset + triSize) + ' ' + (yBase - 14 + triSize) +
+      ' Z' // triangle points left
+      : 'M ' + (xCenter + xOffset - triSize / 2) + ' ' + (yBase - 14 + triSize / 2) +
+      ' L ' + (xCenter + xOffset - triSize) + ' ' + (yBase - 14) +
+      ' L ' + (xCenter + xOffset - triSize) + ' ' + (yBase - 14 + triSize) +
+      ' Z'; // triangle points right
   }
-  //TODO: change arrow direction based on isExpanded
 
   // path for left arrow
   journeyText.append('path').attr('d', isExpanded? rightArrow() : leftArrow());

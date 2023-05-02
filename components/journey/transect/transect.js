@@ -83,6 +83,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
       bottom: 60,
       left: 15,
     };
+    const yPlotOffset = (openedTabHeight) / 7;
 
     // d3.json('/data/route_traffic.json').then(function (routeData) {
     d3.json('/data/transect_all.json').then(function (data) {
@@ -174,6 +175,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             yLabel: yLabel,
             width: width,
             height: openedTabHeight,
+            yPlotOffset: yPlotOffset,
             svg: svg,
             margin: margin,
             cities: cities,
@@ -205,6 +207,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             tooltipRef: tooltipRef,
             width: width,
             height: dataTabHeight,
+            yPlotOffset: yPlotOffset,
             xDomain: xDomain,
             risks: risks,
             yLabel: yLabel,
