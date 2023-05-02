@@ -13,6 +13,7 @@ export default function PlotAllTransectLayers(
     width,
     height,
     margin,
+    yPlotOffset,
     yLabel, // a label for the y-axis
     svg,
     xScale,
@@ -53,6 +54,7 @@ export default function PlotAllTransectLayers(
       yLabel: yLabel,
       width: width,
       height: 150,
+      yPlotOffset: yPlotOffset,
       margin: margin,
       svg: svg,
       xScale: xScale,
@@ -67,8 +69,9 @@ export default function PlotAllTransectLayers(
   dotDensityPlot({
     migrantRoutesData: migrantRoutesData,
     width: width,
-    height: 150,
+    height: height,
     margin: margin,
+    yPlotOffset: yPlotOffset,
     svg: svg,
     xScale: xScale,
   });
@@ -105,6 +108,7 @@ export function PlotCombinedTransectLayers(
     tooltipRef,
     width,
     height, // dataTabHeight
+    yPlotOffset,
     xDomain,
     risks,
     yLabel,
@@ -153,6 +157,7 @@ export function PlotCombinedTransectLayers(
     yLabel: yLabel,
     width: width,
     height: height,
+    yPlotOffset: yPlotOffset,
     svg: svg,
     risks: risks,
     riskId: 'all',
