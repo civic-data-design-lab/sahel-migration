@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import * as d3 from 'd3';
 import useWindowSize from '../../../hooks/useWindowSize';
 import PlotAllTransectLayers, { PlotCombinedTransectLayers } from './transectPlots';
@@ -67,10 +67,15 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [svgLoaded, setSvgLoaded] = useState(false);
 
+  const yPlotOffset = useMemo(() => {
+    const openedTabHeight = 0.8 * height;
+    return openedTabHeight / 7;
+  }, [height]);
+
   const updateIsExpanded = (data) => {
     setIsExpanded(!isExpanded);
     setExpandedData(data);
-  }
+  };
   function drawLayers(svgRef, width, height, isOpen) {
     setSvgLoaded(false);
 
@@ -83,7 +88,6 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
       bottom: 60,
       left: 15,
     };
-    const yPlotOffset = (openedTabHeight) / 7;
 
     // d3.json('/data/route_traffic.json').then(function (routeData) {
     d3.json('/data/transect_all.json').then(function (data) {
@@ -132,33 +136,32 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         const migrantRoutesData = data.reduce((a, d) => {
           let i = d.route_index - 1;
           if (!a[i]) {
-              let item = {};
-              item.route_index = d.route_index;
-              item.count_index = 1;
-              item.count_total = d.migrant_count;
-              item.count_avg = d.migrant_count;
-              item.count_min = d.migrant_count;
-              item.count_max = d.migrant_count;
-              item.dist_start = d.distance;
-              item.dist_end = d.distance;
-              item.dist_total = item.dist_end - item.dist_start;
-              item.count_per_km = Math.round(item.count_avg / item.dist_total);
-              a.push(item);
-          }
-          else {
-              a[i].route_index = d.route_index;
-              a[i].count_index += 1;
-              a[i].count_total += d.migrant_count;
-              a[i].count_avg = Math.round(a[i].count_total / a[i].count_index);
-              a[i].count_min = Math.min(a[i].count_min, d.migrant_count);
-              a[i].count_max = Math.max(a[i].count_max, d.migrant_count);
-              a[i].dist_start = Math.min(a[i].dist_start, d.distance);
-              a[i].dist_end = Math.max(a[i].dist_end, d.distance);
-              a[i].dist_total = a[i].dist_end - a[i].dist_start;
-              a[i].count_per_km = Math.round(a[i].count_avg / a[i].dist_total);
+            let item = {};
+            item.route_index = d.route_index;
+            item.count_index = 1;
+            item.count_total = d.migrant_count;
+            item.count_avg = d.migrant_count;
+            item.count_min = d.migrant_count;
+            item.count_max = d.migrant_count;
+            item.dist_start = d.distance;
+            item.dist_end = d.distance;
+            item.dist_total = item.dist_end - item.dist_start;
+            item.count_per_km = Math.round(item.count_avg / item.dist_total);
+            a.push(item);
+          } else {
+            a[i].route_index = d.route_index;
+            a[i].count_index += 1;
+            a[i].count_total += d.migrant_count;
+            a[i].count_avg = Math.round(a[i].count_total / a[i].count_index);
+            a[i].count_min = Math.min(a[i].count_min, d.migrant_count);
+            a[i].count_max = Math.max(a[i].count_max, d.migrant_count);
+            a[i].dist_start = Math.min(a[i].dist_start, d.distance);
+            a[i].dist_end = Math.max(a[i].dist_end, d.distance);
+            a[i].dist_total = a[i].dist_end - a[i].dist_start;
+            a[i].count_per_km = Math.round(a[i].count_avg / a[i].dist_total);
           }
           return a;
-        }, [])
+        }, []);
         let yLabel = '';
         svg.selectAll('*').remove();
         // Construct data domains
@@ -196,7 +199,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
           let xScale = d3.scaleLinear().domain(xDomain).range(xRange);
           if (expandedData != null) {
             data = expandedData;
-            let expandedXDomain = [ data[0].distance, data[data.length - 1].distance ];
+            let expandedXDomain = [data[0].distance, data[data.length - 1].distance];
             xScale = d3.scaleLinear().domain(expandedXDomain).range(xRange);
           } else {
             data = filteredStackedAreaData;
@@ -218,8 +221,8 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             borders: borders,
             journey: journey,
             risksData: filteredData,
-            updateIsExpanded : updateIsExpanded,
-            isExpanded : isExpanded,
+            updateIsExpanded: updateIsExpanded,
+            isExpanded: isExpanded,
             isOpen: isOpen,
           });
         }
@@ -254,7 +257,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         .attr('width', 100)
         .attr('height', 100)
         .attr('x', margin.left + 200)
-        .attr('y', margin.top + 100 * risk.index - 10)
+        .attr('y', margin.top + yPlotOffset * risk.index - 10)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
         .append('xhtml:div')
@@ -269,7 +272,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         .attr('width', 250)
         .attr('height', 25)
         .attr('x', margin.left)
-        .attr('y', margin.top + 100 * risk.index + 15)
+        .attr('y', margin.top + yPlotOffset * risk.index + 15)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
         .append('xhtml:div')
@@ -294,7 +297,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   //TODO: optimize re-rendering for d3 plots
   useEffect(() => {
     drawLayers(svgRef, width, height, isOpen);
-  }, [dataTabHeight, height, svgRef, width, isOpen, journey,isExpanded]);
+  }, [dataTabHeight, height, svgRef, width, isOpen, journey, isExpanded]);
 
   useEffect(() => {
     console.log('Rendering to', roots);
