@@ -90,13 +90,15 @@ export function PlotCombinedTransectLayers(
     borders,
     journey,
     risksData, //filteredData
+    updateIsExpanded,
+    isExpanded,
   }
 ) {
   svg
     .attr('id', 'viz-transect-layers')
     .attr('class', 'viz-transect')
     .attr('viewBox', [0, 0, width, height]);
-  
+
   let journeyData = [];
   let journeyFocusData = [];
 
@@ -135,10 +137,12 @@ export function PlotCombinedTransectLayers(
     cities: cities,
     borders: borders,
     journey: journey,
+    isExpanded: isExpanded,
   });
   Tooltip({
     width: width,
     height: height,
+    margin: margin,
     data: data,
     svgRef: svgRef,
     tooltipRef: tooltipRef,
@@ -150,13 +154,8 @@ export function PlotCombinedTransectLayers(
     journey: journey,
     journeyData: journeyData,
     journeyFocusData: journeyFocusData,
+    updateIsExpanded: updateIsExpanded,
+    isExpanded: isExpanded,
   });
   // rect overlay for on-click to expand trigger
-  ExpandOverlay({
-    svg,
-    xScale,
-    journeyFocusData,
-    journey,
-    height,
-  });
 }

@@ -31,13 +31,10 @@ export default function Streamgraph(
     cities,
     borders,
     journey,
+    isExpanded,
   } = {}
 ) {
   const yPlotOffset = 100;
-
-  // Range
-  const yRange = [height - margin.bottom, margin.top]; // [bottom, top]
-  // Compute values.
 
   /** X-scale, the distance along the path. */
   const X = d3.map(data, x);
@@ -54,7 +51,7 @@ export default function Streamgraph(
   zDomain = new d3.InternSet(zDomain);
 
   /** The risk information that is currently being displayed */
-  const riskInfo = risks.find((risk) => risk.id === riskId);
+  // const riskInfo = risks.find((risk) => risk.id === riskId);
 
   // Omit any data not present in the z-domain.
   const I = d3.range(X.length).filter((i) => zDomain.has(Z[i]));
@@ -80,18 +77,31 @@ export default function Streamgraph(
 
   // Compute the default y-domain. Note: diverging stacks can be negative.
   if (yDomain === undefined) yDomain = d3.extent(series.flat(2));
-
-  // Construct scales and axes.
+  const yRange = [height - margin.bottom, margin.top]; // [bottom, top]
   const yScale = d3.scaleLinear(yDomain, yRange);
-
-  // Construct x-axis labels
+  // define svg
+  const plot = svg
+    .append('g')
+    .attr('id', 'viz-transect-' + riskId)
+    .attr('class', 'viz-transect')
+  PlotAreaCurve(data,{
+    plot: plot,
+    X: X,
+    Z: Z,
+    margin: margin,
+    xDomain: xDomain,
+    xScale: xScale,
+    riskId: riskId,
+    yLabel: yLabel,
+    yScale: yScale,
+    series: series,
+  })
   const xAxis = d3
     .axisBottom(xScale)
     .tickValues([0, 10, 20, 30, 40, xDomain[1].toFixed(2)])
     .ticks(5)
     .tickSizeOuter(0)
     .tickFormat((d, i) => (d * 100).toLocaleString('en-US') + ' km');
-
   function xAxisTicks(ticksData) {
     let tickSize = 20; // tick size for city
     if (!ticksData[0].hasOwnProperty('city')) {
@@ -106,68 +116,9 @@ export default function Streamgraph(
         let labelData = ticksData[i];
         return labelData.hasOwnProperty('city') ? labelData.city // cities
           : (labelData.hasOwnProperty('border_2') && i == 2) ? labelData.border_2 // imaginary line
-          : labelData.border_1 + ' – ' + labelData.border_2;
+            : labelData.border_1 + ' – ' + labelData.border_2;
       });
   }
-
-  const area = d3
-    .area()
-    .x(({ i }) => xScale(X[i]))
-    .y0(([y1]) => yScale(y1))
-    .y1(([, y2]) => yScale(y2))
-    .curve(d3.curveBasis);
-
-  // define journey highlighed regions
-
-  // define svg
-  const plot = svg
-    .append('g')
-    .attr('id', 'viz-transect-' + riskId)
-    .attr('class', 'viz-transect')
-
-  // console.log(`Setting ${riskId} ref to ${plot.node()}`);
-  // getRiskContainerRefs().set(riskId, plot.node());
-
-  // define path
-  plot
-    .append('g')
-    .attr('class', 'combined-risk')
-    .selectAll('path')
-    .data(series)
-    .join('path')
-    .attr('id', ([{ i }]) => Z[i].id)
-    .attr('fill', ([{ i }]) => Z[i].color)
-    .attr('d', area)
-    .append('title')
-    .text(([{ i }]) => Z[i].label)
-    .style('pointer-events', 'all');
-
-  // x-axis baseline
-  plot
-    .append('g')
-    .attr('class', 'x-axis-line')
-    .append('line')
-    .attr('x1', (d) => xScale(0))
-    .attr('x2', (d) => xScale(xDomain[1]))
-    .attr('y1', yScale(0))
-    .attr('y2', yScale(0))
-    .attr('stroke', '#463C35')
-    .attr('stroke-width', 1);
-
-  // labels for y-axis
-  plot
-    .append('g')
-    .attr('class', 'label-risk')
-    .attr('id', `risk-label-${riskId}`)
-    .call((g) =>
-      g
-        .append('text')
-        .attr('x', margin.left)
-        .attr('y', margin.top + 10)
-        .text(yLabel)
-    )
-    .attr('fill', '#463C35');
-
   if (riskId === 'all') {
     // define ticks for country borders
     plot
@@ -256,6 +207,7 @@ export default function Streamgraph(
         xScale: xScale,
         yScale: yScale,
         yDomain: yDomain,
+        isExpanded: isExpanded,
       });
     }
   }
@@ -265,6 +217,71 @@ export default function Streamgraph(
     const riskIndex = risks.find((risk) => risk.id === riskId).index;
     plot.attr('transform', `translate(0,${yPlotOffset * riskIndex})`);
   }
+}
+
+export function PlotAreaCurve(data,
+   {
+    plot,
+    X,
+    Z,
+    margin,
+    xDomain,
+    xScale,
+    riskId,
+    yLabel,
+    yScale,
+    series,
+   }) {
+  const area = d3
+    .area()
+    .x(({ i }) => xScale(X[i]))
+    .y0(([y1]) => yScale(y1))
+    .y1(([, y2]) => yScale(y2))
+    .curve(d3.curveBasis);
+
+  // define journey highlighed regions
+  // console.log(`Setting ${riskId} ref to ${plot.node()}`);
+  // getRiskContainerRefs().set(riskId, plot.node());
+
+  // define path
+  plot
+    .append('g')
+    .attr('class', 'combined-risk')
+    .selectAll('path')
+    .data(series)
+    .join('path')
+    .attr('id', ([{ i }]) => Z[i].id)
+    .attr('fill', ([{ i }]) => Z[i].color)
+    .attr('d', area)
+    .append('title')
+    .text(([{ i }]) => Z[i].label)
+    .style('pointer-events', 'all');
+
+  // x-axis baseline
+  plot
+    .append('g')
+    .attr('class', 'x-axis-line')
+    .append('line')
+    .attr('x1', (d) => xScale(0))
+    .attr('x2', (d) => xScale(xDomain[1]))
+    .attr('y1', yScale(0))
+    .attr('y2', yScale(0))
+    .attr('stroke', '#463C35')
+    .attr('stroke-width', 1);
+
+  // labels for y-axis
+  plot
+    .append('g')
+    .attr('class', 'label-risk')
+    .attr('id', `risk-label-${riskId}`)
+    .call((g) =>
+      g
+        .append('text')
+        .attr('x', margin.left)
+        .attr('y', margin.top + 10)
+        .text(yLabel)
+    )
+    .attr('fill', '#463C35');
 }
 
 function focusArea(
@@ -339,7 +356,7 @@ function bracket(
 }
 function journeyText(
   data, //journeyFocusData
-  { svg, journey, xScale, yScale, yDomain } = {}
+  { svg, journey, xScale, yScale, yDomain, isExpanded } = {}
 ) {
   const xCenter = xScale(data[0].x2 + (data[1].x1 - data[0].x2) / 2);
   const xOffset = 64;
@@ -361,6 +378,7 @@ function journeyText(
     .attr('fill', '#000')
     .text(journey.title);
   // text for expand this section
+  let label = isExpanded? 'Return to entire route' : 'Expand this section';
   journeyText
     .append('text')
     .attr('class', 'text-expand')
@@ -371,68 +389,73 @@ function journeyText(
     .attr('dy', '-0.125em')
     .attr('text-anchor', 'middle')
     .attr('fill', '#000')
-    .text('Expand this section');
+    .text(label);
   // triangles for expand
   // path for left arrow
-  journeyText.append('path').attr('d', (d) => {
+  const leftArrow = () => {
     return journey.id == 2
       ? 'M ' +
-          (xCenter - xOffset + triSize / 2 + xOffsetJourney2) +
-          ' ' +
-          (yBase - 14 + triSize / 2) +
-          ' L ' +
-          (xCenter - xOffset + triSize + xOffsetJourney2) +
-          ' ' +
-          (yBase - 14) +
-          ' L ' +
-          (xCenter - xOffset + triSize + xOffsetJourney2) +
-          ' ' +
-          (yBase - 14 + triSize) +
-          ' Z'
+      (xCenter - xOffset + triSize / 2 + xOffsetJourney2) +
+      ' ' +
+      (yBase - 14 + triSize / 2) +
+      ' L ' +
+      (xCenter - xOffset + triSize + xOffsetJourney2) +
+      ' ' +
+      (yBase - 14) +
+      ' L ' +
+      (xCenter - xOffset + triSize + xOffsetJourney2) +
+      ' ' +
+      (yBase - 14 + triSize) +
+      ' Z'
       : 'M ' +
-          (xCenter - xOffset + triSize / 2) +
-          ' ' +
-          (yBase - 14 + triSize / 2) +
-          ' L ' +
-          (xCenter - xOffset + triSize) +
-          ' ' +
-          (yBase - 14) +
-          ' L ' +
-          (xCenter - xOffset + triSize) +
-          ' ' +
-          (yBase - 14 + triSize) +
-          ' Z';
-  });
+      (xCenter - xOffset + triSize / 2) +
+      ' ' +
+      (yBase - 14 + triSize / 2) +
+      ' L ' +
+      (xCenter - xOffset + triSize) +
+      ' ' +
+      (yBase - 14) +
+      ' L ' +
+      (xCenter - xOffset + triSize) +
+      ' ' +
+      (yBase - 14 + triSize) +
+      ' Z';
+  }
+  const rightArrow = () => {
+    return journey.id == 2
+      ? 'M ' +
+      (xCenter + xOffset - triSize / 2 + xOffsetJourney2) +
+      ' ' +
+      (yBase - 14 + triSize / 2) +
+      ' L ' +
+      (xCenter + xOffset - triSize + xOffsetJourney2) +
+      ' ' +
+      (yBase - 14) +
+      ' L ' +
+      (xCenter + xOffset - triSize + xOffsetJourney2) +
+      ' ' +
+      (yBase - 14 + triSize) +
+      ' Z'
+      : 'M ' +
+      (xCenter + xOffset - triSize / 2) +
+      ' ' +
+      (yBase - 14 + triSize / 2) +
+      ' L ' +
+      (xCenter + xOffset - triSize) +
+      ' ' +
+      (yBase - 14) +
+      ' L ' +
+      (xCenter + xOffset - triSize) +
+      ' ' +
+      (yBase - 14 + triSize) +
+      ' Z';
+  }
+  //TODO: change arrow direction based on isExpanded
+
+  // path for left arrow
+  journeyText.append('path').attr('d', isExpanded? rightArrow() : leftArrow());
   // path for right arrow
-  journeyText.append('path').attr('d', (d) => {
-    return journey.id == 2
-      ? 'M ' +
-          (xCenter + xOffset - triSize / 2 + xOffsetJourney2) +
-          ' ' +
-          (yBase - 14 + triSize / 2) +
-          ' L ' +
-          (xCenter + xOffset - triSize + xOffsetJourney2) +
-          ' ' +
-          (yBase - 14) +
-          ' L ' +
-          (xCenter + xOffset - triSize + xOffsetJourney2) +
-          ' ' +
-          (yBase - 14 + triSize) +
-          ' Z'
-      : 'M ' +
-          (xCenter + xOffset - triSize / 2) +
-          ' ' +
-          (yBase - 14 + triSize / 2) +
-          ' L ' +
-          (xCenter + xOffset - triSize) +
-          ' ' +
-          (yBase - 14) +
-          ' L ' +
-          (xCenter + xOffset - triSize) +
-          ' ' +
-          (yBase - 14 + triSize) +
-          ' Z';
-  });
+  journeyText.append('path').attr('d', isExpanded? leftArrow(): rightArrow());
 }
 
 export function ExpandOverlay({ svg, xScale, journeyFocusData, journey, height } = {}) {

@@ -63,8 +63,14 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
   const [risks, setRisks] = useState([...INITIAL_RISKS_DATA]);
+  const [expandedData, setExpandedData] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [svgLoaded, setSvgLoaded] = useState(false);
 
+  const updateIsExpanded = (data) => {
+    setIsExpanded(!isExpanded);
+    setExpandedData(data);
+  }
   function drawLayers(svgRef, width, height, isOpen) {
     setSvgLoaded(false);
 
@@ -182,7 +188,16 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             updateRiskWeight,
           });
         } else {
-          PlotCombinedTransectLayers(filteredStackedAreaData, {
+          let data;
+          let xScale = d3.scaleLinear().domain(xDomain).range(xRange);
+          if (expandedData != null) {
+            data = expandedData;
+            let expandedXDomain = [ data[0].distance, data[data.length - 1].distance ];
+            xScale = d3.scaleLinear().domain(expandedXDomain).range(xRange);
+          } else {
+            data = filteredStackedAreaData;
+          }
+          PlotCombinedTransectLayers(data, {
             svg: svg,
             svgRef: svgRef,
             tooltipRef: tooltipRef,
@@ -198,6 +213,8 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             borders: borders,
             journey: journey,
             risksData: filteredData,
+            updateIsExpanded : updateIsExpanded,
+            isExpanded : isExpanded,
           });
         }
 
@@ -271,7 +288,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   //TODO: optimize re-rendering for d3 plots
   useEffect(() => {
     drawLayers(svgRef, width, height, isOpen);
-  }, [dataTabHeight, height, svgRef, width, isOpen, journey]);
+  }, [dataTabHeight, height, svgRef, width, isOpen, journey,isExpanded]);
 
   useEffect(() => {
     console.log('Rendering to', roots);
