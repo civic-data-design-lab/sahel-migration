@@ -228,8 +228,9 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             borders: borders,
             journey: journey,
             risksData: filteredData,
-            updateIsExpanded: updateIsExpanded,
-            isExpanded: isExpanded,
+            migrantRoutesData: migrantRoutesData,
+            updateIsExpanded : updateIsExpanded,
+            isExpanded : isExpanded,
             isOpen: isOpen,
           });
         }
