@@ -48,7 +48,14 @@ const INITIAL_RISKS_DATA = [
     weight: 100,
     normWeight: 1 / 6,
   },
-  { id: 'heat', index: 5, label: 'Heat Exposure', color: '#3F231B', weight: 100, normWeight: 1 / 6 },
+  {
+    id: 'heat',
+    index: 5,
+    label: 'Heat Exposure',
+    color: '#3F231B',
+    weight: 100,
+    normWeight: 1 / 6,
+  },
 ];
 
 const margin = {
@@ -300,10 +307,14 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   }, [dataTabHeight, height, svgRef, width, isOpen, journey, isExpanded]);
 
   useEffect(() => {
-    console.log('Rendering to', roots);
+    console.log('Rendering roots', roots);
 
     roots.forEach(({ type, root, riskId }) => {
       const riskInfo = risks.find((risk) => risk.id === riskId);
+      if (root._internalRoot === null) {
+        console.warn('Tried updating an unmounted root');
+        return;
+      }
       if (type === 'text') {
         root.render(
           <RiskWeightTextInput
