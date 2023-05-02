@@ -182,10 +182,12 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             svgRef: svgRef,
             tooltipRef: tooltipRef,
             xScale: xScale,
+            xDomain: xDomain,
             risks: risks,
             risksData: filteredData,
             migrantRoutesData: migrantRoutesData,
             updateRiskWeight,
+            isOpen: isOpen,
           });
         } else {
           let data;
@@ -215,6 +217,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             risksData: filteredData,
             updateIsExpanded : updateIsExpanded,
             isExpanded : isExpanded,
+            isOpen: isOpen,
           });
         }
 
