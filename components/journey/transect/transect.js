@@ -48,7 +48,7 @@ const INITIAL_RISKS_DATA = [
     weight: 100,
     normWeight: 1 / 6,
   },
-  { id: 'heat', index: 5, label: 'Extreme Heat', color: '#3F231B', weight: 100, normWeight: 1 / 6 },
+  { id: 'heat', index: 5, label: 'Heat Exposure', color: '#3F231B', weight: 100, normWeight: 1 / 6 },
 ];
 
 const margin = {
