@@ -102,88 +102,18 @@ export default function Streamgraph(
     .ticks(5)
     .tickSizeOuter(0)
     .tickFormat((d, i) => (d * 100).toLocaleString('en-US') + ' km');
-  function xAxisTicks(ticksData) {
-    let tickSize = 20; // tick size for city
-    if (!ticksData[0].hasOwnProperty('city')) {
-      tickSize = 35; // tick size for borders
-    }
-    return d3
-      .axisBottom(xScale)
-      .tickValues(ticksData.map((d) => d.distance))
-      .tickSize(tickSize)
-      .tickSizeOuter(0)
-      .tickFormat((d, i) => {
-        let labelData = ticksData[i];
-        return labelData.hasOwnProperty('city') ? labelData.city // cities
-          : (labelData.hasOwnProperty('border_2') && i == 2) ? labelData.border_2 // imaginary line
-            : labelData.border_1 + ' – ' + labelData.border_2;
-      });
-  }
+
   if (riskId === 'all') {
-    // define ticks for country borders
-    plot
-      .append("g")
-      .attr("class", "x-axis-borders")
-      .attr("transform", `translate(0,${height - margin.bottom})`)
-      .call(xAxisTicks(borders))
-      .call((g) => g.select('.domain').remove())
-      .selectAll("text")
-        .attr("x", (d, i) => {
-          return (i == 0) ? 20 // mali - burkina faso
-          : (i == 1) ? -19 // burkina faso - niger
-          : (i == 2) ? -1 // imaginary line
-          : 0;
-        })
-        .style("text-anchor", (d, i) => {
-          return (i == 2) ? "start" // imaginary line
-          : "middle";
-        });
-      // define ticks for city names
-    plot
-      .append('g')
-      .attr('class', 'x-axis-cities')
-      .attr('transform', `translate(0,${height - margin.bottom})`)
-      .call(xAxisTicks(cities))
-      .call((g) => g.select('.domain').remove())
-      .selectAll("text")
-        .style("text-anchor", (d, i) => {
-          return (i == 0) ? "start" // Bamako
-          : (i == 7) ? "end" // Tripoli
-          : "middle";
-        });
-    // define x-axis (distance in km)
-    plot
-      .append('g')
-      .attr('class', 'x-axis-dist')
-      .attr('transform', `translate(0,${height - margin.bottom})`)
-      .call(xAxis)
-      .call((g) => g.select('.domain').remove())
-      .selectAll("text")
-        .attr("x", (d, i) => {
-          return (i == 0) ? 2 // 0 km
-          : (i == 5) ? -2 // total dist
-          : 0;
-        })
-        .style("text-anchor", (d, i) => {
-          return (i == 0) ? "start" // 0 km
-          : (i == 5) ? "end" // total dist
-          : "middle";
-        });
 
-    // add white rect behind cities text labels
-    plot.select(".x-axis-cities")
-      .selectAll("g.tick")
-        .insert("rect", "text")
-        .attr("x", -35)
-        .attr("y", 21)
-        .attr("width", 70)
-        .attr("height", 11)
-        .style("fill", "white")
-        .style("opacity", (d, i) => {
-          return (i == 1 || i == 5) ? 0.8 // bobo dioulasso and agadez
-          : 0;
-        });
-
+    PlotXAxis({
+      plot: plot,
+      height: height,
+      margin: margin,
+      xAxis: xAxis,
+      xAxisTicks: (ticksData) => XAxisTicks(ticksData,xScale),
+      borders: borders,
+      cities: cities,
+    });
     if (journey.id < 8) {
       // transparent rects for focus area for this journey
       focusArea(journeyFocusData, {
@@ -303,6 +233,81 @@ function focusArea(
     .attr('opacity', 0.3);
 }
 
+
+export function PlotXAxis({
+  plot,
+  height,
+  margin,
+  xAxis,
+  xAxisTicks,
+  borders,
+  cities,
+
+}) {
+  plot
+    .append("g")
+    .attr("class", "x-axis-borders")
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(xAxisTicks(borders))
+    .call((g) => g.select('.domain').remove())
+    .selectAll("text")
+    .attr("x", (d, i) => {
+      return (i == 0) ? 20 // mali - burkina faso
+        : (i == 1) ? -19 // burkina faso - niger
+          : (i == 2) ? -1 // imaginary line
+            : 0;
+    })
+    .style("text-anchor", (d, i) => {
+      return (i == 2) ? "start" // imaginary line
+        : "middle";
+    });
+  // define ticks for city names
+  plot
+    .append('g')
+    .attr('class', 'x-axis-cities')
+    .attr('transform', `translate(0,${height - margin.bottom})`)
+    .call(xAxisTicks(cities))
+    .call((g) => g.select('.domain').remove())
+    .selectAll("text")
+    .style("text-anchor", (d, i) => {
+      return (i == 0) ? "start" // Bamako
+        : (i == 7) ? "end" // Tripoli
+          : "middle";
+    });
+  // define x-axis (distance in km)
+  plot
+    .append('g')
+    .attr('class', 'x-axis-dist')
+    .attr('transform', `translate(0,${height - margin.bottom})`)
+    .call(xAxis)
+    .call((g) => g.select('.domain').remove())
+    .selectAll("text")
+    .attr("x", (d, i) => {
+      return (i == 0) ? 2 // 0 km
+        : (i == 5) ? -2 // total dist
+          : 0;
+    })
+    .style("text-anchor", (d, i) => {
+      return (i == 0) ? "start" // 0 km
+        : (i == 5) ? "end" // total dist
+          : "middle";
+    });
+
+  // add white rect behind cities text labels
+  plot.select(".x-axis-cities")
+    .selectAll("g.tick")
+    .insert("rect", "text")
+    .attr("x", -35)
+    .attr("y", 21)
+    .attr("width", 70)
+    .attr("height", 11)
+    .style("fill", "white")
+    .style("opacity", (d, i) => {
+      return (i == 1 || i == 5) ? 0.8 // bobo dioulasso and agadez
+        : 0;
+    });
+
+}
 function bracket(
   data, //journeyFocusData
   { svg, xScale, yScale, yDomain, margin } = {}
@@ -458,31 +463,21 @@ function journeyText(
   journeyText.append('path').attr('d', isExpanded? leftArrow(): rightArrow());
 }
 
-export function ExpandOverlay({ svg, xScale, journeyFocusData, journey, height } = {}) {
-  function pulse() {
-    d3.select('.journey-text')
-      .transition()
-      .duration(500)
-      .attr('r', 20)
-      .style('opacity', 0.5)
-      .ease(d3.easeCubicOut)
-      .transition()
-      .duration(500)
-      .attr('r', 10)
-      .style('opacity', 1)
-      .ease(d3.easeCubicOut)
-      .on('end', pulse);
-  }
 
-  function mouseover(event) {
-    pulse();
+export function XAxisTicks(ticksData,xScale) {
+  let tickSize = 20; // tick size for city
+  if (!ticksData[0].hasOwnProperty('city')) {
+    tickSize = 35; // tick size for borders
   }
-  function mouseout(event) {
-    d3.select('.journey-text')
-      .transition()
-      .duration(500)
-      .attr('r', 10)
-      .style('opacity', 1)
-      .ease(d3.easeCubicOut);
-  }
+  return d3
+    .axisBottom(xScale)
+    .tickValues(ticksData.map((d) => d.distance))
+    .tickSize(tickSize)
+    .tickSizeOuter(0)
+    .tickFormat((d, i) => {
+      let labelData = ticksData[i];
+      return labelData.hasOwnProperty('city') ? labelData.city // cities
+        : (labelData.hasOwnProperty('border_2') && i == 2) ? labelData.border_2 // imaginary line
+          : labelData.border_1 + ' – ' + labelData.border_2;
+    });
 }

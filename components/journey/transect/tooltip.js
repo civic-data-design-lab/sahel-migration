@@ -4,7 +4,7 @@ const tooltipLayout =
   "<h4 class='risk-total'>Combined Risk<span id='data-total' class='labelData'>152</span></h4><p class='risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk-acled'>Armed Conflict<span id='data-acled' class='labelData'>0</span></p><p class='risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk-smuggler'>Need for a Smuggler<span id='data-smuggler' class='labelData'>0</span></p><p class='risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk-heat'>Extreme Heat<span id='data-heat' class='labelData'>80</span></p>";
 
 export default function Tooltip(config) {
-  const { width, height, data, svgRef, tooltipRef, xScale, xRange, margin, risks, riskId, risksData, journey, journeyData, journeyFocusData, updateIsExpanded, isExpanded } = config;
+  const { width, height, data, svgRef, tooltipRef, xScale, xRange, margin, risks, riskId, risksData, journey, journeyData, journeyFocusData, updateIsExpanded, isExpanded, isOpen } = config;
   const svg = d3.select(svgRef.current).attr('id', 'viz-transect-layers');
   //   const tooltip = d3.select(tooltipRef.current);
   const tooltip = d3.select('#transectTooltip').style('top', 0).style('left', 0);
@@ -58,29 +58,32 @@ export default function Tooltip(config) {
       // console.log(x0);
       const dIndex = data[x0].index;
       const d0 = risksData.find((d) => d.index === dIndex);
-      if (isExpanded) {
-        svg.style('cursor', 'pointer');
-        svg.select('.journey-text')
-          .transition()
-          .duration(500)
-          .attr('r', 10)
-          .style('opacity', 1)
-          .ease(d3.easeCubicOut);
-      } else {
-        if (journeyFocusData[0].x2 <= d0.distance && d0.distance <= journeyFocusData[1].x1) {
+      if (!isOpen) {
+        if (isExpanded) {
           svg.style('cursor', 'pointer');
-          console.log('in range');
-          pulse()
-        } else {
-          svg.style('cursor', 'default');
           svg.select('.journey-text')
             .transition()
             .duration(500)
             .attr('r', 10)
             .style('opacity', 1)
             .ease(d3.easeCubicOut);
+        } else {
+          if (journeyFocusData[0].x2 <= d0.distance && d0.distance <= journeyFocusData[1].x1) {
+            svg.style('cursor', 'pointer');
+            console.log('in range');
+            pulse()
+          } else {
+            svg.style('cursor', 'default');
+            svg.select('.journey-text')
+              .transition()
+              .duration(500)
+              .attr('r', 10)
+              .style('opacity', 1)
+              .ease(d3.easeCubicOut);
+          }
         }
       }
+
 
       let combinedRiskValue = 0;
       // update data in tooltip for each risk
