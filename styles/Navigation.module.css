@@ -6,7 +6,7 @@
     justify-content: space-between;
     pointer-events: none;
     position: fixed;
-    bottom: 26%;
+    bottom: 27%;
     z-index: 7;
     color: var(--brown);
     width: 100%
@@ -29,11 +29,12 @@
 .button {
     /*margin-top: 1rem;*/
     pointer-events: all;
-    border: .1rem solid;
+    border: .125rem solid;
+    border-color: var(--brown);
     border-radius: 50%;
     background: none;
-    height: 1.8rem;
-    width: 1.8rem;
+    height: 2rem;
+    width: 2rem;
 
 }
 

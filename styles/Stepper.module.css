@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.1rem solid var(--dark);
+  border: 0.125rem solid var(--dark);
   transition: 0.4s ease;
   z-index: 1;
 }
@@ -58,5 +58,5 @@
 }
 
 .current {
-  background-color: #d66937;
+  background-color: var(--dark);
 }
