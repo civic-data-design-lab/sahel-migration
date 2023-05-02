@@ -23,7 +23,14 @@ const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
         type="text"
         value={riskWeight}
         onChange={validateAndUpdate}
-        style={{ width: '30px', height: '20px' }}
+        style={{
+          width: '30px',
+          height: '20px',
+          fontFamily: "'Inter', sans-serif",
+          textAlign: 'center',
+          border: '1.5px solid var(--gray)',
+          borderRadius: '4px',
+        }}
       />
       <label>%</label>
     </div>
