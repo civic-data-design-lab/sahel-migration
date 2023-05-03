@@ -76,7 +76,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
 
   const yPlotOffset = useMemo(() => {
     const openedTabHeight = 0.8 * height;
-    return openedTabHeight / 7;
+    return (openedTabHeight - margin.top) / 7;
   }, [height]);
 
   const updateIsExpanded = (data) => {
@@ -96,7 +96,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
       left: 15,
     };
 
-    // d3.json('/data/route_traffic.json').then(function (routeData) {
+    // d3.csv('/data/20km-route-traffic.csv').then(function (newRouteData) {
     d3.json('/data/transect_all.json').then(function (data) {
       d3.json('/data/transect.json').then(function (stackedAreaData) {
         let filteredData = data.filter(
@@ -265,7 +265,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         .attr('width', 100)
         .attr('height', 100)
         .attr('x', margin.left + 200)
-        .attr('y', margin.top + yPlotOffset * risk.index - 10)
+        .attr('y', margin.top + yPlotOffset * risk.index - 20)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
         .append('xhtml:div')
@@ -280,7 +280,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         .attr('width', 250)
         .attr('height', 25)
         .attr('x', margin.left)
-        .attr('y', margin.top + yPlotOffset * risk.index + 15)
+        .attr('y', margin.top + yPlotOffset * risk.index + 5)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
         .append('xhtml:div')

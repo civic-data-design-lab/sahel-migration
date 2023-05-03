@@ -282,7 +282,7 @@ g {
   background-color: rgba(255, 255, 255, 0.8);
   font-family: 'Inter', sans-serif;
   color: #463C35;
-  width: 15rem;
+  width: 15.5rem;
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.2);
@@ -291,9 +291,6 @@ g {
 
 .transectTooltip h4 {
   margin-bottom: 0.25rem;
-}
-.transectTooltip .route-traffic {
-  margin-top: 0.75rem;
 }
 
 .transectTooltip p.risk::before {
@@ -304,27 +301,21 @@ g {
   /* background: #000; */
   margin-right: 0.5rem;
 }
-
 .transectTooltip p.risk-4mi::before {
   background: #5D3435;
 }
-
 .transectTooltip p.risk-food::before {
   background: #985946;
 }
-
 .transectTooltip p.risk-acled::before {
   background: #9A735A;
 }
-
 .transectTooltip p.risk-smuggler::before {
   background: #F48532;
 }
-
 .transectTooltip p.risk-remoteness::before {
   background: #624B44;
 }
-
 .transectTooltip p.risk-heat::before {
   background: #3F231B;
 }
@@ -334,7 +325,13 @@ g {
   line-height: 1.2rem;
   margin: 0;
 }
-
-.labelData {
+.transectTooltip .labelData {
   float: right;
+}
+
+.transectTooltip .route-traffic {
+  margin-top: 0.75rem;
+}
+.transectTooltip #data-migrants {
+  font-weight: 700;
 }

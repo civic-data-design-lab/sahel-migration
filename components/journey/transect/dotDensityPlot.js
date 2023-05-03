@@ -9,6 +9,7 @@ export default function Tooltip(config) {
   // plot rectangle area for points
   dotPlot.append('g')
       .attr('class', 'rect-area')
+      // .attr('transform', `translate(0,${-15})`)
     .selectAll('rect')
       .data(migrantRoutesData)
       .enter()
@@ -16,9 +17,10 @@ export default function Tooltip(config) {
       .attr('width', (d) => xScale(d.dist_end) - xScale(d.dist_start))
       .attr('height', yPlotOffset/3)
       .attr('x', (d) => xScale(d.dist_start))
-      .attr('y', height - 2/3 * yPlotOffset)
-      .attr('opacity', 0)
-      // .attr('stroke', '#000');
+      .attr('y', height - yPlotOffset)
+      .attr('opacity', 0);
+      // .attr('fill-opacity', 0)
+      // .attr('stroke', '#463C35');
 
   // generate data for points within rectangle area
   let points = migrantRoutesData.map(d => makeDots(
@@ -26,27 +28,29 @@ export default function Tooltip(config) {
         width: xScale(d.dist_end) - xScale(d.dist_start),
         height: yPlotOffset/3,
         x: xScale(d.dist_start),
-        y: height - 2/3 * yPlotOffset,
+        y: height - yPlotOffset,
       }, // rectangle geometry
       d.count_avg, // numPoints
-      {distance: 1, edgeDistance: 1} // default options
+      {distance: 0, edgeDistance: 0} // default options
     )).flat();
 
   // plot points within rectangle area
   dotPlot.append('g')
       .attr('class', 'points')
+      // .attr('transform', `translate(0,${-15})`)
     .selectAll('circle')
       .data(points)
       .enter()
     .append('circle')
       .attr('cx', d => d[0])
       .attr('cy', d => d[1])
-      .attr('r', 1)
-      .attr('fill', '#000');
+      .attr('r', 0.5)
+      .attr('fill', '#463C35')
+      .attr('opacity', 0.8);
   
   // transform xAxis labels
-  svg.select('g#viz-transect-axis')
-    .attr('transform', `translate(0,${yPlotOffset/3})`);
+  // svg.select('g#viz-transect-axis')
+    // .attr('transform', `translate(0,${-yPlotOffset/3})`);
 
   // Generate points at random locations inside polygon.
   // polygon: polygon (Array of points [x,y])
@@ -61,10 +65,10 @@ export default function Tooltip(config) {
       maxIterations: numPoints,
       distance: null, // by default: MIN(areaWidth, areaHeight) / numPoints / 4,
       edgeDistance: options.distance,
-      pointsMultiplier: 1/4
+      pointsMultiplier: 1/2
     },options);
   
-    numPoints = Math.floor(numPoints * options.pointsMultiplier)
+    numPoints = Math.round(numPoints * options.pointsMultiplier)
   
     // calculate bounding box
     let xMin = rect.x,
