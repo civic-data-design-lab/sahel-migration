@@ -26,8 +26,8 @@ export default function Navigation({ journeys, journey }) {
               onHoverEnd={() => setIsActiveLeft(!isActiveLeft)}
             >
               <Link href={'/journeys/[id]'} as={'/journeys/' + (journey.id - 1)}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.5rem' }}>
-                  navigate_before
+                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                  arrow_left
                 </span>
               </Link>
             </motion.button>
@@ -54,8 +54,8 @@ export default function Navigation({ journeys, journey }) {
               onHoverEnd={() => setIsActiveRight(!isActiveRight)}
             >
               <Link href={'/journeys/[id]'} as={'/journeys/' + (journey.id + 1)}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.5rem' }}>
-                  navigate_next
+                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                  arrow_right
                 </span>
               </Link>
             </motion.button>
