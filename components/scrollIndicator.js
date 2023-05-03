@@ -17,7 +17,7 @@ export default function ScrollIndicator() {
         class="material-symbols-outlined"
         transition={bounceTransition}
         animate={{
-          y: ['25%', '-25%', '0%', '0%'],
+          y: ['15%', '-15%', '0%', '0%'],
         }}
       >
         keyboard_arrow_down
