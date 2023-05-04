@@ -226,7 +226,7 @@ g {
 } */
 
 .county-info.mapboxgl-popup.mapboxgl-popup-anchor-center {
-  max-width: 400px !important;
+  max-width: 355px !important;
 }
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {

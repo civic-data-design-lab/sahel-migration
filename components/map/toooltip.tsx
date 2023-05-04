@@ -40,7 +40,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
         }}
             longitude={hoverInfo.longitude}
             latitude={hoverInfo.latitude}
-            offset={[0, -200]}
+            offset={[175, -175]}
             anchor="center"
             closeButton={false}
             className="county-info"
@@ -60,7 +60,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                     <div
                         style={{
                             width: '100%',
-                            borderBottom: '1.5px solid #A3A3A3',
+                            borderBottom: '1px solid #A3A3A3',
                             margin: '0.5rem 0'
 
                         }}
@@ -131,11 +131,11 @@ function InfoBox({ left, text, region, small, bold, align, squeeze }) {
             }}>
             {left &&
                 (<h4
-                    style={{ ['--weight' as any]: bold ? 'bold' : 'initial' }}
+                    style={{ ['--weight' as any]: bold ? '620' : 'initial' }}
                 >{left}</h4>)}
             <p
                 style={{ ['--size' as any]: small ? '12px' : '0.75rem' }}
-            >{text} <span style={{ fontWeight: 'bold' }}>{region}</span> </p>
+            >{text} <span style={{ fontWeight: '620' }}>{region}</span> </p>
         </div>
     )
 }
