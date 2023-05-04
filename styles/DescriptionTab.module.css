@@ -1,13 +1,14 @@
 .main {
   position: fixed;
   width: 100%;
-  max-width: 22rem;
-  top: 12%;
+  max-width: 28rem;
+  top: 10vh;
   left: 1rem;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   z-index: 5;
+  padding-top: 1rem;
   /* color: var(--brown);
   font-size: var(--fs-body-1);
   font-family: var(--primary-font-fam); */

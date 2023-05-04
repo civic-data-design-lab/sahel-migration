@@ -20,7 +20,7 @@ export default function ScrollIndicator() {
       //   y: ['50%', '-50%', '0%', '0%'],
       // }}
       >
-        keyboard_arrow_down
+        keyboard_double_arrow_down
       </motion.span>
     </div>
   );

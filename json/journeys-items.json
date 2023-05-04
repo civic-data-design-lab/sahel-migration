@@ -3,7 +3,7 @@
     "journeys": [
       {
         "id": 1,
-        "title": "Place of Origin",
+        "title": "Place of Origin (Map)",
         "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facilisis odio vitae condimentum. Pellentesque sed sem elementum, commodo velit eu, blandit lacus. Phasellus porttitor dolor vestibulum scelerisque lacinia. Nullam erat erat, vulputate sollicitudin suscipit et, commodo bibendum felis. Vestibulum ullamcorper facilisis eleifend. Morbi malesuada felis et odio elementum cursus. Integer tincidunt, turpis eu pulvinar interdum, nulla urna lobortis risus, et faucibus augue diam et tellus.",
         "imageUrl": "/images/journeys/1.svg",
         "entourages": [

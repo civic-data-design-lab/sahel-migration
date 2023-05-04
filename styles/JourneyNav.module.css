@@ -5,11 +5,11 @@
     font-family: var(--primary-font-fam);
     position: fixed;
     width: 100%;
-    z-index: 5;
+    z-index: 10;
     bottom: 0;
     grid-template-columns: repeat(7, auto);
     align-items: flex-start;
-
+    
 }
 
 .journeyContainer .vignettes {
@@ -28,7 +28,7 @@
 .vignettes::after {
     position: absolute;
     content: ' ';
-    background-color: black;
+    background-color: var(--brown);
     width: 0.15rem;
     height: 1.5rem;
     right: 0;
@@ -43,8 +43,6 @@
     object-fit: cover;
     height: 100%;
     width: 100%;
-
-
 }
 
 .journeyLink {

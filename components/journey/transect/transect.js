@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import * as d3 from 'd3';
 import useWindowSize from '../../../hooks/useWindowSize';
 import PlotAllTransectLayers, { PlotCombinedTransectLayers } from './transectPlots';
@@ -48,7 +48,14 @@ const INITIAL_RISKS_DATA = [
     weight: 100,
     normWeight: 1 / 6,
   },
-  { id: 'heat', index: 5, label: 'Extreme Heat', color: '#3F231B', weight: 100, normWeight: 1 / 6 },
+  {
+    id: 'heat',
+    index: 5,
+    label: 'Heat Exposure',
+    color: '#3F231B',
+    weight: 100,
+    normWeight: 1 / 6,
+  },
 ];
 
 const margin = {
@@ -63,13 +70,25 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
   const [risks, setRisks] = useState([...INITIAL_RISKS_DATA]);
+  const [expandedData, setExpandedData] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [svgLoaded, setSvgLoaded] = useState(false);
+  const [weightsConfirmed, setWeightsConfirmed] = useState(true);
 
+  const yPlotOffset = useMemo(() => {
+    const openedTabHeight = 0.8 * height;
+    return (openedTabHeight - margin.top - margin.bottom) / 7;
+  }, [height]);
+
+  const updateIsExpanded = (data) => {
+    setIsExpanded(!isExpanded);
+    setExpandedData(data);
+  };
   function drawLayers(svgRef, width, height, isOpen) {
     setSvgLoaded(false);
 
     // const svg = d3.select(svgRef.current);
-    const openedTabHeight = 0.8 * height;
+    const openedTabHeight = 0.75 * height;
     const svg = d3.select(svgRef.current);
     const margin = {
       top: 50,
@@ -78,7 +97,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
       left: 15,
     };
 
-    // d3.csv('/data/transectsegment.csv').then(function (data) {
+    // d3.csv('/data/20km-route-traffic.csv').then(function (newRouteData) {
     d3.json('/data/transect_all.json').then(function (data) {
       d3.json('/data/transect.json').then(function (stackedAreaData) {
         let filteredData = data.filter(
@@ -104,7 +123,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
           'Gharyan',
           'Az Zawiyah',
         ];
-        let cities = data
+        const cities = data
           .filter((d) => !!d.city && !excludeCities.includes(d.city))
           .map((d) => {
             let item = {};
@@ -113,7 +132,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             item.country = d.country;
             return item;
           });
-        let borders = data
+        const borders = data
           .filter((d) => !!d.border_2)
           .map((d) => {
             let item = {};
@@ -122,6 +141,35 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             item.border_2 = d.border_2;
             return item;
           });
+        const migrantRoutesData = data.reduce((a, d) => {
+          let i = d.route_index - 1;
+          if (!a[i]) {
+            let item = {};
+            item.route_index = d.route_index;
+            item.count_index = 1;
+            item.count_total = d.migrant_count;
+            item.count_avg = d.migrant_count;
+            item.count_min = d.migrant_count;
+            item.count_max = d.migrant_count;
+            item.dist_start = d.distance;
+            item.dist_end = d.distance;
+            item.dist_total = item.dist_end - item.dist_start;
+            item.count_per_km = Math.round(item.count_avg / item.dist_total);
+            a.push(item);
+          } else {
+            a[i].route_index = d.route_index;
+            a[i].count_index += 1;
+            a[i].count_total += d.migrant_count;
+            a[i].count_avg = Math.round(a[i].count_total / a[i].count_index);
+            a[i].count_min = Math.min(a[i].count_min, d.migrant_count);
+            a[i].count_max = Math.max(a[i].count_max, d.migrant_count);
+            a[i].dist_start = Math.min(a[i].dist_start, d.distance);
+            a[i].dist_end = Math.max(a[i].dist_end, d.distance);
+            a[i].dist_total = a[i].dist_end - a[i].dist_start;
+            a[i].count_per_km = Math.round(a[i].count_avg / a[i].dist_total);
+          }
+          return a;
+        }, []);
         let yLabel = '';
         svg.selectAll('*').remove();
         // Construct data domains
@@ -138,6 +186,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             yLabel: yLabel,
             width: width,
             height: openedTabHeight,
+            yPlotOffset: yPlotOffset,
             svg: svg,
             margin: margin,
             cities: cities,
@@ -146,17 +195,30 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             svgRef: svgRef,
             tooltipRef: tooltipRef,
             xScale: xScale,
+            xDomain: xDomain,
             risks: risks,
             risksData: filteredData,
+            migrantRoutesData: migrantRoutesData,
             updateRiskWeight,
+            isOpen: isOpen,
           });
         } else {
-          PlotCombinedTransectLayers(filteredStackedAreaData, {
+          let data;
+          let xScale = d3.scaleLinear().domain(xDomain).range(xRange);
+          if (expandedData != null) {
+            data = expandedData;
+            let expandedXDomain = [data[0].distance, data[data.length - 1].distance];
+            xScale = d3.scaleLinear().domain(expandedXDomain).range(xRange);
+          } else {
+            data = filteredStackedAreaData;
+          }
+          PlotCombinedTransectLayers(data, {
             svg: svg,
             svgRef: svgRef,
             tooltipRef: tooltipRef,
             width: width,
             height: dataTabHeight,
+            yPlotOffset: yPlotOffset,
             xDomain: xDomain,
             risks: risks,
             yLabel: yLabel,
@@ -167,6 +229,10 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             borders: borders,
             journey: journey,
             risksData: filteredData,
+            migrantRoutesData: migrantRoutesData,
+            updateIsExpanded: updateIsExpanded,
+            isExpanded: isExpanded,
+            isOpen: isOpen,
           });
         }
 
@@ -199,8 +265,8 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         .append('foreignObject')
         .attr('width', 100)
         .attr('height', 100)
-        .attr('x', margin.left + 200)
-        .attr('y', margin.top + 100 * risk.index - 10)
+        .attr('x', margin.left + 415)
+        .attr('y', margin.top + yPlotOffset * risk.index - 12)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
         .append('xhtml:div')
@@ -214,8 +280,8 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         .append('foreignObject')
         .attr('width', 250)
         .attr('height', 25)
-        .attr('x', margin.left)
-        .attr('y', margin.top + 100 * risk.index + 15)
+        .attr('x', margin.left + 160)
+        .attr('y', margin.top + yPlotOffset * risk.index - 15)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
         .append('xhtml:div')
@@ -240,13 +306,17 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   //TODO: optimize re-rendering for d3 plots
   useEffect(() => {
     drawLayers(svgRef, width, height, isOpen);
-  }, [dataTabHeight, height, svgRef, width, isOpen, journey]);
+  }, [dataTabHeight, height, svgRef, width, isOpen, journey, isExpanded]);
 
   useEffect(() => {
-    console.log('Rendering to', roots);
+    console.log('Rendering roots', roots);
 
     roots.forEach(({ type, root, riskId }) => {
       const riskInfo = risks.find((risk) => risk.id === riskId);
+      if (root._internalRoot === null) {
+        console.warn('Tried updating an unmounted root');
+        return;
+      }
       if (type === 'text') {
         root.render(
           <RiskWeightTextInput
@@ -286,6 +356,8 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         return { ...risk, normWeight: risk.weight / totalWeight };
       })
     );
+
+    setWeightsConfirmed(false);
   };
 
   const componentRef = useRef(null);
@@ -305,8 +377,26 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     }
   }, [svgRef.current, componentRef.current]);
 
+  useEffect(() => {
+    setWeightsConfirmed(true);
+  }, [isOpen]);
+
   return (
     <>
+      {!weightsConfirmed && (
+        <button
+          class={styles.confirmWeights}
+          style={{
+            left: `${margin.left + 250}px`,
+          }}
+          onClick={() => {
+            drawLayers(svgRef, width, height, isOpen);
+            setWeightsConfirmed(true);
+          }}
+        >
+          Confirm weight changes
+        </button>
+      )}
       <svg ref={svgRef}></svg>
     </>
   );

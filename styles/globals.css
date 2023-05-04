@@ -34,7 +34,7 @@
 /* font style for header of data transect */
 .header-2 {
   font-family: var(--sans-font-fam);
-  font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+  font-size: clamp(0.8rem, 2.5vw, 1.1rem);
   font-weight: 520;
 }
 
@@ -196,7 +196,7 @@ li:hover {
 /* Icons */
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 64;
-  font-size: 1.4rem;
+  font-size: 2rem;
 }
 
 .material-symbols-outlined:hover {
@@ -241,7 +241,9 @@ g {
   font-family: var(--sans-font-fam);
 }
 
-#viz-transect-layers .label-risk text {
+#viz-transect-layers .label-risk text,
+#viz-transect-layers #label-migrants,
+#viz-transect-layers .label-pct {
   font-family: var(--sans-font-fam);
   font-weight: 500;
   font-size: 0.85rem;
@@ -267,8 +269,16 @@ g {
   position: relative;
 }
 
-#viz-transect-layer .label-risk {
+#viz-transect-layer .label-risk,
+#viz-transect-layer #label-migrants,
+#viz-transect-layers .label-pct {
   font-weight: 500;
+}
+
+#viz-transect-layers .label-weight {
+  font-family: var(--sans-font-fam);
+  /* font-weight: 500; */
+  font-size: 0.7rem;
 }
 
 /* transect tooltip */
@@ -284,7 +294,7 @@ g {
   background-color: rgba(255, 255, 255, 0.8);
   font-family: 'Inter', sans-serif;
   color: #463C35;
-  width: 14rem;
+  width: 15.5rem;
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.2);
@@ -292,10 +302,10 @@ g {
 }
 
 .transectTooltip h4 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
-.transectTooltip p::before {
+.transectTooltip p.risk::before {
   content: '';
   display: inline-block;
   width: 0.5rem;
@@ -334,6 +344,14 @@ g {
   margin: 0;
 }
 
-.labelData {
+.transectTooltip .labelData {
   float: right;
+}
+
+.transectTooltip .route-traffic {
+  margin-top: 0.75rem;
+}
+
+.transectTooltip #data-migrants {
+  font-weight: 700;
 }

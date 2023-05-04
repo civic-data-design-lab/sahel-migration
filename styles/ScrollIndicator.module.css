@@ -6,5 +6,6 @@
     z-index: 10;
     position: fixed;
     inset: 0;
-    margin: auto auto 7.5% 10%;
+    margin: auto auto 4vh 14vw;
+    color: var(--brown);
 }
