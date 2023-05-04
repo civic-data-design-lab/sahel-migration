@@ -111,10 +111,16 @@ export default function Tooltip(config) {
     tooltip
       .attr('class', 'transectTooltip')
       .style('top', (divHtml) => {
-        let mouseY = event.screenY;
-        // let mouseY = d3.pointer(event)[1];
+        // let mouseY = event.screenY;
+        let mouseY = d3.pointer(event)[1];
         let tooltipHeight = document.getElementById('transectTooltip').offsetHeight;
-        return mouseY - 1.7 * tooltipHeight + 'px';
+        let svgY = document.getElementById("viz-transect-layers").getBoundingClientRect().y;
+        console.log(svgY + mouseY < tooltipHeight + 20);
+        if (svgY + mouseY < tooltipHeight + 20) {
+          return svgY + mouseY + 40 + 'px';
+        } else {
+          return svgY + mouseY - tooltipHeight - 10 + 'px';
+        }
       })
       .style('left', (divHtml) => {
         let mouseX = d3.pointer(event)[0];

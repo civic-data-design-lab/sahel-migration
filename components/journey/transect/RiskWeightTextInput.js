@@ -32,7 +32,7 @@ const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
           borderRadius: '4px',
         }}
       />
-      <label>%</label>
+      <label class='label-pct'>%</label>
     </div>
   );
 };

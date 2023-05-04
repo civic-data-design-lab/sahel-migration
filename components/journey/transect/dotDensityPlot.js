@@ -44,10 +44,19 @@ export default function Tooltip(config) {
     .append('circle')
       .attr('cx', d => d[0])
       .attr('cy', d => d[1])
-      .attr('r', 0.5)
+      .attr('r', 0.55)
       .attr('fill', '#463C35')
       .attr('opacity', 0.8);
   
+  // add label
+  dotPlot.append('text')
+      .attr('id', 'label-migrants')
+      .attr('x', margin.left)
+      .attr('y', height - yPlotOffset - 10)
+      .attr('dy', '-0.125em')
+      .attr('fill', '#463C35')
+      .text("Migrants Along the Route");
+
   // transform xAxis labels
   // svg.select('g#viz-transect-axis')
     // .attr('transform', `translate(0,${-yPlotOffset/3})`);

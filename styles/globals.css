@@ -239,7 +239,9 @@ g {
   font-family: var(--sans-font-fam);
 }
 
-#viz-transect-layers .label-risk text {
+#viz-transect-layers .label-risk text,
+#viz-transect-layers #label-migrants,
+#viz-transect-layers .label-pct {
   font-family: var(--sans-font-fam);
   font-weight: 500;
   font-size: 0.85rem;
@@ -265,8 +267,16 @@ g {
   position: relative;
 }
 
-#viz-transect-layer .label-risk {
+#viz-transect-layer .label-risk,
+#viz-transect-layer #label-migrants,
+#viz-transect-layers .label-pct {
     font-weight: 500;
+}
+
+#viz-transect-layers .label-weight {
+  font-family: var(--sans-font-fam);
+  /* font-weight: 500; */
+  font-size: 0.7rem;
 }
 
 /* transect tooltip */
