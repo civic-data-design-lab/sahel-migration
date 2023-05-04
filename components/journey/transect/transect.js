@@ -73,6 +73,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   const [expandedData, setExpandedData] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [svgLoaded, setSvgLoaded] = useState(false);
+  const [weightsConfirmed, setWeightsConfirmed] = useState(true);
 
   const yPlotOffset = useMemo(() => {
     const openedTabHeight = 0.8 * height;
@@ -229,8 +230,8 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             journey: journey,
             risksData: filteredData,
             migrantRoutesData: migrantRoutesData,
-            updateIsExpanded : updateIsExpanded,
-            isExpanded : isExpanded,
+            updateIsExpanded: updateIsExpanded,
+            isExpanded: isExpanded,
             isOpen: isOpen,
           });
         }
@@ -355,6 +356,8 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         return { ...risk, normWeight: risk.weight / totalWeight };
       })
     );
+
+    setWeightsConfirmed(false);
   };
 
   const componentRef = useRef(null);
@@ -376,6 +379,22 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
 
   return (
     <>
+      {!weightsConfirmed && (
+        <button
+          style={{
+            position: 'absolute',
+            left: `${margin.left + 250}px`,
+            top: `15px`,
+            padding: '2px 10px',
+          }}
+          onClick={() => {
+            drawLayers(svgRef, width, height, isOpen);
+            setWeightsConfirmed(true);
+          }}
+        >
+          Confirm weight changes
+        </button>
+      )}
       <svg ref={svgRef}></svg>
     </>
   );
