@@ -17,6 +17,12 @@
     width: 100%;
     height: 100vh;
     grid-template-columns: repeat(12, 1fr);
+    background-image: url('../public/images/lines_blue.svg');
+    background-size: 2.5%;
+    background-repeat: repeat;
+    background-color: hsl(231, 14%, 53%);
+    /* background-color: #B0B3C3; */
+    /* background-blend-mode: darken; */
 }
 
 .mapHolder {
@@ -54,17 +60,17 @@
 
 .contentBox {
     position: fixed;
-    height: 90vh;
-    bottom: 0;
+    height: 80vh;
+    /* bottom: 0; */
     /* z-index: -1; */
 }
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
     .contentBox {
         height: 45%;
     }
 
-}
+} */
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .contentBox::-webkit-scrollbar {

@@ -70,7 +70,7 @@ export default function MainMap() {
                         <MapBox activeSource={currentView} risks={riskItems} />
                     </animated.div>
                 </div>
-                {/* <MapLegend activeSource={currentView} /> */}
+                <MapLegend activeSource={currentView} />
                 <ScrollIndicator />
             </div>
             {/* <MapJourney
