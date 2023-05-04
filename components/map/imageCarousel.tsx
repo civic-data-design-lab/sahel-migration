@@ -54,7 +54,7 @@ export default function ImageCarousel({ isOpen }) {
                                 className={styles.image}
                                 key={uuidv4()}
                                 style={{
-                                    width: `2rem`,
+                                    width: `1rem`,
                                     ['--opacity' as any]: 1,
                                 }}
                             >
@@ -66,11 +66,6 @@ export default function ImageCarousel({ isOpen }) {
                                     colorOne={[116, 70, 63]}
                                     colorTwo={[247, 245, 239]}
                                 />
-                                {/* <img src={url}></img> */}
-                                {/* <div className={styles.imgFilter}
-                                        style={{
-                                            backgroundColor: `hsl(${30 * i}, 100%, 50%)`
-                                        }}></div> */}
                             </motion.div>
                         );
                     })}

@@ -145,7 +145,7 @@ export default function Streamgraph(
   if (riskId !== 'all') {
     const graph = d3.select('#viz-transect-' + riskId);
     const riskIndex = risks.find((risk) => risk.id === riskId).index;
-    plot.attr('transform', `translate(0,${yPlotOffset * riskIndex})`);
+    plot.attr('transform', `translate(0,${yPlotOffset * riskIndex + 10})`);
   }
 }
 
@@ -208,7 +208,7 @@ export function PlotAreaCurve(data,
       g
         .append('text')
         .attr('x', margin.left)
-        .attr('y', margin.top + 10)
+        .attr('y', margin.top - 5)
         .text(yLabel)
     )
     .attr('fill', '#463C35');
@@ -332,7 +332,7 @@ function bracket(
     })
     .attr('y1', margin.top - 1)
     .attr('y2', yScale(yDomain[0]) + bracketGap + 1)
-    .attr('stroke', '#000')
+    .attr('stroke', '#463C35')
     .attr('stroke-width', 2);
   // horizontal bracket lines top and bottom
   bracketList.forEach((yPos) => {
@@ -355,7 +355,7 @@ function bracket(
       .attr('y2', (d) => {
         return yPos == 'top' ? margin.top : yScale(yDomain[0]) + bracketGap;
       })
-      .attr('stroke', '#000')
+      .attr('stroke', '#463C35')
       .attr('stroke-width', 2);
   });
 }
@@ -380,7 +380,7 @@ function journeyText(
     .attr('y', yBase - 20)
     .attr('dy', '-0.125em')
     .attr('text-anchor', 'middle')
-    .attr('fill', '#000')
+    .attr('fill', '#463C35')
     .text(journey.title);
   // text for expand this section
   let label = isExpanded ? 'Return to entire route' : 'Expand this section';
@@ -393,7 +393,7 @@ function journeyText(
     .attr('y', yBase - 5)
     .attr('dy', '-0.125em')
     .attr('text-anchor', 'middle')
-    .attr('fill', '#000')
+    .attr('fill', '#463C35')
     .text(label);
   // triangles for expand
   // path for left arrow
@@ -431,9 +431,13 @@ function journeyText(
   }
 
   // path for left arrow
-  journeyText.append('path').attr('d', isExpanded? rightArrow() : leftArrow());
+  journeyText.append('path')
+    .attr('d', isExpanded? rightArrow() : leftArrow())
+    .attr('fill', '#463C35');
   // path for right arrow
-  journeyText.append('path').attr('d', isExpanded? leftArrow(): rightArrow());
+  journeyText.append('path')
+    .attr('d', isExpanded? leftArrow(): rightArrow())
+    .attr('fill', '#463C35');
 }
 
 

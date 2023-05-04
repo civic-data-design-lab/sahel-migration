@@ -77,7 +77,9 @@ export default function JourneyNav({ journeys }) {
 
                     </Link>}
                 </motion.div>
-
+                {index < 6 && (
+                    <div key={"gate" + uuidv4()} className={styles.gates}></div>
+                )}
 
             </Fragment>
         )

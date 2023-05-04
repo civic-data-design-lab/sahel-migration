@@ -32,7 +32,7 @@ export default function PlotAllTransectLayers(
     isOpen,
   } = {}
 ) {
-  svg.attr('viewBox', [0, 0, width, height]).style('pointer-events', 'all');
+  svg.attr('viewBox', [0, -10, width, height]).style('pointer-events', 'all');
   const xAxis = d3
     .axisBottom(xScale)
     .tickValues([0, 10, 20, 30, 40, xDomain[1].toFixed(2)])

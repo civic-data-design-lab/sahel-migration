@@ -1,0 +1,708 @@
+{
+    "cities": [
+        {
+            "country_origin": "Benin",
+            "city_origin": "Cotonou",
+            "city_origin_lat": 6.400000095,
+            "city_origin_lon": 2.519999981,
+            "count": 12,
+            "total_dist_km": 4604.98
+        },
+        {
+            "country_origin": "Benin",
+            "city_origin": "Djougou",
+            "city_origin_lat": 9.700400352,
+            "city_origin_lon": 1.679999948,
+            "count": 1,
+            "total_dist_km": 3402.008
+        },
+        {
+            "country_origin": "Benin",
+            "city_origin": "Dogbo",
+            "city_origin_lat": 6.816699982,
+            "city_origin_lon": 1.783300042,
+            "count": 1,
+            "total_dist_km": 4225.636
+        },
+        {
+            "country_origin": "Benin",
+            "city_origin": "Parakou",
+            "city_origin_lat": 9.340000153,
+            "city_origin_lon": 2.619999886,
+            "count": 3,
+            "total_dist_km": 4319.364
+        },
+        {
+            "country_origin": "Benin",
+            "city_origin": "Porto-Novo",
+            "city_origin_lat": 6.483300209,
+            "city_origin_lon": 2.616699934,
+            "count": 1,
+            "total_dist_km": 4386.508
+        },
+        {
+            "country_origin": "Benin",
+            "city_origin": "Abomey",
+            "city_origin_lat": 7.185299873,
+            "city_origin_lon": 1.991400003,
+            "count": 1,
+            "total_dist_km": 4318.844
+        },
+        {
+            "country_origin": "Guine",
+            "city_origin": "Gabu",
+            "city_origin_lat": 12.2833004,
+            "city_origin_lon": -14.2166996,
+            "count": 7,
+            "total_dist_km": 4313.042
+        },
+        {
+            "country_origin": "Liberia",
+            "city_origin": "Cesto",
+            "city_origin_lat": 5.46969986,
+            "city_origin_lon": -9.581700325,
+            "count": 1,
+            "total_dist_km": 6205.972
+        },
+        {
+            "country_origin": "Liberia",
+            "city_origin": "Monrovia",
+            "city_origin_lat": 6.310599804,
+            "city_origin_lon": -10.8046999,
+            "count": 2,
+            "total_dist_km": 6062.738
+        },
+        {
+            "country_origin": "Liberia",
+            "city_origin": "Bopolu",
+            "city_origin_lat": 7.066699982,
+            "city_origin_lon": -10.48750019,
+            "count": 1,
+            "total_dist_km": 3054.885
+        },
+        {
+            "country_origin": "Mali",
+            "city_origin": "Gao",
+            "city_origin_lat": 16.26659966,
+            "city_origin_lon": -0.050000001,
+            "count": 8,
+            "total_dist_km": 2936.169
+        },
+        {
+            "country_origin": "Mali",
+            "city_origin": "Kidal",
+            "city_origin_lat": 18.44109917,
+            "city_origin_lon": 1.407799959,
+            "count": 2,
+            "total_dist_km": 2984.252
+        },
+        {
+            "country_origin": "Mali",
+            "city_origin": "Mopti",
+            "city_origin_lat": 14.48999977,
+            "city_origin_lon": -4.179999828,
+            "count": 1,
+            "total_dist_km": 3579.959
+        },
+        {
+            "country_origin": "Mali",
+            "city_origin": "Bamako",
+            "city_origin_lat": 12.64579964,
+            "city_origin_lon": -7.992199898,
+            "count": 22,
+            "total_dist_km": 4086.327
+        },
+        {
+            "country_origin": "Mali",
+            "city_origin": "Bougouni",
+            "city_origin_lat": 11.42039967,
+            "city_origin_lon": -7.489999771,
+            "count": 3,
+            "total_dist_km": 3136.457
+        },
+        {
+            "country_origin": "Mali",
+            "city_origin": "Boure",
+            "city_origin_lat": 16.90040016,
+            "city_origin_lon": -0.349999994,
+            "count": 1,
+            "total_dist_km": 2902.168
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Aba",
+            "city_origin_lat": 5.116700172,
+            "city_origin_lon": 7.366700172,
+            "count": 2,
+            "total_dist_km": 3670.375
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Abuja",
+            "city_origin_lat": 9.055600166,
+            "city_origin_lon": 7.491399765,
+            "count": 2,
+            "total_dist_km": 3872.185
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Enugu",
+            "city_origin_lat": 6.440299988,
+            "city_origin_lon": 7.49420023,
+            "count": 1,
+            "total_dist_km": 4405.497
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Gombe",
+            "city_origin_lat": 10.29039955,
+            "city_origin_lon": 11.17000008,
+            "count": 1,
+            "total_dist_km": 3840.842
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Gusau",
+            "city_origin_lat": 12.17039967,
+            "city_origin_lon": 6.659999847,
+            "count": 1,
+            "total_dist_km": 4419.535
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Akure",
+            "city_origin_lat": 7.25,
+            "city_origin_lon": 5.195000172,
+            "count": 3,
+            "total_dist_km": 3210.943
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Ibadan",
+            "city_origin_lat": 7.396399975,
+            "city_origin_lon": 3.916699886,
+            "count": 2,
+            "total_dist_km": 3862.48
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Idah",
+            "city_origin_lat": 7.1104002,
+            "city_origin_lon": 6.739900112,
+            "count": 10,
+            "total_dist_km": 3643.512
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Ikare",
+            "city_origin_lat": 7.530399799,
+            "city_origin_lon": 5.760000229,
+            "count": 1,
+            "total_dist_km": 4406.114
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Ile-Ife",
+            "city_origin_lat": 7.466700077,
+            "city_origin_lon": 4.566699982,
+            "count": 1,
+            "total_dist_km": 3939.295
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Iwo",
+            "city_origin_lat": 7.630000114,
+            "city_origin_lon": 4.179999828,
+            "count": 1,
+            "total_dist_km": 4411.681
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Abakaliki",
+            "city_origin_lat": 6.32490015,
+            "city_origin_lon": 8.113699913,
+            "count": 1,
+            "total_dist_km": 4556.754
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Kano",
+            "city_origin_lat": 12.0,
+            "city_origin_lon": 8.516699791,
+            "count": 9,
+            "total_dist_km": 3651.976
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Lagos",
+            "city_origin_lat": 6.449999809,
+            "city_origin_lon": 3.400000095,
+            "count": 11,
+            "total_dist_km": 4382.477
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Maiduguri",
+            "city_origin_lat": 11.83329964,
+            "city_origin_lon": 13.14999962,
+            "count": 1,
+            "total_dist_km": 3815.086
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Mubi",
+            "city_origin_lat": 10.26860046,
+            "city_origin_lon": 13.2670002,
+            "count": 2,
+            "total_dist_km": 3331.835
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Apapa",
+            "city_origin_lat": 6.448900223,
+            "city_origin_lon": 3.35890007,
+            "count": 3,
+            "total_dist_km": 4524.954
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Nguru",
+            "city_origin_lat": 12.8803997,
+            "city_origin_lon": 10.44999981,
+            "count": 1,
+            "total_dist_km": 3687.791
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Ondo",
+            "city_origin_lat": 7.090400219,
+            "city_origin_lon": 4.840000153,
+            "count": 1,
+            "total_dist_km": 3253.925
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Osogbo",
+            "city_origin_lat": 7.766699791,
+            "city_origin_lon": 4.566699982,
+            "count": 3,
+            "total_dist_km": 3907.498
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Asaba",
+            "city_origin_lat": 6.183300018,
+            "city_origin_lon": 6.75,
+            "count": 1,
+            "total_dist_km": 4356.717
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Por",
+            "city_origin_lat": 4.75,
+            "city_origin_lon": 7.0,
+            "count": 1,
+            "total_dist_km": 4480.723
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Zango",
+            "city_origin_lat": 12.93330002,
+            "city_origin_lon": 8.5333004,
+            "count": 1,
+            "total_dist_km": 3822.444
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Bama",
+            "city_origin_lat": 11.52040005,
+            "city_origin_lon": 13.68999958,
+            "count": 1,
+            "total_dist_km": 3542.265
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Beni",
+            "city_origin_lat": 6.317599773,
+            "city_origin_lon": 5.614500046,
+            "count": 9,
+            "total_dist_km": 4436.576
+        },
+        {
+            "country_origin": "Nigeria",
+            "city_origin": "Birni",
+            "city_origin_lat": 12.45040035,
+            "city_origin_lon": 4.19990015,
+            "count": 2,
+            "total_dist_km": 3937.377
+        },
+        {
+            "country_origin": "Senegal",
+            "city_origin": "Dakar",
+            "city_origin_lat": 14.73190022,
+            "city_origin_lon": -17.4571991,
+            "count": 7,
+            "total_dist_km": 2910.174
+        },
+        {
+            "country_origin": "Senegal",
+            "city_origin": "Matam",
+            "city_origin_lat": 15.61670017,
+            "city_origin_lon": -13.33329964,
+            "count": 1,
+            "total_dist_km": 3618.439
+        },
+        {
+            "country_origin": "Senegal",
+            "city_origin": "Sedhiou",
+            "city_origin_lat": 12.70810032,
+            "city_origin_lon": -15.55690002,
+            "count": 3,
+            "total_dist_km": 3805.061
+        },
+        {
+            "country_origin": "Sierr",
+            "city_origin": "Freetown",
+            "city_origin_lat": 8.483300209,
+            "city_origin_lon": -13.23309994,
+            "count": 1,
+            "total_dist_km": 5052.509
+        },
+        {
+            "country_origin": "Togo",
+            "city_origin": "Kpalime",
+            "city_origin_lat": 6.909999847,
+            "city_origin_lon": 0.628099978,
+            "count": 1,
+            "total_dist_km": 3400.744
+        },
+        {
+            "country_origin": "Togo",
+            "city_origin": "Lome",
+            "city_origin_lat": 6.131899834,
+            "city_origin_lon": 1.222800016,
+            "count": 12,
+            "total_dist_km": 3553.424
+        },
+        {
+            "country_origin": "Togo",
+            "city_origin": "Sokode",
+            "city_origin_lat": 8.983300209,
+            "city_origin_lon": 1.133299947,
+            "count": 1,
+            "total_dist_km": 4330.484
+        },
+        {
+            "country_origin": "Burkin",
+            "city_origin": "Ouagadougou",
+            "city_origin_lat": 12.35719967,
+            "city_origin_lon": -1.535300016,
+            "count": 6,
+            "total_dist_km": 4209.926
+        },
+        {
+            "country_origin": "Burkin",
+            "city_origin": "Banfora",
+            "city_origin_lat": 10.63080025,
+            "city_origin_lon": -4.758900166,
+            "count": 1,
+            "total_dist_km": 4809.589
+        },
+        {
+            "country_origin": "Burkin",
+            "city_origin": "Bobo-Dioulasso",
+            "city_origin_lat": 11.18330002,
+            "city_origin_lon": -4.283299923,
+            "count": 3,
+            "total_dist_km": 4536.87
+        },
+        {
+            "country_origin": "Burkin",
+            "city_origin": "Bogande",
+            "city_origin_lat": 12.96899986,
+            "city_origin_lon": -0.137999997,
+            "count": 1,
+            "total_dist_km": 4226.137
+        },
+        {
+            "country_origin": "Cameroon",
+            "city_origin": "Douala",
+            "city_origin_lat": 4.050000191,
+            "city_origin_lon": 9.699999809,
+            "count": 1,
+            "total_dist_km": 4783.14
+        },
+        {
+            "country_origin": "Cameroon",
+            "city_origin": "Edea",
+            "city_origin_lat": 3.799999952,
+            "city_origin_lon": 10.13329983,
+            "count": 1,
+            "total_dist_km": 4828.255
+        },
+        {
+            "country_origin": "Cameroon",
+            "city_origin": "Kumba",
+            "city_origin_lat": 4.633299828,
+            "city_origin_lon": 9.449999809,
+            "count": 1,
+            "total_dist_km": 4537.569
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "Faya",
+            "city_origin_lat": 17.93000031,
+            "city_origin_lon": 19.10309982,
+            "count": 1,
+            "total_dist_km": 2208.045
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "Fianga",
+            "city_origin_lat": 9.915300369,
+            "city_origin_lon": 15.13749981,
+            "count": 1,
+            "total_dist_km": 3634.851
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "Mao",
+            "city_origin_lat": 14.11940002,
+            "city_origin_lon": 15.31330013,
+            "count": 9,
+            "total_dist_km": 3151.483
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "Amdjarass",
+            "city_origin_lat": 16.06669998,
+            "city_origin_lon": 22.83539963,
+            "count": 3,
+            "total_dist_km": 2753.684
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "Am-Timan",
+            "city_origin_lat": 11.0333004,
+            "city_origin_lon": 20.2833004,
+            "count": 2,
+            "total_dist_km": 2443.091
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "Moussoro",
+            "city_origin_lat": 13.63329983,
+            "city_origin_lon": 16.48329926,
+            "count": 1,
+            "total_dist_km": 4465.027
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "NDjamena",
+            "city_origin_lat": 12.10999966,
+            "city_origin_lon": 15.05000019,
+            "count": 63,
+            "total_dist_km": 4465.814
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "Abeche",
+            "city_origin_lat": 13.83310032,
+            "city_origin_lon": 20.83469963,
+            "count": 4,
+            "total_dist_km": 2325.559
+        },
+        {
+            "country_origin": "Chad",
+            "city_origin": "Ati",
+            "city_origin_lat": 13.21389961,
+            "city_origin_lon": 18.34029961,
+            "count": 2,
+            "total_dist_km": 4393.946
+        },
+        {
+            "country_origin": "C\u00f4t",
+            "city_origin": "Man",
+            "city_origin_lat": 7.400400162,
+            "city_origin_lon": -7.550000191,
+            "count": 1,
+            "total_dist_km": 5323.158
+        },
+        {
+            "country_origin": "C\u00f4t",
+            "city_origin": "Yamoussoukro",
+            "city_origin_lat": 6.816100121,
+            "city_origin_lon": -5.274199963,
+            "count": 1,
+            "total_dist_km": 4810.406
+        },
+        {
+            "country_origin": "C\u00f4t",
+            "city_origin": "Abidjan",
+            "city_origin_lat": 5.336400032,
+            "city_origin_lon": -4.02670002,
+            "count": 13,
+            "total_dist_km": 6139.499
+        },
+        {
+            "country_origin": "C\u00f4t",
+            "city_origin": "Bouake",
+            "city_origin_lat": 7.683300018,
+            "city_origin_lon": -5.033100128,
+            "count": 2,
+            "total_dist_km": 3147.905
+        },
+        {
+            "country_origin": "Gambia",
+            "city_origin": "Kanifing",
+            "city_origin_lat": 13.44639969,
+            "city_origin_lon": -16.67440033,
+            "count": 2,
+            "total_dist_km": 4315.776
+        },
+        {
+            "country_origin": "Gambia",
+            "city_origin": "Banjul",
+            "city_origin_lat": 13.4531002,
+            "city_origin_lon": -16.57749939,
+            "count": 2,
+            "total_dist_km": 4316.764
+        },
+        {
+            "country_origin": "Gambia",
+            "city_origin": "Bass",
+            "city_origin_lat": 13.31000042,
+            "city_origin_lon": -14.22299957,
+            "count": 1,
+            "total_dist_km": 5124.38
+        },
+        {
+            "country_origin": "Gambia",
+            "city_origin": "Brikama",
+            "city_origin_lat": 13.28040028,
+            "city_origin_lon": -16.65990067,
+            "count": 1,
+            "total_dist_km": 4317.787
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Accra",
+            "city_origin_lat": 5.603700161,
+            "city_origin_lon": -0.187000006,
+            "count": 6,
+            "total_dist_km": 4537.17
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Dambai",
+            "city_origin_lat": 8.066200256,
+            "city_origin_lon": 0.179499999,
+            "count": 3,
+            "total_dist_km": 3497.654
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Ho",
+            "city_origin_lat": 6.611400127,
+            "city_origin_lon": 0.470299989,
+            "count": 1,
+            "total_dist_km": 3437.995
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Koforidua",
+            "city_origin_lat": 6.099999905,
+            "city_origin_lon": -0.2667,
+            "count": 1,
+            "total_dist_km": 5751.211
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Kumasi",
+            "city_origin_lat": 6.683300018,
+            "city_origin_lon": -1.616700053,
+            "count": 3,
+            "total_dist_km": 4814.82
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Tamale",
+            "city_origin_lat": 9.407500267,
+            "city_origin_lon": -0.853299975,
+            "count": 1,
+            "total_dist_km": 4216.314
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Wa",
+            "city_origin_lat": 10.06669998,
+            "city_origin_lon": -2.5,
+            "count": 3,
+            "total_dist_km": 4385.405
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Winneba",
+            "city_origin_lat": 5.349999905,
+            "city_origin_lon": -0.633300006,
+            "count": 1,
+            "total_dist_km": 4529.688
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Yendi",
+            "city_origin_lat": 9.433699608,
+            "city_origin_lon": -0.0167,
+            "count": 10,
+            "total_dist_km": 4305.739
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Berekum",
+            "city_origin_lat": 7.450399876,
+            "city_origin_lon": -2.589999914,
+            "count": 2,
+            "total_dist_km": 5909.966
+        },
+        {
+            "country_origin": "Ghana",
+            "city_origin": "Cap",
+            "city_origin_lat": 5.099999905,
+            "city_origin_lon": -1.25,
+            "count": 1,
+            "total_dist_km": 4524.941
+        },
+        {
+            "country_origin": "Guinea",
+            "city_origin": "Conakry",
+            "city_origin_lat": 9.509200096,
+            "city_origin_lon": -13.71220016,
+            "count": 2,
+            "total_dist_km": 4761.463
+        },
+        {
+            "country_origin": "Guinea",
+            "city_origin": "Fria",
+            "city_origin_lat": 10.3803997,
+            "city_origin_lon": -13.55000019,
+            "count": 1,
+            "total_dist_km": 4943.711
+        },
+        {
+            "country_origin": "Guinea",
+            "city_origin": "Kankan",
+            "city_origin_lat": 10.39000034,
+            "city_origin_lon": -9.31000042,
+            "count": 1,
+            "total_dist_km": 3055.512
+        },
+        {
+            "country_origin": "Guinea",
+            "city_origin": "Boke",
+            "city_origin_lat": 10.93999958,
+            "city_origin_lon": -14.30000019,
+            "count": 1,
+            "total_dist_km": 4931.404
+        }
+    ]
+}

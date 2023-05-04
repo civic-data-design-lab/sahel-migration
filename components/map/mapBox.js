@@ -10,6 +10,7 @@ import Tooltip from './toooltip';
 import routeObject from './routePaths'
 import { SectionContext } from './../../pages';
 import CityTip from './citytip';
+import { zoom } from 'd3';
 
 
 
@@ -22,7 +23,7 @@ export const RouteContext = createContext({
     setPoint: (() => { }),
 })
 
-export default function MapBox({ activeSource, risks }) {
+export default function MapBox({ activeSource, risks, tipData }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
@@ -42,17 +43,20 @@ export default function MapBox({ activeSource, risks }) {
         const x = number / 100
         // return 3.8 + 0.4 * Math.tanh((x - 8.5) / 1.5) + 0.3 * Math.tanh((x - 12.5) / 2.5) + 0.3 * Math.exp(-((x - 19) ** 2) / 2)
         // return -(1 / (2.5 * (Math.E ** ((number / 100 - 7) ** 2)))) + 3.7
-        if (x <= 6) return 3.5
-        if (6 <= x <= 19) return 3.26923076923 + 0.038461538461 * x
-        return 4
+        // if (x <= 6) return 3.5
+        // if (6 <= x <= 19) return 3.26923076923 + 0.038461538461 * x
+        // return 4
+        return 0.0801143 * x + 2.72143
     }
     function latFunction(number) {
         return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
     }
 
     function lngFunction(number) {
-        const exponent = -(number * 2.5 / 100 - 20)
-        return 5 - (15 / (1 + Math.E ** exponent))
+        const x = number / 100
+        return -0.765517 * x + 6.60345
+        // const exponent = -(number * 2.5 / 100 - 20)
+        // return 5 - (15 / (1 + Math.E ** exponent))
     }
 
 
@@ -60,6 +64,8 @@ export default function MapBox({ activeSource, risks }) {
     const persepctive = useMemo(() => {
         return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) }
     }, [width])
+
+    // console.log(persepctive.lng, width)
 
     function renderSource(activeSource, data) {
         const sourceInfo = data.sources
@@ -140,16 +146,16 @@ export default function MapBox({ activeSource, risks }) {
                     scrollZoom={false}
                 >
                     {(selectedCountry && activeSource === 'originCities') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
                     )}
                     {(selectedCity && activeSource === 'originCities') && (
                         <CityTip hoverInfo={cityInfo} data={risks} />
                     )}
                     {(selectedCountry && activeSource === 'overallRoutes') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
                     )}
                     {(selectedCountry && activeSource === 'extremeHeat') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
                     )}
                     {renderSource(activeSource, risks)}
 
@@ -160,6 +166,7 @@ export default function MapBox({ activeSource, risks }) {
                     <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
                     <Layer {...layersObject["migrationBuffer"]} />
                     <Layer {...layersObject["countryBorderStyle"]} />
+                    <Layer {...layersObject["minorCountryLabel"]} />
                     <Layer {...layersObject["cityStyle"]}
                         paint={{
                             ...layersObject["cityStyle"].paint,
