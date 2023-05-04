@@ -23,7 +23,7 @@ export const RouteContext = createContext({
     setPoint: (() => { }),
 })
 
-export default function MapBox({ activeSource, risks }) {
+export default function MapBox({ activeSource, risks, tipData }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
@@ -146,16 +146,16 @@ export default function MapBox({ activeSource, risks }) {
                     scrollZoom={false}
                 >
                     {(selectedCountry && activeSource === 'originCities') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
                     )}
                     {(selectedCity && activeSource === 'originCities') && (
                         <CityTip hoverInfo={cityInfo} data={risks} />
                     )}
                     {(selectedCountry && activeSource === 'overallRoutes') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
                     )}
                     {(selectedCountry && activeSource === 'extremeHeat') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} />
+                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
                     )}
                     {renderSource(activeSource, risks)}
 

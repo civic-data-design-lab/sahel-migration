@@ -28,6 +28,7 @@ export default function MainMap() {
 
     const [routeClicked, setRoute] = useState(false);
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', mapFetcher);
+    const { data: cities, error: citiesError } = useSWR('/api/map/citydata', mapFetcher);
 
     const isActive = currentView === 'selectRoute' ? true : false;
 
@@ -50,6 +51,9 @@ export default function MainMap() {
     if (risksError) return <div>Map not found</div>;
     if (!riskItems) return <div>loading...</div>;
 
+    if (citiesError) return <div>Map not found</div>;
+    if (!cities) return <div>loading...</div>;
+
     return (
         <ViewContext.Provider value={viewValue}>
             <div className={styles.gridContainer}>
@@ -67,7 +71,7 @@ export default function MainMap() {
                 </div>
                 <div className={styles.mapContainer}>
                     <animated.div style={exploreRoutes} className={styles.mapHolder}>
-                        <MapBox activeSource={currentView} risks={riskItems} />
+                        <MapBox activeSource={currentView} risks={riskItems} tipData={cities} />
                     </animated.div>
                 </div>
                 <MapLegend activeSource={currentView} />
