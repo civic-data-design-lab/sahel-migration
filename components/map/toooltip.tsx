@@ -10,7 +10,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data }) {
     const nationalMigrantCount = (countryData && countryData.migrantCount) || 0
     const totalSurveyed = 347
     const countryText = `of all migrants surveyed in Libya come from`
-    const distanceText = `XXXX.xx km to Tripoli`
+    const distanceText = `XXXX.XX km to Tripoli`
 
     return (
         <Popup style={{
@@ -20,7 +20,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data }) {
         }}
             longitude={hoverInfo.longitude}
             latitude={hoverInfo.latitude}
-            offset={[0, -300]}
+            offset={[100, -200]}
             anchor="center"
             closeButton={false}
             className="county-info"
@@ -40,14 +40,14 @@ export default function Tooltip({ selectedCountry, hoverInfo, data }) {
                     <div
                         style={{
                             width: '100%',
-                            borderBottom: '1.5px solid #A3A3A3',
+                            borderBottom: '1px solid #A3A3A3',
                             margin: '0.5rem 0'
 
                         }}
                     ></div>
                     <div style={{
                         display: 'flex',
-                        gap: '0.2rem',
+                        gap: '0.25rem',
                         flexDirection: 'column'
                     }}>
                         <h5
@@ -112,7 +112,7 @@ function InfoBox({ left, text, region, small, bold, align, squeeze }) {
                 >{left}</h4>)}
             <p
                 style={{ ['--size' as any]: small ? '12px' : '0.75rem' }}
-            >{text} <span style={{ fontWeight: 'bold' }}>{region}</span> </p>
+            >{text} <span style={{ fontWeight: '700' }}>{region}</span> </p>
         </div>
     )
 }
