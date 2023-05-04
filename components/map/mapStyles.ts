@@ -1,4 +1,5 @@
 import { bounceIn } from '@popmotion/easing'
+import { SymbolLayer } from 'mapbox-gl'
 import type { FillLayer, LineLayer, HeatmapLayer } from 'react-map-gl'
 
 
@@ -226,6 +227,13 @@ export default function stylesObject(activeSource) {
         },
     }
 
+    const nonMigrantCountries: FillLayer = {
+        id: 'non-mgrant',
+        type: 'fill',
+        source: 'minor-countries',
+        "source-layer": 'place_label'
+    }
+
     const extremeHeatLayer: FillLayer = {
         id: 'extreme-heat',
         type: 'fill',
@@ -247,6 +255,7 @@ export default function stylesObject(activeSource) {
             "fill-opacity-transition": { duration: 3000 }
         }
     }
+
 
     const cityStyle = {
         'id': 'cities',
@@ -281,6 +290,42 @@ export default function stylesObject(activeSource) {
         },
     };
 
+    const minorCountryLabel: SymbolLayer = {
+        id: 'minor-labels',
+        type: 'symbol',
+        source: 'minor-countries',
+        "source-layer": 'place_label',
+        layout: {
+            "text-field": [
+                "match",
+                ["get", "name_en"],
+                [
+                    "Senegal",
+                    "Sierra Leone",
+                    "Guinea",
+                    "Guinea-Bissau",
+                    "Gambia",
+                    "Benin",
+                    "Liberia",
+                    "Burkina Faso",
+                    "Ivory Coast"
+                ],
+                [
+                    "coalesce",
+                    ["get", "name"]
+                ],
+                ""
+            ],
+            "text-font": [
+                "Overpass ExtraBold",
+                "Arial Unicode MS Regular"
+            ],
+
+        }
+
+
+    }
+
 
 
     const desktopPerspective = {
@@ -302,9 +347,11 @@ export default function stylesObject(activeSource) {
         'countryFill': countryFill,
         'highlightLayer': highlightLayer,
         'routeHighlightLayer': routeHighlightLayer,
+        'nonMigrantCountries': nonMigrantCountries,
         'migrationRouteStyle': migrationRouteStyle,
         'migrationHover': migrationHover,
         'migrationBuffer': migrationBuffer,
+        'minorCountryLabel': minorCountryLabel,
         'extremeHeatLayer': extremeHeatLayer
     }
 

@@ -3,7 +3,7 @@
     /* display: flex; */
     height: 10vh;
     font-family: var(--primary-font-fam);
-    position: absolute;
+    position: fixed;
     width: 100%;
     z-index: 5;
     bottom: 0;
