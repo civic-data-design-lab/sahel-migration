@@ -377,15 +377,17 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     }
   }, [svgRef.current, componentRef.current]);
 
+  useEffect(() => {
+    setWeightsConfirmed(true);
+  }, [isOpen]);
+
   return (
     <>
       {!weightsConfirmed && (
         <button
+          class={styles.confirmWeights}
           style={{
-            position: 'absolute',
             left: `${margin.left + 250}px`,
-            top: `15px`,
-            padding: '2px 10px',
           }}
           onClick={() => {
             drawLayers(svgRef, width, height, isOpen);
