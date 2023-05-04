@@ -64,6 +64,7 @@ export default function MapJourney({ explorable }) {
     return (
         <div className={styles.container}>
             <div ref={mapContainer} className={styles.mapContainer} />
+            <div className={styles.gates} />
         </div>
     );
 }
