@@ -145,7 +145,7 @@ export default function Streamgraph(
   if (riskId !== 'all') {
     const graph = d3.select('#viz-transect-' + riskId);
     const riskIndex = risks.find((risk) => risk.id === riskId).index;
-    plot.attr('transform', `translate(0,${yPlotOffset * riskIndex + 5})`);
+    plot.attr('transform', `translate(0,${yPlotOffset * riskIndex + 10})`);
   }
 }
 
@@ -208,7 +208,7 @@ export function PlotAreaCurve(data,
       g
         .append('text')
         .attr('x', margin.left)
-        .attr('y', margin.top - 10)
+        .attr('y', margin.top - 5)
         .text(yLabel)
     )
     .attr('fill', '#463C35');

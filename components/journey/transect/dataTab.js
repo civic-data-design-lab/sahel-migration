@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/DataTab.module.css';
 import Link from 'next/link';
 import useWindowSize from '../../../hooks/useWindowSize';
-import ImageCarousel from '../../map/imageCarousel';
 import TransectContainer from './transectContainer';
 import useSWR from 'swr';
 import { fetcher } from '../../../hooks/useFetch';

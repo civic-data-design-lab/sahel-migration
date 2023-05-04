@@ -115,7 +115,7 @@ export default function Tooltip(config) {
         let mouseY = d3.pointer(event)[1];
         let tooltipHeight = document.getElementById('transectTooltip').offsetHeight;
         let svgY = document.getElementById("viz-transect-layers").getBoundingClientRect().y;
-        console.log(svgY + mouseY < tooltipHeight + 20);
+        // console.log(svgY + mouseY < tooltipHeight + 20);
         if (svgY + mouseY < tooltipHeight + 20) {
           return svgY + mouseY + 40 + 'px';
         } else {
