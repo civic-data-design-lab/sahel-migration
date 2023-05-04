@@ -77,6 +77,12 @@
   line-height: 1.2rem;
   font-weight: initial;
 }
+/* font styles for about page text */
+.body-5 {
+  font-family: var(--primary-font-fam);
+  font-size: clamp(0.8rem, 1.3vw, 1rem);
+  line-height: 1.5rem;
+}
 
 button {
   font-family: var(--primary-font-fam);
