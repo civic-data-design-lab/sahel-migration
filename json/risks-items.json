@@ -188,6 +188,10 @@
             {
                 "id": "country-overlay",
                 "url": "mapbox://mapbox.country-boundaries-v1"
+            },
+            {
+                "id": "minor-countries",
+                "url": "mapbox://mapbox.mapbox-streets-v8"
             }
         ],
         "migrationRoutes": [

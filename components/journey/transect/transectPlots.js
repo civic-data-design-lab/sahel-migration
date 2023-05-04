@@ -1,9 +1,10 @@
-import Streamgraph, { ExpandOverlay } from './streamgraph';
+import Streamgraph, {ExpandOverlay, PlotXAxis, XAxisTicks} from './streamgraph';
 import dotDensityPlot from './dotDensityPlot';
 import Tooltip from './tooltip';
 import { createRoot } from 'react-dom/client';
 import RiskWeightTextInput from './RiskWeightTextInput';
 import RiskWeightSlider from './RiskWeightSlider';
+import * as d3 from "d3";
 
 //TODO: If we need an initializer instead of rerendering everything, we can do that here
 export default function PlotAllTransectLayers(
@@ -12,21 +13,36 @@ export default function PlotAllTransectLayers(
     width,
     height,
     margin,
+    yPlotOffset,
     yLabel, // a label for the y-axis
     svg,
     xScale,
+    xDomain,
     risks,
     risksData,
     journeyData,
     journeyFocusData,
     journey,
     migrantRoutesData,
+    cities,
+    borders,
     svgRef,
     tooltipRef,
     updateRiskWeight,
+    isOpen,
   } = {}
 ) {
-  svg.attr('viewBox', [0, 0, width, height]).style('pointer-events', 'all');
+  svg.attr('viewBox', [0, -10, width, height]).style('pointer-events', 'all');
+  const xAxis = d3
+    .axisBottom(xScale)
+    .tickValues([0, 10, 20, 30, 40, xDomain[1].toFixed(2)])
+    .ticks(5)
+    .tickSizeOuter(0)
+    .tickFormat((d, i) => (d * 100).toLocaleString('en-US') + ' km');
+  const plot = svg
+    .append('g')
+    .attr('id', 'viz-transect-axis')
+    .attr('class', 'viz-transect')
   risks.forEach((risk) => {
     yLabel = risk.label;
 
@@ -38,6 +54,7 @@ export default function PlotAllTransectLayers(
       yLabel: yLabel,
       width: width,
       height: 150,
+      yPlotOffset: yPlotOffset,
       margin: margin,
       svg: svg,
       xScale: xScale,
@@ -52,10 +69,20 @@ export default function PlotAllTransectLayers(
   dotDensityPlot({
     migrantRoutesData: migrantRoutesData,
     width: width,
-    height: 150,
+    height: height,
     margin: margin,
+    yPlotOffset: yPlotOffset,
     svg: svg,
     xScale: xScale,
+  });
+  PlotXAxis({
+    plot: plot,
+    height: height,
+    margin: margin,
+    xAxis: xAxis,
+    xAxisTicks: (ticksData) => XAxisTicks(ticksData,xScale),
+    borders: borders,
+    cities: cities,
   });
   Tooltip({
     width: width,
@@ -69,6 +96,7 @@ export default function PlotAllTransectLayers(
     journey: journey,
     journeyData: journeyData,
     journeyFocusData: journeyFocusData,
+    isOpen: isOpen,
   });
 }
 
@@ -80,6 +108,7 @@ export function PlotCombinedTransectLayers(
     tooltipRef,
     width,
     height, // dataTabHeight
+    yPlotOffset,
     xDomain,
     risks,
     yLabel,
@@ -90,13 +119,16 @@ export function PlotCombinedTransectLayers(
     borders,
     journey,
     risksData, //filteredData
+    updateIsExpanded,
+    isExpanded,
+    isOpen,
   }
 ) {
   svg
     .attr('id', 'viz-transect-layers')
     .attr('class', 'viz-transect')
     .attr('viewBox', [0, 0, width, height]);
-  
+
   let journeyData = [];
   let journeyFocusData = [];
 
@@ -125,6 +157,7 @@ export function PlotCombinedTransectLayers(
     yLabel: yLabel,
     width: width,
     height: height,
+    yPlotOffset: yPlotOffset,
     svg: svg,
     risks: risks,
     riskId: 'all',
@@ -135,10 +168,12 @@ export function PlotCombinedTransectLayers(
     cities: cities,
     borders: borders,
     journey: journey,
+    isExpanded: isExpanded,
   });
   Tooltip({
     width: width,
     height: height,
+    margin: margin,
     data: data,
     svgRef: svgRef,
     tooltipRef: tooltipRef,
@@ -150,13 +185,9 @@ export function PlotCombinedTransectLayers(
     journey: journey,
     journeyData: journeyData,
     journeyFocusData: journeyFocusData,
+    updateIsExpanded: updateIsExpanded,
+    isExpanded: isExpanded,
+    isOpen: isOpen
   });
   // rect overlay for on-click to expand trigger
-  ExpandOverlay({
-    svg,
-    xScale,
-    journeyFocusData,
-    journey,
-    height,
-  });
 }

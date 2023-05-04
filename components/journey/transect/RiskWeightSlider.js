@@ -1,13 +1,13 @@
 /**
  * Simple controlled slider component.
  */
-
-import React from 'react';
+import styles from '../../../styles/Slider.module.css';
 
 const RiskWeightSlider = ({ riskId, riskWeight, onUpdate }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
-      <p class="body-4">Risk weight factor</p>
+    <div className={styles.SliderContainer}>
+      <p class="label-weight">Risk weight factor</p>
+      <span className={styles.progress} />
       <input
         type="range"
         value={riskWeight}

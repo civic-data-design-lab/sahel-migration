@@ -1,5 +1,5 @@
 .container {
-    --line-height: 24px;
+    /* --line-height: 24px; */
     /* display: flex; */
     flex-direction: column;
     align-items: center;
@@ -48,6 +48,10 @@
     flex-direction: column;
     /* justify-content: center; */
     margin-bottom: 2rem;
+}
+
+.paragraph>* {
+    backdrop-filter: blur(10px);
 }
 
 .box {

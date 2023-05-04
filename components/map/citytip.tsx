@@ -14,6 +14,8 @@ export default function CityTip({ hoverInfo, data }) {
     if (originCountry === 'Guine') originCountry = "Guinea Bissau"
     if (originCountry === 'Burkin') originCountry = "Burkina Faso"
 
+
+
     const countryData = surveryData.find((country) => country.countryId == originCountry)
     const nationalMigrantCount = (countryData && countryData.migrantCount) || 0
     const cityMigrantCount = (hoverInfo && hoverInfo.migrantCount) || 0

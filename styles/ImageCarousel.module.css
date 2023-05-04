@@ -5,19 +5,20 @@
     justify-content: space-between;
     width: 100%;
     height: 10%;
-    bottom: 30%;
+    bottom: 20%;
     gap: 1rem;
-    padding: 2rem;
+    padding: 1rem 2rem;
     font-family: var(--primary-font-fam);
 }
 
 .image {
-    width: 15rem;
-    height: 10rem;
+    width: 100%;
+    max-height: 4rem;
     position: relative;
     display: flex;
     background-position: center;
     background-size: cover;
+    cursor: pointer;
     /* opacity: 0; */
     /* overflow-x: hidden; */
     /* aspect-ratio: 1/5; */
@@ -66,6 +67,7 @@
     position: fixed;
     inset: 0;
     background: #000000e1;
+    backdrop-filter: blur(3px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,7 +106,7 @@
     border: none;
     position: absolute;
     top: 2rem;
-    right: 2rem;
+    right: 1rem;
     z-index: 1000;
     cursor: pointer;
 
@@ -130,6 +132,8 @@
     top: 0;
     left: 0;
     font-size: 0.75rem;
+    font-family: var(--sans-font-fam);
+    font-weight: 300;
 }
 
 
@@ -153,34 +157,35 @@
 
 .next,
 .prev {
-    top: calc(50% - 20px);
+    top: calc(50% - 2vw);
     position: absolute;
     background: none;
     color: white;
-    border-radius: 30px;
-    width: 40px;
-    height: 40px;
+    /* border-radius: 30px; */
+    width: 2rem;
+    height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 18px;
+    /* font-weight: bold;
+    font-size: 2rem; */
     z-index: 15;
 }
 
 .next {
-    right: 10px;
+    right: 1rem;
 }
 
 .prev {
-    left: 10px;
+    left: 1rem;
 }
 
 .backdrop img {
     position: relative;
     max-width: 100vw;
+    backdrop-filter: blur(10px);
 }
 
 .refresh {
