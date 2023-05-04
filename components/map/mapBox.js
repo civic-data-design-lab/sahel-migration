@@ -143,6 +143,7 @@ export default function MapBox({ activeSource, risks, tipData }) {
                     doubleClickZoom={false}
                     onMouseMove={onHover}
                     dragPan={false}
+                    dragRotate={false}
                     scrollZoom={false}
                 >
                     {(selectedCountry && activeSource === 'originCities') && (

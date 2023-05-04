@@ -1,12 +1,27 @@
 .legend {
     z-index: 10;
-    grid-area: 1/10/1/12;
+    grid-area: 1/11/1/12;
     pointer-events: none;
 }
 
 .routes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
     position: fixed;
-    bottom: 10%;
-
+    bottom: 7.5%;
     border-bottom: 1.5px solid #985946;
+}
+
+.routes h4 {
+    font-size: 1rem;
+}
+
+.bars {
+    width: 100%;
+    height: 1rem;
+    margin-bottom: 1rem;
+    grid-template-columns: repeat(7, 1fr);
+    display: grid;
+    align-items: flex-end;
 }
