@@ -68,7 +68,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                     {topCities.length > 0 && (
                         <div style={{
                             display: 'flex',
-                            gap: '0rem',
+                            gap: '0.25rem',
                             flexDirection: 'column'
                         }}>
 
