@@ -187,7 +187,7 @@ a {
 
 ul {
   list-style: none;
-  color: black;
+  color: var(--brown);
 }
 
 li {
