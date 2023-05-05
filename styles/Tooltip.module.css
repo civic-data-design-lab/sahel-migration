@@ -37,7 +37,7 @@
 
 .infoBox h4 {
     font-weight: var(--weight);
-    font-size: 1rem;
+    font-size: 1.15rem;
 }
 
 
@@ -45,8 +45,9 @@
     line-height: 1rem;
     font-size: var(--size);
     margin: 0;
-    
 }
+
+
 
 .city {
     display: flex;

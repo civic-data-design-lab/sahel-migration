@@ -68,14 +68,16 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                     {topCities.length > 0 && (
                         <div style={{
                             display: 'flex',
-                            gap: '0.2rem',
+                            gap: '0rem',
                             flexDirection: 'column'
                         }}>
 
                             <h5
                                 className={styles.subtitle}
                             >Top Origin Cities</h5>
-                            <InfoBox
+
+                            
+                            <InfoBoxTitle
                                 left={city1.name}
                                 text={numberWithCommas(city1.distance) + distanceText}
                                 region={''}
@@ -84,6 +86,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                                 squeeze={false}
                                 bold={true}
                             />
+                           
                             <InfoBox
                                 left={`${Math.floor(city1.count / nationalMigrantCount * 100)}%`}
                                 text={countryText}
@@ -93,7 +96,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                                 squeeze={true}
                                 align={'flex-start'}
                             />
-                            <InfoBox
+                            <InfoBoxTitle
                                 left={city2.name}
                                 text={numberWithCommas(city2.distance) + distanceText}
                                 region={''}
@@ -127,16 +130,35 @@ function InfoBox({ left, text, region, small, bold, align, squeeze }) {
             style={{
 
                 ['--alignment' as any]: align || 'flex-start',
-                ['--paddingFactor' as any]: squeeze ? '1rem' : '0.5rem'
+                ['--paddingFactor' as any]: squeeze ? '1rem' : '1rem'
             }}>
             {left &&
                 (<h4
                     style={{ ['--weight' as any]: bold ? '620' : 'initial' }}
                 >{left}</h4>)}
             <p
-                style={{ ['--size' as any]: small ? '12px' : '0.75rem' }}
+                style={{ ['--size' as any]: small ? '0.75rem' : '0.75rem' }}
             >{text} <span style={{ fontWeight: '620' }}>{region}</span> </p>
         </div>
     )
 }
 
+function InfoBoxTitle({ left, text, region, small, bold, align, squeeze }) {
+    return (
+        <div
+            className={styles.infoBox}
+            style={{
+
+                ['--alignment' as any]: align || 'flex-start',
+                ['--paddingFactor' as any]: squeeze ? '0rem' : '0rem'
+            }}>
+            {left &&
+                (<h4
+                    style={{ ['--weight' as any]: bold ? '620' : 'initial' }}
+                >{left}</h4>)}
+            <p
+                style={{ ['--size' as any]: small ? '0.75rem' : '0.75rem' }}
+            >{text} <span style={{ fontWeight: '620' }}>{region}</span> </p>
+        </div>
+    )
+}
