@@ -1,6 +1,9 @@
 .legend {
     z-index: 10;
-    grid-area: 1/11/1/12;
+    grid-area: 1/12/1/12;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 3rem;
     pointer-events: none;
 }
 
@@ -9,12 +12,13 @@
     flex-direction: column;
     gap: 0.3rem;
     position: fixed;
-    bottom: 7.5%;
-    border-bottom: 1.5px solid #985946;
+    bottom: 3rem;
+    border-bottom: 2px solid #985946;
 }
 
 .routes h4 {
     font-size: 0.8rem;
+    color: var(--brown);
 }
 
 .bars {
