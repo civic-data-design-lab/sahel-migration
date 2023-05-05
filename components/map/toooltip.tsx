@@ -154,7 +154,7 @@ function InfoBoxTitle({ left, text, region, small, bold, align, squeeze }) {
             }}>
             {left &&
                 (<h4
-                    style={{ ['--weight' as any]: bold ? '620' : 'initial' }}
+                    style={{ ['--weight' as any]: bold ? '600' : 'initial' }}
                 >{left}</h4>)}
             <p
                 style={{ ['--size' as any]: small ? '0.75rem' : '0.75rem' }}
