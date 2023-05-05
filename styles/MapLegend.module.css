@@ -7,20 +7,20 @@
 .routes {
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
+    gap: 0.3rem;
     position: fixed;
     bottom: 7.5%;
     border-bottom: 1.5px solid #985946;
 }
 
 .routes h4 {
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .bars {
     width: 100%;
     height: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     grid-template-columns: repeat(7, 1fr);
     display: grid;
     align-items: flex-end;
