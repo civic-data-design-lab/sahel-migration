@@ -114,6 +114,7 @@ body {
   background-image: url('../public/images/lines_blue.svg');
   background-size: 2.5%;
   background-repeat: repeat;
+  color: red;
 }
 
 @media only screen and (max-width: 480px) {
@@ -309,6 +310,8 @@ g {
 
 .transectTooltip h4 {
   margin-bottom: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .transectTooltip p.risk::before {
