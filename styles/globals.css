@@ -114,7 +114,10 @@ body {
   background-image: url('../public/images/lines_blue.svg');
   background-size: 2.5%;
   background-repeat: repeat;
-  color: red;
+}
+
+main {
+  background-color: #AFB3C4;
 }
 
 @media only screen and (max-width: 480px) {
