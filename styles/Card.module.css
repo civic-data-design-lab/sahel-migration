@@ -4,6 +4,7 @@
   left: 0;
   /*width: fit-content;*/
   transform: translate(0%, -100%);
+  z-index: 5;
 }
 
 .card {
@@ -17,7 +18,7 @@
   align-items: center;
   justify-content: center;
   object-position: left top;
-  z-index: 8;
+  backdrop-filter: blur(3px);
 
 }
 
