@@ -3,7 +3,7 @@
     font-family: Inter;
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 0.5rem;
+    padding: 0;
     border-radius: 0.5rem;
     text-align: left;
     font-size: 0.1rem;
@@ -18,7 +18,8 @@
 
 .header {
     width: max-content;
-    font-size: calc(--factor*1.5rem);
+    /* font-size: calc(--factor*1.5rem); */
+    font-size: 1rem;
     font-weight: 600;
 }
 
@@ -38,15 +39,18 @@
 
 .infoBox h4 {
     font-weight: var(--weight);
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 
 .infoBox p {
-    line-height: 1rem;
+    line-height: 0.95rem;
     font-size: var(--size);
     margin: 0;
+}
 
+.infoBoxTitle p {
+    line-height: 0.2rem;
 }
 
 .city {

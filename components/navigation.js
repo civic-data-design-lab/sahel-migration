@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Stepper from './stepper';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { color } from 'd3';
 export default function Navigation({ journeys, journey }) {
   const [isActiveLeft, setIsActiveLeft] = useState(false);
   const [isActiveRight, setIsActiveRight] = useState(false);
@@ -26,7 +27,7 @@ export default function Navigation({ journeys, journey }) {
               onHoverEnd={() => setIsActiveLeft(!isActiveLeft)}
             >
               <Link href={'/journeys/[id]'} as={'/journeys/' + (journey.id - 1)}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem'}}>
                   arrow_left
                 </span>
               </Link>

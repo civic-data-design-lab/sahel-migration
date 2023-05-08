@@ -44,8 +44,8 @@ export default function MapLegend({ activeSource }) {
                         display: 'flex',
                         justifyContent: "space-between"
                     }}>
-                    <span>0</span>
-                    <span>360</span>
+                    <span><h4>0</h4></span>
+                    <span><h4>360</h4></span>
                 </div>
                 <h4>Migration Routes to Libya</h4>
             </div>
