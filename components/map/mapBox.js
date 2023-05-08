@@ -7,10 +7,10 @@ import styles from './../../styles/MapBox.module.css'
 import stylesObject from './mapStyles';
 import useWindowSize from './../../hooks/useWindowSize';
 import Tooltip from './toooltip';
+import CityTip from './citytip';
+import RouteTip from './routetip'
 import routeObject from './routePaths'
 import { SectionContext } from './../../pages';
-import CityTip from './citytip';
-import { zoom } from 'd3';
 
 
 
@@ -28,6 +28,7 @@ export default function MapBox({ activeSource, risks, tipData }) {
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
     const [cityInfo, setCityInfo] = useState(null);
+    const [routeInfo, setRouteInfo] = useState(null);
     const [feature, setFeature] = useState(null)
     const [point, setPoint] = useState(null)
     const [routeClicked, toggleClick] = useState(false)
@@ -85,6 +86,39 @@ export default function MapBox({ activeSource, risks, tipData }) {
             index: region && region.properties.segement_i,
             routeId: region && region.properties.segement_i
         })
+
+        setRouteInfo({
+            longitude: event.lngLat.lng,
+            latitude: event.lngLat.lat,
+            risks: [
+                {
+                    name: "Reported Violence",
+                    riskLevel: 1
+                },
+                {
+                    name: "Armed Conflict",
+                    riskLevel: region && region.properties.risk_acled,
+                },
+                {
+                    name: "Food Insecurity",
+                    riskLevel: region && region.properties.risk_food,
+                },
+                {
+                    name: "Smuggler Assistance",
+                    riskLevel: region && region.properties.Risk_smugg,
+                },
+                {
+                    name: "Remoteness",
+                    riskLevel: region && region.properties.risk_remot,
+                },
+                {
+                    name: "Heat Exposure",
+                    riskLevel: region && region.properties.risk_heat,
+                },
+            ],
+            totalRisk: region && region.properties.risks_tota,
+            routeId: region && region.properties.segement_i
+        })
         setCityInfo({
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
@@ -104,6 +138,7 @@ export default function MapBox({ activeSource, risks, tipData }) {
 
     const selectedCountry = (hoverInfo && hoverInfo.countryName) || '';
     const selectedCity = (cityInfo && cityInfo.cityName) || '';
+    // const selectedRoute = (routeInfo && routeInfo.route) || '';
     const selectedSegment = (currentSection && currentSection.routeId) || '';
     const countryNames = !selectedCountry ? [] : ['Ghana', 'Mali', 'Nigeria', 'Niger', 'Chad'].filter((elem) => {
         return elem !== selectedCountry
@@ -157,6 +192,9 @@ export default function MapBox({ activeSource, risks, tipData }) {
                     )}
                     {(selectedCountry && activeSource === 'extremeHeat') && (
                         <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
+                    )}
+                    {(selectedSegment && activeSource === 'extremeHeat') && (
+                        <RouteTip hoverInfo={routeInfo} />
                     )}
                     {renderSource(activeSource, risks)}
 

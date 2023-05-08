@@ -32,6 +32,7 @@
     padding: 0 var(--paddingFactor);
     display: flex;
     justify-content: var(--alignment);
+    align-items: center;
     gap: 1.5rem;
 }
 
@@ -45,7 +46,7 @@
     line-height: 1rem;
     font-size: var(--size);
     margin: 0;
-    
+
 }
 
 .city {

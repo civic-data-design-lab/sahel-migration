@@ -28,7 +28,6 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
         name: topCities[1] && topCities[1].city_origin || " ",
         distance: topCities[1] && topCities[1].total_dist_km.toFixed(1) || 0,
     }
-    console.log(city1)
 
 
 

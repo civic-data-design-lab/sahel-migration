@@ -166,7 +166,7 @@ export default function stylesObject(activeSource) {
         "source": 'migration-routes',
         "paint": {
             'line-color': 'red',
-            'line-width': 15,
+            'line-width': 35,
             'line-opacity': 0
         }
     }
