@@ -253,12 +253,18 @@ g {
 }
 
 #viz-transect-layers .label-risk text,
-#viz-transect-layers #label-migrants,
-#viz-transect-layers .label-pct {
+#viz-transect-layers #label-migrants {
   font-family: var(--sans-font-fam);
   font-weight: 500;
   font-size: 0.85rem;
 }
+
+#viz-transect-layers .label-pct {
+  font-family: var(--sans-font-fam);
+  font-weight: 500;
+  font-size: 0.7rem;
+}
+
 
 #viz-transect-layers .label-journey {
   font-size: 1rem;

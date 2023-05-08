@@ -27,9 +27,12 @@ const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
           width: '30px',
           height: '20px',
           fontFamily: "'Inter', sans-serif",
+          fontSize: '0.7rem',
+          fontWeight: '500',
           textAlign: 'center',
           border: '1.5px solid var(--gray)',
           borderRadius: '4px',
+          color: 'var(--brown)',
         }}
       />
       <label class='label-pct'>%</label>
