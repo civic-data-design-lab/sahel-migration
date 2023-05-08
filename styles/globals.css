@@ -263,6 +263,7 @@ g {
   font-family: var(--sans-font-fam);
   font-weight: 500;
   font-size: 0.7rem;
+  margin-top: 0.2rem;
 }
 
 
@@ -296,6 +297,7 @@ g {
   font-family: var(--sans-font-fam);
   /* font-weight: 500; */
   font-size: 0.7rem;
+  margin-bottom: 0;
 }
 
 /* transect tooltip */
