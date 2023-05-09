@@ -10,7 +10,8 @@
 
 .card {
     border-radius: 8px;
-    padding: 0.6rem;
+    padding: 1rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
 
@@ -18,16 +19,20 @@
     /*align-items: center;*/
     /*justify-content: center;*/
     object-position: left top;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(1px);
     max-width: 28rem;
-    height: 17rem;
+    height: max-content;
+    color: var(--brown);
 }
 
 .buttons {
-    margin-top:auto;
+    margin: -0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    font-family: var(--sans-font-fam);
+    font-size: 0.75rem;
+    align-items: center;
 }
 
 .navButton {

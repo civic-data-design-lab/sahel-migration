@@ -47,6 +47,7 @@ export default function PolicyRecommendations({ narrativeTexts}) {
           <span onClick={handlePrev} className="material-symbols-outlined" style={{ fontSize: '1.75rem'}}>
                   arrow_left
           </span></button>
+          <span style={{ textAlign: 'center', verticalAlign: 'middle'}}>{currentSlide + 1} of {narrativeTexts.length}</span>
           <button className={styles.navButton}>
           <span onClick={handleNext} className="material-symbols-outlined" style={{ fontSize: '1.75rem'}}>
                   arrow_right
