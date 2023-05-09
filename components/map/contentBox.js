@@ -53,7 +53,7 @@ function ScrollButton({ onClick, currentView }) {
     );
 }
 
-export default function ContentBox({ dataItems, mapToggle }) {
+export default function ContentBox({ dataItems }) {
     const contentRef = useRef(null);
     const [isOpen, toggleOpen] = useState(false);
     const [scroll, setScroll] = useState();
@@ -62,7 +62,6 @@ export default function ContentBox({ dataItems, mapToggle }) {
 
     const handleMapAnimation = () => {
         toggleOpen(!isOpen);
-        mapToggle();
     };
 
     const handleToggle = () => {
