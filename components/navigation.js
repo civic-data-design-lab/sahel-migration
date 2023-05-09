@@ -26,11 +26,20 @@ export default function Navigation({ journeys, journey }) {
               onHoverStart={() => setIsActiveLeft(!isActiveLeft)}
               onHoverEnd={() => setIsActiveLeft(!isActiveLeft)}
             >
-              <Link href={'/journeys/[id]'} as={'/journeys/' + (journey.id - 1)}>
+              {
+                journey.id > 2 ?
+                <Link href={'/journeys/[id]'} as={'/journeys/' + (journey.id - 1)}>
                 <span className="material-symbols-outlined" style={{ fontSize: '1.75rem'}}>
                   arrow_left
                 </span>
-              </Link>
+                </Link> :
+              <Link href={'/'}>
+                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem'}}>
+                  arrow_left
+                </span>
+                  </Link>
+              }
+
             </motion.button>
           </>
         ) : (
@@ -39,7 +48,7 @@ export default function Navigation({ journeys, journey }) {
       </div>
 
       <div className={styles.navigationContainer}>
-        {journey.id < 7 ? (
+        {journey.id < 8 ? (
           <>
             <Stepper
               totalSteps={8}
