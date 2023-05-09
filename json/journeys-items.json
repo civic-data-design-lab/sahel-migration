@@ -300,6 +300,22 @@
         "route": "current-conditions-libya",
         "title": "Current Conditions in Libya",
         "body": "Migrants in Libya experience a range of outcomes. Some leave the country by embarking to Europe or through deportation, while others may stay to work. Each pathway exposes migrants to a different set of risks.",
+        "narrativeTexts": [
+          {
+            "title": "Policy Recommendation 1",
+            "body": "Since the main push factor for migrants to leave their countries of origin is economic wage differentials, WFP should focus efforts on building economic opportunities at the country of origin. Such efforts could include employment generation programmes in partnership with national governments, training opportunities in the technology sector, or engagement in rural food systems programmes."
+          }
+          ,
+          {
+            "title": "Policy Recommendation 2",
+            "body": "Many migrants send remittances through risky or costly informal channels--lacking formal bank accounts. Improving digital banking access for migrants residing in Libya will reduce their financial vulnerability."
+          },
+          {
+            "title": "Policy Recommendation 3",
+            "body": "In locations where migrants settle or use as protracted transit sites, WFP and partners should address food insecurity and other humanitarian requirements through existing social protection systems, also considering the needs of the host population to avoid potential tensions."
+          }
+
+        ],
         "imageUrl": "/images/journeys/8-Current Migrant Condition in Libya.svg",
         "entourages": []
       }

@@ -1,7 +1,7 @@
 import styles from '../styles/Stepper.module.css';
 import { motion } from 'framer-motion';
 export default function Stepper({ totalSteps, stepNumber, journeys, reversed, isActive }) {
-  const steps = [...Array(totalSteps).keys()];
+  const steps = [...Array(totalSteps).keys()].reverse();
   const variants = {
     open: {
       opacity: 1,
@@ -35,7 +35,7 @@ export default function Stepper({ totalSteps, stepNumber, journeys, reversed, is
     >
       <div
         className={styles.stepperLine}
-        style={{ transform: reversed ? 'translate(12.9rem,-65%)' : '' }}
+        style={{ transform: reversed ? 'translate(11.7rem,-65%)' : '' }}
       />
       <motion.div
         className={styles.stepper}
