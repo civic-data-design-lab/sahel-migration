@@ -56,6 +56,7 @@ export default function Routetip({ hoverInfo }) {
                             const name = risk && risk.name
                             return (
                                 <InfoBox
+                                    key={risk.name}
                                     left={name}
                                     text={round(stat)}
                                     region={''}
