@@ -27,8 +27,8 @@ export default function Menu({ journeys }) {
   };
 
   const fullscreenMenu = useSpring({
-    from: { right: '-100%' },
-    right: menuOpen ? '0' : '-100%',
+    from: { opacity: 0},
+    opacity: menuOpen ? 1 : 0,
   });
   const fullScreenFill = useSpring({
     opacity: menuOpen ? 1 : 0,
