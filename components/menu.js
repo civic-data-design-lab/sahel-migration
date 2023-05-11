@@ -37,7 +37,7 @@ export default function Menu({ journeys }) {
   if (!journeys) return <></>;
   return (
     <nav>
-      <span className={styles.menuContainer}>
+      <span className={styles.menuContainer} style={{zIndex:'22'}}>
         {!menuOpen ? (
           <button onClick={handleToggle} className={styles.menuButton}>
             <span class="material-symbols-outlined" style={{ color: '#463c35', fontSize: '2rem' }}>
