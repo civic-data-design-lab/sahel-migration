@@ -9,8 +9,9 @@ import { animated, useSpring } from 'react-spring';
 import useWindowSize from '../../hooks/useWindowSize';
 
 function Paragraph({ children, data, items }) {
+    const { width } = useWindowSize()
     const ref = useRef(null);
-    const threshold = data === items[items.length - 2] ? 0.75 : 1;
+    const threshold = width <= 600 ? 0.5 : 1;
     const isInView = useInView(ref, {
         amount: threshold,
     });

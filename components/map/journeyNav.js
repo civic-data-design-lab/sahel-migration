@@ -5,6 +5,7 @@ import { SectionContext } from '../../pages';
 import useSWR from 'swr';
 import { v4 as uuidv4 } from 'uuid'
 import Link from "next/link";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -12,6 +13,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 export default function JourneyNav({ journeys }) {
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', fetcher)
     const ref = useRef(null);
+    const { width } = useWindowSize()
     const boxRef = useRef(null);
     const svgRef = useRef(null);
     const zip = (a, b) => Array.from(Array(Math.max(b.length, a.length)), (_, i) => [a[i], b[i]]);
@@ -30,7 +32,6 @@ export default function JourneyNav({ journeys }) {
     if (risksError) return <div>Images not found</div>;
     if (!riskItems) return <div>loading...</div>;
     if (!journeys) return <></>
-
 
     const vignettes = zip(riskItems.vignetteUrls, journeys.slice(1)).map((journeyPackage, index) => {
         const [url, journey] = journeyPackage
@@ -84,10 +85,12 @@ export default function JourneyNav({ journeys }) {
             </Fragment>
         )
     })
+
+    const singleVignette = vignettes.filter((vignette, index) => index == parseInt(sectionIndex) - 1)
     return (
         <>
             <div key={uuidv4} className={styles.journeyContainer} ref={ref}>
-                {vignettes}
+                {width > 700 ? vignettes : singleVignette}
             </div>
 
         </>

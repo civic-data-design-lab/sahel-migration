@@ -75,15 +75,26 @@
     display: block;
 }
 
-@media (max-width:1000px) {
-    .container {
-        --line-height: 20px;
-        /* backdrop-filter: blur(10px); */
-        /* background-color: #AEB3C4; */
 
+@media (max-width:600px) {
+    .paragraphContainer {
+        height: unset;
     }
 
-    /* .paragraph {
-        justify-content: flex-start;
-    } */
+}
+
+@media (max-width:500px) {
+    .paragraph p {
+        font-size: 0.875rem;
+        line-height: 22.5px;
+    }
+
+
+
+    .paragraph h2 {
+        font-size: 0.875rem;
+        line-height: 22.5px;
+    }
+
+
 }

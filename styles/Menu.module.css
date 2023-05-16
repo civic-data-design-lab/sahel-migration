@@ -3,11 +3,11 @@
 }
 
 .title {
-  transform: translate(-1rem, -0.75rem)!important;
+  transform: translate(-1rem, -0.75rem) !important;
 }
 
 .navBar {
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   color: var(--brown);
   position: fixed;
   top: 0;
@@ -41,6 +41,10 @@
   background-color: transparent;
   padding: 1rem;
   /*font-size: 4em;*/
+}
+
+.menuContainer .stickyContainer {
+  width: 30%;
 }
 
 .listContainer {
@@ -85,17 +89,19 @@
   pointer-events: none;
 }
 
-.route, 
+.route,
 .routeAbout,
 .routeJourney {
   font-size: var(--fs-body-1);
   line-height: 0.5rem;
   color: var(--brown);
 }
+
 .route,
 .routeAbout {
   font-weight: 700;
 }
+
 .route,
 .routeJourney,
 .aboutSection ul li {
@@ -121,6 +127,7 @@
   font-size: 1.5rem;
   font-weight: 700;
 }
+
 .aboutSection h5,
 .aboutSection h6 {
   font-weight: 600;
@@ -139,6 +146,7 @@
   padding-left: 1.5rem;
   margin-bottom: 1rem;
 }
+
 .aboutSection ul li p {
   margin-bottom: 0rem;
 }

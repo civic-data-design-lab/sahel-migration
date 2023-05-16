@@ -77,6 +77,7 @@
   line-height: 1.2rem;
   font-weight: initial;
 }
+
 /* font styles for about page text */
 .body-5 {
   font-family: var(--primary-font-fam);
@@ -376,3 +377,7 @@ g {
 .transectTooltip #data-migrants {
   font-weight: 700;
 }
+
+/* .mapboxgl-ctrl-logo {
+  display: none !important;
+} */

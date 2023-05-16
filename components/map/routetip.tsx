@@ -52,8 +52,14 @@ export default function Routetip({ hoverInfo }) {
                         />
 
                         {hoverInfo.risks.map((risk) => {
-                            const stat = risk && risk.riskLevel
+                            let stat = risk && risk.riskLevel
                             const name = risk && risk.name
+                            if (name === "Reported Violence") {
+                                stat = round(hoverInfo.totalRisk - hoverInfo.risks.
+                                    filter((r) => r.name !== "Reported Violence").
+                                    map((r) => r.riskLevel).
+                                    reduce((a, b) => a + b, 0))
+                            }
                             return (
                                 <InfoBox
                                     key={risk.name}

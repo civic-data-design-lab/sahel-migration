@@ -29,3 +29,24 @@
     display: grid;
     align-items: flex-end;
 }
+
+@media (max-width:600px) {
+    .routes {
+        gap: 0.01rem;
+        bottom: 0.5rem;
+        right: 0rem;
+    }
+
+    .indicators {
+        height: 1rem
+    }
+
+    .routes h4 {
+        font-size: 0.75rem;
+    }
+
+    .legend {
+        grid-area: 1/6/1/7;
+        margin: 0;
+    }
+}
