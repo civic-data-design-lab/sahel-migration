@@ -1,9 +1,10 @@
 .legend {
     z-index: 10;
-    grid-area: 1/12/1/12;
+    /* grid-area: 1/12/1/12; */
+    grid-column-end: 13;
     display: flex;
     justify-content: flex-end;
-    margin-right: 3rem;
+    margin-right: 2.5rem;
     pointer-events: none;
 }
 

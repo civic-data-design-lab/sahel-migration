@@ -36,6 +36,8 @@
   font-family: var(--sans-font-fam);
   font-size: clamp(0.8rem, 2.5vw, 1.1rem);
   font-weight: 520;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
 }
 
 /* font style for header of main narrative text */

@@ -20,7 +20,7 @@
   /* padding: 1rem; */
   font-size: 2rem;
   margin: 0;
-  z-index: 12;
+  z-index: 21;
   font-family: var(--primary-font-fam);
   backdrop-filter: blur(3px);
 }
