@@ -50,9 +50,9 @@
     margin-bottom: 2rem;
 }
 
-.paragraph>* {
+/* .paragraph>* {
     backdrop-filter: blur(10px);
-}
+} */
 
 .box {
     display: flex;

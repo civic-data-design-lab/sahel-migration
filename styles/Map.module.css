@@ -38,12 +38,13 @@
 }
 
 .exploreBox {
-    font-weight: bold;
     position: absolute;
     top: 10%;
-    padding: 2rem;
-    /* left: 1%; */
+    /* left: 0; */
+    padding: 1rem;
     font-family: var(--primary-font-fam);
+    color: var(--brown);
+
 }
 
 .mapHolder {
@@ -121,10 +122,6 @@
 
     }
 
-    .boxContainer {
-        grid-area: 1/1/1/13;
-    }
-
     .textContainer {
         height: 40vh;
         overflow-y: auto;
@@ -135,9 +132,6 @@
     .mapContainer {
         grid-area: 5/1/13/7;
     }
-}
-
-@media (max-width:900px) {
 
     .boxContainer {
         width: 100%;
@@ -148,5 +142,10 @@
     .contentBox {
         height: 100%;
         position: relative;
+    }
+
+    .exploreBox h2 {
+        font-size: 0.875rem;
+        line-height: 22.5px;
     }
 }

@@ -11,6 +11,7 @@ import Menu from "../../components/menu";
 import MapJourney from "../../components/map/mapJouney";
 import MapLegend from '../../components/map/mapLegend'
 import { SectionContext } from '..';
+import Link from 'next/link';
 
 
 import ScrollIndicator from '../../components/scrollIndicator';
@@ -84,12 +85,15 @@ export default function MainMap() {
                     {routeClicked && (
                         <>
                             <div className={styles.exploreBox}>
-                                <p>
-                                    Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya
-                                    <span class="material-symbols-outlined">
+                                <h2 className='header-3'>
+                                Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →
+                                    
+                            
+                                    {/* <span class="material-symbols-outlined">
                                         trending_flat
-                                    </span>
-                                </p>
+                                    </span> */}
+                                    
+                                </h2>
                             </div>
                         </>
                     )}
