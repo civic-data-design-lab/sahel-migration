@@ -268,7 +268,7 @@ export default function stylesObject(activeSource) {
                 ""
             ],
             "text-font": [
-                "Overpass ExtraBold",
+                "Inter Bold",
                 "Arial Unicode MS Regular"
             ],
 
@@ -301,7 +301,7 @@ export default function stylesObject(activeSource) {
                 ""
             ],
             "text-font": [
-                "Overpass ExtraBold",
+                "Inter Bold",
                 "Arial Unicode MS Regular"
             ],
             "text-size": 18
