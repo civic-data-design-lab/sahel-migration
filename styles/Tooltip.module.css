@@ -7,7 +7,6 @@
     border-radius: 0.5rem;
     text-align: left;
     font-size: 0.1rem;
-    backdrop-filter: blur(3px);
 }
 
 .bar {
@@ -28,6 +27,12 @@
     font-weight: 600;
 }
 
+/* font for route tooltip subtitle */
+.vignetteName {
+    font-size: 0.75rem;
+    font-weight: 400;
+    font-family: var(--primary-font-fam);
+}
 
 .infoBox {
     padding: 0 var(--paddingFactor);
@@ -39,7 +44,7 @@
 
 .infoBox h4 {
     font-weight: var(--weight);
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 

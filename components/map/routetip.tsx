@@ -27,18 +27,19 @@ export default function Routetip({ hoverInfo }) {
         >
             <div className={styles.tooltip}>
                 <div className={styles.city}>
-                    <h5 className={styles.subtitle}>{vignetteNames[hoverInfo.routeId - 1]}</h5>
+                    <h5 className={styles.vignetteName}>{vignetteNames[hoverInfo.routeId - 1]}</h5>
                     <div
                         style={{
                             width: '100%',
                             borderBottom: '1px solid #A3A3A3',
+                            marginBottom: '0.5rem'
 
                         }}
                     ></div>
 
                     <div style={{
                         display: 'flex',
-                        gap: '0.2rem',
+                        gap: '0rem',
                         flexDirection: 'column'
                     }}>
                         <InfoBox
@@ -88,21 +89,21 @@ function InfoBox({ left, text, region, small, bold, align, squeeze }) {
             style={{
 
                 ['--alignment' as any]: align || 'flex-start',
-                ['--paddingFactor' as any]: squeeze ? '1rem' : '0.5rem'
+                ['--paddingFactor' as any]: squeeze ? '1rem' : '0rem'
             }}>
             {left &&
                 (<h4
                     style={{
-                        ['--weight' as any]: bold ? '620' : 'initial',
-                        fontSize: small ? "1rem" : "1.5rem"
+                        ['--weight' as any]: bold ? '600' : 'initial',
+                        fontSize: small ? "0.75rem" : "1rem"
                     }}
                 >{left}</h4>)}
             <p
                 style={{
-                    fontSize: small ? "1rem" : "1.5rem",
-                    fontWeight: bold ? '620' : 'initial',
+                    fontSize: small ? "0.75rem" : "1rem",
+                    fontWeight: bold ? '600' : 'initial',
                 }}
-            >{text} <span style={{ fontWeight: '620' }}>{region}</span> </p>
+            >{text} <span style={{ fontWeight: '600' }}>{region}</span> </p>
         </div>
     )
 }
