@@ -39,7 +39,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
         }}
             longitude={hoverInfo.longitude}
             latitude={hoverInfo.latitude}
-            offset={[175, -175]}
+            offset={[150, -150]}
             anchor="center"
             closeButton={false}
             className="county-info"

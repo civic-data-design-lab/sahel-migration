@@ -34,7 +34,7 @@ export default function CityTip({ hoverInfo, data }) {
         }}
             longitude={hoverInfo.longitude}
             latitude={hoverInfo.latitude}
-            offset={[0, -150]}
+            offset={[150, -75]}
             anchor={'center'}
             closeButton={false}
             className="county-info"
