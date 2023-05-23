@@ -44,9 +44,9 @@ function ScrollButton({ onClick, currentView }) {
             <button className={styles.scrollButton} onClick={onClick}>
                 <animated.div>
                     {exploreAvailable ? (
-                        <span class="material-symbols-outlined"> keyboard_double_arrow_up</span>
+                        <span className="material-symbols-outlined"> keyboard_double_arrow_up</span>
                     ) : (
-                        <span class="material-symbols-outlined">keyboard_double_arrow_down</span>
+                        <span className="material-symbols-outlined">keyboard_double_arrow_down</span>
                     )}
                 </animated.div>
             </button>

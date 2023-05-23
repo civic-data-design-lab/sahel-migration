@@ -385,7 +385,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     <>
       {!weightsConfirmed && (
         <button
-          class={styles.confirmWeights}
+          className={styles.confirmWeights}
           style={{
             left: `${margin.left + 190}px`,
           }}

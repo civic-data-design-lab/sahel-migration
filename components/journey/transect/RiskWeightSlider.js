@@ -6,7 +6,7 @@ import styles from '../../../styles/Slider.module.css';
 const RiskWeightSlider = ({ riskId, riskWeight, onUpdate }) => {
   return (
     <div className={styles.SliderContainer}>
-      <p class="label-weight">Risk weight factor</p>
+      <p className="label-weight">Risk weight factor</p>
       <span className={styles.progress} />
       <input
         type="range"

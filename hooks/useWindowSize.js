@@ -10,6 +10,7 @@ export default function useWindowSize() {
 
   useEffect(() => {
     function changeWindowSize() {
+      console.log('Set window height to', window.innerHeight);
       setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     }
     window.addEventListener('resize', changeWindowSize);
