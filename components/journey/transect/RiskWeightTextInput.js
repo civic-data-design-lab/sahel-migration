@@ -36,7 +36,7 @@ const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
           marginTop: '0.1rem',
         }}
       />
-      <label class='label-pct'>%</label>
+      <label className='label-pct'>%</label>
     </div>
   );
 };
