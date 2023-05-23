@@ -131,16 +131,25 @@
     position: relative;
     top: 0;
     left: 0;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-family: var(--sans-font-fam);
     font-weight: 300;
 }
 
+.caption h4 {
+    font-weight: 500;
+    margin: 0;
+}
 
-
+.caption h7 {
+    font-size: 0.7rem;
+    font-family: var(--sans-font-fam);
+    font-weight: 300;
+}
 
 .caption p {
     font-size: 1rem;
+    line-height: 1.5rem;
     /* position: absolute; */
 }
 
@@ -151,8 +160,8 @@
     justify-content: center;
     align-items: center;
     /* flex-direction: column; */
-    padding: 4rem;
-    gap: 2rem;
+    padding: 8rem;
+    gap: 2.5rem;
 }
 
 .next,
