@@ -1,5 +1,5 @@
 .legend {
-    z-index: 10;
+    z-index: 1;
     /* grid-area: 1/12/1/12; */
     grid-column-end: 13;
     display: flex;
@@ -34,8 +34,8 @@
 @media (max-width:600px) {
     .routes {
         gap: 0.01rem;
-        bottom: 0.5rem;
-        right: 0rem;
+        bottom: 1rem;
+        right: 1rem;
     }
 
     .indicators {
@@ -43,11 +43,10 @@
     }
 
     .routes h4 {
-        font-size: 0.75rem;
+        font-size: 0.6rem;
     }
 
     .legend {
         grid-area: 1/6/1/7;
-        margin: 0;
     }
 }
