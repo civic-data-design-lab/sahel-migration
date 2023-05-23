@@ -4,8 +4,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import * as d3 from 'd3';
 import useWindowSize from '../../hooks/useWindowSize';
 
-export default function Card({ svgRef, entourage, width, height, scrollRef }) {
-  const { scrollXProgress } = useScroll({ target: scrollRef });
+export default function Card({ svgRef, entourage, width, height, scrollXProgress }) {
   const [isOpen, setIsOpen] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
