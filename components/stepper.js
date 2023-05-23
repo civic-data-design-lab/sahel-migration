@@ -17,6 +17,7 @@ export default function Stepper({ totalSteps, stepNumber, journeys, reversed, is
     const isCurrent = currentStep === stepNumber ? styles.current : '';
     return (
       <div
+        key={currentStep}
         className={styles.stepContainer}
         style={{ flexDirection: reversed ? 'row-reverse' : '' }}
       >
