@@ -29,6 +29,10 @@
   .navBar {
     width: 100%;
   }
+
+  .journeyContainer {
+    display: none;
+  }
 }
 
 .menuContainer {
