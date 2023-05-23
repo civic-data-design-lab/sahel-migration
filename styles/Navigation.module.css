@@ -54,9 +54,6 @@
 }
 
 @media only screen and (max-width: 480px) {
-    .navigationBar {
-        bottom: 6%;
-    }
     .button {
         height: 3rem;
         width: 3rem;
