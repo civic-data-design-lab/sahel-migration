@@ -34,7 +34,7 @@ export default function CityTip({ hoverInfo, data }) {
         }}
             longitude={hoverInfo.longitude}
             latitude={hoverInfo.latitude}
-            offset={[0, -150]}
+            offset={[150, -75]}
             anchor={'center'}
             closeButton={false}
             className="county-info"
@@ -48,6 +48,7 @@ export default function CityTip({ hoverInfo, data }) {
                         region={selectedCity}
                         small={false}
                         bold={true}
+                        squeeze={true}
                     />
                     <InfoBox
                         percentage={null}
@@ -55,6 +56,7 @@ export default function CityTip({ hoverInfo, data }) {
                         region={originCountry}
                         small={true}
                         bold={false}
+                        squeeze={true}
                     />
 
                 </div>
@@ -84,15 +86,18 @@ function ToolTip({ hoverInfo }) {
 }
 
 
-function InfoBox({ percentage, text, region, small, bold }) {
+function InfoBox({ percentage, text, region, small, bold, squeeze }) {
     return (
-        <div className={styles.infoBox}>
+        <div className={styles.infoBox}
+        style={{
+            ['--paddingFactor' as any]: squeeze ? '1rem' : '0rem'
+        }}>
             {percentage &&
                 (<h4
                     style={{ ['--weight' as any]: bold ? 'bold' : 'initial' }}
                 >{percentage}%</h4>)}
             <p
-                style={{ ['--size' as any]: small ? '12px' : '0.875rem' }}
+                style={{ ['--size' as any]: small ? '0.65rem' : '0.75rem' }}
             >{text} <span style={{ fontWeight: 'bold' }}>{region}</span> </p>
         </div>
     )

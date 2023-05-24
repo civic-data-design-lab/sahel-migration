@@ -9,8 +9,9 @@ import { animated, useSpring } from 'react-spring';
 import useWindowSize from '../../hooks/useWindowSize';
 
 function Paragraph({ children, data, items }) {
+    const { width } = useWindowSize()
     const ref = useRef(null);
-    const threshold = data === items[items.length - 2] ? 0.75 : 1;
+    const threshold = width <= 600 ? 0.5 : 1;
     const isInView = useInView(ref, {
         amount: threshold,
     });
@@ -43,9 +44,9 @@ function ScrollButton({ onClick, currentView }) {
             <button className={styles.scrollButton} onClick={onClick}>
                 <animated.div>
                     {exploreAvailable ? (
-                        <span class="material-symbols-outlined"> keyboard_double_arrow_up</span>
+                        <span className="material-symbols-outlined"> keyboard_double_arrow_up</span>
                     ) : (
-                        <span class="material-symbols-outlined">keyboard_double_arrow_down</span>
+                        <span className="material-symbols-outlined">keyboard_double_arrow_down</span>
                     )}
                 </animated.div>
             </button>
@@ -53,7 +54,7 @@ function ScrollButton({ onClick, currentView }) {
     );
 }
 
-export default function ContentBox({ dataItems, mapToggle }) {
+export default function ContentBox({ dataItems }) {
     const contentRef = useRef(null);
     const [isOpen, toggleOpen] = useState(false);
     const [scroll, setScroll] = useState();
@@ -62,7 +63,6 @@ export default function ContentBox({ dataItems, mapToggle }) {
 
     const handleMapAnimation = () => {
         toggleOpen(!isOpen);
-        mapToggle();
     };
 
     const handleToggle = () => {

@@ -1,4 +1,4 @@
-import { useRef, useState, createContext } from 'react';
+import { useRef, useState, createContext, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/Map.module.css'
 import useWindowSize from '../../hooks/useWindowSize'
@@ -10,6 +10,8 @@ import { animated, useSpring } from "react-spring";
 import Menu from "../../components/menu";
 import MapJourney from "../../components/map/mapJouney";
 import MapLegend from '../../components/map/mapLegend'
+import { SectionContext } from '..';
+import Link from 'next/link';
 
 
 import ScrollIndicator from '../../components/scrollIndicator';
@@ -29,6 +31,8 @@ export default function MainMap() {
     const [routeClicked, setRoute] = useState(false);
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', mapFetcher);
     const { data: cities, error: citiesError } = useSWR('/api/map/citydata', mapFetcher);
+    const { currentSection, setSection } = useContext(SectionContext)
+
 
     const isActive = currentView === 'selectRoute' ? true : false;
 
@@ -38,12 +42,17 @@ export default function MainMap() {
         marginBottom: isActive && width < 480 ? '0rem' : '0',
     });
 
+    const hideMapBox = useSpring({
+        opacity: routeClicked ? 0 : 1
+    })
+
     const revealJourney = useSpring({
         zIndex: routeClicked ? 3 : -1,
     });
 
-    function hideMap() {
+    function toggleMap() {
         setRoute(!routeClicked);
+        setSection(null)
     }
 
     // console.log(sectionValue)
@@ -56,7 +65,10 @@ export default function MainMap() {
 
     return (
         <ViewContext.Provider value={viewValue}>
-            <div className={styles.gridContainer}>
+            <div
+                className={styles.gridContainer}
+                data-color={routeClicked ? 'dark' : 'light'}
+            >
                 <div
                     style={{
                         gridArea: '1/1/1/4',
@@ -65,22 +77,45 @@ export default function MainMap() {
                     <Title />
                 </div>
                 <div className={styles.boxContainer}>
-                    <div className={styles.contentBox} ref={sideBarRef}>
-                        <ContentBox scrollRef={sideBarRef} dataItems={riskItems.risks} mapToggle={hideMap} />
-                    </div>
+                    {!routeClicked && (
+                        <div className={styles.contentBox} ref={sideBarRef}>
+                            <ContentBox scrollRef={sideBarRef} dataItems={riskItems.risks} />
+                        </div>
+                    )}
+                    {routeClicked && (
+                        <>
+                            <div className={styles.exploreBox}>
+                                <h2 className='header-3'>
+                                Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →
+                                    
+                            
+                                    {/* <span class="material-symbols-outlined">
+                                        trending_flat
+                                    </span> */}
+                                    
+                                </h2>
+                            </div>
+                        </>
+                    )}
                 </div>
                 <div className={styles.mapContainer}>
                     <animated.div style={exploreRoutes} className={styles.mapHolder}>
-                        <MapBox activeSource={currentView} risks={riskItems} tipData={cities} />
+                        <MapBox activeSource={currentView} risks={riskItems} tipData={cities} toggleMap={toggleMap} />
                     </animated.div>
                 </div>
                 <MapLegend activeSource={currentView} />
                 <ScrollIndicator />
             </div>
-            {/* <MapJourney
-                explorable={routeClicked}
-                style={revealJourney}
-            /> */}
+            {
+                routeClicked && (
+
+                    <MapJourney
+                        explorable={routeClicked}
+                        style={revealJourney}
+                    />
+                )
+
+            }
         </ViewContext.Provider>
     );
 }

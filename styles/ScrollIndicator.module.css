@@ -9,3 +9,9 @@
     margin: auto auto 4vh 14vw;
     color: var(--brown);
 }
+
+@media (max-width:600px) {
+    .container {
+        margin: auto auto 1vh auto;
+    }
+}

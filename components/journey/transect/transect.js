@@ -244,18 +244,19 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   const [roots, setRoots] = useState([]);
 
   useEffect(() => {
+    if (!svgLoaded || !isOpen) {
+      console.debug('Sliders: Set roots to empty array');
+      setRoots([]);
+      return;
+    }
+
     // Make sure to unmount the old roots
-    console.log('Recreating roots');
+    console.debug('Sliders: Recreating roots');
     roots.forEach((r) => {
+      console.warn(r.root._internalRoot);
       r.root.unmount();
     });
     const newRoots = [];
-
-    if (!svgLoaded || !isOpen) {
-      console.log('Set roots to empty array');
-      setRoots(newRoots);
-      return;
-    }
 
     const svg = d3.select(svgRef.current);
 
@@ -293,10 +294,10 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     });
 
     setRoots(newRoots);
-    console.log('created roots', newRoots);
+    console.debug('Sliders: created roots', newRoots);
 
     return () => {
-      console.log('UNMOUNTING');
+      console.debug('Sliders: UNMOUNTING');
       roots.forEach((rootInfo) => {
         rootInfo.root.unmount();
       });
@@ -385,9 +386,9 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     <>
       {!weightsConfirmed && (
         <button
-          class={styles.confirmWeights}
+          className={styles.confirmWeights}
           style={{
-            left: `${margin.left + 250}px`,
+            left: `${margin.left + 190}px`,
           }}
           onClick={() => {
             drawLayers(svgRef, width, height, isOpen);

@@ -3,11 +3,10 @@
     font-family: Inter;
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 0.5rem;
+    padding: 0;
     border-radius: 0.5rem;
     text-align: left;
     font-size: 0.1rem;
-    backdrop-filter: blur(3px);
 }
 
 .bar {
@@ -18,7 +17,8 @@
 
 .header {
     width: max-content;
-    font-size: calc(--factor*1.5rem);
+    /* font-size: calc(--factor*1.5rem); */
+    font-size: 1rem;
     font-weight: 600;
 }
 
@@ -27,11 +27,18 @@
     font-weight: 600;
 }
 
+/* font for route tooltip subtitle */
+.vignetteName {
+    font-size: 0.75rem;
+    font-weight: 400;
+    font-family: var(--primary-font-fam);
+}
 
 .infoBox {
     padding: 0 var(--paddingFactor);
     display: flex;
     justify-content: var(--alignment);
+    align-items: center;
     gap: 1.5rem;
 }
 
@@ -42,10 +49,13 @@
 
 
 .infoBox p {
-    line-height: 1rem;
+    line-height: 0.95rem;
     font-size: var(--size);
     margin: 0;
-    
+}
+
+.infoBoxTitle p {
+    line-height: 0.2rem;
 }
 
 .city {

@@ -19,7 +19,13 @@ export default function DataTab({ journey }) {
   });
   const fullscreenTab = useSpring({
     opacity: isOpen ? 1 : 0.9,
-    y: isOpen ? (width < 480 ? -height * (0.9 - 0.1) : -height * (0.9 - 0.25)) : 0,
+    y: isOpen
+      ? width < 480
+        ? -height * (0.9 - 0.1)
+        : -height * (0.9 - 0.25)
+      : width < 480
+      ? -height * 0.2
+      : 0,
     config: { tension: 170, friction: 26, precision: 0.01, clamp: false },
     position: 'fixed',
     left: 0,

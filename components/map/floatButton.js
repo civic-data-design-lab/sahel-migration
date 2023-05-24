@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Head from 'next/head';
 export default function FloatButton({ type }) {
     const buttonType = {
-        zoomIn: { icon: <span class="material-symbols-outlined">add</span> },
-        zoomOut: { icon: <span class="material-symbols-outlined">remove</span> },
-        seeMore: { icon: <span class="material-symbols-outlined">more_horiz</span> },
+        zoomIn: { icon: <span className="material-symbols-outlined">add</span> },
+        zoomOut: { icon: <span className="material-symbols-outlined">remove</span> },
+        seeMore: { icon: <span className="material-symbols-outlined">more_horiz</span> },
     };
 
     return (

@@ -54,59 +54,31 @@ export default function stylesObject(activeSource) {
         }
     }
 
-    const libyaSelect = {
-        'id': 'libya-select',
-        'type': 'line',
+    const countryBorder: LineLayer = {
+        id: 'border',
+        type: 'line',
         "source-layer": 'WA_SelectedCountries2-3495m1',
-        'source': 'selected-countries',
-        'paint': {
-            'line-color': ['case',
-                ['==', ['get', 'ADM0_NAME'], 'Libya'],
-                'red',
-                'white'],
-            'line-width': ['case',
-                ['==', ['get', 'ADM0_NAME'], 'Libya'],
-                1.5,
-                0],
-        },
-    }
-
-    const countryBorderStyle = {
-        'id': 'country-outline',
-        'type': 'line',
-        "source-layer": 'WA_SelectedCountries2-3495m1',
-        'source': 'selected-countries',
-        'paint': {
-            'line-color': [
-                "match",
-                ["get", "ADM0_NAME"],
+        source: 'selected-countries',
+        paint: {
+            'line-color': "white",
+            'line-width': [
+                "case",
                 [
-                    "Benin",
-                    "Chad",
-                    "Côte d'Ivoire",
-                    "Ghana",
-                    "Mali",
-                    "Niger",
-                    "Nigeria"
+                    "match",
+                    ["get", "ADM0_NAME"],
+                    [
+                        "Libya",
+                        "Côte d'Ivoire",
+                        "Benin"
+                    ],
+                    false,
+                    true
                 ],
-                "hsl(0, 0%, 100%)",
-                "hsla(0, 0%, 100%, 0)"
-            ],
-        },
+                2,
+                0
+            ]
+        }
     };
-
-    const countryLabels = {
-        'id': 'poi-labels',
-        "source-layer": 'WA_SelectedCountries2-3495m1',
-        'source': 'selected-countries',
-        'type': 'symbol',
-        'layout': {
-            'text-field': ['get', 'ADM0_NAME'],
-            'text-font': ['Overpass Black'],
-            'text-transform': 'uppercase'
-
-        },
-    }
 
     const migrationRouteStyle: LineLayer = {
         "id": 'migration',
@@ -166,7 +138,7 @@ export default function stylesObject(activeSource) {
         "source": 'migration-routes',
         "paint": {
             'line-color': 'red',
-            'line-width': 15,
+            'line-width': 35,
             'line-opacity': 0
         }
     }
@@ -234,27 +206,6 @@ export default function stylesObject(activeSource) {
         "source-layer": 'place_label'
     }
 
-    const extremeHeatLayer: FillLayer = {
-        id: 'extreme-heat',
-        type: 'fill',
-        source: 'extreme-heat',
-        "source-layer": 'heat_vectorized-0z0yzb',
-        paint: {
-            'fill-color': [
-                "interpolate",
-                ["linear"],
-                ["get", "heat_kelvin"],
-                293.42949677,
-                "hsla(242, 92%, 51%, 0.8)",
-                304,
-                "hsla(330, 88%, 52%, 0.8)",
-                311.02666728,
-                "hsla(37, 88%, 52%, 0.8)"
-            ],
-            'fill-opacity': ['feature-state', 'opacity'],
-            "fill-opacity-transition": { duration: 3000 }
-        }
-    }
 
 
     const cityStyle = {
@@ -317,10 +268,43 @@ export default function stylesObject(activeSource) {
                 ""
             ],
             "text-font": [
-                "Overpass ExtraBold",
+                "Inter Bold",
                 "Arial Unicode MS Regular"
             ],
+            "text-size": 12,
+        }
 
+
+    }
+    const majorCountryLabel: SymbolLayer = {
+        id: 'major-labels',
+        type: 'symbol',
+        source: 'minor-countries',
+        "source-layer": 'place_label',
+        layout: {
+            "text-field": [
+                "match",
+                ["get", "name_en"],
+                [
+                    "Nigeria",
+                    "Mali",
+                    "Libya",
+                    "Ghana",
+                    "Niger",
+                    "Chad"
+                ],
+                [
+                    "coalesce",
+                    ["get", "name_en"],
+                    ["get", "name"]
+                ],
+                ""
+            ],
+            "text-font": [
+                "Inter Bold",
+                "Arial Unicode MS Regular"
+            ],
+            "text-size": 15
         }
 
 
@@ -338,11 +322,9 @@ export default function stylesObject(activeSource) {
 
     const layersObject = {
         'routeStyle': routeStyle,
-        'libyaSelect': libyaSelect,
-        'countryLabels': countryLabels,
         'countryOverlay': countryOverlay,
         'cityStyle': cityStyle,
-        'countryBorderStyle': countryBorderStyle,
+        'countryBorder': countryBorder,
         'countryLayer': countryLayer,
         'countryFill': countryFill,
         'highlightLayer': highlightLayer,
@@ -351,8 +333,8 @@ export default function stylesObject(activeSource) {
         'migrationRouteStyle': migrationRouteStyle,
         'migrationHover': migrationHover,
         'migrationBuffer': migrationBuffer,
+        'majorCountryLabel': majorCountryLabel,
         'minorCountryLabel': minorCountryLabel,
-        'extremeHeatLayer': extremeHeatLayer
     }
 
     return {

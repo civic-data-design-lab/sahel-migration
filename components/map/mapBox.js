@@ -1,16 +1,14 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import React, { useRef, useEffect, useState, useCallback, useMemo, createContext, useContext } from 'react';
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import Map, { Source, Layer } from 'react-map-gl'
 import styles from './../../styles/MapBox.module.css'
 import stylesObject from './mapStyles';
 import useWindowSize from './../../hooks/useWindowSize';
 import Tooltip from './toooltip';
-import routeObject from './routePaths'
-import { SectionContext } from './../../pages';
 import CityTip from './citytip';
-import { zoom } from 'd3';
+import RouteTip from './routetip'
+import { SectionContext } from './../../pages';
 
 
 
@@ -23,20 +21,32 @@ export const RouteContext = createContext({
     setPoint: (() => { }),
 })
 
-export default function MapBox({ activeSource, risks, tipData }) {
+export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
     const [cityInfo, setCityInfo] = useState(null);
+    const [routeInfo, setRouteInfo] = useState(null);
     const [feature, setFeature] = useState(null)
     const [point, setPoint] = useState(null)
-    const [routeClicked, toggleClick] = useState(false)
     const routeValue = { feature, point, setFeature, setPoint }
     const { layersObject, highlightLayer } = stylesObject(activeSource)
     const { currentSection, setSection } = useContext(SectionContext)
 
     const [opacity, setOpacity] = useState(0)
-    // const cityLayer = { ...layersObject["cityStyle"], paint: { "circle-opacity": opacity && 1 } }
+    const [featureOpacity, setFeatureOpacity] = useState({
+        countryBorder: 1,
+        originCities: 0,
+        transect: 0,
+
+    })
+
+    function objectMap(object, mapFn) {
+        return Object.keys(object).reduce(function (result, key) {
+            result[key] = mapFn(object[key])
+            return result
+        }, {})
+    }
 
 
     function zoomFunction(number) {
@@ -49,23 +59,28 @@ export default function MapBox({ activeSource, risks, tipData }) {
         return 0.0801143 * x + 2.72143
     }
     function latFunction(number) {
-        return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
+        // return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
+        return 20
     }
 
     function lngFunction(number) {
         const x = number / 100
-        return -0.765517 * x + 6.60345
+        return -0.727878 * x + 5.73398
+        // if (x === 900) return -3
+        // return -0.765517 * x + 6.60345
         // const exponent = -(number * 2.5 / 100 - 20)
         // return 5 - (15 / (1 + Math.E ** exponent))
     }
 
 
-    const mapRef = useRef(null)
-    const persepctive = useMemo(() => {
+    function computePerspective(width) {
         return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) }
-    }, [width])
+    }
 
-    // console.log(persepctive.lng, width)
+
+    const mapRef = useRef(null)
+    const perspective = useMemo(() => computePerspective(width), [width])
+
 
     function renderSource(activeSource, data) {
         const sourceInfo = data.sources
@@ -79,10 +94,44 @@ export default function MapBox({ activeSource, risks, tipData }) {
             </>
         )
     }
-    const onHover = useCallback(event => {
+
+    const onInfo = useCallback(event => {
         const region = event.features && event.features[0];
         setSection({
             index: region && region.properties.segement_i,
+            routeId: region && region.properties.segement_i
+        })
+
+        setRouteInfo({
+            longitude: event.lngLat.lng,
+            latitude: event.lngLat.lat,
+            risks: [
+                {
+                    name: "Reported Violence",
+                    riskLevel: 1
+                },
+                {
+                    name: "Armed Conflict",
+                    riskLevel: region && region.properties.risk_acled,
+                },
+                {
+                    name: "Food Insecurity",
+                    riskLevel: region && region.properties.risk_food,
+                },
+                {
+                    name: "Smuggler Assistance",
+                    riskLevel: region && region.properties.Risk_smugg,
+                },
+                {
+                    name: "Remoteness",
+                    riskLevel: region && region.properties.risk_remot,
+                },
+                {
+                    name: "Heat Exposure",
+                    riskLevel: region && region.properties.risk_heat,
+                },
+            ],
+            totalRisk: region && region.properties.risks_tota,
             routeId: region && region.properties.segement_i
         })
         setCityInfo({
@@ -104,6 +153,7 @@ export default function MapBox({ activeSource, risks, tipData }) {
 
     const selectedCountry = (hoverInfo && hoverInfo.countryName) || '';
     const selectedCity = (cityInfo && cityInfo.cityName) || '';
+    // const selectedRoute = (routeInfo && routeInfo.route) || '';
     const selectedSegment = (currentSection && currentSection.routeId) || '';
     const countryNames = !selectedCountry ? [] : ['Ghana', 'Mali', 'Nigeria', 'Niger', 'Chad'].filter((elem) => {
         return elem !== selectedCountry
@@ -114,34 +164,58 @@ export default function MapBox({ activeSource, risks, tipData }) {
 
 
     useEffect(() => {
+
+        const opacitySwicth = {
+            "overallRoutes": { ...objectMap(featureOpacity, () => 0), countryBorder: 1 },
+            "originCities": { ...objectMap(featureOpacity, () => 1), transect: 0 },
+            "extremeHeat": { ...objectMap(featureOpacity, () => 0), transect: 1 },
+            "null": featureOpacity,
+            "undefined": featureOpacity
+        }
+
+        setFeatureOpacity(opacitySwicth[activeSource])
+
         if (activeSource == "originCities") {
             setOpacity(1)
         }
 
         else setOpacity(0)
-    })
+        if (mapRef.current) {
+            mapRef.current.on('load', () => {
+                mapRef.current.resize()
+            })
+
+            mapRef.current.on('click', 'migration', () =>
+                toggleMap()
+            )
+        }
+
+    }, [activeSource])
     return (
         <RouteContext.Provider value={routeValue}>
             <div className={styles.mapContainer}>
                 <Map
                     initialViewState={{
-                        longitude: persepctive.lng,
-                        latitude: persepctive.lat,
-                        zoom: persepctive.zoom
+                        longitude: perspective.lng,
+                        latitude: perspective.lat,
+                        zoom: perspective.zoom
                     }}
-                    latitude={persepctive.lat}
-                    longitude={persepctive.lng}
+                    latitude={perspective.lat}
+                    longitude={perspective.lng}
                     style={{
                         width: '100%', height: '100%'
                     }}
                     attributionControl={false}
-                    interactiveLayerIds={activeSource === "originCities" ? ['migration-buffer', "hoverable", "cities"] :
-                        activeSource ? ['migration-buffer', "hoverable"] : []}
-                    zoom={persepctive.zoom}
+                    interactiveLayerIds={
+                        activeSource === "originCities" ? ["hoverable", "cities"] :
+                            activeSource === "extremeHeat" ? ["migration-buffer", "hoverable"] :
+                                activeSource ? ["hoverable"] : []}
+                    zoom={perspective.zoom}
                     mapStyle={mapStyle}
                     ref={mapRef}
                     doubleClickZoom={false}
-                    onMouseMove={onHover}
+                    onMouseMove={onInfo}
+                    // onClick={onInfo}
                     dragPan={false}
                     dragRotate={false}
                     scrollZoom={false}
@@ -158,22 +232,41 @@ export default function MapBox({ activeSource, risks, tipData }) {
                     {(selectedCountry && activeSource === 'extremeHeat') && (
                         <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
                     )}
+                    {(selectedSegment && activeSource === 'extremeHeat') && (
+                        <RouteTip hoverInfo={routeInfo} />
+                    )}
                     {renderSource(activeSource, risks)}
 
                     <Layer {...highlightLayer} filter={filter} />
                     <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
                     <Layer {...layersObject["countryLayer"]} />
-                    <Layer {...layersObject["migrationRouteStyle"]} lineJoin="round" />
-                    <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
                     <Layer {...layersObject["migrationBuffer"]} />
-                    <Layer {...layersObject["countryBorderStyle"]} />
-                    <Layer {...layersObject["minorCountryLabel"]} />
+                    {width > 600 && (<Layer {...layersObject["minorCountryLabel"]} />)}
+                    {width > 600 && (<Layer {...layersObject["majorCountryLabel"]} />)}
+                    <Layer {...layersObject["migrationRouteStyle"]}
+                        lineJoin="round"
+                        paint={{
+                            ...layersObject["migrationRouteStyle"].paint,
+                            "line-opacity": featureOpacity.transect,
+
+                        }}
+
+                    />
+                    <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
                     <Layer {...layersObject["cityStyle"]}
                         paint={{
                             ...layersObject["cityStyle"].paint,
-                            "circle-opacity": opacity,
+                            "circle-opacity": featureOpacity.originCities,
 
                         }} />
+                    <Layer {...layersObject["countryBorder"]}
+                        paint={{
+                            ...layersObject["countryBorder"].paint,
+                            "line-opacity": featureOpacity.countryBorder,
+
+                        }}
+
+                    />
 
                     {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
 

@@ -116,11 +116,11 @@
                 "id": "photos",
                 "heading": "Photos",
                 "imageUrls": [
-                    "/images/drafts/1-img01.jpeg",
-                    "/images/drafts/2-img01.png",
-                    "/images/drafts/2-img02.jpeg",
-                    "/images/drafts/4-img01.jpg",
-                    "/images/drafts/7-img01.jpeg"
+                    "/images/drafts/2-img01.jpg",
+                    "/images/drafts/2-img02.jpg",
+                    "/images/drafts/2-img03.jpg",
+                    "/images/drafts/2-img04.jpg",
+                    "/images/drafts/3-img01.jpg"
                 ]
             }
         ],

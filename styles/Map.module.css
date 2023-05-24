@@ -18,11 +18,33 @@
     height: 100vh;
     grid-template-columns: repeat(12, 1fr);
     background-image: url('../public/images/lines_blue.svg');
-    background-size: 2.5%;
     background-repeat: repeat;
-    background-color: hsl(231, 14%, 53%);
+
+    position: relative;
     /* background-color: #B0B3C3; */
     /* background-blend-mode: darken; */
+}
+
+.gridContainer[data-color=dark] {
+    background-color: hsl(231, 14%, 53%);
+    background-size: 2.5%;
+
+}
+
+.gridContainer[data-color=light] {
+    background-color: #AEB3C4;
+    background-size: 5%;
+
+}
+
+.exploreBox {
+    position: absolute;
+    top: 10%;
+    /* left: 0; */
+    padding: 1rem;
+    font-family: var(--primary-font-fam);
+    color: var(--brown);
+
 }
 
 .mapHolder {
@@ -33,22 +55,10 @@
     align-items: center;
 }
 
-@media (max-width:600px) {
 
-    .mapHolder {
-        width: 100vw;
-        align-items: flex-end;
-        height: 100vh;
-    }
-
-    .gridContainer {
-        grid-template-columns: repeat(3, 1fr);
-
-    }
-}
 
 .boxContainer {
-    height: 100vh;
+    /* height: 100vh; */
     /* width: 30vw; */
     z-index: 2;
     display: flex;
@@ -103,15 +113,13 @@
     font-size: 0.6rem;
 }
 
-@media (max-width:600px) {
+@media (max-width:900px) {
 
 
-    .mapContainer {
-        height: clamp(30%, 35vh, 40%);
-        width: 100%;
-        bottom: 0;
-        align-items: flex-end;
-        position: absolute;
+    .gridContainer {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+
     }
 
     .textContainer {
@@ -120,25 +128,24 @@
         position: relative;
         overflow-x: hidden;
     }
-}
-
-@media (max-width:600px) {
 
     .mapContainer {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        align-items: flex-end;
+        grid-area: 5/1/13/7;
     }
 
     .boxContainer {
         width: 100%;
         align-items: unset;
+        grid-area: 2/1/5/13;
     }
 
     .contentBox {
-        height: 40%;
+        height: 100%;
         position: relative;
-        margin-top: 5rem;
+    }
+
+    .exploreBox h2 {
+        font-size: 0.875rem;
+        line-height: 22.5px;
     }
 }

@@ -2,6 +2,7 @@ import { Popup } from 'react-map-gl'
 import { Stack } from 'react-bootstrap'
 import styles from './../../styles/Tooltip.module.css'
 import { v4 as uuidv4 } from 'uuid'
+import { TEMPORARY_REDIRECT_STATUS } from 'next/dist/shared/lib/constants'
 
 
 export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) {
@@ -9,7 +10,9 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
     const countryData = surveyData.find((country) => country.countryId == selectedCountry)
     const nationalMigrantCount = (countryData && countryData.migrantCount) || 0
     const totalSurveyed = 347
-    const countryText = `of all migrants surveyed in Libya come from`
+    const countryText = `of ${selectedCountry} migrants surveyed in Libya come from`
+    const countryText1 = `of ${selectedCountry} migrants surveyed in Libya come from`
+    const countryText2 = `of ${selectedCountry} migrants surveyed in Libya come from`
     const distanceText = ` km to Tripoli`
 
     function numberWithCommas(x) {
@@ -28,7 +31,6 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
         name: topCities[1] && topCities[1].city_origin || " ",
         distance: topCities[1] && topCities[1].total_dist_km.toFixed(1) || 0,
     }
-    console.log(city1)
 
 
 
@@ -40,7 +42,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
         }}
             longitude={hoverInfo.longitude}
             latitude={hoverInfo.latitude}
-            offset={[175, -175]}
+            offset={[150, -150]}
             anchor="center"
             closeButton={false}
             className="county-info"
@@ -54,7 +56,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                         region={selectedCountry}
                         small={false}
                         bold={true}
-                        squeeze={false}
+                        squeeze={TEMPORARY_REDIRECT_STATUS}
                         align={'flex-start'}
                     />
                     <div
@@ -75,7 +77,9 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                             <h5
                                 className={styles.subtitle}
                             >Top Origin Cities</h5>
-                            <InfoBox
+
+                            
+                            <InfoBoxTitle
                                 left={city1.name}
                                 text={numberWithCommas(city1.distance) + distanceText}
                                 region={''}
@@ -84,16 +88,17 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                                 squeeze={false}
                                 bold={true}
                             />
+                           
                             <InfoBox
                                 left={`${Math.floor(city1.count / nationalMigrantCount * 100)}%`}
-                                text={countryText}
-                                region={selectedCountry}
+                                text={countryText1}
+                                region={city1.name}
                                 small={false}
                                 bold={false}
                                 squeeze={true}
                                 align={'flex-start'}
                             />
-                            <InfoBox
+                            <InfoBoxTitle
                                 left={city2.name}
                                 text={numberWithCommas(city2.distance) + distanceText}
                                 region={''}
@@ -104,8 +109,8 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
                             />
                             <InfoBox
                                 left={`${Math.floor(city2.count / nationalMigrantCount * 100)}%`}
-                                text={countryText}
-                                region={selectedCountry}
+                                text={countryText2}
+                                region={city2.name}
                                 small={false}
                                 bold={false}
                                 squeeze={true}
@@ -127,16 +132,35 @@ function InfoBox({ left, text, region, small, bold, align, squeeze }) {
             style={{
 
                 ['--alignment' as any]: align || 'flex-start',
-                ['--paddingFactor' as any]: squeeze ? '1rem' : '0.5rem'
+                ['--paddingFactor' as any]: squeeze ? '1rem' : '0rem'
             }}>
             {left &&
                 (<h4
-                    style={{ ['--weight' as any]: bold ? '620' : 'initial' }}
+                    style={{ ['--weight' as any]: bold ? '600' : 'initial' }}
                 >{left}</h4>)}
             <p
-                style={{ ['--size' as any]: small ? '12px' : '0.75rem' }}
+                style={{ ['--size' as any]: small ? '0.65rem' : '0.75rem' }}
             >{text} <span style={{ fontWeight: '620' }}>{region}</span> </p>
         </div>
     )
 }
 
+function InfoBoxTitle({ left, text, region, small, bold, align, squeeze }) {
+    return (
+        <div
+            className={styles.infoBox}
+            style={{
+
+                ['--alignment' as any]: align || 'flex-start',
+                ['--paddingFactor' as any]: squeeze ? '0rem' : '0rem'
+            }}>
+            {left &&
+                (<h4
+                    style={{ ['--weight' as any]: bold ? '600' : 'initial' }}
+                >{left}</h4>)}
+            <p
+                style={{ ['--size' as any]: small ? '0.65rem' : '0.75rem' }}
+            >{text} <span style={{ fontWeight: '620' }}>{region}</span> </p>
+        </div>
+    )
+}

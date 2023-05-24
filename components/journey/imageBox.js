@@ -5,7 +5,8 @@ import Title from '../title';
 import { useState, useRef, useEffect } from 'react';
 import DescriptionTab from '../map/descriptionTab';
 import * as d3 from 'd3';
-import { motion, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import PolicyRecommendations from './policyRecommendations';
 
 function useParallax(value, distance) {
   return useTransform(value, [0, 1], [0, distance]);
@@ -14,6 +15,7 @@ function useParallax(value, distance) {
 export default function ImageBox({ journey }) {
   const { width, height } = useWindowSize();
   const ref = useRef(null);
+  const { scrollXProgress } = useScroll({ target: ref });
   const svgRef = useRef(null);
   useEffect(() => {}, []);
   const entourages = journey.entourages.map((entourage) => (
@@ -21,7 +23,7 @@ export default function ImageBox({ journey }) {
       entourage={entourage}
       key={entourage.id}
       svgRef={svgRef}
-      scrollRef={ref}
+      scrollXProgress={scrollXProgress}
       width={width}
       height={height}
     />
@@ -31,13 +33,16 @@ export default function ImageBox({ journey }) {
   };
   return (
     <>
-      <motion.div className="box" ref={ref} styles={{ position: 'relative' }}>
-        <DescriptionTab title={journey.title} body={journey.body} />
+      <motion.div className="box" ref={ref}>
+        {journey.id === 8 ? (
+          <PolicyRecommendations narrativeTexts={journey.narrativeTexts} />
+        ) : (
+          <DescriptionTab title={journey.title} body={journey.body} />
+        )}
         <object
           type="image/svg+xml"
           data={journey.imageUrl}
           style={{ position: 'relative', height: height }}
-          // className={styles.image}
           ref={svgRef}
         ></object>
         {entourages}

@@ -26,9 +26,14 @@ export default function Menu({ journeys }) {
     };
   };
 
+  const toggleTab = () => {
+
+  }
+
   const fullscreenMenu = useSpring({
-    from: { right: '-100%' },
-    right: menuOpen ? '0' : '-100%',
+    from: { opacity: 0, pointerEvents: 'none' },
+    opacity: menuOpen ? 1 : 0,
+    pointerEvents: menuOpen ? 'auto' : 'none',
   });
   const fullScreenFill = useSpring({
     opacity: menuOpen ? 1 : 0,
@@ -39,13 +44,13 @@ export default function Menu({ journeys }) {
       <span className={styles.menuContainer}>
         {!menuOpen ? (
           <button onClick={handleToggle} className={styles.menuButton}>
-            <span class="material-symbols-outlined" style={{ color: '#463c35', fontSize: '2rem' }}>
+            <span className="material-symbols-outlined" style={{ color: '#463c35', fontSize: '2rem' }}>
               menu
             </span>
           </button>
         ) : (
           <button onClick={handleToggle} className={styles.menuButton}>
-            <span class="material-symbols-outlined" style={{ color: '#463c35', fontSize: '2rem' }}>
+            <span className="material-symbols-outlined" style={{ color: '#463c35', fontSize: '2rem' }}>
               close
             </span>
           </button>
@@ -57,8 +62,9 @@ export default function Menu({ journeys }) {
           <Title className={styles.title} />
           <Container fluid className={`w-100 h-100 pt-5 pb-1 ${styles.container}`}>
             <Row className="h-100 mt-4">
+
               <Col xs="4" className="h-100 d-flex align-items-center mb-5 pb-5">
-                <div className="position-fixed mb-5 pb-5">
+                <div className="position-fixed mb-5 pb-5 stickyContainer">
                   <ul className={styles.listContainer}>
                     <li><span className={styles.routeAbout}>About</span></li>
                     <li>
@@ -67,7 +73,7 @@ export default function Menu({ journeys }) {
                       </Link>
                     </li>
                     <li>
-                      <span className={styles.route}>Journey</span>
+                      <span className={styles.route} onClick={toggleTab}>Journey</span>
                       <ul className={styles.journeyContainer}>
                         {journeys.map((journey) => (
                           <li key={journey.id} className={styles.journeyItem}>
@@ -87,11 +93,12 @@ export default function Menu({ journeys }) {
                   </ul>
                 </div>
               </Col>
+
               <Col xs="7" className="mt-5 pt-5">
                 <AboutSection title={'Risks of West African Migration'}>
                   <p className="body-5">Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022). In June and July 2021, migrants in Libya were surveyed by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana. Migrants on the Move visualizes the combined risks of migrants traveling from West Africa to Libya, along the Central Mediterranean route.</p>
                   <p className="body-5">Migrants traveling in North Africa face significant risks, often resorting to illicit means of traveling with smugglers crossing through treacherous terrain in remote areas. A variety of factors contribute to increased risk during migration, including food insecurity, lack of access to resources, heat exposure, and physical violence and abuses. In an attempt to enter Libya undetected, many migrants cross through the Tenere, a stretch within the Sahara Desert that spans hundreds of kilometers. Many migrants turn to smugglers in order to receive protection and navigation assistance during stretches of the journey, but hiring a smuggler often comes at a high cost and can also leave migrants vulnerable to bribery and extortion. Regardless of their travel means, migrants are at great risk while in transit along the Central Mediterranean route.</p>
-                  <p className="body-5">Documenting and analyzing the risks of migration is crucial to better addressing the needs of migrants. The routes of migrants originating from West Africa traveling to Libya were mapped using data provided by the International Organization for Migration (IOM). In parallel to the World Food Programme case studies that dive deeper into irregular migration in Libya and in Mali, the data visualizations shown in Migrants on the Move focus on one route from Bamako, Mali to Tripoli, Libya.</p>
+                  <p className="body-5">Documenting and analyzing the risks of irregular migration is crucial to better addressing the needs of migrants.  The routes of migrants originating from West Africa traveling to Libya were mapped using data provided by the International Organization for Migration (IOM). In parallel to the World Food Programme case studies that dive deeper into irregular migration in Libya and in Mali, the data visualizations shown in Migrants on the Move focus on one route from Bamako, Mali to Tripoli, Libya.</p>
                 </AboutSection>
                 <AboutSection title={'Policy Recommendations'}>
                   <ol>
@@ -117,33 +124,33 @@ export default function Menu({ journeys }) {
                     </li>
                   </ul>
                   <h5>Migration Risk</h5>
-                    <p className="body-5">Migrant risk analysis involved analysis of six layers: reported violence, armed conflict, food insecurity, the need for a smuggler, remoteness, and heat exposure.</p>
-                    <ul>
-                      <li>
-                        <h6>Reported Violence</h6>
-                        <p className="body-5">4Mi data on reported violence and abuses, collected by the Mixed Migration Centre. Sum of citation count by category within 50km radius of each vertex on the transect in 2021. Risk layer rescales these counts to a 0-100 scale for the transect.</p>
-                      </li>
-                      <li>
-                        <h6>Armed Conflict</h6>
-                        <p className="body-5">Armed Conflict Location Evnt Data. Sum incident count by category within 50km radius of each vertex on the transect in 2022. Risk layer rescales these counts to a 0-100 scale for the transect</p>
-                      </li>
-                      <li>
-                        <h6>Food Insecurity</h6>
-                        <p className="body-5">Cadre Harmonise IPC food secuirty data</p>
-                      </li>
-                      <li>
-                        <h6>Need for a Smuggler</h6>
-                        <p className="body-5">100: Northeast Niger within 50km of a border; 75: Northeast Niger more than 50km from a border; 50: Libya, Tunisia, Morocco, Algeria within 50km of a border;25: Libya, Tunisia, Morocco, Algeria more than 50km from a border</p>
-                      </li>
-                      <li>
-                        <h6>Remoteness</h6>
-                        <p className="body-5">Distance from nearest city in 30-minute increments. No point if not within 150 minutes of a city. Risk score of 100 if outside the 150 minute drive time, 80 if in the 120-150 minute range, 60 in the 90-120 minute range, etc.</p>
-                      </li>
-                      <li>
-                        <h6>Heat Exposure</h6>
-                        <p className="body-5">Average of daily maximium temperatures in 2022, measured in kelvin sampled at each point in areas with barren land cover.</p>
-                      </li>
-                    </ul>
+                  <p className="body-5">Migrant risk analysis involved analysis of six layers: reported violence, armed conflict, food insecurity, the need for a smuggler, remoteness, and heat exposure.</p>
+                  <ul>
+                    <li>
+                      <h6>Reported Violence</h6>
+                      <p className="body-5">4Mi data on reported violence and abuses, collected by the Mixed Migration Centre. Sum of citation count by category within 50km radius of each vertex on the transect in 2021. Risk layer rescales these counts to a 0-100 scale for the transect.</p>
+                    </li>
+                    <li>
+                      <h6>Armed Conflict</h6>
+                      <p className="body-5">Armed Conflict Location Evnt Data. Sum incident count by category within 50km radius of each vertex on the transect in 2022. Risk layer rescales these counts to a 0-100 scale for the transect</p>
+                    </li>
+                    <li>
+                      <h6>Food Insecurity</h6>
+                      <p className="body-5">Cadre Harmonise IPC food secuirty data</p>
+                    </li>
+                    <li>
+                      <h6>Need for a Smuggler</h6>
+                      <p className="body-5">100: Northeast Niger within 50km of a border; 75: Northeast Niger more than 50km from a border; 50: Libya, Tunisia, Morocco, Algeria within 50km of a border;25: Libya, Tunisia, Morocco, Algeria more than 50km from a border</p>
+                    </li>
+                    <li>
+                      <h6>Remoteness</h6>
+                      <p className="body-5">Distance from nearest city in 30-minute increments. No point if not within 150 minutes of a city. Risk score of 100 if outside the 150 minute drive time, 80 if in the 120-150 minute range, 60 in the 90-120 minute range, etc.</p>
+                    </li>
+                    <li>
+                      <h6>Heat Exposure</h6>
+                      <p className="body-5">Average of daily maximium temperatures in 2022, measured in kelvin sampled at each point in areas with barren land cover.</p>
+                    </li>
+                  </ul>
                 </AboutSection>
                 <AboutSection title={'Data Sources'}>
                   <ul>
@@ -159,8 +166,8 @@ export default function Menu({ journeys }) {
                 </AboutSection>
                 <AboutSection title={'Credits'} className='mb-5 pb-5'>
                   <h5>Civic Data Design Lab at Massachusetts Institute of Technology</h5>
-                  <p className='body-5'>Data analysis, visualization, website design and development<br/>
-                  Sarah Williams (Director), Ashley Louie (Project Manager), Enrique Casillas, John Devine, Jonathan Goh, Sebastian Ives, Namhi Kwun, Thanh Nguyen, Jariyaporn Prachasartta, Hannah Shumway, Alison Wang, Tony Xiao</p>
+                  <p className='body-5'>Data analysis, visualization, website design and development<br />
+                    Sarah Williams (Director), Ashley Louie (Project Manager), Enrique Casillas, John Devine, Jonathan Goh, Sebastian Ives, Namhi Kwun, Thanh Nguyen, Jariyaporn Prachasartta, Hannah Shumway, Alison Wang, Tony Xiao</p>
                   <h5>United Nations World Food Programme</h5>
                   <p className='body-5'>Sara Moussavi, Eleonora Corsale, Mark Wischmeyer, Federico Doehnert</p>
                   <h5>International Food Policy Research Institute</h5>
@@ -169,6 +176,7 @@ export default function Menu({ journeys }) {
                   <p className='body-5'>Thanks to the International Organization for Migration (IOM) and the Mixed Migration Centre (MMC) for sharing datasets, which are included in visualizations on this website.</p>
                 </AboutSection>
               </Col>
+
             </Row>
           </Container>
         </animated.div>

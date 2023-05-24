@@ -36,6 +36,8 @@
   font-family: var(--sans-font-fam);
   font-size: clamp(0.8rem, 2.5vw, 1.1rem);
   font-weight: 520;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
 }
 
 /* font style for header of main narrative text */
@@ -77,6 +79,7 @@
   line-height: 1.2rem;
   font-weight: initial;
 }
+
 /* font styles for about page text */
 .body-5 {
   font-family: var(--primary-font-fam);
@@ -114,6 +117,10 @@ body {
   background-image: url('../public/images/lines_blue.svg');
   background-size: 2.5%;
   background-repeat: repeat;
+}
+
+main {
+  background-color: #AFB3C4;
 }
 
 @media only screen and (max-width: 480px) {
@@ -171,7 +178,7 @@ h6 {
   font-size: 0.8rem;
 }
 
-h7 {
+.h7 {
   font-weight: normal;
   font-size: 0.8rem;
 }
@@ -187,7 +194,7 @@ a {
 
 ul {
   list-style: none;
-  color: black;
+  color: var(--brown);
 }
 
 li {
@@ -225,6 +232,9 @@ g {
   border-radius: 1rem !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
   color: #463c35;
+  padding: 1.1rem !important;
+  backdrop-filter: blur(2px);
+  
 }
 
 /* .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
@@ -232,7 +242,7 @@ g {
 } */
 
 .county-info.mapboxgl-popup.mapboxgl-popup-anchor-center {
-  max-width: 355px !important;
+  max-width: 18.5rem !important;
 }
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
@@ -248,12 +258,19 @@ g {
 }
 
 #viz-transect-layers .label-risk text,
-#viz-transect-layers #label-migrants,
-#viz-transect-layers .label-pct {
+#viz-transect-layers #label-migrants {
   font-family: var(--sans-font-fam);
   font-weight: 500;
   font-size: 0.85rem;
 }
+
+#viz-transect-layers .label-pct {
+  font-family: var(--sans-font-fam);
+  font-weight: 500;
+  font-size: 0.7rem;
+  margin-top: 0.2rem;
+}
+
 
 #viz-transect-layers .label-journey {
   font-size: 1rem;
@@ -285,6 +302,7 @@ g {
   font-family: var(--sans-font-fam);
   /* font-weight: 500; */
   font-size: 0.7rem;
+  margin-bottom: 0;
 }
 
 /* transect tooltip */
@@ -309,6 +327,8 @@ g {
 
 .transectTooltip h4 {
   margin-bottom: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .transectTooltip p.risk::before {
@@ -361,3 +381,7 @@ g {
 .transectTooltip #data-migrants {
   font-weight: 700;
 }
+
+/* .mapboxgl-ctrl-logo {
+  display: none !important;
+} */

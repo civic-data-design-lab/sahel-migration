@@ -37,7 +37,7 @@ export default function Home() {
           {/* <h1>HOME</h1> */}
           <MainMap />
           {/* <MapBox /> */}
-          {width > 600 && <JourneyNav journeys={journeys} />}
+          <JourneyNav journeys={journeys} />
         </SectionContext.Provider>
       </main>
     </>

@@ -42,7 +42,7 @@
         "entourages": [
           {
             "id": 1,
-            "body": "20 percent of migrants concerned about personal safety 14 percent of migrants had issue with shelter 18 percent of migrants affected by food insecurity .",
+            "body": "Migrants encounter several risks along their journey. 20 percent of migrants are concerned about their personal safety. 14% experience shelter-related problems. Additionally, 18% of migrants are affected food insecurity.",
             "posX": 100,
             "posY": 0,
             "scrollStart": 0,
@@ -74,7 +74,7 @@
           },
           {
             "id": 5,
-            "body": "Migrants heading to Libya through the Central Mediterranean route typically originate from the Economic Community of West African States (ECOWAS), and carry passports which allow them to pass through most country borders along the way without a visa. ",
+            "body": "Migrants heading to Libya through the Central Mediterranean route typically originate from the Economic Community of West African States (ECOWAS), and carry passports which allow them to pass through most country borders along the way without a visa.",
             "posX": 0,
             "posY": 0,
             "scrollStart": 0.75,
@@ -124,7 +124,7 @@
         "entourages": [
           {
             "id": 1,
-            "body": "pickup trucks with ~25 passengers on the back (migrants from West Africa and short-time laborers from Niger). Migrants wrap their heads in turbans for sun protection and brace themselves with stick to keep from falling out of the truck.",
+            "body": "Pickup trucks with ~25 passengers on the back (migrants from West Africa and short-time laborers from Niger). Migrants wrap their heads in turbans for sun protection and brace themselves with stick to keep from falling out of the truck.",
             "posX": 200,
             "posY": 0,
             "scrollStart": 0,
@@ -222,7 +222,7 @@
         "entourages": [
           {
             "id": 1,
-            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "body": "Migrants see Sabha as a transitory stop, rather than a place to settle. 10 percent of migrants residing in Sabha consider it to be their final destination.",
             "posX": 100,
             "posY": 200,
             "scrollStart": 0,
@@ -230,7 +230,7 @@
           },
           {
             "id": 2,
-            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "body": "Unrest in southern Libya poses particular danger to migrants in Sabha. The risks migrants in Sabha most commonly face are personal safety (35%), low income (33%), and violence/conflict (22%)",
             "posX": 50,
             "posY": 0,
             "scrollStart": 0.25,
@@ -238,7 +238,7 @@
           },
           {
             "id": 3,
-            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "body": "Migrants often change hands in or near Sabha from southern-Libyan ethnic groups to Arab smugglers. During this transition, smugglers may keep migrants in hidden compounds while they arrange for smugglers to take them to a coastal city, and some reportedly lure migrants into trafficking where they are sold as slaves.",
             "posX": 100,
             "posY": 50,
             "scrollStart": 0.5,
@@ -246,7 +246,7 @@
           },
           {
             "id": 4,
-            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "body": "Some migrants make a ‘voluntary return’ to their country of origin, are deported, or choose to leave Libya because of poor living conditions. As a result, migrants may be left stranded in the Sahara, and at urban transit stops on the route, or return to their country of origin with little access to resources",
             "posX": 100,
             "posY": 0,
             "scrollStart": 0.75,
@@ -271,7 +271,7 @@
           },
           {
             "id": 2,
-            "body": "As a place of resettlement, economic conditions take greater importance in Tripoli. The risks migrants in Tripoli most commonly face are low income (66%), lack of employment (60%), and food insecurity (22%)",
+            "body": "As a place of resettlement, economic conditions take greater importance in Tripoli. The risks migrants in Tripoli most commonly face are low income (66%), lack of employment (60%), and food insecurity (22%).",
             "posX": 200,
             "posY": 50,
             "scrollStart": 0.25,
@@ -300,6 +300,22 @@
         "route": "current-conditions-libya",
         "title": "Current Conditions in Libya",
         "body": "Migrants in Libya experience a range of outcomes. Some leave the country by embarking to Europe or through deportation, while others may stay to work. Each pathway exposes migrants to a different set of risks.",
+        "narrativeTexts": [
+          {
+            "title": "Policy Recommendation 1",
+            "body": "Since the main push factor for migrants to leave their countries of origin is economic wage differentials, WFP should focus efforts on building economic opportunities at the country of origin. Such efforts could include employment generation programmes in partnership with national governments, training opportunities in the technology sector, or engagement in rural food systems programmes."
+          }
+          ,
+          {
+            "title": "Policy Recommendation 2",
+            "body": "Many migrants send remittances through risky or costly informal channels--lacking formal bank accounts. Improving digital banking access for migrants residing in Libya will reduce their financial vulnerability."
+          },
+          {
+            "title": "Policy Recommendation 3",
+            "body": "In locations where migrants settle or use as protracted transit sites, WFP and partners should address food insecurity and other humanitarian requirements through existing social protection systems, also considering the needs of the host population to avoid potential tensions."
+          }
+
+        ],
         "imageUrl": "/images/journeys/8-Current Migrant Condition in Libya.svg",
         "entourages": []
       }
