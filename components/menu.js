@@ -175,6 +175,23 @@ export default function Menu({ journeys }) {
                   <h5>Acknowledgements</h5>
                   <p className='body-5'>Thanks to the International Organization for Migration (IOM) and the Mixed Migration Centre (MMC) for sharing datasets, which are included in visualizations on this website.</p>
                 </AboutSection>
+
+
+
+
+                <div className={styles.logoContainerLg}>
+                  <img src='/images/logos/MIT_CDDL_cobrand-01.png' alt='mit-cddl-logo'></img>
+                  <img src='/images/logos/WFPnewlogo_english_standard_BLUE_RGB.png' alt='wfp-logo'></img>
+                  <img src='/images/logos/IFPRI_Logo_Horizontal.png' alt='ifpri-logo'></img>
+                </div>
+
+                <div className={styles.logoContainerSm}>
+                  <img src='/images/logos/MMC_logo.png' alt='mmc-logo'></img>
+                  <img src='/images/logos/IOM_logo.png' alt='iom-logo'></img>
+                </div>
+                
+
+
               </Col>
 
             </Row>

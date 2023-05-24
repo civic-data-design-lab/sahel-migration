@@ -159,3 +159,27 @@
   text-decoration: none;
   color: var(--brown);
 }
+
+.logoContainerLg {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 5vh;
+}
+
+.logoContainerLg img{
+  margin-right: 0.5rem;
+  height: clamp(20px, 6.8vh, 60px);
+}
+
+.logoContainerSm {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 3vh 0 5vh 0;
+}
+
+.logoContainerSm img{
+  margin-right: 1rem;
+  height: clamp(15px, 3.2vh, 40px);
+}
