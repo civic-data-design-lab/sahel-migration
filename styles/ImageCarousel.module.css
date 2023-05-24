@@ -141,7 +141,7 @@
     margin: 0;
 }
 
-.caption h7 {
+.caption .h7 {
     font-size: 0.7rem;
     font-family: var(--sans-font-fam);
     font-weight: 300;
