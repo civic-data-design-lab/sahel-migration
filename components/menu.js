@@ -67,11 +67,16 @@ export default function Menu({ journeys }) {
                 <div className="position-fixed mb-5 pb-5 stickyContainer">
                   <ul className={styles.listContainer}>
                     <li><span className={styles.routeAbout}>About</span></li>
+
                     <li>
-                      <Link className={styles.route} onClick={handleRouting('/')} href="/">
-                        Map
-                      </Link>
+                    <span className={styles.route} onClick={toggleTab}>Map</span>
+                    <ul className={styles.journeyContainer}>
+                          <li className={styles.journeyItem}>
+                          <Link className={styles.routeJourney} onClick={handleRouting('/')} href="/">Place of Origin</Link>
+                          </li>
+                    </ul>
                     </li>
+
                     <li>
                       <span className={styles.route} onClick={toggleTab}>Journey</span>
                       <ul className={styles.journeyContainer}>
@@ -190,7 +195,6 @@ export default function Menu({ journeys }) {
                   <img src='/images/logos/IOM_logo.png' alt='iom-logo'></img>
                 </div>
                 
-
 
               </Col>
 
