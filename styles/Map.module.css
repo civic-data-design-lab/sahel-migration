@@ -37,15 +37,22 @@
 
 }
 
-.exploreBox {
+.exploreBox{
     position: absolute;
     top: 10%;
     /* left: 0; */
     padding: 1rem;
     font-family: var(--primary-font-fam);
     color: var(--brown);
-
 }
+
+.exploreBox > a {
+    color: var(--brown);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: clamp(1rem, 1.25vw, 1.5rem);
+}
+
 
 .mapHolder {
     width: 100vw;
@@ -144,8 +151,8 @@
         position: relative;
     }
 
-    .exploreBox h2 {
-        font-size: 0.875rem;
-        line-height: 22.5px;
-    }
+    /* .exploreBox {
+        top: 15%;
+    } */
+
 }

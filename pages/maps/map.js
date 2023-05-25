@@ -49,6 +49,7 @@ export default function MainMap() {
     const revealJourney = useSpring({
         zIndex: routeClicked ? 3 : -1,
     });
+    
 
     function toggleMap() {
         setRoute(!routeClicked);
@@ -85,15 +86,17 @@ export default function MainMap() {
                     {routeClicked && (
                         <>
                             <div className={styles.exploreBox}>
-                                <h2 className='header-3'>
-                                Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →
+                                
+                                    <a href={'/journeys/2'}
+                                    >
+                                        Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →
+                                    </a>
                                     
-                            
                                     {/* <span class="material-symbols-outlined">
                                         trending_flat
                                     </span> */}
                                     
-                                </h2>
+                                
                             </div>
                         </>
                     )}
