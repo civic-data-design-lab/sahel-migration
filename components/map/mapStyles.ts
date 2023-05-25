@@ -271,7 +271,7 @@ export default function stylesObject(activeSource) {
                 "Inter Bold",
                 "Arial Unicode MS Regular"
             ],
-            "text-size": 12,
+            "text-size": 14,
         }
 
 
@@ -304,7 +304,7 @@ export default function stylesObject(activeSource) {
                 "Inter Bold",
                 "Arial Unicode MS Regular"
             ],
-            "text-size": 15
+            "text-size": 14,
         }
 
 
