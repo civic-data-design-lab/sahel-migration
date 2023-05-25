@@ -64,3 +64,10 @@
     font-size: 0.1rem;
     gap: 0.25rem;
 }
+
+
+@media only screen and (max-width: 480px) {
+    .tooltip {
+        display: none;
+    }
+}
