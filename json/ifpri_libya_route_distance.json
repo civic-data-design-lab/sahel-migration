@@ -49,7 +49,7 @@
             "total_dist_km": 4318.844
         },
         {
-            "country_origin": "Guine",
+            "country_origin": "Gunin&Eacute;-Bissau",
             "city_origin": "Gabu",
             "city_origin_lat": 12.2833004,
             "city_origin_lon": -14.2166996,
@@ -361,7 +361,7 @@
             "total_dist_km": 3805.061
         },
         {
-            "country_origin": "Sierr",
+            "country_origin": "Sierra Leone",
             "city_origin": "Freetown",
             "city_origin_lat": 8.483300209,
             "city_origin_lon": -13.23309994,
@@ -393,7 +393,7 @@
             "total_dist_km": 4330.484
         },
         {
-            "country_origin": "Burkin",
+            "country_origin": "Burkina Faso",
             "city_origin": "Ouagadougou",
             "city_origin_lat": 12.35719967,
             "city_origin_lon": -1.535300016,
@@ -401,7 +401,7 @@
             "total_dist_km": 4209.926
         },
         {
-            "country_origin": "Burkin",
+            "country_origin": "Burkina Faso",
             "city_origin": "Banfora",
             "city_origin_lat": 10.63080025,
             "city_origin_lon": -4.758900166,
@@ -409,7 +409,7 @@
             "total_dist_km": 4809.589
         },
         {
-            "country_origin": "Burkin",
+            "country_origin": "Burkina Faso",
             "city_origin": "Bobo-Dioulasso",
             "city_origin_lat": 11.18330002,
             "city_origin_lon": -4.283299923,
@@ -417,7 +417,7 @@
             "total_dist_km": 4536.87
         },
         {
-            "country_origin": "Burkin",
+            "country_origin": "Burkina Faso",
             "city_origin": "Bogande",
             "city_origin_lat": 12.96899986,
             "city_origin_lon": -0.137999997,
@@ -521,7 +521,7 @@
             "total_dist_km": 4393.946
         },
         {
-            "country_origin": "C\u00f4t",
+            "country_origin": "C\u00f4te d'Ivoire",
             "city_origin": "Man",
             "city_origin_lat": 7.400400162,
             "city_origin_lon": -7.550000191,
@@ -529,7 +529,7 @@
             "total_dist_km": 5323.158
         },
         {
-            "country_origin": "C\u00f4t",
+            "country_origin": "C\u00f4te d'Ivoire",
             "city_origin": "Yamoussoukro",
             "city_origin_lat": 6.816100121,
             "city_origin_lon": -5.274199963,
@@ -537,7 +537,7 @@
             "total_dist_km": 4810.406
         },
         {
-            "country_origin": "C\u00f4t",
+            "country_origin": "C\u00f4te d'Ivoire",
             "city_origin": "Abidjan",
             "city_origin_lat": 5.336400032,
             "city_origin_lon": -4.02670002,
@@ -545,7 +545,7 @@
             "total_dist_km": 6139.499
         },
         {
-            "country_origin": "C\u00f4t",
+            "country_origin": "C\u00f4te d'Ivoire",
             "city_origin": "Bouake",
             "city_origin_lat": 7.683300018,
             "city_origin_lon": -5.033100128,
