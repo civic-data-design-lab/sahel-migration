@@ -185,14 +185,15 @@ export default function Menu({ journeys }) {
 
 
                 <div className={styles.logoContainerLg}>
-                  <img src='/images/logos/MIT_CDDL_cobrand-01.png' alt='mit-cddl-logo'></img>
-                  <img src='/images/logos/WFPnewlogo_english_standard_BLUE_RGB.png' alt='wfp-logo'></img>
-                  <img src='/images/logos/IFPRI_Logo_Horizontal.png' alt='ifpri-logo'></img>
+                  <a href='https://civicdatadesignlab.mit.edu/' target='_blank'><img src='/images/logos/MIT_CDDL_cobrand-01.png' alt='mit-cddl-logo'></img></a>
+
+                  <a href='https://www.wfp.org/' target='_blank'><img src='/images/logos/WFPnewlogo_english_standard_BLUE_RGB.png' alt='wfp-logo'></img></a>
+                  <a href='https://www.ifpri.org/' target='_blank'><img src='/images/logos/IFPRI_Logo_Horizontal.png' alt='ifpri-logo'></img></a>
                 </div>
 
                 <div className={styles.logoContainerSm}>
-                  <img src='/images/logos/MMC_logo.png' alt='mmc-logo'></img>
-                  <img src='/images/logos/IOM_logo.png' alt='iom-logo'></img>
+                  <a href='https://mixedmigration.org/' target='_blank'><img src='/images/logos/MMC_logo.png' alt='mmc-logo'></img></a>
+                  <a href='https://www.iom.int/' target='_blank'><img src='/images/logos/IOM_logo.png' alt='iom-logo'></img></a>
                 </div>
                 
 
