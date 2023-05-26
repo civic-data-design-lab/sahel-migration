@@ -345,11 +345,11 @@ g {
 }
 
 .transectTooltip p.risk-food::before {
-  background: #985946;
+  background: #9A735A;
 }
 
 .transectTooltip p.risk-acled::before {
-  background: #9A735A;
+  background: #985946;
 }
 
 .transectTooltip p.risk-smuggler::before {
