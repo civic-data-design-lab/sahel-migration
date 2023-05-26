@@ -35,7 +35,6 @@
 }
 
 .infoBox {
-    padding: 0 var(--paddingFactor);
     display: flex;
     justify-content: var(--alignment);
     align-items: center;
@@ -47,8 +46,8 @@
     font-size: 1rem;
 }
 
-
-.infoBox p {
+.infoBox p,
+.nigerTooltip p {
     line-height: 0.95rem;
     font-size: var(--size);
     margin: 0;
@@ -65,6 +64,11 @@
     gap: 0.25rem;
 }
 
+.tooltip hr {
+  /* width: '100%'; */
+  border-bottom: '1px solid #A3A3A3';
+  margin: '0.5rem 0';
+}
 
 @media only screen and (max-width: 480px) {
     .tooltip {

@@ -111,7 +111,7 @@ export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
                     riskLevel: 1
                 },
                 {
-                    name: "Armed Conflict",
+                    name: "Conflict Events",
                     riskLevel: region && region.properties.risk_acled,
                 },
                 {

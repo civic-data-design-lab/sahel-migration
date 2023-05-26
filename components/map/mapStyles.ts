@@ -272,9 +272,10 @@ export default function stylesObject(activeSource) {
                 "Arial Unicode MS Regular"
             ],
             "text-size": 14,
+        },
+        paint: {
+          'text-color': '#463C35'
         }
-
-
     }
     const majorCountryLabel: SymbolLayer = {
         id: 'major-labels',
@@ -305,9 +306,10 @@ export default function stylesObject(activeSource) {
                 "Arial Unicode MS Regular"
             ],
             "text-size": 14,
+        },
+        paint: {
+          'text-color': '#463C35'
         }
-
-
     }
 
 
