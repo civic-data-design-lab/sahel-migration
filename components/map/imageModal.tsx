@@ -137,7 +137,7 @@ export const SlideShow = ({ images, currentIndex }: any) => {
 
             <div>
               <div><h4>Scene Name</h4></div>
-              <div>Location: City, Country</div>
+              <div><h5>Location: City, Country</h5></div>
             </div>
             
 
