@@ -121,7 +121,7 @@
    "scene": "Crossing the Sahara Desert",
    "img_src": "4-img03.jpg",
    "img_caption": "Migrants sit on the open cargo of pick-up trucks, holding wooden sticks tied to the vehicle to avoid falling from it, as they leave the outskirts of Agadez for Libya.",
-   "img_credit": "AFP PHOTO / ISSOUF SANOGO",
+   "img_credit": "ISSOUF SANOGO/AFP via Getty Images",
    "img_location": "Agadez, Libya",
    "img_date": "1 June 2015"
  },
@@ -161,24 +161,7 @@
    "img_location": "Sabha, Libya",
    "img_date": "6 February 2019"
  },
- {
-   "img_id": "7-img01",
-   "scene": "Reaching Tripoli",
-   "img_src": "7-img01.jpg",
-   "img_caption": "Al-Sina'aih, the Industrial Zone of Benghazi, serves as the only social gathering spot in the area where many sub-Saharan migrant workers live. Three workers gather at the entrance of a cafe to exchange information about their friends. Since the revolution began, African workers have been hiding, with some being attacked, beaten, and robbed in their own homes.",
-   "img_credit": "© UNHCR/Frederic Noy",
-   "img_location": "Benghazi, Libya",
-   "img_date": "6 March 2011"
- },
- {
-   "img_id": "7-img02",
-   "scene": "Reaching Tripoli",
-   "img_src": "7-img02.jpg",
-   "img_caption": "Clothes hanging on a wire in the common room of a house where a dozen Nigerian migrant workers reside.",
-   "img_credit": "© UNHCR/Frederic Noy",
-   "img_location": "Benghazi, Libya",
-   "img_date": "6 March 2011"
- },
+ 
  {
    "img_id": "7-img03",
    "scene": "Reaching Tripoli",
