@@ -67,12 +67,12 @@ export default function MapJourney({ explorable }) {
             map.current.setProjection('globe');
             setTimeout(() => {
                 map.current.flyTo({
-                    center: [10, 21],
-                    zoom: 4.35,
+                    center: [4.998172, 20.506743],
+                    zoom: 4.85,
                     speed: 0.5,
                     curve: 1,
-                    pitch: 60,
-                    bearing: -40.2,
+                    pitch: 50,
+                    bearing: -48,
                     easing(t) {
                         return t;
                     },

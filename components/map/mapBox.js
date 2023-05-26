@@ -119,7 +119,7 @@ export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
                     riskLevel: region && region.properties.risk_food,
                 },
                 {
-                    name: "Smuggler Assistance",
+                    name: "Reliance on Smugglers",
                     riskLevel: region && region.properties.Risk_smugg,
                 },
                 {
