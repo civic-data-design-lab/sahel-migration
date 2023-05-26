@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl';
 import styles from '../../styles/MapJourney.module.css';
 import stylesObject from './mapStyles';

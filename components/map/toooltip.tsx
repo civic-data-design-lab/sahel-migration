@@ -49,21 +49,21 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
     }
 
     // TO-DO CREATE USE EFFECT TO RE-RENDER TOOLTIP MOUSE POSITION TO TEXT DOES NOT CUT OFF
-    const [mousePos, setMousePos] = useState({});
-    useEffect(() => {
-      const handleMouseMove = (event) => setMousePos({
-        x: event.clientX, 
-        y: event.clientY
-      });
+    // const [mousePos, setMousePos] = useState({});
+    // useEffect(() => {
+    //   const handleMouseMove = (event) => setMousePos({
+    //     x: event.clientX, 
+    //     y: event.clientY
+    //   });
 
-      window.addEventListener("mousemove", handleMouseMove);
+    //   window.addEventListener("mousemove", handleMouseMove);
       
-      return () => {
-        window.removeEventListener("mousemove", handleMouseMove)
-      }
-    }, []);
-    const winWidth = window.innerWidth;
-    const winHeight = window.innerHeight;
+    //   return () => {
+    //     window.removeEventListener("mousemove", handleMouseMove)
+    //   }
+    // }, []);
+    // const winWidth = window.innerWidth;
+    // const winHeight = window.innerHeight;
 
     // testing for tooltip mouse position - delete if not needed
     // let offsetX = 150;
