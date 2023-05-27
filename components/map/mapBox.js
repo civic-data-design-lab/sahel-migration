@@ -252,13 +252,6 @@ export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
                         }}
 
                     />
-                    <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
-                    <Layer {...layersObject["cityStyle"]}
-                        paint={{
-                            ...layersObject["cityStyle"].paint,
-                            "circle-opacity": featureOpacity.originCities,
-
-                        }} />
                     <Layer {...layersObject["countryBorder"]}
                         paint={{
                             ...layersObject["countryBorder"].paint,
@@ -267,6 +260,13 @@ export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
                         }}
 
                     />
+                    <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
+                    <Layer {...layersObject["cityStyle"]}
+                        paint={{
+                            ...layersObject["cityStyle"].paint,
+                            "circle-opacity": featureOpacity.originCities,
+
+                        }} />
 
                     {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
 
