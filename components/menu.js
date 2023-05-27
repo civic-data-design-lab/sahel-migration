@@ -10,8 +10,11 @@ import { index } from 'd3';
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Title from '../components/title';
+import useWindowSize from '../hooks/useWindowSize';
 
 export default function Menu({ journeys }) {
+  const { width, height } = useWindowSize();
+
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleToggle = () => {
@@ -66,7 +69,7 @@ export default function Menu({ journeys }) {
           <Title className={styles.title} />
           <Container fluid className={`w-100 h-100 pt-5 pb-1 ${styles.container}`}>
             <Row className="h-100 mt-4">
-              <Col xs="4" className="h-100 d-flex align-items-center mb-5 pb-5">
+              <Col xs={width > 480 ? 4 : 3} className="h-100 d-flex pt-5 mt-5 mb-5 pb-5">
                 <div className="position-fixed mb-5 pb-5 stickyContainer">
                   <ul className={styles.listContainer}>
                     <li>
@@ -114,7 +117,7 @@ export default function Menu({ journeys }) {
                 </div>
               </Col>
 
-              <Col xs="7" className="mt-5 pt-5">
+              <Col xs={width > 480 ? 7 : 9} className="pt-5 pb-5">
                 <AboutSection title={'Risks of West African Migration'}>
                   <p className="body-5">
                     Thousands of migrants risk their lives each year to travel from West Africa to
@@ -320,7 +323,7 @@ export default function Menu({ journeys }) {
                   </p>
                 </AboutSection>
 
-                <div className={styles.logoContainerLg}>
+                <div className={styles.logoContainer}>
                   <a
                     href="https://civicdatadesignlab.mit.edu/"
                     target="_blank"
@@ -340,7 +343,7 @@ export default function Menu({ journeys }) {
                   </a>
                 </div>
 
-                <div className={styles.logoContainerSm}>
+                <div className={styles.logoContainer}>
                   <a href="https://mixedmigration.org/" target="_blank" rel="noreferrer noopener">
                     <img src="/images/logos/MMC_logo.png" alt="mmc-logo"></img>
                   </a>
