@@ -27,6 +27,7 @@ export default function Menu({ journeys }) {
       handleToggle();
       e.preventDefault();
       await router.push(href);
+      setSelected(null);
     };
   };
 
