@@ -14,7 +14,7 @@ export default function ScrollIndicator() {
   return (
     <div className={styles.container}>
       <motion.span
-        class="material-symbols-outlined"
+        className="material-symbols-outlined"
       // transition={bounceTransition}
       // animate={{
       //   y: ['50%', '-50%', '0%', '0%'],
