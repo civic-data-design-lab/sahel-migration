@@ -226,7 +226,7 @@ export default function stylesObject(activeSource) {
                 DOT_COLOR_SCALE.bold
             ],
             "circle-opacity-transition": {
-                duration: 2000
+                duration: 750
             },
 
             'circle-radius': [
