@@ -17,11 +17,13 @@ export const SectionContext = createContext({
   setSection: () => { },
 });
 
+
 export default function Home() {
   const journeys = useAppContext();
   const [currentSection, setSection] = useState(null);
   const sectionValue = { currentSection, setSection };
   const { width } = useWindowSize();
+
   return (
     <>
       <Head>
@@ -31,11 +33,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main
+      >
         <SectionContext.Provider value={sectionValue}>
           <Menu journeys={journeys} />
           {/* <h1>HOME</h1> */}
-          <MainMap />
+          <MainMap journeys={journeys} />
           {/* <MapBox /> */}
           <JourneyNav journeys={journeys} />
         </SectionContext.Provider>
