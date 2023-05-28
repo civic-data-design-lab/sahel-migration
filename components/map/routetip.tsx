@@ -8,78 +8,82 @@ export default function Routetip({ hoverInfo }) {
     const vignetteNames = ["Beginning the Journey", "Passing Through Agadez", "Crossing the Sahara Desert", "Entering Libya", "Passing Through Sabha", "Reaching Tripoli", "Current Conditions in Libya"]
     const round = (num: number) => Math.round(num)
 
-    console.log(hoverInfo)
+
 
 
 
     return (
-        <Popup style={{
-            maxWidth: '400px',
-            display: 'flex',
-            flexDirection: 'column-reverse',
-        }}
-            longitude={hoverInfo.longitude}
-            latitude={hoverInfo.latitude}
-            offset={[0, 175]}
-            anchor="center"
-            closeButton={false}
-            className="county-info"
-        >
-            <div className={styles.tooltip}>
-                <div className={styles.city}>
-                    <h5 className={styles.vignetteName}>{vignetteNames[hoverInfo.routeId - 1]}</h5>
-                    <div
-                        style={{
-                            width: '100%',
-                            borderBottom: '1px solid #A3A3A3',
-                            marginBottom: '0.5rem'
+        (hoverInfo && (
 
-                        }}
-                    ></div>
+            <Popup style={{
+                maxWidth: '400px',
+                display: 'flex',
+                flexDirection: 'column-reverse',
+            }}
+                longitude={hoverInfo.longitude}
+                latitude={hoverInfo.latitude}
+                offset={[0, 175]}
+                anchor="center"
+                closeButton={false}
+                className="county-info"
+            >
+                <div className={styles.tooltip}>
+                    <div className={styles.city}>
+                        <h5 className={styles.vignetteName}>{vignetteNames[hoverInfo.routeId - 1]}</h5>
+                        <div
+                            style={{
+                                width: '100%',
+                                borderBottom: '1px solid #A3A3A3',
+                                marginBottom: '0.5rem'
 
-                    <div style={{
-                        display: 'flex',
-                        gap: '0rem',
-                        flexDirection: 'column'
-                    }}>
-                        <InfoBox
-                            left={`Migration Risk`}
-                            text={round(hoverInfo.totalRisk)}
-                            region={""}
-                            small={false}
-                            bold={true}
-                            squeeze={false}
-                            align={'space-between'}
-                        />
+                            }}
+                        ></div>
 
-                        {hoverInfo.risks.map((risk) => {
-                            let stat = risk && risk.riskLevel
-                            const name = risk && risk.name
-                            if (name === "Reported Violence") {
-                                stat = round(hoverInfo.totalRisk - hoverInfo.risks.
-                                    filter((r) => r.name !== "Reported Violence").
-                                    map((r) => r.riskLevel).
-                                    reduce((a, b) => a + b, 0))
-                            }
-                            return (
-                                <InfoBox
-                                    key={risk.name}
-                                    left={name}
-                                    text={round(stat)}
-                                    region={''}
-                                    align={'space-between'}
-                                    small={true}
-                                    squeeze={false}
-                                    bold={false}
-                                />
-                            )
-                        })}
+                        <div style={{
+                            display: 'flex',
+                            gap: '0rem',
+                            flexDirection: 'column'
+                        }}>
+                            <InfoBox
+                                left={`Migration Risk`}
+                                text={round(hoverInfo.totalRisk)}
+                                region={""}
+                                small={false}
+                                bold={true}
+                                squeeze={false}
+                                align={'space-between'}
+                            />
 
+                            {hoverInfo.risks.map((risk) => {
+                                let stat = risk && risk.riskLevel
+                                const name = risk && risk.name
+                                if (name === "Reported Violence") {
+                                    stat = round(hoverInfo.totalRisk - hoverInfo.risks.
+                                        filter((r) => r.name !== "Reported Violence").
+                                        map((r) => r.riskLevel).
+                                        reduce((a, b) => a + b, 0))
+                                }
+                                return (
+                                    <InfoBox
+                                        key={risk.name}
+                                        left={name}
+                                        text={round(stat)}
+                                        region={''}
+                                        align={'space-between'}
+                                        small={true}
+                                        squeeze={false}
+                                        bold={false}
+                                    />
+                                )
+                            })}
+
+                        </div>
                     </div>
-                </div>
-            </div >
-        </Popup>
-    )
+                </div >
+            </Popup>
+        )
+        ))
+
 }
 
 function InfoBox({ left, text, region, small, bold, align, squeeze }) {
