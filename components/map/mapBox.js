@@ -21,19 +21,25 @@ export const RouteContext = createContext({
     setPoint: (() => { }),
 })
 
-export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
+export const PointerContext = createContext({
+    pointerCoords: { posX: 0, posY: 0 },
+    setCoordinates: (() => { })
+})
+
+export default function MapBox({ activeSource, risks, tipData, journeys }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
     const [cityInfo, setCityInfo] = useState(null);
+    const [pointerCoords, setCoordinates] = useState({ posX: 0, posY: 0 })
+    const pointerPosValue = { pointerCoords, setCoordinates }
     const [routeInfo, setRouteInfo] = useState(null);
     const [feature, setFeature] = useState(null)
     const [point, setPoint] = useState(null)
     const routeValue = { feature, point, setFeature, setPoint }
+
     const { layersObject, highlightLayer } = stylesObject(activeSource)
     const { currentSection, setSection } = useContext(SectionContext)
-
-    const [opacity, setOpacity] = useState(0)
     const [featureOpacity, setFeatureOpacity] = useState({
         countryBorder: 1,
         originCities: 0,
@@ -41,11 +47,18 @@ export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
 
     })
 
+    let getMousePos = (event) => {
+        setCoordinates({ posX: event.pageX, posY: event.pageY })
+        console.log(containerRef.current.offsetWidth)
+    };
+
     function objectMap(object, mapFn) {
-        return Object.keys(object).reduce(function (result, key) {
-            result[key] = mapFn(object[key])
-            return result
-        }, {})
+        if (object) {
+            return Object.keys(object).reduce(function (result, key) {
+                result[key] = mapFn(object[key])
+                return result
+            }, {})
+        }
     }
 
 
@@ -79,6 +92,7 @@ export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
 
 
     const mapRef = useRef(null)
+    const containerRef = useRef(null)
     const perspective = useMemo(() => computePerspective(width), [width])
 
 
@@ -168,110 +182,114 @@ export default function MapBox({ activeSource, risks, tipData, toggleMap }) {
         const opacitySwicth = {
             "overallRoutes": { ...objectMap(featureOpacity, () => 0), countryBorder: 1 },
             "originCities": { ...objectMap(featureOpacity, () => 1), transect: 0 },
-            "extremeHeat": { ...objectMap(featureOpacity, () => 0), transect: 1 },
+            "transectSegment": { ...objectMap(featureOpacity, () => 0), transect: 1 },
             "null": featureOpacity,
             "undefined": featureOpacity
         }
+        if (typeof featureOpacity === "object") setFeatureOpacity(opacitySwicth[activeSource])
 
-        setFeatureOpacity(opacitySwicth[activeSource])
-
-        if (activeSource == "originCities") {
-            setOpacity(1)
-        }
-
-        else setOpacity(0)
         if (mapRef.current) {
             mapRef.current.on('load', () => {
                 mapRef.current.resize()
             })
 
-            mapRef.current.on('click', 'migration', () =>
-                toggleMap()
+            mapRef.current.on('click', 'migration', (e) => {
+                const routeFeature = e.features && e.features[0].properties // grabs a single feature from the clicked route segment
+                const routeId = routeFeature.segement_i
+                const journey = journeys[routeId] // selects journey url from url list (index given by routeId)
+                if (journey) window.location.href = '/journeys/' + journey.id
+            }
             )
         }
 
     }, [activeSource])
     return (
         <RouteContext.Provider value={routeValue}>
-            <div className={styles.mapContainer}>
-                <Map
-                    initialViewState={{
-                        longitude: perspective.lng,
-                        latitude: perspective.lat,
-                        zoom: perspective.zoom
-                    }}
-                    latitude={perspective.lat}
-                    longitude={perspective.lng}
-                    style={{
-                        width: '100%', height: '100%'
-                    }}
-                    attributionControl={false}
-                    interactiveLayerIds={
-                        activeSource === "originCities" ? ["hoverable", "cities"] :
-                            activeSource === "extremeHeat" ? ["migration-buffer", "hoverable"] :
-                                activeSource ? ["hoverable"] : []}
-                    zoom={perspective.zoom}
-                    mapStyle={mapStyle}
-                    ref={mapRef}
-                    doubleClickZoom={false}
-                    onMouseMove={onInfo}
-                    // onClick={onInfo}
-                    dragPan={false}
-                    dragRotate={false}
-                    scrollZoom={false}
+            <PointerContext.Provider value={pointerPosValue}>
+                <div className={styles.mapContainer}
+                    onMouseMove={getMousePos}
+                    ref={containerRef}
+
                 >
-                    {(selectedCountry && activeSource === 'originCities') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
-                    )}
-                    {(selectedCity && activeSource === 'originCities') && (
-                        <CityTip hoverInfo={cityInfo} data={risks} />
-                    )}
-                    {(selectedCountry && activeSource === 'overallRoutes') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
-                    )}
-                    {(selectedCountry && activeSource === 'extremeHeat') && (
-                        <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
-                    )}
-                    {(selectedSegment && activeSource === 'extremeHeat') && (
-                        <RouteTip hoverInfo={routeInfo} />
-                    )}
-                    {renderSource(activeSource, risks)}
-
-                    <Layer {...highlightLayer} filter={filter} />
-                    <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
-                    <Layer {...layersObject["countryLayer"]} />
-                    <Layer {...layersObject["migrationBuffer"]} />
-                    {width > 600 && (<Layer {...layersObject["minorCountryLabel"]} />)}
-                    {width > 600 && (<Layer {...layersObject["majorCountryLabel"]} />)}
-                    <Layer {...layersObject["migrationRouteStyle"]}
-                        lineJoin="round"
-                        paint={{
-                            ...layersObject["migrationRouteStyle"].paint,
-                            "line-opacity": featureOpacity.transect,
-
+                    <Map
+                        initialViewState={{
+                            longitude: perspective.lng,
+                            latitude: perspective.lat,
+                            zoom: perspective.zoom
                         }}
-
-                    />
-                    <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
-                    <Layer {...layersObject["cityStyle"]}
-                        paint={{
-                            ...layersObject["cityStyle"].paint,
-                            "circle-opacity": featureOpacity.originCities,
-
-                        }} />
-                    <Layer {...layersObject["countryBorder"]}
-                        paint={{
-                            ...layersObject["countryBorder"].paint,
-                            "line-opacity": featureOpacity.countryBorder,
-
+                        latitude={perspective.lat}
+                        longitude={perspective.lng}
+                        style={{
+                            width: '100%', height: '100%'
                         }}
+                        attributionControl={false}
+                        interactiveLayerIds={
+                            activeSource === "originCities" ? ["hoverable", "cities"] :
+                                activeSource === "transectSegment" ? ["migration-buffer", "hoverable"] :
+                                    activeSource ? ["hoverable"] : []}
+                        zoom={perspective.zoom}
+                        mapStyle={mapStyle}
+                        ref={mapRef}
+                        doubleClickZoom={false}
+                        onMouseMove={onInfo}
+                        dragPan={false}
+                        dragRotate={false}
+                        scrollZoom={false}
+                    >
+                        {(selectedCountry && activeSource === 'originCities') && (
+                            <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
+                        )}
+                        {(selectedCity && activeSource === 'originCities') && (
+                            <CityTip hoverInfo={cityInfo} data={risks} />
+                        )}
+                        {(selectedCountry && activeSource === 'overallRoutes') && (
+                            <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
+                        )}
+                        {(selectedCountry && activeSource === 'transectSegment') && (
+                            <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
+                        )}
+                        {(selectedSegment && activeSource === 'transectSegment') && (
+                            <RouteTip hoverInfo={routeInfo} />
+                        )}
+                        {renderSource(activeSource, risks)}
 
-                    />
+                        <Layer {...highlightLayer} filter={filter} />
+                        <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
+                        <Layer {...layersObject["countryLayer"]} />
+                        <Layer {...layersObject["overallRoutes"]} />
+                        {width > 600 && (<Layer {...layersObject["minorCountryLabel"]} />)}
+                        {width > 600 && (<Layer {...layersObject["majorCountryLabel"]} />)}
+                        <Layer {...layersObject["migrationRouteStyle"]}
+                            lineJoin="round"
+                            paint={{
+                                ...layersObject["migrationRouteStyle"].paint,
+                                "line-opacity": featureOpacity && featureOpacity.transect,
 
-                    {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
+                            }}
 
-                </Map>
-            </div >
+                        />
+                        <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
+                        <Layer {...layersObject["cityStyle"]}
+                            paint={{
+                                ...layersObject["cityStyle"].paint,
+                                "circle-opacity": featureOpacity && featureOpacity.originCities,
+
+                            }} />
+                        <Layer {...layersObject["countryBorder"]}
+                            paint={{
+                                ...layersObject["countryBorder"].paint,
+                                "line-opacity": featureOpacity && featureOpacity.countryBorder,
+
+                            }}
+
+                        />
+                        <Layer {...layersObject["migrationBuffer"]} />
+
+                        {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
+
+                    </Map>
+                </div >
+            </PointerContext.Provider>
         </RouteContext.Provider>
     )
 }

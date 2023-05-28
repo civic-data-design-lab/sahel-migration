@@ -37,6 +37,9 @@ export default function JourneyNav({ journeys }) {
         const [url, journey] = journeyPackage
 
         const routeHovered = index == parseInt(sectionIndex) - 1
+        function highlightSegment() {
+            setSection({ routeId: index })
+        }
         return (
             <Fragment
                 key={`${index}${uuidv4}`}>
@@ -48,6 +51,7 @@ export default function JourneyNav({ journeys }) {
                     animate={{
                         y: routeHovered ? 0 : 80,
                     }}
+                    onMouseMove={highlightSegment}
                     transition={{ type: "spring", duration: 0.75 }}
                     whileHover={{
                         transition: {
