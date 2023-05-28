@@ -10,17 +10,18 @@ const bounceTransition = {
     ease: 'easeOut',
   },
 };
-export default function ScrollIndicator() {
+export default function ScrollIndicator({ onClick }) {
   return (
     <div className={styles.container}>
       <motion.span
         class="material-symbols-outlined"
+        onClick={onClick}
       // transition={bounceTransition}
       // animate={{
       //   y: ['50%', '-50%', '0%', '0%'],
       // }}
       >
-        keyboard_double_arrow_down
+        keyboard_arrow_down
       </motion.span>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useRef, useEffect, useContext, useState } from 'react';
-import { useInView } from 'framer-motion';
+import { useInView, useScroll } from 'framer-motion';
 import styles from '../../styles/ContentBox.module.css';
 import { ViewContext } from '../../pages/maps/map';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,8 +7,9 @@ import RouteMenu from './routeMenu';
 import RouteMenuToggle from './routeMenuToggle';
 import { animated, useSpring } from 'react-spring';
 import useWindowSize from '../../hooks/useWindowSize';
+import ScrollIndicator from '../scrollIndicator';
 
-function Paragraph({ children, data, items }) {
+function Paragraph({ children, data, nextElem }) {
     const { width } = useWindowSize()
     const ref = useRef(null);
     const threshold = width <= 600 ? 0.5 : 1;
@@ -16,6 +17,11 @@ function Paragraph({ children, data, items }) {
         amount: threshold,
     });
     const { currentView, setCurrentView } = useContext(ViewContext);
+    function scrollToNext() {
+        console.log('hello')
+        const el = document.getElementById(nextElem)
+        el.scrollIntoView()
+    }
     useEffect(() => {
         if (isInView) {
             setCurrentView(data.id);
@@ -32,13 +38,15 @@ function Paragraph({ children, data, items }) {
             >
                 {data.body}
             </p>
+            <ScrollIndicator
+                onClick={scrollToNext}
+            />
         </div>
     );
 }
 
 function ScrollButton({ onClick, currentView }) {
     const exploreAvailable = currentView === 'selectRoute' ? true : false;
-    const { width } = useWindowSize();
     return (
         <>
             <button className={styles.scrollButton} onClick={onClick}>
@@ -54,12 +62,17 @@ function ScrollButton({ onClick, currentView }) {
     );
 }
 
-export default function ContentBox({ dataItems }) {
+export default function ContentBox({ dataItems, toggleMap }) {
     const contentRef = useRef(null);
     const [isOpen, toggleOpen] = useState(false);
     const [scroll, setScroll] = useState();
+    const [scrollEnd, toggleScrollStatus] = useState(false)
     const [isClicked, toggleClick] = useState(false);
+    const { scrollYProgress, scrollY } = useScroll({
+        container: contentRef
+    })
     const { currentView, setCurrentView } = useContext(ViewContext);
+
 
     const handleMapAnimation = () => {
         toggleOpen(!isOpen);
@@ -70,6 +83,7 @@ export default function ContentBox({ dataItems }) {
     };
 
     useEffect(() => {
+
         const contentBox = contentRef.current;
         if (currentView === 'selectRoute') toggleClick(false);
         if (currentView === 'selectRoute' && isClicked) {
@@ -81,7 +95,18 @@ export default function ContentBox({ dataItems }) {
                 100
             );
         }
-    });
+
+    }, [scrollYProgress]);
+
+    const globeTransition = () => {
+        if (scrollYProgress.current >= 1) {
+            toggleScrollStatus(true)
+            setTimeout(() => {
+                toggleMap()
+            }, 3500)
+        }
+        else toggleScrollStatus(false)
+    }
 
     const scrollUp = () => {
         setScroll(1200);
@@ -89,17 +114,16 @@ export default function ContentBox({ dataItems }) {
     };
     return (
         <>
-            <div ref={contentRef} className={styles.container}>
-                {dataItems.map((data) => {
+            <div ref={contentRef} className={styles.container} onWheel={globeTransition}>
+                {dataItems.map((data, index) => {
+                    const nextIndex = (index + 1) % dataItems.length
                     return (
                         <div
                             className={styles.paragraphContainer}
                             key={uuidv4()}
-                            style={{
-                                display: data.id === 'selectRoute' ? 'block' : 'flex',
-                            }}
+                            id={data.id}
                         >
-                            <Paragraph data={data} items={dataItems}></Paragraph>
+                            <Paragraph data={data} nextElem={dataItems[nextIndex].id}></Paragraph>
                         </div>
                     );
                 })}
