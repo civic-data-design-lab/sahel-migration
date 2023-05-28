@@ -10,6 +10,7 @@
     position: relative;
     font-family: var(--primary-font-fam);
     /* scroll-snap-type: y mandatory; */
+    scroll-behavior: smooth;
 }
 
 /* 
