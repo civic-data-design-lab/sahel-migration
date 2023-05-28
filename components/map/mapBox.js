@@ -1,25 +1,32 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import React, { useRef, useEffect, useState, useCallback, useMemo, createContext, useContext } from 'react';
+import React, {
+    useRef,
+    useEffect,
+    useState,
+    useCallback,
+    useMemo,
+    createContext,
+    useContext,
+} from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import Map, { Source, Layer } from 'react-map-gl'
-import styles from './../../styles/MapBox.module.css'
+import Map, { Source, Layer } from 'react-map-gl';
+import styles from './../../styles/MapBox.module.css';
 import stylesObject from './mapStyles';
 import useWindowSize from './../../hooks/useWindowSize';
 import Tooltip from './toooltip';
 import CityTip from './citytip';
-import RouteTip from './routetip'
+import RouteTip from './routetip';
 import { SectionContext } from './../../pages';
 
-
-
-mapboxgl.accessToken = 'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
+mapboxgl.accessToken =
+    'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
 
 export const RouteContext = createContext({
     feature: null,
     point: null,
-    setFeature: (() => { }),
-    setPoint: (() => { }),
-})
+    setFeature: () => { },
+    setPoint: () => { },
+});
 
 export const PointerContext = createContext({
     pointerCoords: { posX: 0, posY: 0 },
@@ -61,33 +68,31 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
         }
     }
 
-
     function zoomFunction(number) {
-        const x = number / 100
+        const x = number / 100;
         // return 3.8 + 0.4 * Math.tanh((x - 8.5) / 1.5) + 0.3 * Math.tanh((x - 12.5) / 2.5) + 0.3 * Math.exp(-((x - 19) ** 2) / 2)
         // return -(1 / (2.5 * (Math.E ** ((number / 100 - 7) ** 2)))) + 3.7
         // if (x <= 6) return 3.5
         // if (6 <= x <= 19) return 3.26923076923 + 0.038461538461 * x
         // return 4
-        return 0.0801143 * x + 2.72143
+        return 0.0801143 * x + 2.72143;
     }
     function latFunction(number) {
         // return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
-        return 20
+        return 20;
     }
 
     function lngFunction(number) {
-        const x = number / 100
-        return -0.727878 * x + 5.73398
+        const x = number / 100;
+        return -0.727878 * x + 5.73398;
         // if (x === 900) return -3
         // return -0.765517 * x + 6.60345
         // const exponent = -(number * 2.5 / 100 - 20)
         // return 5 - (15 / (1 + Math.E ** exponent))
     }
 
-
     function computePerspective(width) {
-        return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) }
+        return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) };
     }
 
 
@@ -97,83 +102,85 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
 
 
     function renderSource(activeSource, data) {
-        const sourceInfo = data.sources
-        if (sourceInfo) return (
-            <>
-                {
-                    sourceInfo.map((source) => {
-                        return <Source id={source.id} type='vector' url={source.url} key={source.id} />
-                    })
-                }
-            </>
-        )
+        const sourceInfo = data.sources;
+        if (sourceInfo)
+            return (
+                <>
+                    {sourceInfo.map((source) => {
+                        return <Source id={source.id} type="vector" url={source.url} key={source.id} />;
+                    })}
+                </>
+            );
     }
 
-    const onInfo = useCallback(event => {
+    const onInfo = useCallback((event) => {
         const region = event.features && event.features[0];
         setSection({
             index: region && region.properties.segement_i,
-            routeId: region && region.properties.segement_i
-        })
+            routeId: region && region.properties.segement_i,
+        });
 
         setRouteInfo({
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
             risks: [
                 {
-                    name: "Reported Violence",
-                    riskLevel: 1
+                    name: 'Reported Violence',
+                    riskLevel: 1,
                 },
                 {
-                    name: "Conflict Events",
+                    name: 'Conflict Events',
                     riskLevel: region && region.properties.risk_acled,
                 },
                 {
-                    name: "Food Insecurity",
+                    name: 'Food Insecurity',
                     riskLevel: region && region.properties.risk_food,
                 },
                 {
-                    name: "Reliance on Smugglers",
+                    name: 'Reliance on Smugglers',
                     riskLevel: region && region.properties.Risk_smugg,
                 },
                 {
-                    name: "Remoteness",
+                    name: 'Remoteness',
                     riskLevel: region && region.properties.risk_remot,
                 },
                 {
-                    name: "Heat Exposure",
+                    name: 'Heat Exposure',
                     riskLevel: region && region.properties.risk_heat,
                 },
             ],
             totalRisk: region && region.properties.risks_tota,
-            routeId: region && region.properties.segement_i
-        })
+            routeId: region && region.properties.segement_i,
+        });
         setCityInfo({
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
             cityName: region && region.properties.city_origin,
             countryName: region && region.properties.country_origin,
-            migrantCount: region && region.properties.count
-        })
+            migrantCount: region && region.properties.count,
+        });
 
         setHoverInfo({
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
-            countryName: region && region.properties.ADM0_NAME
+            countryName: region && region.properties.ADM0_NAME,
         });
     }, []);
-
-
 
     const selectedCountry = (hoverInfo && hoverInfo.countryName) || '';
     const selectedCity = (cityInfo && cityInfo.cityName) || '';
     // const selectedRoute = (routeInfo && routeInfo.route) || '';
     const selectedSegment = (currentSection && currentSection.routeId) || '';
-    const countryNames = !selectedCountry ? [] : ['Ghana', 'Mali', 'Nigeria', 'Niger', 'Chad'].filter((elem) => {
-        return elem !== selectedCountry
-    })
+    const countryNames = !selectedCountry
+        ? []
+        : ['Ghana', 'Mali', 'Nigeria', 'Niger', 'Chad'].filter((elem) => {
+            return elem !== selectedCountry;
+        });
     const filter = useMemo(() => ['in', 'ADM0_NAME', selectedCountry], [selectedCountry]);
-    const highlightFilter = useMemo(() => ['in', ['get', 'ADM0_NAME'], ["literal", countryNames]], [selectedCountry]);
+    const highlightFilter = useMemo(
+        () => ['in', ['get', 'ADM0_NAME'], ['literal', countryNames]],
+        [selectedCountry]
+    );
     const routeFilter = useMemo(() => ['in', 'SEGMENT_ID', selectedSegment], [selectedSegment]);
 
 
@@ -293,14 +300,3 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
         </RouteContext.Provider>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
