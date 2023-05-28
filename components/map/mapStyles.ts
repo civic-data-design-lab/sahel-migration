@@ -2,15 +2,6 @@ import { bounceIn } from '@popmotion/easing'
 import { SymbolLayer } from 'mapbox-gl'
 import type { FillLayer, LineLayer, HeatmapLayer } from 'react-map-gl'
 
-
-
-const BORDER_COlOR = '#ffffff'
-const TRANSPARENT = 'rgba(0,0,0,0)'
-const COUNTRY_FILL_COLOR = '#f2f2f2'
-const TRANSITION_TIME = 3000
-
-const MAX_ZOOM_LEVEL = 9;
-
 const DOT_COLOR_SCALE = {
     light: '#FCDED3',
     medium: '#F9BDA7',
@@ -19,6 +10,20 @@ const DOT_COLOR_SCALE = {
 }
 
 export default function stylesObject(activeSource) {
+    const overallRoutes: LineLayer = {
+        id: 'overall-routes',
+        type: 'line',
+        source: 'overall-routes',
+        "source-layer": 'routes_all_clean_4326-c9ji2t',
+        paint: {
+            "line-width": 1.15,
+            "line-color": '#985946'
+
+        },
+        layout: {
+            "line-cap": 'round'
+        }
+    }
     const countryLayer: FillLayer = {
         id: 'hoverable',
         type: 'fill',
@@ -157,48 +162,6 @@ export default function stylesObject(activeSource) {
         }
     }
 
-    const routeStyle: LineLayer = {
-        id: 'routes',
-        type: 'line',
-        'source-layer': 'route_lagos-tripoli-9p3vru',
-        source: 'overall-routes',
-        paint: {
-            'line-color': DOT_COLOR_SCALE.bold,
-            'line-width': [
-                'case',
-                ['boolean', ['feature-state', 'hover'], false],
-                7,
-                3
-            ],
-            'line-opacity': 0.75,
-            'line-opacity-transition': {
-                delay: 1000,
-                duration: 9000
-            },
-            'line-width-transition': {
-                delay: 0,
-                duration: 2000
-
-            }
-        }
-    }
-
-    const routeHighlightLayer: LineLayer = {
-        id: 'route-highlighted',
-        'source-layer': 'route_lagos-tripoli-9p3vru',
-        type: 'line',
-        source: 'overall-routes',
-        paint: {
-            'line-color': '#ffffff',
-            'line-width': 4,
-            'line-opacity': 0,
-            'line-opacity-transition': {
-                delay: 1000,
-                duration: 1000
-            }
-        },
-    }
-
     const nonMigrantCountries: FillLayer = {
         id: 'non-mgrant',
         type: 'fill',
@@ -274,7 +237,7 @@ export default function stylesObject(activeSource) {
             "text-size": 14,
         },
         paint: {
-          'text-color': '#463C35'
+            'text-color': '#463C35'
         }
     }
     const majorCountryLabel: SymbolLayer = {
@@ -308,7 +271,7 @@ export default function stylesObject(activeSource) {
             "text-size": 14,
         },
         paint: {
-          'text-color': '#463C35'
+            'text-color': '#463C35'
         }
     }
 
@@ -323,20 +286,19 @@ export default function stylesObject(activeSource) {
 
 
     const layersObject = {
-        'routeStyle': routeStyle,
         'countryOverlay': countryOverlay,
         'cityStyle': cityStyle,
         'countryBorder': countryBorder,
         'countryLayer': countryLayer,
         'countryFill': countryFill,
         'highlightLayer': highlightLayer,
-        'routeHighlightLayer': routeHighlightLayer,
         'nonMigrantCountries': nonMigrantCountries,
         'migrationRouteStyle': migrationRouteStyle,
         'migrationHover': migrationHover,
         'migrationBuffer': migrationBuffer,
         'majorCountryLabel': majorCountryLabel,
         'minorCountryLabel': minorCountryLabel,
+        'overallRoutes': overallRoutes
     }
 
     return {
