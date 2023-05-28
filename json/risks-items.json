@@ -12,7 +12,7 @@
                 "body": "In June and July 2021, migrants in Libya were surveyed  by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status.. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
             },
             {
-                "id": "extremeHeat",
+                "id": "transectSegment",
                 "heading": "Risk levels for migrants vary along the route",
                 "body": "Some northern countries in Africa, such as Algeria, Libya, Morocco, Tunisia, and Niger, have harsh policies to prosecute irregular migrants. This puts migrants at higher risk, often resorting to alternative means of traveling through more remote areas and hiring smugglers for assistance crossing through treacherous terrain."
             }
@@ -148,7 +148,7 @@
                     ]
                 },
                 {
-                    "id": "extremeHeat",
+                    "id": "transectSegment",
                     "layerNames": [
                         "extremeHeatLayer",
                         "libyaSelect",
@@ -163,7 +163,7 @@
         "sources": [
             {
                 "id": "overall-routes",
-                "url": "mapbox://mitcivicdata.a6m0ng2q"
+                "url": "mapbox://mitcivicdata.3t8zz77o"
             },
             {
                 "id": "selected-countries",
@@ -172,10 +172,6 @@
             {
                 "id": "origin-cities",
                 "url": "mapbox://mitcivicdata.biwrhf8h"
-            },
-            {
-                "id": "extreme-heat",
-                "url": "mapbox://mitcivicdata.27dxrfrn"
             },
             {
                 "id": "migration-routes",
