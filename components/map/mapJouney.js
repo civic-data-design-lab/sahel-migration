@@ -1,10 +1,14 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import mapboxgl from '!mapbox-gl';
 import styles from '../../styles/MapJourney.module.css';
+import { renderToString } from 'react-dom/server'
 import stylesObject from './mapStyles';
+import TransectTip from './transecttip';
+import { SectionContext } from '../../pages';
+
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
-export default function MapJourney({ explorable }) {
+export default function MapJourney({ journeys }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(3);
@@ -12,6 +16,30 @@ export default function MapJourney({ explorable }) {
     const [zoom, setZoom] = useState(3.65);
     const [canExplore, setExplore] = useState(false);
     const { layersObject, highlightLayer } = stylesObject()
+
+    const { currentSection, setSection } = useContext(SectionContext)
+    const routeId = currentSection && currentSection.routeId
+
+    function keys(object) {
+        return Object.keys(object)
+    }
+    function values(object) {
+        return Object.values(object)
+    }
+
+    function intersection(setA, setB) {
+        console.log(setA)
+        console.log(setB)
+        const _intersection = new Set();
+        for (const elem of setB) {
+            if (setA.has(elem)) {
+                _intersection.add(elem);
+            }
+        }
+        return _intersection;
+    }
+
+
 
     useEffect(() => {
         setExplore(true);
@@ -22,10 +50,28 @@ export default function MapJourney({ explorable }) {
             style: 'mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4',
             center: [lng, lat],
             zoom: zoom,
-            attributionControl: false
+            attributionControl: false,
+
+        });
+        const mapInteractions = [
+            "boxZoom",
+            "doubleClickZoom",
+            "dragPan",
+            "dragRotate",
+            "keyboard",
+            "scrollZoom",
+            "touchZoomRotate"
+        ]
+
+        //Disabbles all map interactions except for onClick
+        mapInteractions.forEach(handler => {
+            map.current[handler].disable()
+        })
+
+        const popup = new mapboxgl.Popup({
+            closeButton: false
         });
 
-        let hoveredRouteId = null;
 
         map.current.on('load', () => {
             map.current.addSource('transect-route', {
@@ -57,8 +103,8 @@ export default function MapJourney({ explorable }) {
                     },
                     paint: {
                         'line-opacity': 0,
-                        'line-width': 30
-                    }
+                        'line-width': 80
+                    },
                 }
             );
 
@@ -79,8 +125,9 @@ export default function MapJourney({ explorable }) {
                 });
             }, 3000);
 
+
             map.current.on('load', () => {
-                map.current.addSource('buffer', {
+                map.current.addSource('outline', {
                     'type': 'vector',
                     'url': 'mapbox://mitcivicdata.6egts54c'
                 });
@@ -88,10 +135,10 @@ export default function MapJourney({ explorable }) {
                 // The feature-state dependent fill-opacity expression will render the hover effect
                 // when a feature's hover state is set to true.
                 map.current.addLayer({
-                    'id': 'buffer-segments',
+                    'id': 'transect-outline',
                     'type': 'line',
-                    // 'promoteId': 'SEGMENT_ID',
-                    'source': 'buffer',
+                    // 'promoteId': ['feature-state', 'SEGMENT_ID'],
+                    'source': 'outline',
                     'source-layer': 'route-buffer-a8wlk1',
                     'layout': {
                         'line-join': 'round',
@@ -99,53 +146,67 @@ export default function MapJourney({ explorable }) {
                     },
                     'paint': {
                         'line-color': 'white',
-                        'line-opacity': [
-                            'case',
-                            ['boolean', ['feature-state', 'hover'], false],
-                            1,
-                            0
-                        ],
                         'line-width': 2
-                    }
+                    },
+                    'filter': ['in', 'SEGMENT_ID', '']
                 });
 
+                map.current.on('mousemove', 'transect-buffer', (e) => {
+                    // Use the first found feature.
+                    const feature = e.features[0];
 
-                // When the user moves their mouse over the state-fill layer, we'll update the
-                // feature state for the feature under the mouse.
-                map.current.on('mousemove', ['buffer-segments', 'transect-buffer'], (e) => {
-                    let features = e.features
-                    let oultlineFeatures = features.filter(feature => feature.sourceLayer === "route-buffer-a8wlk1")
-                    // console.log(features.map(feature => feature.layer.id))
-                    // console.log(my)
+                    map.current.setFilter('transect-outline', [
+                        'in',
+                        'SEGMENT_ID',
+                        feature.properties.segement_i
+                    ]);
 
-                    if (oultlineFeatures.length > 0) {
-                        if (hoveredRouteId !== null) {
-                            map.current.setFeatureState(
-                                { source: 'buffer', id: hoveredRouteId, sourceLayer: 'route-buffer-a8wlk1' },
-                                { hover: false }
-                            );
-                        }
-                        // console.log(features[0].id)
-                        hoveredRouteId = oultlineFeatures[0].id;
-                        map.current.setFeatureState(
-                            { source: 'buffer', id: hoveredRouteId, sourceLayer: 'route-buffer-a8wlk1' },
-                            { hover: true }
-                        );
+                    const riskTypes = [
+                        { "Reported Violence": "risk_acled" },
+                        { "Conflict Events": "risk_acled" },
+                        { "Food Insecurity": "risk_food" },
+                        { "Reliance on Smugglers": "Risk_smugg" },
+                        { "Remoteness": "risk_remot" },
+                        { "Heat Exposure": "risk_heat" },
+                    ]
+                    const hoverData = {
+                        risks: riskTypes.map((risk, index) => {
+                            const names = riskTypes.map(obj => keys(obj)[0])
+                            const riskProperties = riskTypes.map(obj => values(obj)[0])
+                            const riskLevel = feature && feature.properties[riskProperties[index]]
+                            return { name: names[index], riskLevel: riskLevel }
+                        }),
+                        totalRisk: feature && feature.properties.risks_tota,
+                        routeId: feature && feature.properties.segement_i
                     }
+
+                    const myDiv = document.createElement('div');
+                    const innerHTML = renderToString(<TransectTip
+                        hoverInfo={{ ...hoverData }}
+                    />)
+                    myDiv.innerHTML = innerHTML
+                    popup
+                        .setLngLat(e.lngLat)
+                        .setDOMContent(myDiv)
+                        .addTo(map.current);
+                })
+
+                map.current.on('mouseleave', 'transect-buffer', () => {
+                    map.current.setFilter('transect-outline', ['in', 'SEGMENT_ID', '']);
+                    popup.remove()
                 });
 
-                // When the mouse leaves the state-fill layer, update the feature state of the
-                // previously hovered feature.
-                map.current.on('mouseleave', ['buffer-segments', 'transect-buffer'], () => {
-                    if (hoveredRouteId !== null) {
-                        map.current.setFeatureState(
-                            { source: 'buffer', id: hoveredRouteId, sourceLayer: 'route-buffer-a8wlk1' },
-                            { hover: false }
-                        );
-                    }
-                    hoveredRouteId = null;
-                });
-            })
+            });
+            map.current.on('click', 'transect-buffer', (e) => {
+                const routeFeature = e.features && e.features[0].properties // grabs a single feature from the clicked route segment
+                const routeId = routeFeature.segement_i
+                const journey = journeys[routeId] // selects journey url from url list (index given by routeId)
+                if (journey) window.location.href = '/journeys/' + journey.id
+            }
+            )
+
+
+
         }
     }, [canExplore]);
 
