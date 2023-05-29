@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     res.status(200).json(obj);
   } else {
     const obj = JSON.parse(fileContents).items.journeys.find(
-      (journey) => journey.id == req.query.id
+      (journey) => journey.route == req.query.id
     );
     //Return the content of the data file in json format
     res.status(200).json(obj);
