@@ -38,7 +38,7 @@ export default function JourneyNav({ journeys }) {
 
         const routeHovered = index == parseInt(sectionIndex) - 1
         function highlightSegment() {
-            setSection({ routeId: index })
+            setSection({ routeId: index + 1 })
         }
         return (
             <Fragment

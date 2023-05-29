@@ -48,10 +48,12 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
 
     const { layersObject, highlightLayer } = stylesObject(activeSource)
     const { currentSection, setSection } = useContext(SectionContext)
+    const [overlayOpacity, setOverlayOpacity] = useState(0)
     const [featureOpacity, setFeatureOpacity] = useState({
         countryBorder: 1,
         originCities: 0,
         transect: 0,
+        countryOverlay: 0
 
     })
 
@@ -178,6 +180,14 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
             return elem !== selectedCountry;
         });
     const filter = useMemo(() => ['in', 'ADM0_NAME', selectedCountry], [selectedCountry]);
+    const unselectedCountryFilter = useMemo(() => [
+        "match",
+        ["get", "name_en"],
+        [selectedCountry != "Côte d'Ivoire" ? selectedCountry : 'Ivory Coast'],
+        false,
+        true
+    ], [selectedCountry]);
+    const cityHighlightFilter = useMemo(() => ['in', 'city_origin', selectedCity], [selectedCity]);
     const highlightFilter = useMemo(
         () => ['in', ['get', 'ADM0_NAME'], ['literal', countryNames]],
         [selectedCountry]
@@ -220,6 +230,13 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
     }, [containerRef])
 
     useEffect(() => {
+        if (selectedCountry) setOverlayOpacity(0.5)
+        else setOverlayOpacity(0)
+
+    }, [selectedCountry])
+
+    useEffect(() => {
+
 
         const opacitySwicth = {
             "overallRoutes": { ...objectMap(featureOpacity, () => 0), countryBorder: 1 },
@@ -282,9 +299,17 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
                         {(selectedCity && activeSource === 'originCities') && (cityTip)}
                         {(selectedSegment && activeSource === 'transectSegment') && (routeTip)}
                         {renderSource(activeSource, risks)}
+                        <Layer {...layersObject["unselectedCountryOverlay"]}
+                            filter={unselectedCountryFilter}
+                            paint={{
+                                ...layersObject["unselectedCountryOverlay"].paint,
+                                "fill-opacity": overlayOpacity
+                            }}
+                        />
 
                         <Layer {...highlightLayer} filter={filter} />
-                        <Layer {...layersObject["countryFill"]} filter={highlightFilter} />
+                        {/* <Layer {...layersObject["countryFill"]} filter={highlightFilter} /> */}
+
                         <Layer {...layersObject["countryLayer"]} />
                         <Layer {...layersObject["overallRoutes"]} />
                         {width > 600 && (<Layer {...layersObject["minorCountryLabel"]} />)}
@@ -296,7 +321,6 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
                                 "line-opacity": featureOpacity && featureOpacity.transect,
 
                             }}
-
                         />
                         <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
                         <Layer {...layersObject["cityStyle"]}
@@ -305,6 +329,8 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
                                 "circle-opacity": featureOpacity && featureOpacity.originCities,
 
                             }} />
+                        <Layer {...layersObject["cityMarkerHighlight"]} filter={cityHighlightFilter} />
+
                         <Layer {...layersObject["countryBorder"]}
                             paint={{
                                 ...layersObject["countryBorder"].paint,

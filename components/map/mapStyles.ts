@@ -1,5 +1,5 @@
 import { bounceIn } from '@popmotion/easing';
-import { SymbolLayer } from 'mapbox-gl';
+import { CircleLayer, SymbolLayer } from 'mapbox-gl';
 import type { FillLayer, LineLayer, HeatmapLayer } from 'react-map-gl';
 
 const DOT_COLOR_SCALE = {
@@ -138,17 +138,18 @@ export default function stylesObject(activeSource) {
         },
     };
 
-    const countryOverlay: FillLayer = {
+    const unselectedCountryOverlay: FillLayer = {
         id: 'overlay',
         type: 'fill',
         'source-layer': 'country_boundaries',
-        source: 'country-overlay',
+        source: 'all-countries',
         paint: {
-            'fill-color': 'hsl(0, 20%, 100%)',
-            'fill-opacity-transition': {
-                duration: 2000,
-            },
+            'fill-color':
+                "rgb(255, 255, 255)",
             'fill-opacity': 0.5,
+            'fill-opacity-transition': {
+                duration: 1000
+            }
         },
     };
 
@@ -193,6 +194,28 @@ export default function stylesObject(activeSource) {
             ],
         },
     };
+
+
+    const cityMarkerHighlight: CircleLayer = {
+        id: 'city-highlight',
+        type: 'circle',
+        'source-layer': 'IFPRI_Libya_origin-cities-98ikdw',
+        source: 'origin-cities',
+        paint: {
+            "circle-stroke-color": 'white',
+            "circle-stroke-width": 2,
+            "circle-opacity": 0,
+            "circle-radius": [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                1,
+                ['*', ['^', ['get', 'count'], 0.5], 0.75],
+                3.65,
+                ['*', ['^', ['get', 'count'], 0.25], 6],
+            ],
+        }
+    }
 
     const minorCountryLabel: SymbolLayer = {
         id: 'minor-labels',
@@ -274,8 +297,8 @@ export default function stylesObject(activeSource) {
     };
 
     const layersObject = {
-        'countryOverlay': countryOverlay,
         'cityStyle': cityStyle,
+        'cityMarkerHighlight': cityMarkerHighlight,
         'countryBorder': countryBorder,
         'countryLayer': countryLayer,
         'countryFill': countryFill,
@@ -286,7 +309,8 @@ export default function stylesObject(activeSource) {
         'migrationBuffer': migrationBuffer,
         'majorCountryLabel': majorCountryLabel,
         'minorCountryLabel': minorCountryLabel,
-        'overallRoutes': overallRoutes
+        'overallRoutes': overallRoutes,
+        'unselectedCountryOverlay': unselectedCountryOverlay,
     }
 
     return {

@@ -182,7 +182,7 @@
                 "url": "mapbox://mitcivicdata.6egts54c"
             },
             {
-                "id": "country-overlay",
+                "id": "all-countries",
                 "url": "mapbox://mapbox.country-boundaries-v1"
             },
             {
