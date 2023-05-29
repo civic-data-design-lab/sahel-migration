@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { PointerContext } from './mapBox'
+import { ScreenContext } from './mapBox'
 import { Popup } from 'react-map-gl'
 import { Stack } from 'react-bootstrap'
 import styles from './../../styles/Tooltip.module.css'
@@ -32,7 +32,7 @@ export default function Tooltip({ selectedCountry, hoverInfo, data, cityData }) 
         "Sierra Leone": "Sierra Leonean"
     }
     const countryText = `of ${nationalityLabel[selectedCountry]} migrants surveyed in Libya come from`
-    const { pointerCoords, setCoordinates } = useContext(PointerContext)
+    const { pointerCoords, setCoordinates } = useContext(ScreenContext)
 
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

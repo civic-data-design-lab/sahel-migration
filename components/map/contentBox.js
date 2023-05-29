@@ -103,7 +103,7 @@ export default function ContentBox({ dataItems, toggleMap }) {
             toggleScrollStatus(true)
             setTimeout(() => {
                 toggleMap()
-            }, 3500)
+            }, 500)
         }
         else toggleScrollStatus(false)
     }
@@ -114,7 +114,7 @@ export default function ContentBox({ dataItems, toggleMap }) {
     };
     return (
         <>
-            <div ref={contentRef} className={styles.container} onWheel={globeTransition}>
+            <div ref={contentRef} className={styles.container} onTouchMove={globeTransition}>
                 {dataItems.map((data, index) => {
                     const nextIndex = (index + 1) % dataItems.length
                     return (

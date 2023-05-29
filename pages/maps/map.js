@@ -101,7 +101,7 @@ export default function MainMap({ journeys }) {
                         <MapBox
                             activeSource={currentView}
                             risks={riskItems}
-                            tipData={cities}
+                            cityData={cities}
                             toggleMap={toggleMap}
                             journeys={journeys}
                         />

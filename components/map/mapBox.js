@@ -13,9 +13,7 @@ import Map, { Source, Layer } from 'react-map-gl';
 import styles from './../../styles/MapBox.module.css';
 import stylesObject from './mapStyles';
 import useWindowSize from './../../hooks/useWindowSize';
-import Tooltip from './toooltip';
-import CityTip from './citytip';
-import RouteTip from './routetip';
+import ToolTip from './popup/tooltip';
 import { SectionContext } from './../../pages';
 
 mapboxgl.accessToken =
@@ -28,18 +26,21 @@ export const RouteContext = createContext({
     setPoint: () => { },
 });
 
-export const PointerContext = createContext({
+export const ScreenContext = createContext({
     pointerCoords: { posX: 0, posY: 0 },
-    setCoordinates: (() => { })
+    setCoordinates: (() => { }),
+    containerDimensions: { width: 0, height: 0 },
+    setDimensions: (() => { })
 })
 
-export default function MapBox({ activeSource, risks, tipData, journeys }) {
+export default function MapBox({ activeSource, risks, cityData, journeys }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
     const [cityInfo, setCityInfo] = useState(null);
     const [pointerCoords, setCoordinates] = useState({ posX: 0, posY: 0 })
-    const pointerPosValue = { pointerCoords, setCoordinates }
+    const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 })
+    const pointerPosValue = { pointerCoords, setCoordinates, containerDimensions, setDimensions }
     const [routeInfo, setRouteInfo] = useState(null);
     const [feature, setFeature] = useState(null)
     const [point, setPoint] = useState(null)
@@ -56,7 +57,6 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
 
     let getMousePos = (event) => {
         setCoordinates({ posX: event.pageX, posY: event.pageY })
-        console.log(containerRef.current.offsetWidth)
     };
 
     function objectMap(object, mapFn) {
@@ -120,6 +120,8 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
             routeId: region && region.properties.segement_i,
         });
 
+
+
         setRouteInfo({
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
@@ -169,7 +171,6 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
 
     const selectedCountry = (hoverInfo && hoverInfo.countryName) || '';
     const selectedCity = (cityInfo && cityInfo.cityName) || '';
-    // const selectedRoute = (routeInfo && routeInfo.route) || '';
     const selectedSegment = (currentSection && currentSection.routeId) || '';
     const countryNames = !selectedCountry
         ? []
@@ -183,6 +184,40 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
     );
     const routeFilter = useMemo(() => ['in', 'SEGMENT_ID', selectedSegment], [selectedSegment]);
 
+    const countryToolTipData = {
+        ...hoverInfo,
+        type: "country",
+        cityData: cityData,
+        migrantData: risks && risks.migrantData,
+        selectedCountry: selectedCountry,
+    }
+    const cityToolTipData = {
+        ...cityInfo,
+        type: "city",
+        migrantData: risks && risks.migrantData,
+        selectedCity: selectedCity,
+    }
+    const routeToolTipData = {
+        ...routeInfo,
+        type: "route",
+        selectedSegment: selectedSegment,
+        riskLevels: routeInfo
+    }
+
+    const [countryTip, cityTip, routeTip] = [countryToolTipData, cityToolTipData, routeToolTipData].map(data => {
+        return (
+            <ToolTip
+                location={{ longitude: data.longitude, latitude: data.latitude }}
+                type={data.type}
+                regionDataProps={data}
+
+            />
+        )
+    })
+
+    useEffect(() => {
+        setDimensions({ width: containerRef.current.offsetWidth, height: containerRef.current.offsetHeight })
+    }, [containerRef])
 
     useEffect(() => {
 
@@ -212,7 +247,7 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
     }, [activeSource])
     return (
         <RouteContext.Provider value={routeValue}>
-            <PointerContext.Provider value={pointerPosValue}>
+            <ScreenContext.Provider value={pointerPosValue}>
                 <div className={styles.mapContainer}
                     onMouseMove={getMousePos}
                     ref={containerRef}
@@ -243,21 +278,9 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
                         dragRotate={false}
                         scrollZoom={false}
                     >
-                        {(selectedCountry && activeSource === 'originCities') && (
-                            <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
-                        )}
-                        {(selectedCity && activeSource === 'originCities') && (
-                            <CityTip hoverInfo={cityInfo} data={risks} />
-                        )}
-                        {(selectedCountry && activeSource === 'overallRoutes') && (
-                            <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
-                        )}
-                        {(selectedCountry && activeSource === 'transectSegment') && (
-                            <Tooltip selectedCountry={selectedCountry} hoverInfo={hoverInfo} data={risks} cityData={tipData} />
-                        )}
-                        {(selectedSegment && activeSource === 'transectSegment') && (
-                            <RouteTip hoverInfo={routeInfo} />
-                        )}
+                        {(selectedCountry) && (countryTip)}
+                        {(selectedCity && activeSource === 'originCities') && (cityTip)}
+                        {(selectedSegment && activeSource === 'transectSegment') && (routeTip)}
                         {renderSource(activeSource, risks)}
 
                         <Layer {...highlightLayer} filter={filter} />
@@ -296,7 +319,7 @@ export default function MapBox({ activeSource, risks, tipData, journeys }) {
 
                     </Map>
                 </div >
-            </PointerContext.Provider>
+            </ScreenContext.Provider>
         </RouteContext.Provider>
     )
 }
