@@ -369,8 +369,8 @@ function JourneysMenu({ journeys, handleRouting }) {
           <Link
             className={styles.routeJourney}
             key={journey.id}
-            onClick={handleRouting('/journeys/' + journey.id)}
-            href={'/journeys/' + journey.id}
+            onClick={handleRouting('/journeys/' + journey.route)}
+            href={'/journeys/' + journey.route}
           >
             {journey.title}
           </Link>

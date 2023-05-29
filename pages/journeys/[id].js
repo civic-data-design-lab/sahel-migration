@@ -25,13 +25,14 @@ export default function JourneysPage() {
   if (errorJourney) return <div>Journey not found</div>;
   if (!journeys) return <div>loading...</div>;
   if (!journey) return <div>loading...</div>;
+
   return (
     <>
       <div id="journey" className={styles.journeyContainer}>
         <div className={styles.gridContainer}>
           <Title />
           <Menu journeys={journeys} />
-          <Navigation journeys={journeys} journey={journey} />
+          <Navigation journeys={journeys} journey={journey}/>
           <DataTab journey={journey} />
           <ImageBox journey={journey} id="image-box" />
         </div>
