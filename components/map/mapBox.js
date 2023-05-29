@@ -218,7 +218,7 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
         return (
             <ToolTip
                 location={{ longitude: data.longitude, latitude: data.latitude }}
-                type={data.type}
+                toolType={data.type}
                 regionDataProps={data}
 
             />

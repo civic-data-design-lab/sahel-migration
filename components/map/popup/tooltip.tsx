@@ -6,7 +6,7 @@ import RouteTip from './routetip'
 import { ScreenContext } from './../mapBox'
 
 
-export default function ToolTip({ location, type, regionDataProps }) {
+export default function ToolTip({ location, toolType, regionDataProps }) {
     const { pointerCoords, setCoordinates, containerDimensions, setDimensions } = useContext(ScreenContext)
     const { posX, posY } = pointerCoords
     const { width, height } = containerDimensions
@@ -18,10 +18,10 @@ export default function ToolTip({ location, type, regionDataProps }) {
         "undefined": [150, -150],
     }
     const offsetX = useMemo(() => {
-        return Math.sign((posX - width * 0.4) - (width - width * 0.4) / 2) * offset[type][0]
+        return Math.sign((posX - width * 0.4) - (width - width * 0.4) / 2) * offset[toolType][0]
     }, [posX])
     const offsetY = useMemo(() => {
-        return Math.sign(posY - (height / 2)) * offset[type][1]
+        return Math.sign(posY - (height / 2)) * offset[toolType][1]
     }, [posY])
 
     return (
@@ -38,13 +38,13 @@ export default function ToolTip({ location, type, regionDataProps }) {
             closeButton={false}
             className="county-info"
         >
-            {type === "country" && (
+            {toolType === "country" && (
                 <CountryTip regionData={regionDataProps} />
             )}
-            {type === "city" && (
+            {toolType === "city" && (
                 <CityTip regionData={regionDataProps} />
             )}
-            {type === "route" && (
+            {toolType === "route" && (
                 <RouteTip regionData={regionDataProps} />
             )}
         </Popup>
