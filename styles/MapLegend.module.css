@@ -1,35 +1,59 @@
 .legend {
     z-index: 1;
-    /* grid-area: 1/12/1/12; */
-    grid-column-end: 13;
+    grid-area: 11/11/12/13;
+    /* grid-column-end: 13; */
     display: flex;
     justify-content: flex-end;
-    margin-right: 2.5rem;
+    margin-right: .5rem;
     pointer-events: none;
 }
 
 .routes {
     display: flex;
+    gap: 0.2rem;
+    align-items: center;
     flex-direction: column;
-    gap: 0.3rem;
-    position: fixed;
-    bottom: 3rem;
+    height: max-content;
+}
+
+.subheader {
     border-bottom: 2px solid #985946;
+    width: max-content;
 }
 
 .routes h4 {
     font-size: 0.8rem;
+    margin-bottom: 0.2rem;
     color: var(--brown);
 }
 
-.bars {
-    width: 100%;
-    height: 1rem;
-    margin-bottom: 0.5rem;
-    grid-template-columns: repeat(7, 1fr);
+.label {
+    max-width: 100%;
+}
+
+.bars,
+.cityLegend {
+    /* width: 100%; */
+    height: max-content;
     display: grid;
+}
+
+.bars {
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 0.5rem;
     align-items: flex-end;
 }
+
+.cityLegend {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    align-items: center;
+    /* margin-bottom: 1.5rem; */
+}
+
+
+
+
 
 @media (max-width:600px) {
     .routes {
@@ -43,10 +67,10 @@
     }
 
     .routes h4 {
-        font-size: 0.6rem;
+        font-size: 0.4rem;
     }
 
     .legend {
-        grid-area: 1/6/1/7;
+        grid-area: 10/11/10/13;
     }
 }

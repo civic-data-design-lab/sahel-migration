@@ -17,6 +17,7 @@
     width: 100%;
     height: 100vh;
     grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     background-image: url('../public/images/lines_blue.svg');
     background-repeat: repeat;
 
@@ -37,7 +38,7 @@
 
 }
 
-.exploreBox{
+.exploreBox {
     position: absolute;
     top: 10%;
     /* left: 0; */
@@ -46,7 +47,7 @@
     color: var(--brown);
 }
 
-.exploreBox > a {
+.exploreBox>a {
     color: var(--brown);
     text-decoration: none;
     font-weight: 600;
@@ -72,7 +73,7 @@
     justify-content: center;
     align-items: center;
     /* grid-column-start: span 4; */
-    grid-area: 1/1/1/5;
+    grid-area: 1/1/13/5;
 }
 
 .contentBox {
