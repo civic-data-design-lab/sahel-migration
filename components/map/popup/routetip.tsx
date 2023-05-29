@@ -1,20 +1,17 @@
-import { Popup } from 'react-map-gl'
-import { Stack } from 'react-bootstrap'
 import styles from './../../../styles/Tooltip.module.css'
-import { v4 as uuidv4 } from 'uuid'
-
+import { useContext } from 'react'
+import { SectionContext } from './../../../pages/index'
 
 export default function RouteTip({ regionData }) {
     const vignetteNames = ["Beginning the Journey", "Passing Through Agadez", "Crossing the Sahara Desert", "Entering Libya", "Passing Through Sabha", "Reaching Tripoli", "Current Conditions in Libya"]
     const round = (num: number) => Math.round(num)
-
-
+    const { currentSection, setSection } = useContext(SectionContext)
 
 
 
     return (
-        (regionData && (
 
+        (currentSection && currentSection.index) && (
             <div className={styles.tooltip}>
                 <div className={styles.city}>
                     <h5 className={styles.vignetteName}>{vignetteNames[regionData.routeId - 1]}</h5>
@@ -69,7 +66,7 @@ export default function RouteTip({ regionData }) {
                 </div>
             </div >
         )
-        ))
+    )
 
 }
 

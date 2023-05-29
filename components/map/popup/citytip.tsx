@@ -8,7 +8,6 @@ export default function CityTip({ regionData }) {
     const surveryData = regionData && regionData.migrantData
     const selectedCity = (regionData && regionData.cityName) || '';
     let originCountry = (regionData && regionData.countryName) || '';
-    console.log('yello')
     if (originCountry === 'Sierr') originCountry = 'Sierra Leone'
     if (originCountry === 'Côt') originCountry = "Côte d'Ivoire"
     if (originCountry === 'Guine') originCountry = "Guinea Bissau"
