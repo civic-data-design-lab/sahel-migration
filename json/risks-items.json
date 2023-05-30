@@ -116,11 +116,19 @@
                 "id": "photos",
                 "heading": "Photos",
                 "imageUrls": [
-                    "/images/drafts/2-img01.jpg",
-                    "/images/drafts/2-img02.jpg",
-                    "/images/drafts/2-img03.jpg",
-                    "/images/drafts/2-img04.jpg",
-                    "/images/drafts/3-img01.jpg"
+                    "/images/photos/2-img01.jpg",
+                    "/images/photos/2-img02.jpg",
+                    "/images/photos/3-img01.jpg",
+                    "/images/photos/3-img02.jpg",
+                    "/images/photos/3-img03.jpg",
+                    "/images/photos/3-img04.jpg",
+                    "/images/photos/4-img01.jpg",
+                    "/images/photos/5-img01.jpg",
+                    "/images/photos/8-img01.jpg",
+                    "/images/photos/8-img02.jpg",
+                    "/images/photos/8-img03.jpg",
+                    "/images/photos/8-img04.jpg",
+                    "/images/photos/8-img05.jpg"
                 ]
             }
         ],

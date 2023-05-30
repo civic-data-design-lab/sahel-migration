@@ -214,6 +214,7 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
     const [countryTip, cityTip, routeTip] = [countryToolTipData, cityToolTipData, routeToolTipData].map(data => {
         return (
             <ToolTip
+                key={data.type}
                 location={{ longitude: data.longitude, latitude: data.latitude }}
                 toolType={data.type}
                 regionDataProps={data}
