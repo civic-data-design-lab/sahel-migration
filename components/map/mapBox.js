@@ -40,6 +40,15 @@ function values(object) {
     return Object.values(object)
 }
 
+function objectMap(object, mapFn) {
+    if (object) {
+        return Object.keys(object).reduce(function (result, key) {
+            result[key] = mapFn(object[key])
+            return result
+        }, {})
+    }
+}
+
 export default function MapBox({ activeSource, risks, cityData, journeys }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
@@ -67,15 +76,6 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
     let getMousePos = (event) => {
         setCoordinates({ posX: event.pageX, posY: event.pageY })
     };
-
-    function objectMap(object, mapFn) {
-        if (object) {
-            return Object.keys(object).reduce(function (result, key) {
-                result[key] = mapFn(object[key])
-                return result
-            }, {})
-        }
-    }
 
     function zoomFunction(number) {
         const x = number / 100;
@@ -164,11 +164,13 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
         setHoverInfo({
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
-            countryName: region && region.properties.ADM0_NAME,
+            migrantCountryName: region && region.properties.COUNTRY,
+            nonMigrantCountryName: region && region.properties.name_en,
         });
     }, []);
 
-    const selectedCountry = (hoverInfo && hoverInfo.countryName) || '';
+    const selectedCountry = (hoverInfo && hoverInfo.migrantCountryName) || '';
+    const nonMigrantCountry = (hoverInfo && hoverInfo.nonMigrantCountryName) || '';
     const selectedCity = (cityInfo && cityInfo.cityName) || '';
     const selectedSegment = (currentSection && currentSection.routeId) || '';
     const countryNames = !selectedCountry
@@ -176,7 +178,7 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
         : ['Ghana', 'Mali', 'Nigeria', 'Niger', 'Chad'].filter((elem) => {
             return elem !== selectedCountry;
         });
-    const filter = useMemo(() => ['in', 'ADM0_NAME', selectedCountry], [selectedCountry]);
+    const filter = useMemo(() => ['in', 'COUNTRY', selectedCountry], [selectedCountry]);
     const unselectedCountryFilter = useMemo(() => [
         "match",
         ["get", "name_en"],
@@ -198,6 +200,10 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
         migrantData: risks && risks.migrantData,
         selectedCountry: selectedCountry,
     }
+    const nonMigrantCountryData = {
+        ...hoverInfo,
+        type: nonMigrantCountry,
+    }
     const cityToolTipData = {
         ...cityInfo,
         type: "city",
@@ -211,7 +217,7 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
         riskLevels: routeInfo
     }
 
-    const [countryTip, cityTip, routeTip] = [countryToolTipData, cityToolTipData, routeToolTipData].map(data => {
+    const [countryTip, nonMigrantCountryTip, cityTip, routeTip] = [countryToolTipData, nonMigrantCountryData, cityToolTipData, routeToolTipData].map(data => {
         return (
             <ToolTip
                 key={data.type}
@@ -281,9 +287,9 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
                         }}
                         attributionControl={false}
                         interactiveLayerIds={
-                            activeSource === "originCities" ? ["hoverable", "cities"] :
-                                activeSource === "transectSegment" ? ["migration-buffer", "hoverable"] :
-                                    activeSource ? ["hoverable"] : []}
+                            activeSource === "originCities" ? ["hoverable", "cities", "overlay"] :
+                                activeSource === "transectSegment" ? ["migration-buffer", "hoverable", 'overlay'] :
+                                    activeSource ? ["hoverable", "overlay"] : []}
                         zoom={perspective.zoom}
                         mapStyle={mapStyle}
                         ref={mapRef}
@@ -294,6 +300,7 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
                         scrollZoom={false}
                     >
                         {(selectedCountry) && (countryTip)}
+                        {(nonMigrantCountry) && (nonMigrantCountryTip)}
                         {(selectedCity && activeSource === 'originCities') && (cityTip)}
                         {(selectedSegment && activeSource === 'transectSegment') && (routeTip)}
                         {renderSource(activeSource, risks)}
@@ -306,8 +313,6 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
                         />
 
                         <Layer {...highlightLayer} filter={filter} />
-                        {/* <Layer {...layersObject["countryFill"]} filter={highlightFilter} /> */}
-
                         <Layer {...layersObject["countryLayer"]} />
                         <Layer {...layersObject["overallRoutes"]} />
                         {width > 600 && (<Layer {...layersObject["minorCountryLabel"]} />)}
@@ -328,15 +333,6 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
 
                             }} />
                         <Layer {...layersObject["cityMarkerHighlight"]} filter={cityHighlightFilter} />
-
-                        <Layer {...layersObject["countryBorder"]}
-                            paint={{
-                                ...layersObject["countryBorder"].paint,
-                                "line-opacity": featureOpacity && featureOpacity.countryBorder,
-
-                            }}
-
-                        />
                         <Layer {...layersObject["migrationBuffer"]} />
 
                         {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}

@@ -28,7 +28,7 @@ export default function stylesObject(activeSource) {
         id: 'hoverable',
         type: 'fill',
         source: 'selected-countries',
-        "source-layer": 'WA_SelectedCountries2-3495m1',
+        "source-layer": 'WA_IFPRI_Countries-57aqj4',
         paint: {
             // 'fill-outline-color': 'rgba(255,255,255,1)',
             'fill-color': 'rgba(255,255,255,0)'
@@ -38,7 +38,7 @@ export default function stylesObject(activeSource) {
     const highlightLayer: LineLayer = {
         id: 'countires-highlighted',
         type: 'line',
-        'source-layer': 'WA_SelectedCountries2-3495m1',
+        'source-layer': 'WA_IFPRI_Countries-57aqj4',
         source: 'selected-countries',
         paint: {
             'line-color': '#ffffff',
@@ -52,7 +52,7 @@ export default function stylesObject(activeSource) {
     const countryFill: FillLayer = {
         id: 'country-fill',
         type: 'fill',
-        'source-layer': 'WA_SelectedCountries2-3495m1',
+        'source-layer': 'WA_IFPRI_Countries-57aqj4',
         source: 'selected-countries',
         paint: {
             'fill-color': 'rgba(255,255,255,0.5)',
@@ -62,7 +62,7 @@ export default function stylesObject(activeSource) {
     const countryBorder: LineLayer = {
         id: 'border',
         type: 'line',
-        'source-layer': 'WA_SelectedCountries2-3495m1',
+        'source-layer': 'WA_IFPRI_Countries-57aqj4',
         source: 'selected-countries',
         paint: {
             'line-color': 'white',

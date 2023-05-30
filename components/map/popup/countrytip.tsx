@@ -6,7 +6,9 @@ import styles from './../../../styles/Tooltip.module.css'
 import { v4 as uuidv4 } from 'uuid'
 import { TEMPORARY_REDIRECT_STATUS } from 'next/dist/shared/lib/constants'
 import { handleWebpackExternalForEdgeRuntime } from 'next/dist/build/webpack/plugins/middleware-plugin';
-
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 export default function CountryTip({ regionData }) {
     const surveyData = regionData && regionData.migrantData
@@ -33,60 +35,25 @@ export default function CountryTip({ regionData }) {
         "Sierra Leone": "Sierra Leonean"
     }
     const countryText = `of ${nationalityLabel[selectedCountry]} migrants surveyed in Libya come from`
-    const { pointerCoords, setCoordinates } = useContext(ScreenContext)
-
-    function numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-
     const topCities = regionData.cityData.filter(country => country.country_origin == selectedCountry).sort((a, b) => b.count - a.count)
+    let nationalPctTotal = nationalMigrantCount * 100 / totalSurveyed
+    if (nationalPctTotal < 1) nationalPctTotal = Math.round(nationalPctTotal * 10) / 10
+    else nationalPctTotal = Math.floor(nationalPctTotal)
+
 
     const [city1, city2] = topCities.map(city => {
+        const count = city && city.count || 0
+        let pctTotal = count / nationalMigrantCount * 100
+        if (pctTotal < 1) pctTotal = Math.round(pctTotal * 10) / 10
+        else pctTotal = Math.floor(pctTotal)
         const obj = {
-            count: city && city.count || 0,
+            count: count,
             name: city && city.city_origin || " ",
             distance: city && city.total_dist_km.toFixed(1) || 0,
+            pctTotal: pctTotal
         }
         return obj
     })
-
-    // TO-DO CREATE USE EFFECT TO RE-RENDER TOOLTIP MOUSE POSITION TO TEXT DOES NOT CUT OFF
-    // const [mousePos, setMousePos] = useState({});
-    // useEffect(() => {
-    //   const handleMouseMove = (event) => setMousePos({
-    //     x: event.clientX, 
-    //     y: event.clientY
-    //   });
-
-    //   window.addEventListener("mousemove", handleMouseMove);
-
-    //   return () => {
-    //     window.removeEventListener("mousemove", handleMouseMove)
-    //   }
-    // }, []);
-    // const winWidth = window.innerWidth;
-    // const winHeight = window.innerHeight;
-
-    // testing for tooltip mouse position - delete if not needed
-    // let offsetX = 150;
-    // let popupAnchor = "center";
-    // window.addEventListener('mousemove', (event) => {
-    //   mousePosX = event.clientX;
-    //   console.log("winWidth: " + winWidth + ", mouseX: " + mousePosX);
-    //   console.log(winWidth < mousePosX + 400)
-    //   mousePosY = event.clientY;
-    //   offsetX = (winWidth < mousePosX + 400) ? -650 : 150;
-    //   popupAnchor = (winWidth < mousePosX + 400) ? "right" : "center"
-    // console.log({ x: posX, y: posY });
-    // return { x: posX, y: posY };
-    // });
-    // const tooltipWidth = document.getElementById("map-tooltip").offsetWidth;
-    // const tooltipHeight = document.getElementById("map-tooltip").offsetHeight;
-    // const tooltipPosX = document.getElementById("map-tooltip").getBoundingClientRect().x;
-    // const tooltipPosY = document.getElementById("map-tooltip").getBoundingClientRect().y;
-    // const offsetX = (winWidth > tooltipPosX + tooltipWidth) ? -tooltipWidth - 150 : 150;
-    // const offsetY = (winHeight > tooltipPosX + tooltipHeight) ? -tooltipHeight - 150 : 150;
-
     return (
         <div id="map-tooltip" className={styles.tooltip}>
             {selectedCountry == 'Libya' && (
@@ -133,7 +100,7 @@ export default function CountryTip({ regionData }) {
                 <div className={styles.city}>
                     <h4 className={styles.header}>Migrants from {selectedCountry}</h4>
                     <InfoBox
-                        left={`${Math.floor(nationalMigrantCount * 100 / totalSurveyed)}%`}
+                        left={`${nationalPctTotal}%`}
                         text={"of West African migrants surveyed in Libya come from"}
                         region={selectedCountry}
                         small={false}
@@ -160,29 +127,35 @@ export default function CountryTip({ regionData }) {
                             />
 
                             <InfoBox
-                                left={`${Math.floor(city1.count / nationalMigrantCount * 100)}%`}
+                                left={`${city1.pctTotal}%`}
                                 text={countryText}
                                 region={city1.name}
                                 small={false}
                                 bold={false}
                                 align={'flex-start'}
                             />
-                            <InfoBoxTitle
-                                left={city2.name}
-                                text={numberWithCommas(city2.distance) + distanceText}
-                                region={''}
-                                align={'space-between'}
-                                small={true}
-                                bold={true}
-                            />
-                            <InfoBox
-                                left={`${Math.floor(city2.count / nationalMigrantCount * 100)}%`}
-                                text={countryText}
-                                region={city2.name}
-                                small={false}
-                                bold={false}
-                                align={'flex-start'}
-                            />
+                            {city2 && (
+                                <>
+
+                                    <InfoBoxTitle
+                                        left={city2.name}
+                                        text={numberWithCommas(city2.distance) + distanceText}
+                                        region={''}
+                                        align={'space-between'}
+                                        small={true}
+                                        bold={true}
+                                    />
+                                    <InfoBox
+                                        left={`${city2.pctTotal}%`}
+                                        text={countryText}
+                                        region={city2.name}
+                                        small={false}
+                                        bold={false}
+                                        align={'flex-start'}
+                                    />
+                                </>
+                            )
+                            }
                         </div>
                     )}
                 </div>
