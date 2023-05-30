@@ -162,7 +162,7 @@ export default function MapJourney({ journeys }) {
                     ]);
 
                     const riskTypes = [
-                        { "Reported Violence": "risk_acled" },
+                        { "Reported Violence": "risk_4mi" },
                         { "Conflict Events": "risk_acled" },
                         { "Food Insecurity": "risk_food" },
                         { "Reliance on Smugglers": "Risk_smugg" },

@@ -33,6 +33,13 @@ export const ScreenContext = createContext({
     setDimensions: (() => { })
 })
 
+function keys(object) {
+    return Object.keys(object)
+}
+function values(object) {
+    return Object.values(object)
+}
+
 export default function MapBox({ activeSource, risks, cityData, journeys }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
@@ -117,44 +124,34 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
 
     const onInfo = useCallback((event) => {
         const region = event.features && event.features[0];
+
+        const riskTypes = [
+            { "Reported Violence": "risk_4mi" },
+            { "Conflict Events": "risk_acled" },
+            { "Food Insecurity": "risk_food" },
+            { "Reliance on Smugglers": "Risk_smugg" },
+            { "Remoteness": "risk_remot" },
+            { "Heat Exposure": "risk_heat" },
+        ]
+        const transectRiskData = {
+            risks: riskTypes.map((risk, index) => {
+                const names = riskTypes.map(obj => keys(obj)[0])
+                const riskProperties = riskTypes.map(obj => values(obj)[0])
+                const riskLevel = region && region.properties[riskProperties[index]]
+                return { name: names[index], riskLevel: riskLevel }
+            }),
+            totalRisk: region && region.properties.risks_tota,
+            routeId: region && region.properties.segement_i
+        }
         setSection({
             index: region && region.properties.segement_i,
             routeId: region && region.properties.segement_i,
         });
 
-
-
         setRouteInfo({
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
-            risks: [
-                {
-                    name: 'Reported Violence',
-                    riskLevel: 1,
-                },
-                {
-                    name: 'Conflict Events',
-                    riskLevel: region && region.properties.risk_acled,
-                },
-                {
-                    name: 'Food Insecurity',
-                    riskLevel: region && region.properties.risk_food,
-                },
-                {
-                    name: 'Reliance on Smugglers',
-                    riskLevel: region && region.properties.Risk_smugg,
-                },
-                {
-                    name: 'Remoteness',
-                    riskLevel: region && region.properties.risk_remot,
-                },
-                {
-                    name: 'Heat Exposure',
-                    riskLevel: region && region.properties.risk_heat,
-                },
-            ],
-            totalRisk: region && region.properties.risks_tota,
-            routeId: region && region.properties.segement_i,
+            ...transectRiskData
         });
         setCityInfo({
             longitude: event.lngLat.lng,

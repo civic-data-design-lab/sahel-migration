@@ -7,8 +7,6 @@ export default function RouteTip({ regionData }) {
     const round = (num: number) => Math.round(num)
     const { currentSection, setSection } = useContext(SectionContext)
 
-
-
     return (
 
         (currentSection && currentSection.index) && (
@@ -42,12 +40,6 @@ export default function RouteTip({ regionData }) {
                         {regionData.risks.map((risk) => {
                             let stat = risk && risk.riskLevel
                             const name = risk && risk.name
-                            if (name === "Reported Violence") {
-                                stat = round(regionData.totalRisk - regionData.risks.
-                                    filter((r) => r.name !== "Reported Violence").
-                                    map((r) => r.riskLevel).
-                                    reduce((a, b) => a + b, 0))
-                            }
                             return (
                                 <InfoBox
                                     key={risk.name}
