@@ -2,7 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Carousel } from 'react-bootstrap';
 import styles from '../../styles/ImageCarousel.module.css';
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
+import imageMetadata from '../../json/image-metadata.json';
+import { useMemo, useState } from 'react';
 import { wrap } from 'framer-motion';
 
 const dropIn = {
@@ -99,6 +100,11 @@ export const SlideShow = ({ images, currentIndex }: any) => {
   // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
   // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
   const imageIndex = wrap(0, images.length, page);
+  const imageSrc = useMemo(() => images[(imageIndex + currentIndex) % images.length], [imageIndex]);
+  const imageMeta = useMemo(() => {
+    const imgSrcName = imageSrc.split('/').at(-1);
+    return imageMetadata.find((meta) => meta.img_src === imgSrcName);
+  }, [imageSrc]);
 
   const paginate = (newDirection: number) => {
     setPage([page + newDirection, newDirection]);
@@ -110,7 +116,7 @@ export const SlideShow = ({ images, currentIndex }: any) => {
         <div className={styles.imgContainer}>
           <motion.img
             key={page}
-            src={images[(imageIndex + currentIndex) % images.length]}
+            src={imageSrc}
             custom={direction}
             variants={variants}
             initial="enter"
@@ -134,29 +140,30 @@ export const SlideShow = ({ images, currentIndex }: any) => {
             }}
           />
           <div className={styles.caption}>
-
             <div>
-              <div><h4>Scene Name</h4></div>
-              <div><h5>Location: City, Country</h5></div>
+              <div>
+                <h4>{imageMeta.scene}</h4>
+              </div>
+              <div>
+                <h5>Location: {imageMeta.img_location}</h5>
+              </div>
             </div>
-            
 
             <div>
               <div>
-                <p>{`A truck joins a convoy with armed military escort as it begins crossing the Sahara Desert from Niger north to Libya, overloaded with Nigerien workers and families destined for work in mines, on October 8, 2018 in Agadez, Niger.`}</p>
+                <p>{imageMeta.img_caption}</p>
               </div>
-              
-              <div className={styles.h7}>Credit:</div>
 
-              <div className={styles.h7}>Date:</div>
-              
+              <div className={styles.h7}>Credit: {imageMeta.img_credit}</div>
+
+              <div className={styles.h7}>Date: {imageMeta.img_date}</div>
+
               <div>
                 <span>
-                Image {((imageIndex + currentIndex) % images.length) + 1}/ {images.length}
+                  Image {((imageIndex + currentIndex) % images.length) + 1}/ {images.length}
                 </span>
               </div>
             </div>
-            
           </div>
         </div>
       </AnimatePresence>
