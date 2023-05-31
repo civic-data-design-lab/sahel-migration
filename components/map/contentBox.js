@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext, useState } from 'react';
+import { useRef, useEffect, useContext, useState, useMemo } from 'react';
 import { useInView, useScroll } from 'framer-motion';
 import styles from '../../styles/ContentBox.module.css';
 import { ViewContext } from '../../pages/maps/map';
@@ -18,7 +18,6 @@ function Paragraph({ children, data, nextElem }) {
     });
     const { currentView, setCurrentView } = useContext(ViewContext);
     function scrollToNext() {
-        console.log('hello')
         const el = document.getElementById(nextElem)
         el.scrollIntoView()
     }
@@ -38,9 +37,12 @@ function Paragraph({ children, data, nextElem }) {
             >
                 {data.body}
             </p>
-            <ScrollIndicator
-                onClick={scrollToNext}
-            />
+            {currentView !== "globeView" && (
+                <ScrollIndicator
+                    onClick={scrollToNext}
+                />
+            )
+            }
         </div>
     );
 }
@@ -71,6 +73,7 @@ export default function ContentBox({ dataItems, toggleMap }) {
     const { scrollYProgress, scrollY } = useScroll({
         container: contentRef
     })
+    const [scrollStrength, setScrollStrength] = useState(0)
     const { currentView, setCurrentView } = useContext(ViewContext);
 
 
@@ -81,6 +84,7 @@ export default function ContentBox({ dataItems, toggleMap }) {
     const handleToggle = () => {
         toggleOpen(!isOpen);
     };
+
 
     useEffect(() => {
 

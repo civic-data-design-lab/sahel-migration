@@ -15,6 +15,11 @@
                 "id": "transectSegment",
                 "heading": "Risk levels for migrants vary along the route",
                 "body": "Some northern countries in Africa, such as Algeria, Libya, Morocco, Tunisia, and Niger, have harsh policies to prosecute irregular migrants. This puts migrants at higher risk, often resorting to alternative means of traveling through more remote areas and hiring smugglers for assistance crossing through treacherous terrain."
+            },
+            {
+                "id": "globeView",
+                "heading": "Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →",
+                "body": ""
             }
         ],
         "migrantData": [

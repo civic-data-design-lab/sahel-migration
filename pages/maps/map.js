@@ -1,4 +1,4 @@
-import { useRef, useState, createContext, useContext } from 'react';
+import { useRef, useState, createContext, useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/Map.module.css'
 import useWindowSize from '../../hooks/useWindowSize'
@@ -18,9 +18,11 @@ export const ViewContext = createContext({
     setCurrentView: () => { },
 });
 
+
 export default function MainMap({ journeys }) {
     const { width } = useWindowSize();
     const sideBarRef = useRef(null);
+    const boxRef = useRef(null);
     const [currentView, setCurrentView] = useState('overallRoutes');
     const viewValue = { currentView, setCurrentView };
 
@@ -48,9 +50,17 @@ export default function MainMap({ journeys }) {
 
 
     function toggleMap() {
-        setRoute(!routeClicked);
+        setRoute(true);
         setSection(null)
     }
+
+    useEffect(() => {
+        if (currentView === "globeView") toggleMap()
+        else setRoute(false)
+
+    }, [currentView])
+
+
 
 
     if (risksError) return <div>Map not found</div>;
@@ -74,9 +84,9 @@ export default function MainMap({ journeys }) {
                 </div>
                 <div
                     className={styles.boxContainer}
-                    style={{ height: routeClicked ? '10vh' : 'initial' }}
+                    ref={boxRef}
                 >
-                    {!routeClicked && (
+                    {true && (
                         <div className={styles.contentBox} ref={sideBarRef}>
                             <ContentBox
                                 scrollRef={sideBarRef}
@@ -85,7 +95,7 @@ export default function MainMap({ journeys }) {
                             />
                         </div>
                     )}
-                    {routeClicked && (
+                    {false && (
                         <>
                             <div className={styles.exploreBox}>
                                 <a href={'/journeys/2'}
@@ -103,7 +113,6 @@ export default function MainMap({ journeys }) {
                             risks={riskItems}
                             cityData={cities}
                             toggleMap={toggleMap}
-                            journeys={journeys}
                         />
                     </animated.div>
                 </div>

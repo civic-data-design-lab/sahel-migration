@@ -49,7 +49,7 @@ function objectMap(object, mapFn) {
     }
 }
 
-export default function MapBox({ activeSource, risks, cityData, journeys }) {
+export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const [hoverInfo, setHoverInfo] = useState(null);
@@ -246,6 +246,7 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
             "overallRoutes": { ...objectMap(featureOpacity, () => 0), countryBorder: 1 },
             "originCities": { ...objectMap(featureOpacity, () => 1), transect: 0 },
             "transectSegment": { ...objectMap(featureOpacity, () => 0), transect: 1 },
+            "globeView": { ...objectMap(featureOpacity, () => 0) },
             "null": featureOpacity,
             "undefined": featureOpacity
         }
@@ -257,12 +258,10 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
             })
 
             mapRef.current.on('click', 'migration', (e) => {
-                const routeFeature = e.features && e.features[0].properties // grabs a single feature from the clicked route segment
-                const routeId = routeFeature.segement_i
-                const journey = journeys[routeId] // selects journey url from url list (index given by routeId)
-                if (journey) window.location.href = '/journeys/' + journey.id
-            }
-            )
+                const globeElem = document.getElementById("globeView")
+                globeElem.scrollIntoView()
+                toggleMap()
+            })
         }
 
     }, [activeSource])
@@ -314,7 +313,12 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
 
                         <Layer {...highlightLayer} filter={filter} />
                         <Layer {...layersObject["countryLayer"]} />
-                        <Layer {...layersObject["overallRoutes"]} />
+                        <Layer {...layersObject["overallRoutes"]}
+                            paint={{
+                                ...layersObject["overallRoutes"].paint,
+                                "line-opacity": featureOpacity && featureOpacity.countryBorder,
+                            }}
+                        />
                         {width > 600 && (<Layer {...layersObject["minorCountryLabel"]} />)}
                         {width > 600 && (<Layer {...layersObject["majorCountryLabel"]} />)}
                         <Layer {...layersObject["migrationRouteStyle"]}
@@ -325,7 +329,15 @@ export default function MapBox({ activeSource, risks, cityData, journeys }) {
 
                             }}
                         />
-                        <Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />
+                        <Layer {...layersObject["migrationHover"]}
+                            lineJoin="round"
+                            filter={routeFilter}
+                            paint={{
+                                ...layersObject["migrationHover"].paint,
+                                "line-opacity": featureOpacity && featureOpacity.transect,
+
+                            }}
+                        />
                         <Layer {...layersObject["cityStyle"]}
                             paint={{
                                 ...layersObject["cityStyle"].paint,
