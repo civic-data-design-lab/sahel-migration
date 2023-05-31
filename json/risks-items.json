@@ -199,6 +199,18 @@
                 "url": "mapbox://mapbox.country-boundaries-v1"
             },
             {
+                "id": "cities-context-all",
+                "url": "mapbox://mitcivicdata.31anazjx"
+            },
+            {
+                "id": "cities-context-transect",
+                "url": "mapbox://mitcivicdata.b8rdk5be"
+            },
+            {
+                "id": "destination-cities",
+                "url": "mapbox://mitcivicdata.clddichzp14pu20jnf88sorx3-6nuz9"
+            },
+            {
                 "id": "minor-countries",
                 "url": "mapbox://mapbox.mapbox-streets-v8"
             }

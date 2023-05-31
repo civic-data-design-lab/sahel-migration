@@ -9,6 +9,8 @@ const DOT_COLOR_SCALE = {
     bold: '#F15A24',
 };
 
+const darkHue = '#463c35'
+
 export default function stylesObject(activeSource) {
     const overallRoutes: LineLayer = {
         id: 'overall-routes',
@@ -159,8 +161,6 @@ export default function stylesObject(activeSource) {
         "source-layer": 'place_label'
     }
 
-
-
     const cityStyle = {
         id: 'cities',
         type: 'circle',
@@ -193,7 +193,6 @@ export default function stylesObject(activeSource) {
             ],
         },
     };
-
 
     const cityMarkerHighlight: CircleLayer = {
         id: 'city-highlight',
@@ -295,6 +294,45 @@ export default function stylesObject(activeSource) {
             'text-color': '#463C35'
         }
     }
+    const transectCountryLabel: SymbolLayer = {
+        id: 'transect-labels',
+        type: 'symbol',
+        source: 'minor-countries',
+        "source-layer": 'place_label',
+        layout: {
+            "text-field": [
+                "match",
+                ["get", "name_en"],
+                [
+                    "Burkina Faso",
+                    "Niger",
+                    "Mali",
+                    "Libya",
+                ],
+                [
+                    "coalesce",
+                    ["get", "name_en"],
+                    ["get", "name"]
+                ],
+                ""
+            ],
+            "text-font": [
+                "Inter Bold",
+                "Arial Unicode MS Regular"
+            ],
+            "text-size": 14,
+            "text-offset": [
+                "match",
+                ["get", "name_en"],
+                ["Niger"],
+                ["literal", [2, 0]],
+                ["literal", [0, 0]]
+            ]
+        },
+        paint: {
+            'text-color': '#463C35'
+        }
+    }
 
     const nonMigrantCountryLabel: SymbolLayer = {
         id: 'non-migrant-labels',
@@ -355,6 +393,253 @@ export default function stylesObject(activeSource) {
         }
     }
 
+    const citiesContextAllMarker: CircleLayer = {
+        id: 'city-context-marker-all',
+        type: 'circle',
+        source: 'cities-context-all',
+        'source-layer': 'cities-WA-context-6dai04',
+        paint: {
+            "circle-color": darkHue,
+            'circle-radius': 2,
+            "circle-stroke-width": 0.8,
+            'circle-stroke-color': '#ffffff'
+        }
+    }
+    const citiesContextTransectMarker: CircleLayer = {
+        id: 'city-context-marker-transect',
+        type: 'circle',
+        source: 'cities-context-transect',
+        'source-layer': 'cities-route-context-98kte2',
+        paint: {
+            "circle-color": darkHue,
+            'circle-radius': 2,
+            "circle-stroke-width": 0.8,
+            'circle-stroke-color': '#ffffff'
+        },
+    }
+    const destinationCitiesMarker: CircleLayer = {
+        id: 'destination-cities-marker',
+        type: 'circle',
+        source: 'destination-cities',
+        'source-layer': 'destination_cities',
+        paint: {
+            "circle-color": darkHue,
+            'circle-radius': 4,
+            "circle-stroke-width": 0.8,
+            'circle-stroke-color': '#ffffff'
+        },
+    }
+    const destinationCitiesLabel: SymbolLayer = {
+        id: 'destination-cities-label',
+        type: 'symbol',
+        source: 'destination-cities',
+        'source-layer': 'destination_cities',
+        layout: {
+            "text-field": [
+                "to-string",
+                ["get", "place_name"]
+            ],
+            "text-font": [
+                "Inter Medium",
+                "Arial Unicode MS Regular"
+            ],
+            "text-size": 10,
+            "text-justify": [
+                "match",
+                ["get", "place_name"],
+                ["Tripoli"],
+                "left",
+                ["Sabha"],
+                "right",
+                "center"
+            ],
+            "text-anchor": [
+                "match",
+                ["get", "place_name"],
+                ["Tripoli"],
+                "bottom-left",
+                ["Sabha"],
+                "right",
+                "center"
+            ],
+            "text-offset": [
+                "match",
+                ["get", "place_name"],
+                ["Tripoli"],
+                ["literal", [0.5, 0]],
+                ["Sabha"],
+                ["literal", [-1, 0]],
+                ["literal", [0, 0]]
+            ]
+        },
+        paint: {
+            "text-color": "#000000",
+        }
+    }
+    const citiesContextAllLabel: SymbolLayer = {
+        id: 'city-context-label-all',
+        type: 'symbol',
+        source: 'cities-context-all',
+        'source-layer': 'cities-WA-context-6dai04',
+        layout: {
+            "text-field": [
+                "to-string",
+                ["get", "CITY_NAME"]
+            ]
+            ,
+            "text-font": [
+                "Inter Regular",
+                "Arial Unicode MS Regular"
+            ],
+            "text-size": 9,
+            "text-justify": [
+                "match",
+                ["get", "CITY_NAME"],
+                [
+                    "Bamako",
+                    "Cotonou",
+                    "Monrovia",
+                    "Conakry",
+                    "Freetown",
+                    "Abidjan",
+                    "Dakar",
+                    "Banjul"
+                ],
+                "right",
+                ["Lagos", "Ouagadougou"],
+                "center",
+                "left"
+            ],
+            "text-anchor": [
+                "match",
+                ["get", "CITY_NAME"],
+                ["Bamako", "Cotonou"],
+                "bottom-right",
+                ["Zinder"],
+                "bottom-left",
+                [
+                    "Abidjan",
+                    "Monrovia",
+                    "Conakry",
+                    "Freetown",
+                    "Dakar",
+                    "Banjul"
+                ],
+                "top-right",
+                ["Ouagadougou"],
+                "bottom",
+                ["Lagos"],
+                "top",
+                "top-left"
+            ],
+            "text-offset": [
+                "match",
+                ["get", "CITY_NAME"],
+                [
+                    "Bamako",
+                    "Abidjan",
+                    "Monrovia",
+                    "Conakry",
+                    "Freetown",
+                    "Dakar",
+                    "Banjul",
+                    "Cotonou"
+                ],
+                ["literal", [-0.5, 0]],
+                ["Ouagadougou"],
+                ["literal", [0, -0.5]],
+                ["Lagos"],
+                ["literal", [1, 0.5]],
+                ["literal", [0.5, 0]]
+            ]
+        },
+        paint: {
+            "text-color": darkHue,
+        }
+    }
+
+    const citiesContextTransectLabel: SymbolLayer = {
+        id: 'city-context-label-transect',
+        type: 'symbol',
+        source: 'cities-context-transect',
+        'source-layer': 'cities-route-context-98kte2',
+        layout: {
+            "text-field": [
+                "to-string",
+                ["get", "CITY_NAME"]
+            ]
+            ,
+            "text-font": [
+                "match",
+                ["get", "CITY_NAME"],
+                ["Bamako"],
+                [
+                    "literal",
+                    [
+                        "Inter Medium",
+                        "Arial Unicode MS Regular"
+                    ]
+                ],
+                [
+                    "literal",
+                    [
+                        "Inter Regular",
+                        "Arial Unicode MS Regular"
+                    ]
+                ]
+            ],
+            "text-size": [
+                "match",
+                ["get", "CITY_NAME"],
+                ["Bamako"],
+                10,
+                8
+            ],
+            "text-anchor": [
+                "match",
+                ["get", "CITY_NAME"],
+                [
+                    "Bamako",
+                    "Ouagadougou",
+                    "Niamey"
+                ],
+                "bottom-right",
+                "top-left"
+            ],
+            "text-justify": [
+                "match",
+                ["get", "CITY_NAME"],
+                [
+                    "Bamako",
+                    "Ouagadougou",
+                    "Niamey"
+                ],
+                "right",
+                "left"
+            ],
+            "text-offset": [
+                "match",
+                ["get", "CITY_NAME"],
+                [
+                    "Bamako",
+                    "Ouagadougou",
+                    "Niamey"
+                ],
+                ["literal", [-0.5, 0]],
+                ["literal", [0.5, 0.25]]
+            ]
+        },
+        paint: {
+            "text-color": [
+                "match",
+                ["get", "CITY_NAME"],
+                ["Bamako"],
+                "#000000",
+                darkHue
+            ]
+        }
+    }
+
     const desktopPerspective = {
         lng: -10,
         lat: 20,
@@ -367,6 +652,12 @@ export default function stylesObject(activeSource) {
         'countryBorder': countryBorder,
         'countryLayer': countryLayer,
         'countryFill': countryFill,
+        'citiesContextAllMarker': citiesContextAllMarker,
+        'citiesContextTransectMarker': citiesContextTransectMarker,
+        'citiesContextAllLabel': citiesContextAllLabel,
+        'citiesContextTransectLabel': citiesContextTransectLabel,
+        'destinationCitiesLabel': destinationCitiesLabel,
+        'destinationCitiesMarker': destinationCitiesMarker,
         'highlightLayer': highlightLayer,
         'nonMigrantCountries': nonMigrantCountries,
         'migrationRouteStyle': migrationRouteStyle,
@@ -376,6 +667,7 @@ export default function stylesObject(activeSource) {
         'minorCountryLabel': minorCountryLabel,
         'nonMigrantCountryLabel': nonMigrantCountryLabel,
         'overallRoutes': overallRoutes,
+        'transectCountryLabel': transectCountryLabel,
         'unselectedCountryOverlay': unselectedCountryOverlay,
     }
 

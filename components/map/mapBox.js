@@ -99,7 +99,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         countryBorder: 1,
         originCities: 0,
         transect: 0,
-        countryOverlay: 0
+        countryOverlay: 0,
 
     })
 
@@ -249,7 +249,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
 
         const opacitySwicth = {
             "overallRoutes": { ...objectMap(featureOpacity, () => 0), countryBorder: 1 },
-            "originCities": { ...objectMap(featureOpacity, () => 1), transect: 0 },
+            "originCities": { ...objectMap(featureOpacity, () => 1), transect: 0, allCities: 0 },
             "transectSegment": { ...objectMap(featureOpacity, () => 0), transect: 1 },
             "globeView": { ...objectMap(featureOpacity, () => 0) },
             "null": featureOpacity,
@@ -350,6 +350,10 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                             }} />
                         <Layer {...layersObject["cityMarkerHighlight"]} filter={cityHighlightFilter} />
                         <Layer {...layersObject["migrationBuffer"]} />
+                        {activeSource === "overallRoutes" && (<Layer {...layersObject["citiesContextAllMarker"]} />)}
+                        {activeSource === "overallRoutes" && (<Layer {...layersObject["citiesContextAllLabel"]} />)}
+                        {activeSource === "transectSegment" && (<Layer {...layersObject["citiesContextTransectMarker"]} />)}
+                        {activeSource === "transectSegment" && (<Layer {...layersObject["citiesContextTransectLabel"]} />)}
                         {width > 600 && (
                             <Layer {...layersObject["minorCountryLabel"]}
                                 paint={{
@@ -376,6 +380,10 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                                 }}
                             />)}
                         {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
+                        <Layer {...layersObject["destinationCitiesMarker"]} />
+                        <Layer {...layersObject["destinationCitiesLabel"]} />
+                        {activeSource === "transectSegment" && (<Layer {...layersObject["transectCountryLabel"]} />)}
+
 
                     </Map>
                 </div >
