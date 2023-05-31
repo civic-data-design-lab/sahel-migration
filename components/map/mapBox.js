@@ -199,7 +199,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         () => ['in', ['get', 'ADM0_NAME'], ['literal', countryNames]],
         [selectedCountry]
     );
-    const routeFilter = useMemo(() => ['in', 'SEGMENT_ID', selectedSegment], [selectedSegment]);
+    const routeFilter = useMemo(() => ['in', 'index', String(selectedSegment)], [selectedSegment]);
 
     const countryToolTipData = {
         ...hoverInfo,

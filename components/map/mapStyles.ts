@@ -117,7 +117,7 @@ export default function stylesObject(activeSource) {
     const migrationHover: LineLayer = {
         id: 'migration-hover',
         type: 'line',
-        'source-layer': 'route-buffer-a8wlk1',
+        'source-layer': 'route-buffer-6-czypyz',
         source: 'route-buffer',
         paint: {
             'line-color': 'white',

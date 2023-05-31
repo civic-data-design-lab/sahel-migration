@@ -19,6 +19,7 @@
 .subheader {
     border-bottom: 2px solid #985946;
     width: max-content;
+    padding-bottom: 0.5rem;
 }
 
 .routes h4 {

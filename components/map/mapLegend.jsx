@@ -127,10 +127,12 @@ export default function MapLegend({ activeSource }) {
             <div className={styles.routes}>
                 {activeSource === "originCities" && (cityLegend())}
                 {activeSource === "transectSegment" && (transectLegend)}
-                <h4
-                    className={styles.subheader}
-                    ref={titleRef}
-                >Migration Routes to Libya</h4>
+                {activeSource === "overallRoutes" && (
+                    <h4
+                        className={styles.subheader}
+                        ref={titleRef}
+                    >Migration Routes to Libya</h4>
+                )}
 
             </div>
 

@@ -129,7 +129,7 @@ export default function MapJourney({ journeys }) {
             map.current.on('load', () => {
                 map.current.addSource('outline', {
                     'type': 'vector',
-                    'url': 'mapbox://mitcivicdata.6egts54c'
+                    'url': 'mapbox://mitcivicdata.dtcys7pj'
                 });
 
                 // The feature-state dependent fill-opacity expression will render the hover effect
@@ -139,7 +139,7 @@ export default function MapJourney({ journeys }) {
                     'type': 'line',
                     // 'promoteId': ['feature-state', 'SEGMENT_ID'],
                     'source': 'outline',
-                    'source-layer': 'route-buffer-a8wlk1',
+                    'source-layer': 'route-buffer-6-czypyz',
                     'layout': {
                         'line-join': 'round',
                         'line-cap': 'round',
@@ -148,17 +148,19 @@ export default function MapJourney({ journeys }) {
                         'line-color': 'white',
                         'line-width': 2
                     },
-                    'filter': ['in', 'SEGMENT_ID', '']
+                    'filter': ['in', 'index', '']
                 });
 
                 map.current.on('mousemove', 'transect-buffer', (e) => {
                     // Use the first found feature.
                     const feature = e.features[0];
+                    let segmentIndex = feature.properties.segement_i
+                    if (segmentIndex > 6) segmentIndex = 6
 
                     map.current.setFilter('transect-outline', [
                         'in',
-                        'SEGMENT_ID',
-                        feature.properties.segement_i
+                        'index',
+                        String(segmentIndex)
                     ]);
 
                     const riskTypes = [
@@ -192,7 +194,7 @@ export default function MapJourney({ journeys }) {
                 })
 
                 map.current.on('mouseleave', 'transect-buffer', () => {
-                    map.current.setFilter('transect-outline', ['in', 'SEGMENT_ID', '']);
+                    map.current.setFilter('transect-outline', ['in', 'index', '']);
                     popup.remove()
                 });
 
