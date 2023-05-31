@@ -30,7 +30,7 @@ export default function CityTip({ regionData }) {
       "Gambia": "Ghambian",
       "Ghana": "Ghanaian",
       "Guinea": "Guinean",
-      "Guninea-Bissau": "Bissau-Guinean",
+      "Guinea Bissau": "Bissau-Guinean",
       "Liberia": "Liberian",
       "Libya": "Libyan",
       "Mali": "Malian",

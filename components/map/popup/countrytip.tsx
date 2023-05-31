@@ -27,7 +27,7 @@ export default function CountryTip({ regionData }) {
         "Gambia": "Ghambian",
         "Ghana": "Ghanaian",
         "Guinea": "Guinean",
-        "Guninea-Bissau": "Bissau-Guinean",
+        "Guinea-Bissau": "Bissau-Guinean",
         "Liberia": "Liberian",
         "Libya": "Libyan",
         "Mali": "Malian",
@@ -52,7 +52,7 @@ export default function CountryTip({ regionData }) {
         const obj = {
             count: count,
             name: city && city.city_origin || " ",
-            distance: city && city.total_dist_km.toFixed(1) || 0,
+            distance: city && city.total_dist_km.toFixed(0) || 0,
             pctTotal: pctTotal
         }
         return obj
@@ -78,7 +78,7 @@ export default function CountryTip({ regionData }) {
                         text={"of West African migrants were surveyed in"}
                         region={"Tripoli"}
                         small={false}
-                        bold={true}
+                        bold={false}
                         align={'flex-start'}
                     />
                     <h4 className={styles.header}>Sabha</h4>
@@ -87,7 +87,7 @@ export default function CountryTip({ regionData }) {
                         text={"of West African migrants were surveyed in"}
                         region={"Sabha"}
                         small={false}
-                        bold={true}
+                        bold={false}
                         align={'flex-start'}
                     />
                 </div>
