@@ -69,15 +69,18 @@
     /* height: 100vh; */
     width: 100vw;
     z-index: 2;
-    display: flex;
+    display: grid;
     align-items: center;
     /* grid-column-start: span 4; */
-    grid-area: 1/1/13/5;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    grid-area: 1/1/13/13;
     /* background-color: rgba(0, 255, 0, 0.5); */
 }
 
 .contentBox {
     /* background-color: rgba(255, 0 ,0, 0.5); */
+    /* grid-area: 3/1/10/4; */
     position: fixed;
     height: 80vh;
     /* bottom: 0; */
@@ -144,6 +147,7 @@
     }
 
     .boxContainer {
+        display: flex;
         width: 100%;
         align-items: unset;
         grid-area: 2/1/5/13;
