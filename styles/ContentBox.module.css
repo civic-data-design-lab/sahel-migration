@@ -19,6 +19,10 @@
     scroll-snap-align: center;
 } */
 
+.paragraph h2 {
+    pointer-events: all !important;
+}
+
 .paragraphContainer {
     height: 100%;
     /* scroll-snap-align: center; */

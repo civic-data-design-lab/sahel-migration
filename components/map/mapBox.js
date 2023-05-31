@@ -30,7 +30,11 @@ export const ScreenContext = createContext({
     pointerCoords: { posX: 0, posY: 0 },
     setCoordinates: (() => { }),
     containerDimensions: { width: 0, height: 0 },
-    setDimensions: (() => { })
+    setDimensions: (() => { }),
+    mapCenter: {
+        lng: -10,
+        lat: 20,
+    }
 })
 
 function keys(object) {
@@ -49,6 +53,33 @@ function objectMap(object, mapFn) {
     }
 }
 
+function zoomFunction(number) {
+    const x = number / 100;
+    // return 3.8 + 0.4 * Math.tanh((x - 8.5) / 1.5) + 0.3 * Math.tanh((x - 12.5) / 2.5) + 0.3 * Math.exp(-((x - 19) ** 2) / 2)
+    // return -(1 / (2.5 * (Math.E ** ((number / 100 - 7) ** 2)))) + 3.7
+    // if (x <= 6) return 3.5
+    // if (6 <= x <= 19) return 3.26923076923 + 0.038461538461 * x
+    // return 4
+    return 0.0801143 * x + 2.72143;
+}
+function latFunction(number) {
+    // return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
+    return 20;
+}
+
+function lngFunction(number) {
+    const x = number / 100;
+    return -0.727878 * x + 5.73398;
+    // if (x === 900) return -3
+    // return -0.765517 * x + 6.60345
+    // const exponent = -(number * 2.5 / 100 - 20)
+    // return 5 - (15 / (1 + Math.E ** exponent))
+}
+
+function computePerspective(width) {
+    return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) };
+}
+
 export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
@@ -56,7 +87,6 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const [cityInfo, setCityInfo] = useState(null);
     const [pointerCoords, setCoordinates] = useState({ posX: 0, posY: 0 })
     const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 })
-    const pointerPosValue = { pointerCoords, setCoordinates, containerDimensions, setDimensions }
     const [routeInfo, setRouteInfo] = useState(null);
     const [feature, setFeature] = useState(null)
     const [point, setPoint] = useState(null)
@@ -76,38 +106,15 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     let getMousePos = (event) => {
         setCoordinates({ posX: event.pageX, posY: event.pageY })
     };
-
-    function zoomFunction(number) {
-        const x = number / 100;
-        // return 3.8 + 0.4 * Math.tanh((x - 8.5) / 1.5) + 0.3 * Math.tanh((x - 12.5) / 2.5) + 0.3 * Math.exp(-((x - 19) ** 2) / 2)
-        // return -(1 / (2.5 * (Math.E ** ((number / 100 - 7) ** 2)))) + 3.7
-        // if (x <= 6) return 3.5
-        // if (6 <= x <= 19) return 3.26923076923 + 0.038461538461 * x
-        // return 4
-        return 0.0801143 * x + 2.72143;
-    }
-    function latFunction(number) {
-        // return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
-        return 20;
-    }
-
-    function lngFunction(number) {
-        const x = number / 100;
-        return -0.727878 * x + 5.73398;
-        // if (x === 900) return -3
-        // return -0.765517 * x + 6.60345
-        // const exponent = -(number * 2.5 / 100 - 20)
-        // return 5 - (15 / (1 + Math.E ** exponent))
-    }
-
-    function computePerspective(width) {
-        return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) };
-    }
-
-
     const mapRef = useRef(null)
     const containerRef = useRef(null)
+
     const perspective = useMemo(() => computePerspective(width), [width])
+    const mapCenter = {
+        lng: perspective.lng,
+        lat: perspective.lat,
+    }
+    const pointerPosValue = { pointerCoords, setCoordinates, containerDimensions, setDimensions, mapCenter }
 
 
     function renderSource(activeSource, data) {
@@ -239,6 +246,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
 
     }, [selectedCountry])
 
+
     useEffect(() => {
 
 
@@ -258,9 +266,11 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
             })
 
             mapRef.current.on('click', 'migration', (e) => {
-                const globeElem = document.getElementById("globeView")
-                globeElem.scrollIntoView()
-                toggleMap()
+                if (activeSource === "globeView") {
+                    const globeElem = document.getElementById("globeView")
+                    globeElem.scrollIntoView()
+                    toggleMap()
+                }
             })
         }
 
@@ -271,7 +281,6 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                 <div className={styles.mapContainer}
                     onMouseMove={getMousePos}
                     ref={containerRef}
-
                 >
                     <Map
                         initialViewState={{
@@ -310,17 +319,16 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                                 "fill-opacity": overlayOpacity
                             }}
                         />
+                        <Layer {...layersObject["countryLayer"]} />
 
                         <Layer {...highlightLayer} filter={filter} />
-                        <Layer {...layersObject["countryLayer"]} />
                         <Layer {...layersObject["overallRoutes"]}
                             paint={{
                                 ...layersObject["overallRoutes"].paint,
                                 "line-opacity": featureOpacity && featureOpacity.countryBorder,
                             }}
                         />
-                        {width > 600 && (<Layer {...layersObject["minorCountryLabel"]} />)}
-                        {width > 600 && (<Layer {...layersObject["majorCountryLabel"]} />)}
+
                         <Layer {...layersObject["migrationRouteStyle"]}
                             lineJoin="round"
                             paint={{
@@ -346,7 +354,22 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                             }} />
                         <Layer {...layersObject["cityMarkerHighlight"]} filter={cityHighlightFilter} />
                         <Layer {...layersObject["migrationBuffer"]} />
+                        {width > 600 && (
+                            <Layer {...layersObject["minorCountryLabel"]}
+                                paint={{
+                                    ...layersObject["minorCountryLabel"].paint,
+                                    "text-opacity": featureOpacity && featureOpacity.countryBorder,
 
+                                }}
+                            />)}
+                        {width > 600 && (
+                            <Layer {...layersObject["majorCountryLabel"]}
+                                paint={{
+                                    ...layersObject["majorCountryLabel"].paint,
+                                    "text-opacity": featureOpacity && featureOpacity.countryBorder,
+
+                                }}
+                            />)}
                         {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
 
                     </Map>

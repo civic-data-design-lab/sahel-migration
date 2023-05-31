@@ -18,6 +18,17 @@ export const ViewContext = createContext({
     setCurrentView: () => { },
 });
 
+function disablePointerEvents(container) {
+    if (container) {
+        container.style.pointerEvents = 'none'
+    }
+}
+function enablePointerEvents(container) {
+    if (container) {
+        container.style.pointerEvents = 'all'
+    }
+}
+
 
 export default function MainMap({ journeys }) {
     const { width } = useWindowSize();
@@ -59,6 +70,17 @@ export default function MainMap({ journeys }) {
         else setRoute(false)
 
     }, [currentView])
+
+    useEffect(() => {
+        if (width > 800) {
+            window.addEventListener('wheel', (event) => {
+                if (Math.abs(event.deltaY) > 0) enablePointerEvents(boxRef.current)
+            })
+            if (boxRef.current) {
+                boxRef.current.addEventListener('mousemove', () => disablePointerEvents(boxRef.current))
+            }
+        }
+    })
 
 
 

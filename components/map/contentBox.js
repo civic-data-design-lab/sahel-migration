@@ -13,6 +13,7 @@ function Paragraph({ children, data, nextElem }) {
     const { width } = useWindowSize()
     const ref = useRef(null);
     const threshold = width <= 600 ? 0.5 : 1;
+    const link = data.id !== "globeView" ? () => { } : () => { window.location.href = '/journeys/beginning-journey' }
     const isInView = useInView(ref, {
         amount: threshold,
     });
@@ -28,7 +29,12 @@ function Paragraph({ children, data, nextElem }) {
     }, [isInView]);
     return (
         <div className={styles.paragraph} ref={ref}>
-            <h2 className="header-3">{data.heading}</h2>
+            <h2 className="header-3"
+                style={{
+                    cursor: data.id === "globeView" ? "pointer" : 'auto'
+                }}
+                onClick={link}
+            >{data.heading}</h2>
             <p
                 className="body-3"
                 style={{
@@ -37,7 +43,7 @@ function Paragraph({ children, data, nextElem }) {
             >
                 {data.body}
             </p>
-            {currentView !== "globeView" && (
+            {data.id !== "globeView" && (
                 <ScrollIndicator
                     onClick={scrollToNext}
                 />

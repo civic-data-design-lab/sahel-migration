@@ -201,12 +201,8 @@ export default function MapJourney({ journeys }) {
                 const routeFeature = e.features && e.features[0].properties // grabs a single feature from the clicked route segment
                 const routeId = routeFeature.segement_i
                 const journey = journeys[routeId] // selects journey url from url list (index given by routeId)
-                if (journey) window.location.href = '/journeys/' + journey.id
-            }
-            )
-
-
-
+                if (journey) window.location.href = '/journeys/' + journey.route
+            })
         }
     }, [canExplore]);
 
