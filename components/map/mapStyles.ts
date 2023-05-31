@@ -232,6 +232,7 @@ export default function stylesObject(activeSource) {
                     "Guinea",
                     "Guinea-Bissau",
                     "Gambia",
+                    "Togo",
                     "Benin",
                     "Liberia",
                     "Burkina Faso",
@@ -250,7 +251,7 @@ export default function stylesObject(activeSource) {
             "text-size": 14,
         },
         paint: {
-            'text-color': '#463C35'
+            'text-color': '#463C35',
         }
     }
     const majorCountryLabel: SymbolLayer = {
@@ -282,13 +283,18 @@ export default function stylesObject(activeSource) {
                 "Arial Unicode MS Regular"
             ],
             "text-size": 14,
+            "text-offset": [
+                "match",
+                ["get", "name_en"],
+                ["Niger"],
+                ["literal", [2, 0]],
+                ["literal", [0, 0]]
+            ]
         },
         paint: {
             'text-color': '#463C35'
         }
     }
-
-
 
     const desktopPerspective = {
         lng: -10,

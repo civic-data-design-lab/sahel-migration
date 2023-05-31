@@ -37,7 +37,7 @@ export default function CountryTip({ regionData }) {
     const countryText = `of ${nationalityLabel[selectedCountry]} migrants surveyed in Libya come from`
     const topCities = regionData.cityData.filter(country => country.country_origin == selectedCountry).sort((a, b) => b.count - a.count)
     let nationalPctTotal = nationalMigrantCount * 100 / totalSurveyed
-    if (nationalPctTotal < 1) nationalPctTotal = Math.round(nationalPctTotal * 10) / 10
+    if (nationalPctTotal < 10) nationalPctTotal = Math.round(nationalPctTotal * 10) / 10
     else nationalPctTotal = Math.floor(nationalPctTotal)
 
 
