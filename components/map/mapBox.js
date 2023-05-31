@@ -186,6 +186,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
             return elem !== selectedCountry;
         });
     const filter = useMemo(() => ['in', 'COUNTRY', selectedCountry], [selectedCountry]);
+    const nonMigrantCountryFilter = useMemo(() => ['in', 'name_en', nonMigrantCountry], [nonMigrantCountry]);
     const unselectedCountryFilter = useMemo(() => [
         "match",
         ["get", "name_en"],
@@ -207,10 +208,6 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         migrantData: risks && risks.migrantData,
         selectedCountry: selectedCountry,
     }
-    const nonMigrantCountryData = {
-        ...hoverInfo,
-        type: nonMigrantCountry,
-    }
     const cityToolTipData = {
         ...cityInfo,
         type: "city",
@@ -224,7 +221,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         riskLevels: routeInfo
     }
 
-    const [countryTip, nonMigrantCountryTip, cityTip, routeTip] = [countryToolTipData, nonMigrantCountryData, cityToolTipData, routeToolTipData].map(data => {
+    const [countryTip, cityTip, routeTip] = [countryToolTipData, cityToolTipData, routeToolTipData].map(data => {
         return (
             <ToolTip
                 key={data.type}
@@ -241,7 +238,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     }, [containerRef])
 
     useEffect(() => {
-        if (selectedCountry) setOverlayOpacity(0.5)
+        if (selectedCountry) setOverlayOpacity(0.35)
         else setOverlayOpacity(0)
 
     }, [selectedCountry])
@@ -308,7 +305,6 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                         scrollZoom={false}
                     >
                         {(selectedCountry) && (countryTip)}
-                        {(nonMigrantCountry) && (nonMigrantCountryTip)}
                         {(selectedCity && activeSource === 'originCities') && (cityTip)}
                         {(selectedSegment && activeSource === 'transectSegment') && (routeTip)}
                         {renderSource(activeSource, risks)}
@@ -361,6 +357,15 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                                     "text-opacity": featureOpacity && featureOpacity.countryBorder,
 
                                 }}
+                            />)}
+                        {width > 600 && (
+                            <Layer {...layersObject["nonMigrantCountryLabel"]}
+                                paint={{
+                                    ...layersObject["nonMigrantCountryLabel"].paint,
+                                    "text-opacity": featureOpacity && featureOpacity.countryBorder,
+
+                                }}
+                                filter={nonMigrantCountryFilter}
                             />)}
                         {width > 600 && (
                             <Layer {...layersObject["majorCountryLabel"]}

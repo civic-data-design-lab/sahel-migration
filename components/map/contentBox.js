@@ -12,7 +12,7 @@ import ScrollIndicator from '../scrollIndicator';
 function Paragraph({ children, data, nextElem }) {
     const { width } = useWindowSize()
     const ref = useRef(null);
-    const threshold = width <= 600 ? 0.5 : 1;
+    const threshold = width <= 600 ? 0.5 : 0.7;
     const link = data.id !== "globeView" ? () => { } : () => { window.location.href = '/journeys/beginning-journey' }
     const isInView = useInView(ref, {
         amount: threshold,

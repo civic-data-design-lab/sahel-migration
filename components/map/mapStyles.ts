@@ -146,7 +146,6 @@ export default function stylesObject(activeSource) {
         paint: {
             'fill-color':
                 "rgb(255, 255, 255)",
-            'fill-opacity': 0.5,
             'fill-opacity-transition': {
                 duration: 1000
             }
@@ -236,7 +235,8 @@ export default function stylesObject(activeSource) {
                     "Benin",
                     "Liberia",
                     "Burkina Faso",
-                    "Ivory Coast"
+                    "Ivory Coast",
+                    "Cameroon"
                 ],
                 [
                     "coalesce",
@@ -248,7 +248,7 @@ export default function stylesObject(activeSource) {
                 "Inter Bold",
                 "Arial Unicode MS Regular"
             ],
-            "text-size": 14,
+            "text-size": 10,
         },
         paint: {
             'text-color': '#463C35',
@@ -296,6 +296,65 @@ export default function stylesObject(activeSource) {
         }
     }
 
+    const nonMigrantCountryLabel: SymbolLayer = {
+        id: 'non-migrant-labels',
+        type: 'symbol',
+        source: 'minor-countries',
+        "source-layer": 'place_label',
+        layout: {
+            "text-field": [
+                "case",
+                [
+                    "all",
+                    [
+                        "match",
+                        ["get", "name_en"],
+                        [
+                            "Mali",
+                            "Niger",
+                            "Chad",
+                            "Libya",
+                            "Ivory Coast",
+                            "Ghana",
+                            "Burkina Faso",
+                            "Togo",
+                            "Benin",
+                            "Nigeria",
+                            "Cameroon",
+                            "Liberia",
+                            "Guinea",
+                            "Sierra Leone",
+                            "Guinea-Bissau",
+                            "Senegal"
+                        ],
+                        false,
+                        true
+                    ],
+                    [
+                        "match",
+                        ["get", "class"],
+                        ["country"],
+                        true,
+                        false
+                    ]
+                ],
+                [
+                    "to-string",
+                    ["get", "name_en"]
+                ],
+                ["to-string", ""]
+            ],
+            "text-font": [
+                "Inter Bold",
+                "Arial Unicode MS Regular"
+            ],
+            "text-size": 10
+        },
+        paint: {
+            'text-color': '#463C35'
+        }
+    }
+
     const desktopPerspective = {
         lng: -10,
         lat: 20,
@@ -315,6 +374,7 @@ export default function stylesObject(activeSource) {
         'migrationBuffer': migrationBuffer,
         'majorCountryLabel': majorCountryLabel,
         'minorCountryLabel': minorCountryLabel,
+        'nonMigrantCountryLabel': nonMigrantCountryLabel,
         'overallRoutes': overallRoutes,
         'unselectedCountryOverlay': unselectedCountryOverlay,
     }

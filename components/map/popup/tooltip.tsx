@@ -74,10 +74,6 @@ export default function ToolTip({ location, toolType, regionDataProps }) {
             {toolType === "route" && (
                 <RouteTip regionData={regionDataProps} />
             )}
-            {(toolType && ["country", "city", "route"].every(type => type != toolType)) && (
-                <h4 className={styles.header}>{toolType}</h4>
-
-            )}
         </Popup>
 
     )
