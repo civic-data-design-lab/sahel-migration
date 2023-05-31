@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { SectionContext } from './../../../pages/index'
 
 export default function RouteTip({ regionData }) {
-    const vignetteNames = ["Beginning the Journey", "Passing Through Agadez", "Crossing the Sahara Desert", "Entering Libya", "Passing Through Sabha", "Reaching Tripoli", "Current Conditions in Libya"]
+    const vignetteNames = ["Beginning the Journey", "Passing through Agadez", "Crossing the Sahara Desert", "Entering Libya", "Passing through Sabha", "Reaching Tripoli", "Current Conditions in Libya"]
     const round = (num: number) => Math.round(num)
     const { currentSection, setSection } = useContext(SectionContext)
 
@@ -29,7 +29,7 @@ export default function RouteTip({ regionData }) {
                     }}>
                         <InfoBox
                             left={`Migration Risk`}
-                            text={round(regionData.totalRisk)}
+                            text={round(regionData.totalRisk * 1/6)}
                             region={""}
                             small={false}
                             bold={true}
@@ -44,7 +44,7 @@ export default function RouteTip({ regionData }) {
                                 <InfoBox
                                     key={risk.name}
                                     left={name}
-                                    text={round(stat)}
+                                    text={round(stat * 1/6)}
                                     region={''}
                                     align={'space-between'}
                                     small={true}
@@ -82,6 +82,7 @@ function InfoBox({ left, text, region, small, bold, align, squeeze }) {
                 style={{
                     fontSize: small ? "0.75rem" : "1rem",
                     fontWeight: bold ? '600' : 'initial',
+                    marginBottom: '0.5rem',
                 }}
             >{text} <span style={{ fontWeight: '600' }}>{region}</span> </p>
         </div>

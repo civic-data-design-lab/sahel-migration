@@ -302,35 +302,65 @@ export default function Menu({ journeys }) {
                       visualizations on this website.
                     </p>
                   </AboutSection>
-
-                  <div className={styles.logoContainer}>
-                    <a
-                      href="https://civicdatadesignlab.mit.edu/"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      <img src="/images/logos/MIT_CDDL_cobrand-01.png" alt="mit-cddl-logo"></img>
-                    </a>
-
-                    <a href="https://www.wfp.org/" target="_blank" rel="noreferrer noopener">
-                      <img
-                        src="/images/logos/WFPnewlogo_english_standard_BLUE_RGB.png"
-                        alt="wfp-logo"
-                      ></img>
-                    </a>
-                    <a href="https://www.ifpri.org/" target="_blank" rel="noreferrer noopener">
-                      <img src="/images/logos/IFPRI_Logo_Horizontal.png" alt="ifpri-logo"></img>
-                    </a>
-                  </div>
-
-                  <div className={styles.logoContainer}>
-                    <a href="https://mixedmigration.org/" target="_blank" rel="noreferrer noopener">
-                      <img src="/images/logos/MMC_logo.png" alt="mmc-logo"></img>
-                    </a>
-                    <a href="https://www.iom.int/" target="_blank" rel="noreferrer noopener">
-                      <img src="/images/logos/IOM_logo.png" alt="iom-logo"></img>
-                    </a>
-                  </div>
+                  <Row className='mt-5'>
+                    <Col xs={5} className='p-0'>
+                      <a href="https://civicdatadesignlab.mit.edu/" target="_blank" rel="noreferrer noopener"
+                        className='h-100 d-flex align-items-center'
+                      >
+                        <img 
+                          src="/images/logos/MIT_CDDL_cobrand-01.png" alt="mit-cddl-logo"
+                          className='w-100'></img>
+                      </a>
+                    </Col>
+                    <Col xs={4} className='p-0'>
+                      <a 
+                        href="https://www.wfp.org/" target="_blank" rel="noreferrer noopener"
+                        className='h-100 d-flex align-items-center'>
+                        <img
+                          src="/images/logos/WFPnewlogo_english_standard_BLUE_RGB.png" alt="wfp-logo"
+                          className='w-100'
+                        ></img>
+                      </a>
+                    </Col>
+                    <Col xs={3} className='pe-0'>
+                      <a 
+                        href="https://www.ifpri.org/"  target="_blank" rel="noreferrer noopener" 
+                        className='h-100 d-flex align-items-center'
+                      >
+                        <img 
+                          src="/images/logos/IFPRI_Logo_Horizontal.png" alt="ifpri-logo" 
+                          className='w-100'
+                        ></img>
+                      </a>
+                    </Col>
+                  </Row>
+                  <Row className='mt-3'>
+                    <Col xs={{span: 3, offset: 3}} className='p-1'>
+                     <a 
+                        href="https://www.iom.int/" target="_blank" rel="noreferrer noopener"
+                        className='h-100 d-flex align-items-center'
+                      >
+                        <img 
+                          src="/images/logos/IOM_logo.png" alt="iom-logo"
+                          className='w-100'
+                        ></img>
+                      </a>
+                      
+                    </Col>
+                    <Col xs={{span: 2, offset: 1}} className='p-1'>
+                      <a 
+                        href="https://mixedmigration.org/" target="_blank" rel="noreferrer noopener"
+                        className='h-100 d-flex align-items-center'
+                      >
+                        <img 
+                          src="/images/logos/MMC_logo.png" alt="mmc-logo"
+                          className='w-100'
+                        ></img>
+                      </a>
+                    </Col>
+                    
+                  </Row>
+                  {/* </div> */}
                 </Col>
               ) : selected === 'journey' ? (
                 <Col xs={width > 480 ? 7 : 9} className="pt-5 mt-5 pb-5">

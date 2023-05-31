@@ -55,7 +55,7 @@ export default function MapLegend({ activeSource }) {
                 justifyContent: "space-between"
             }}>
             <span><h4>0</h4></span>
-            <span><h4>360</h4></span>
+            <span><h4>100</h4></span>
         </div>
     </div>
     const cityLegend = (() => {

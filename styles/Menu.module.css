@@ -160,6 +160,9 @@
   margin-right: 0.5rem;
   height: clamp(20px, 6.8vh, 60px);
 }
+.logoCDDL {
+  height: clamp(14px, 6.8vh, 52px);
+}
 
 @media only screen and (max-width: 480px) {
   .navBar {
