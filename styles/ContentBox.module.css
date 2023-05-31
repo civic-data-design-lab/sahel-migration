@@ -1,16 +1,17 @@
 .container {
-    /* --line-height: 24px; */
-    /* display: flex; */
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
     height: 100%;
     overflow-y: scroll;
     position: relative;
     font-family: var(--primary-font-fam);
     /* scroll-snap-type: y mandatory; */
     scroll-behavior: smooth;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    gap: 500px;
 }
 
 /* 

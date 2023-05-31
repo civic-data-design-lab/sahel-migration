@@ -125,18 +125,20 @@ export default function ContentBox({ dataItems, toggleMap }) {
     return (
         <>
             <div ref={contentRef} className={styles.container} onTouchMove={globeTransition}>
-                {dataItems.map((data, index) => {
-                    const nextIndex = (index + 1) % dataItems.length
-                    return (
-                        <div
-                            className={styles.paragraphContainer}
-                            key={uuidv4()}
-                            id={data.id}
-                        >
-                            <Paragraph data={data} nextElem={dataItems[nextIndex].id}></Paragraph>
-                        </div>
-                    );
-                })}
+                <div className={styles.content}>
+                    {dataItems.map((data, index) => {
+                        const nextIndex = (index + 1) % dataItems.length
+                        return (
+                            <div
+                                className={styles.paragraphContainer}
+                                key={uuidv4()}
+                                id={data.id}
+                            >
+                                <Paragraph data={data} nextElem={dataItems[nextIndex].id}></Paragraph>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
             <RouteMenu isOpen={isOpen} mapToggle={handleMapAnimation} />
 
