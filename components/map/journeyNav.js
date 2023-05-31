@@ -78,7 +78,7 @@ export default function JourneyNav({ journeys }) {
                     {<Link
                         href={'/journeys/' + journey.route}
                         className={styles.journeyLink}
-                    >{journey.title}
+                    >{width > 1000 && journey.title}
 
                     </Link>}
                 </motion.div>
