@@ -107,7 +107,7 @@ html {
   color: var(--brown);
   scroll-snap-type: x mandatory;
   font-family: var(--primary-font-fam);
-  overflow-y: hidden;
+  /*overflow-y: hidden;*/
 }
 
 body {
