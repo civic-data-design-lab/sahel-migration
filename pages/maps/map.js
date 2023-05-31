@@ -74,7 +74,7 @@ export default function MainMap({ journeys }) {
     useEffect(() => {
         if (width > 800) {
             window.addEventListener('wheel', (event) => {
-                if (Math.abs(event.deltaY) > 0) enablePointerEvents(boxRef.current)
+                enablePointerEvents(boxRef.current)
             })
             window.addEventListener('mousewheel', (event) => {
                 enablePointerEvents(boxRef.current)
