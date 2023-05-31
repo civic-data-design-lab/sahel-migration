@@ -21,8 +21,26 @@ export default function CityTip({ regionData }) {
     const totalSurveyed = 347
 
 
-
-    const cityText = `of ${originCountry} migrants surveyed in Libya come from`
+    const nationalityLabel = {
+      "Benin": "Beninois",
+      "Burkina Faso": "Burkinab&Eacute;",
+      "Cameroon": "Cameroonian",
+      "Chad": "Chadian",
+      "C\u00f4te d'Ivoire": "Ivorian",
+      "Gambia": "Ghambian",
+      "Ghana": "Ghanaian",
+      "Guinea": "Guinean",
+      "Guninea-Bissau": "Bissau-Guinean",
+      "Liberia": "Liberian",
+      "Libya": "Libyan",
+      "Mali": "Malian",
+      "Niger": "Nigerien",
+      "Nigeria": "Nigerian",
+      "Senegal": "Senegalese",
+      "Sierra Leone": "Sierra Leonean",
+      "Togo": "Togolese"
+  }
+    const cityText = `of ${nationalityLabel[originCountry]} migrants surveyed in Libya come from`
     const countryText = `${Math.floor(nationalMigrantCount * 100 / totalSurveyed)}% of all migrants surveyed in Libya come from`
 
     return (

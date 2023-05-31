@@ -21,8 +21,10 @@ export default function CountryTip({ regionData }) {
     const nationalityLabel = {
         "Benin": "Beninois",
         "Burkina Faso": "Burkinab&Eacute;",
+        "Cameroon": "Cameroonian",
         "Chad": "Chadian",
         "C\u00f4te d'Ivoire": "Ivorian",
+        "Gambia": "Ghambian",
         "Ghana": "Ghanaian",
         "Guinea": "Guinean",
         "Guninea-Bissau": "Bissau-Guinean",
@@ -32,7 +34,8 @@ export default function CountryTip({ regionData }) {
         "Niger": "Nigerien",
         "Nigeria": "Nigerian",
         "Senegal": "Senegalese",
-        "Sierra Leone": "Sierra Leonean"
+        "Sierra Leone": "Sierra Leonean",
+        "Togo": "Togolese"
     }
     const countryText = `of ${nationalityLabel[selectedCountry]} migrants surveyed in Libya come from`
     const topCities = regionData.cityData.filter(country => country.country_origin == selectedCountry).sort((a, b) => b.count - a.count)
