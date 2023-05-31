@@ -76,6 +76,9 @@ export default function MainMap({ journeys }) {
             window.addEventListener('wheel', (event) => {
                 if (Math.abs(event.deltaY) > 0) enablePointerEvents(boxRef.current)
             })
+            window.addEventListener('scroll', (event) => {
+                if (Math.abs(event.deltaY) > 0) enablePointerEvents(boxRef.current)
+            })
             if (boxRef.current) {
                 boxRef.current.addEventListener('mousemove', () => disablePointerEvents(boxRef.current))
             }
