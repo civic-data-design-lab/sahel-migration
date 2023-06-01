@@ -123,7 +123,7 @@ export default function MainMap({ journeys }) {
                     {false && (
                         <>
                             <div className={styles.exploreBox}>
-                                <a href={'/journeys/2'}
+                                <a href={'/journeys/beginning-journey'}
                                 >
                                     Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →
                                 </a>
