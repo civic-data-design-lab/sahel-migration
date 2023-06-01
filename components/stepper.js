@@ -1,5 +1,6 @@
 import styles from '../styles/Stepper.module.css';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 export default function Stepper({
   totalSteps,
   stepNumber,
@@ -25,7 +26,7 @@ export default function Stepper({
     const isCurrent = currentStep === stepNumber ? styles.current : '';
     const item = journeys.find((item) => item.id === currentStep + 1);
     return (
-      <a
+      <Link
         key={currentStep}
         href={item.route || '/'}
         className={styles.stepContainer}
@@ -33,7 +34,7 @@ export default function Stepper({
       >
         <div className={`${styles.step} ${isFilled} ${isCurrent}`} />
         <small className={styles.textContainer}>{item.title}</small>
-      </a>
+      </Link>
     );
   }
   return (
