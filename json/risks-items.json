@@ -3,22 +3,22 @@
         "risks": [
             {
                 "id": "overallRoutes",
-                "heading": "Migration from West Africa to Libya is Risky",
+                "heading": "Migration from West Africa to Libya is risky",
                 "body": "Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022)."
             },
             {
                 "id": "originCities",
-                "heading": "Migrants were Surveyed in Libya",
-                "body": "In June and July 2021, migrants in Libya were surveyed  by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status.. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
+                "heading": "Migrants were surveyed in Libya",
+                "body": "In June and July 2021, migrants in Libya were surveyed by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
             },
             {
                 "id": "transectSegment",
                 "heading": "Risk levels for migrants vary along the route",
-                "body": "Some northern countries in Africa, such as Algeria, Libya, Morocco, Tunisia, and Niger, have harsh policies to prosecute irregular migrants. This puts migrants at higher risk, often resorting to alternative means of traveling through more remote areas and hiring smugglers for assistance crossing through treacherous terrain."
+                "body": "Migrants traveling in North Africa face significant risks, often resorting to illicit means of traveling with smugglers who often choose more remote areas, crossing through treacherous terrain. This route shows the combined risks of migrants in transit from the origin Bamako, Mali to the destination Tripoli, Libya; migration risk factors include reported violence, conflict events, food insecurity, relience on smugglers, remoteness, and heat exposure."
             },
             {
                 "id": "globeView",
-                "heading": "Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →",
+                "heading": "Explore the risks that West African migrants on the move face along their journey to Tripoli, Libya. Click to begin the journey through the footsteps of a migrant originating from Bamako, Mali. →",
                 "body": ""
             }
         ],
