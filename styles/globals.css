@@ -220,13 +220,12 @@ li:hover {
 Link {}
 
 svg {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 g {
   pointer-events: auto;
 }
-
 
 .mapboxgl-popup-content {
   background: rgba(255, 255, 255, 0.9) !important;

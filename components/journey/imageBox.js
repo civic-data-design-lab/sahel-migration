@@ -29,23 +29,11 @@ export default function ImageBox({ journey }) {
       height={height}
     />
   ));
-  const scrollToCoordinate = (posX, posY) => {
-    ref.current.scrollLeft = posX;
-  };
-
-  const [isAtBeginning, setIsAtBeginning] = useState(true);
-  const [isAtEnd, setIsAtEnd] = useState(false);
-
-
-  const updateScrollPosition = () => {
-    setIsAtBeginning(window.scrollX == 0)
-    setIsAtEnd(window.scrollX + window.innerWidth == document.body.scrollWidth)
-  }
 
   return (
     <>
-      <ScrollButton isForward={false} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>
-      <ScrollButton isForward={true} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>
+      {/*<ScrollButton isForward={false} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>*/}
+      {/*<ScrollButton isForward={true} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>*/}
       <motion.div className="box" ref={ref}>
         {journey.id === 8 ? (
           <PolicyRecommendations narrativeTexts={journey.narrativeTexts} />

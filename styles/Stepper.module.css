@@ -30,6 +30,12 @@
 .stepContainer {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.stepContainer:hover {
+  color: black
 }
 
 .textContainer {
@@ -60,3 +66,5 @@
 .current {
   background-color: var(--light);
 }
+
+
