@@ -10,7 +10,7 @@ export default function CityTip({ regionData }) {
     let originCountry = (regionData && regionData.countryName) || '';
     if (originCountry === 'Sierr') originCountry = 'Sierra Leone'
     if (originCountry === 'Côt') originCountry = "Côte d'Ivoire"
-    if (originCountry === 'Guine') originCountry = "Guinea Bissau"
+    if (originCountry === 'Guine') originCountry = "Guinea-Bissau"
     if (originCountry === 'Burkin') originCountry = "Burkina Faso"
 
 
@@ -22,24 +22,24 @@ export default function CityTip({ regionData }) {
 
 
     const nationalityLabel = {
-      "Benin": "Beninois",
-      "Burkina Faso": "Burkinab&Eacute;",
-      "Cameroon": "Cameroonian",
-      "Chad": "Chadian",
-      "C\u00f4te d'Ivoire": "Ivorian",
-      "Gambia": "Ghambian",
-      "Ghana": "Ghanaian",
-      "Guinea": "Guinean",
-      "Guinea Bissau": "Bissau-Guinean",
-      "Liberia": "Liberian",
-      "Libya": "Libyan",
-      "Mali": "Malian",
-      "Niger": "Nigerien",
-      "Nigeria": "Nigerian",
-      "Senegal": "Senegalese",
-      "Sierra Leone": "Sierra Leonean",
-      "Togo": "Togolese"
-  }
+        "Benin": "Beninois",
+        "Burkina Faso": "Burkinab&Eacute;",
+        "Cameroon": "Cameroonian",
+        "Chad": "Chadian",
+        "C\u00f4te d'Ivoire": "Ivorian",
+        "Gambia": "Ghambian",
+        "Ghana": "Ghanaian",
+        "Guinea": "Guinean",
+        "Guinea Bissau": "Bissau-Guinean",
+        "Liberia": "Liberian",
+        "Libya": "Libyan",
+        "Mali": "Malian",
+        "Niger": "Nigerien",
+        "Nigeria": "Nigerian",
+        "Senegal": "Senegalese",
+        "Sierra Leone": "Sierra Leonean",
+        "Togo": "Togolese"
+    }
     const cityText = `of ${nationalityLabel[originCountry]} migrants surveyed in Libya come from`
     const countryText = `${Math.floor(nationalMigrantCount * 100 / totalSurveyed)}% of all migrants surveyed in Libya come from`
 

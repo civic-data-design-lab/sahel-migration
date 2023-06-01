@@ -1,6 +1,6 @@
 .legend {
     z-index: 1;
-    grid-area: 11/11/12/13;
+    grid-area: 10/11/11/13;
     /* grid-column-end: 13; */
     display: flex;
     justify-content: flex-end;
@@ -11,7 +11,7 @@
 .routes {
     display: flex;
     /* gap: 0.2rem; */
-    align-items: center;
+    align-items: flex-start;
     /* flex-direction: column; */
     height: max-content;
 }
@@ -19,7 +19,7 @@
 
 #icon {
     pointer-events: all !important;
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     color: #985946;
     font-variation-settings:
         'FILL' 0,

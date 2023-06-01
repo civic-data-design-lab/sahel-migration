@@ -249,6 +249,17 @@ export default function stylesObject(activeSource) {
                 "Arial Unicode MS Regular"
             ],
             "text-size": 10,
+            "text-offset": [
+                "match",
+                ["get", "name_en"],
+                ["Burkina Faso"],
+                ["literal", [.5, 0.5]],
+                ["Guinea-Bissau"],
+                ["literal", [-3, 0]],
+                ["Sierra Leone"],
+                ["literal", [2, 0]],
+                ["literal", [0, 0]]
+            ]
         },
         paint: {
             'text-color': '#463C35',
@@ -287,7 +298,9 @@ export default function stylesObject(activeSource) {
                 "match",
                 ["get", "name_en"],
                 ["Niger"],
-                ["literal", [2, 0]],
+                ["literal", [3, 0]],
+                ["Ghana"],
+                ["literal", [-0.7, 0.5]],
                 ["literal", [0, 0]]
             ]
         },
@@ -343,48 +356,17 @@ export default function stylesObject(activeSource) {
         source: 'minor-countries',
         "source-layer": 'place_label',
         layout: {
-            "text-field": [
-                "case",
+            "text-field":
                 [
-                    "all",
+                    "match",
+                    ["get", "name_en"],
+                    ["Ivory Coast"],
+                    "Côte d'Ivoire",
                     [
-                        "match",
-                        ["get", "name_en"],
-                        [
-                            "Mali",
-                            "Niger",
-                            "Chad",
-                            "Libya",
-                            "Ivory Coast",
-                            "Ghana",
-                            "Burkina Faso",
-                            "Togo",
-                            "Benin",
-                            "Nigeria",
-                            "Cameroon",
-                            "Liberia",
-                            "Guinea",
-                            "Sierra Leone",
-                            "Guinea-Bissau",
-                            "Senegal"
-                        ],
-                        false,
-                        true
-                    ],
-                    [
-                        "match",
-                        ["get", "class"],
-                        ["country"],
-                        true,
-                        false
+                        "to-string",
+                        ["get", "name_en"]
                     ]
                 ],
-                [
-                    "to-string",
-                    ["get", "name_en"]
-                ],
-                ["to-string", ""]
-            ],
             "text-font": [
                 "Inter Bold",
                 "Arial Unicode MS Regular"
