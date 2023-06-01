@@ -157,6 +157,11 @@ export default function MapJourney({ journeys }) {
                     let segmentIndex = feature.properties.segement_i
                     if (segmentIndex > 6) segmentIndex = 6
 
+                    setSection({
+                        index: segmentIndex,
+                        routeId: segmentIndex
+                    })
+
                     map.current.setFilter('transect-outline', [
                         'in',
                         'index',
