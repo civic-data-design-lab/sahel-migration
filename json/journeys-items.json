@@ -42,7 +42,7 @@
         "entourages": [
           {
             "id": 1,
-            "body": "Migrants encounter several risks while in transit; 20% of migrants were concerned for their personal safety, 14% struggled with finding shelter, and 18% experienced food insecurity.",
+            "body": "Migrants encounter several risks while in transit; 20% of migrants were concerned for their personal safety, 14% struggled with finding shelter, and 18% experienced food insecurity (IFPRI, 2021).",
             "posX": 100,
             "posY": 0,
             "scrollStart": 0,
@@ -58,7 +58,7 @@
           },
           {
             "id": 3,
-            "body": "Many migrants hire smugglers to help cross borders along the journey. Paying a smuggler can help, but involves large payments and additional risks for personal security and financial if the smuggler is untrustworthy.",
+            "body": "Many migrants hire smugglers to help cross borders along the journey. Hiring a smuggler can help, but involves large payments and additional risks for personal security and financial if the smuggler is untrustworthy.",
             "posX": 1000,
             "posY": 350,
             "scrollStart": 0.35,
@@ -66,7 +66,7 @@
           },
           {
             "id": 4,
-            "body": "There are two ways to hire a smuggler: organized or step-by-step. In organized smuggling, the whole journey is organized and migrants are accompanied for most of the journey. Payment is made up front or paid in parts at the beginning and when reaching the destination.",
+            "body": "The average cost that migrants spent to reach Libya was USD 658. The pay-as-you-go method employed by many smugglers exploits the vulnerability and desperation of migrants, and abuse or human rights violations can occur at any stage of the journey.",
             "posX": 200,
             "posY": 30,
             "scrollStart": 0.5,
@@ -74,7 +74,7 @@
           },
           {
             "id": 5,
-            "body": "There are two ways to hire a smuggler: organized or step-by-step. In step-by-step smuggling, migrants mostly travel on their own and only use a smuggler for certain segments of the journey, like crossing a border or the desert.",
+            "body": "There are two ways to hire a smuggler: organized or step-by-step. In organized smuggling the migrant is accompanied by a smuggler for most of the journey, while in step-by-step smuggling, migrants mostly travel on their own and only use a smuggler for certain segments of the journey, like crossing a border or the desert.",
             "posX": 50,
             "posY": 0,
             "scrollStart": 0.75,
@@ -115,7 +115,7 @@
           },
           {
             "id": 4,
-            "body": "Most migrants are continuously on the move. Only 10 percent of migrants stop in a place for longer than 1 month before reaching Libya.",
+            "body": "Most migrants are continuously on the move. Only 10 percent of migrants stop in a place for longer than one month before reaching Libya (IFPRI, 2021).",
             "posX": 2000,
             "posY": 350,
             "scrollStart": 0.7,
@@ -127,12 +127,12 @@
         "id": 4,
         "route": "sahara-desert",
         "title": "Crossing the Sahara Desert",
-        "body": "Smugglers drive migrants in pick-up trucks for 3 days across the Sahara Desert. This informal route is the most dangerous part of the journey, where migrants risk violence, extortion, nutrition deficiencies, and vehicle accidents.",
+        "body": "Smugglers commonly drive migrants pick-up trucks for three days across the Sahara Desert. This informal route is the riskiest part of the journey, where migrants risk violence, extortion, nutrition deficiencies, and vehicle accidents.",
         "imageUrl": "/images/journeys/3-sahara.svg",
         "entourages": [
           {
             "id": 1,
-            "body": "Pickup trucks with ~25 passengers on the back (migrants from West Africa and short-time laborers from Niger). Migrants wrap their heads in turbans for sun protection and brace themselves with stick to keep from falling out of the truck.",
+            "body": "Pickup trucks typically transport around twenty-five migrants in the cargo bed. Migrants wrap their heads with turbans for sun protection and brace themselves with sticks to keep from falling out of the truck. Vehicle accidents are common, with 19% of reported deaths along this part of the route caused by vehicle accidents (MMC).",
             "posX": 200,
             "posY": -10,
             "scrollStart": 0,
@@ -140,7 +140,7 @@
           },
           {
             "id": 2,
-            "body": "Rest station along the way. The 2015 Law 036 EU-Niger prohibits smuggling in Niger. This has led to smugglers using longer routes, which are more dangerous and expensive.",
+            "body": "Migrants stop at rest stations along the journey through the Sahara. The 2015 Law 036 EU-Niger prohibits smuggling in Niger. This increases the risk for migrants because smugglers must use longer routes, which are more dangerous and expensive.",
             "posX": 120,
             "posY": -10,
             "scrollStart": 0.12,
@@ -148,7 +148,7 @@
           },
           {
             "id": 3,
-            "body": "When trucks break down, passengers are forced to walk. This exposes migrants to extreme heat risk with little access to shelter or water. Average high temperatures in the Sahara Desert reach 38 degrees celsius.",
+            "body": "When trucks break down, passengers are forced to walk. This exposes migrants to extreme heat risk with little access to shelter or water. Average high temperatures in the Sahara Desert reach 38° celsius.",
             "posX": 250,
             "posY": -20,
             "scrollStart": 0.35,
@@ -156,7 +156,7 @@
           },
           {
             "id": 4,
-            "body": "Just as migrants are exposed to extreme heat during the day, the Sahara Desert can be a cold place at night, so migrants burn tires to keep warm. The Sahara Desert reach average low temperatures of -4 degrees celsius at night--posing another health risk for migrants.",
+            "body": "Just as migrants are exposed to extreme heat during the day, the Sahara Desert can be a cold place at night, so migrants burn tires to keep warm. The Sahara Desert reaches average low temperatures of -4° celsius during the winter at night—posing another health risk for migrants.",
             "posX": 170,
             "posY": -35,
             "scrollStart": 0.5,
@@ -164,7 +164,7 @@
           },
           {
             "id": 5,
-            "body": "Trucks heading back to Agadez with workers from Libya. Majority converts earnings into goods (furniture, clothes, appliances and other household items) to bring home because the Libyan dinar is unstable.",
+            "body": "Trucks head back to Agadez with workers from Libya. Migrant workers convert earnings into goods—like furniture, clothes, appliances and other household items—because the Libyan dinar is unstable.",
             "posX": 130,
             "posY": 20,
             "scrollStart": 0.8,
@@ -172,7 +172,7 @@
           },
           {
             "id": 6,
-            "body": "Tombs marked by jagged stones and empty water jugs can be found found along the way. Migrants report the highest number of deaths (28% of migrants reporting) along this part of the Central Mediterranean Route (4mi).",
+            "body": "Tombs marked by jagged stones and empty water jugs are found along the way. Of the migrant reported deaths along the Central Mediterranean Route, the highest number of reported deaths (28%) occurred in the remote Sahara Desert (MMC).",
             "posX": 110,
             "posY": -20,
             "scrollStart": 0.7,
@@ -189,7 +189,7 @@
         "entourages": [
           {
             "id": 1,
-            "body": "In order to pass into Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
+            "body": "In order to enter Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
             "posX": 100,
             "posY": 50,
             "scrollStart": 0,
@@ -205,7 +205,7 @@
           },
           {
             "id": 3,
-            "body": "In Libya, many migrants face detention by the DCIM. In detention centers, migrants are often subject to harsh living conditions, physical violence, and death.",
+            "body": "In Libya, many migrants face detention by the Directorate for Combating Illegal Migration (DCIM). In detention centers, migrants are often subject to harsh living conditions, physical violence, and death.",
             "posX": 250,
             "posY": 30,
             "scrollStart": 0.5,
@@ -213,7 +213,7 @@
           },
           {
             "id": 4,
-            "body": "After crossing into Libya, smugglers place migrants in holding locations in border towns like Qatrun where they are often subject to extortion.",
+            "body": "While the southern border of Libya, and the smuggling network from Agadez to the south of Libya is under control of ethnic groups from the area, the areas farther north are not--meaning they must hand off migrants to Arab smuggling groups before reaching Sabha.",
             "posX": 50,
             "posY": 50,
             "scrollStart": 0.8,
@@ -225,12 +225,12 @@
         "id": 6,
         "route": "sabha",
         "title": " Passing through Sabha",
-        "body": "Sabha is one of the first major cities migrants pass through after arriving in Libya. Most migrants use Sabha as a transit point, rather than a place to settle.",
+        "body": "Sabha is one of the first cities migrants pass through after arriving in Libya. Most migrants pass through Sabha as a resting point, rather than a place to settle.",
         "imageUrl": "/images/journeys/6-Transit Hub Sabha.svg",
         "entourages": [
           {
             "id": 1,
-            "body": "Migrants see Sabha as a transitory stop, rather than a place to settle. 10 percent of migrants residing in Sabha consider it to be their final destination.",
+            "body": "Migrants see Sabha as a transitory stop, rather than a place to settle. Only 10% of migrants residing in Sabha consider it to be their final destination. The risks migrants in Sabha most commonly face are personal safety (35%), low income (33%), and violence/conflict (22%) (IFPRI, 2021).",
             "posX": 250,
             "posY": 200,
             "scrollStart": 0,
@@ -238,7 +238,7 @@
           },
           {
             "id": 2,
-            "body": "Unrest in southern Libya poses particular danger to migrants in Sabha. The risks migrants in Sabha most commonly face are personal safety (35%), low income (33%), and violence/conflict (22%)",
+            "body": "West African migrants in this study are largely male. Migrant women and girls cope with additional risks while in transit, including family separation, psychosocial stress and trauma, health complications, physical harm and injury, and risks of exploitation and gender-based violence.",
             "posX": 50,
             "posY": 0,
             "scrollStart": 0.25,
@@ -246,7 +246,7 @@
           },
           {
             "id": 3,
-            "body": "Migrants often change hands in or near Sabha from southern-Libyan ethnic groups to Arab smugglers. During this transition, smugglers may keep migrants in hidden compounds while they arrange for smugglers to take them to a coastal city, and some reportedly lure migrants into trafficking where they are sold as slaves.",
+            "body": "Migrants often change hands in or near Sabha from southern Libyan ethnic groups to Arab smugglers. During this transition, smugglers may keep migrants in hidden compounds while they arrange for smugglers to take them to a coastal city, and some reportedly lure migrants into trafficking where they are sold as slaves.",
             "posX": 100,
             "posY": 150,
             "scrollStart": 0.5,
@@ -254,7 +254,7 @@
           },
           {
             "id": 4,
-            "body": "Some migrants make a ‘voluntary return’ to their country of origin, are deported, or choose to leave Libya because of poor living conditions. As a result, migrants may be left stranded in the Sahara, and at urban transit stops on the route, or return to their country of origin with little access to resources",
+            "body": "Some migrants depart Sabha to ‘voluntarily return’ to their home country, while others are forcefully deported or must leave Libya because of poor living conditions. As a result, migrants returning may be left stranded in the Sahara, stuck at urban transit stops on the route, or return to their country of origin with little access to resources.",
             "posX": 100,
             "posY": 0,
             "scrollStart": 0.75,
@@ -266,12 +266,12 @@
         "id": 7,
         "route": "tripoli",
         "title": "Reaching Tripoli",
-        "body": "While Tripoli serves as a disembarkation point for migrants taking the sea route to Europe, it is also a place where many migrants choose to settle.",
+        "body": "While Tripoli serves as a disembarkation point for migrants taking the sea route to Europe, it is also a place where many migrants choose to settle or a protracted transitory stop.",
         "imageUrl": "/images/journeys/7-Transit Hub Tripoli.svg",
         "entourages": [
           {
             "id": 1,
-            "body": "Tripoli serves more as a place of resettlement for migrants compared to Sabha. 31 percent of migrants in Tripoli consider it to be their final destination.",
+            "body": "For many, Tripoli serves as a place of resettlement, with 31% of migrants currently residing there considering Tripoli to be their final destination. Tripoli also serves as a protracted transit stop for migrants while they seek income for the next phase of the journey.",
             "posX": 100,
             "posY": 0,
             "scrollStart": 0,
@@ -279,7 +279,7 @@
           },
           {
             "id": 2,
-            "body": "As a place of resettlement, economic conditions take greater importance in Tripoli. The risks migrants in Tripoli most commonly face are low income (66%), lack of employment (60%), and food insecurity (22%).",
+            "body": "As a place of resettlement, economic conditions take greater importance in Tripoli. The risks migrants in Tripoli most commonly face are low income (66%), lack of employment (60%), and food insecurity (22%) (IFPRI, 2021).",
             "posX": 200,
             "posY": 85,
             "scrollStart": 0.25,
@@ -295,7 +295,7 @@
           },
           {
             "id": 4,
-            "body": "Departures from Libya: Some migrants attempt to make the sea crossing from Libya to Europe. This part of the journey can be very dangerous–and many migrants die at sea. Migrants intercepted by the Libyan coast guard are often sent to detention centers in Libya.",
+            "body": "Some migrants attempt to cross the Mediterranean Sea from Libya to Europe. Attempting to cross the sea corridor in rubber, wooden, or fiberglass boats, is extremely dangerous, and many migrants die at sea.  Migrant smuggling to Italy has almost doubled in 2021, and smuggling fees are very expensive, increasing to an average of EUR 12,000.",
             "posX": 50,
             "posY": 0,
             "scrollStart": 0.75,
@@ -307,7 +307,7 @@
         "id": 8,
         "route": "current-conditions-libya",
         "title": "Current Conditions in Libya",
-        "body": "Migrants in Libya experience a range of outcomes. Some leave the country by embarking to Europe or through deportation, while others may stay to work. Each pathway exposes migrants to a different set of risks.",
+        "body": "Some migrants in Libya plan to leave the country by embarking to Europe, while others attempt to stay and find work without being deported. Each pathway exposes migrants to a different set of risks.",
         "narrativeTexts": [
           {
             "title": "Policy Recommendation 1",
@@ -316,7 +316,7 @@
           ,
           {
             "title": "Policy Recommendation 2",
-            "body": "Many migrants send remittances through risky or costly informal channels--lacking formal bank accounts. Improving digital banking access for migrants residing in Libya will reduce their financial vulnerability."
+            "body": "Given the extremely high levels of risk during transit, including those related to protection and food insecurity, WFP should work more closely with key partners in the provision of needs-based assistance to migrants."
           },
           {
             "title": "Policy Recommendation 3",
@@ -328,7 +328,7 @@
         "entourages": [
           {
             "id": 1,
-            "body": "Many migrants using the Central Meditteranean route plan to stay in Libya in the long-term. Migrant long-term stays in Libya impacts their vulnerability, as increasing the length of time migrants stay in Libya is associated with increased exposure to risk.",
+            "body": "Many migrants using the Central Mediterranean route plan to stay in Libya in the long-term. Migrant long-term stays in Libya impacts their vulnerability, as increasing the length of time migrants stay in Libya is associated with increased exposure to risk.",
             "posX": 200,
             "posY": 50,
             "scrollStart": 0,
@@ -336,7 +336,7 @@
           },
           {
             "id": 2,
-            "body": "While economic opportunities may improve for migrants in Libya, living conditions, such as food insecurity, often do not improve significantly compared to in their countries of origin--in fact, as is the case with exposure to violence and personal safety, conditions may worsen.",
+            "body": "While economic opportunities may improve for migrants in Libya, living conditions, such as food insecurity, often do not improve significantly compared to in their countries of origin—in fact, as is the case with exposure to violence and personal safety, conditions may worsen.",
             "posX": 200,
             "posY": 20,
             "scrollStart": 0.25,
@@ -344,7 +344,7 @@
           },
           {
             "id": 3,
-            "body": "In transit, migrants face different issues compared to when they arrive in Libya. When on the move, migrants are more concerned about personal safety, health, and shelter--as opposed to issues such as securing economic opportunities and food insecurity.",
+            "body": "In transit, migrants face different issues compared to when they arrive in Libya. When on the move, migrants are more concerned about personal safety, health, and shelter—as opposed to issues such as securing economic opportunities and food insecurity.",
             "posX": 100,
             "posY": 10,
             "scrollStart": 0.5,
