@@ -235,12 +235,13 @@ export default function stylesObject(activeSource) {
                     "Liberia",
                     "Burkina Faso",
                     "Ivory Coast",
-                    "Cameroon"
                 ],
                 [
                     "coalesce",
                     ["get", "name"]
                 ],
+                ["Cameroon"],
+                "Cameroon",
                 ""
             ],
             "text-font": [
@@ -326,6 +327,8 @@ export default function stylesObject(activeSource) {
                 ["get", "name_en"],
                 ["Niger"],
                 ["literal", [2, 0]],
+                ["Burkina Faso"],
+                ["literal", [0, -1]],
                 ["literal", [0, 0]]
             ]
         },
@@ -424,7 +427,7 @@ export default function stylesObject(activeSource) {
         'source-layer': 'destination_cities',
         paint: {
             "circle-color": darkHue,
-            'circle-radius': 4,
+            'circle-radius': 2,
             "circle-stroke-width": 0.8,
             'circle-stroke-color': '#ffffff'
         },

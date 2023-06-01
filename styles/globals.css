@@ -310,6 +310,18 @@ g {
   display: none;
 }
 
+.tooltip>div.tooltip-inner {
+  background-color: white !important;
+  color: #463C35 !important;
+  font-size: 0.75rem;
+  font-weight: 100;
+}
+
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: white !important;
+}
+
 .transectTooltip {
   position: fixed;
   z-index: 100;

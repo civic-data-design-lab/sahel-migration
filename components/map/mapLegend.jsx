@@ -5,6 +5,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { SectionContext } from "../../pages";
 import { v4 as uuidv4 } from 'uuid'
 import useWindowSize from "../../hooks/useWindowSize";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function MapLegend({ activeSource }) {
     const { currentSection, setSection } = useContext(SectionContext)
@@ -17,6 +18,12 @@ export default function MapLegend({ activeSource }) {
 
 
     const [clicked, setClick] = useState(false)
+
+    const tooltip = (
+        <Tooltip className={styles.tooltip}>
+            <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, doloremque incidunt rerum quia laborum accusantium sed maiores enim illo saepe consequuntur voluptas exercitationem, sunt corrupti at autem nulla ipsam ut!</strong>
+        </Tooltip>
+    );
 
 
 
@@ -119,23 +126,29 @@ export default function MapLegend({ activeSource }) {
     }, [titleRef])
 
     return (
-        <div
-            className={styles.legend}
-            style={displayLegend}
-            ref={containerRef}
-        >
-            <div className={styles.routes}>
-                {activeSource === "originCities" && (cityLegend())}
-                {activeSource === "transectSegment" && (transectLegend)}
-                {activeSource === "overallRoutes" && (
-                    <h4
-                        className={styles.subheader}
-                        ref={titleRef}
-                    >Migration Routes to Libya</h4>
-                )}
+        <OverlayTrigger placement="top" overlay={tooltip}>
+            <div
+                className={styles.legend}
+                style={displayLegend}
+                ref={containerRef}
+            >
+
+                <div className={styles.routes}>
+                    {activeSource === "originCities" && (cityLegend())}
+                    {(activeSource === "transectSegment" || activeSource === "globeView") && (transectLegend)}
+                    {activeSource === "overallRoutes" && (
+                        <h4
+                            className={styles.subheader}
+                            ref={titleRef}
+                        >Migration Routes to Libya</h4>
+                    )}
+                    <span className="material-symbols-outlined" id={styles.icon}>
+                        info
+                    </span>
+
+                </div>
 
             </div>
-
-        </div>
+        </OverlayTrigger>
     )
 }

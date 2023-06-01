@@ -26,21 +26,6 @@ export default function MapJourney({ journeys }) {
     function values(object) {
         return Object.values(object)
     }
-
-    function intersection(setA, setB) {
-        console.log(setA)
-        console.log(setB)
-        const _intersection = new Set();
-        for (const elem of setB) {
-            if (setA.has(elem)) {
-                _intersection.add(elem);
-            }
-        }
-        return _intersection;
-    }
-
-
-
     useEffect(() => {
         setExplore(true);
 
@@ -78,19 +63,14 @@ export default function MapJourney({ journeys }) {
                 type: 'vector',
                 url: 'mapbox://mitcivicdata.transect-segments'
             });
-            map.current.addLayer(
-                {
-                    'id': 'transect-line',
-                    'type': 'line',
-                    'source': 'transect-route',
-                    'source-layer': 'transect-segments',
-                    'layout': {
-                        'line-join': 'round',
-                        'line-cap': 'round'
-                    },
-                    paint: layersObject["migrationRouteStyle"].paint
-                }
-            );
+            map.current.setLayoutProperty("transect-segments", "visibility", "visible")
+            map.current.setLayoutProperty("transect-countries-outline", "visibility", "visible")
+            map.current.setLayoutProperty("cities-route-context-text", "visibility", "visible")
+            map.current.setLayoutProperty("cities-route-context", "visibility", "visible")
+            map.current.setLayoutProperty("transect-country-labels", "visibility", "visible")
+            map.current.setLayoutProperty("label_tripoli", "visibility", "visible")
+            map.current.setLayoutProperty("destination-cities-fill", "visibility", "visible")
+
             map.current.addLayer(
                 {
                     'id': 'transect-buffer',

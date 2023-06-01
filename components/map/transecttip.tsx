@@ -27,7 +27,7 @@ export default function TransectTip({ hoverInfo }) {
                     }}>
                         <InfoBox
                             left={`Migration Risk`}
-                            text={round(hoverInfo.totalRisk)}
+                            text={round(hoverInfo.totalRisk * 1 / 6)}
                             region={""}
                             small={false}
                             bold={true}

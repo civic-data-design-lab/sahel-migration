@@ -80,6 +80,27 @@ function computePerspective(width) {
     return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) };
 }
 
+/** 
+ * [bar description]
+ * @param  {any} map map object
+ * @param  {[]} styles all styles to be shown on the map (from json file)
+ * @return {[]}     all styles to be shown on the map
+*/
+function retrieveMapStyles(map, styles) {
+    if (map) {
+        return styles.filter(style => style in map.getStyle().layers)
+    }
+}
+function setStyles(map, styles) {
+
+    if (map && styles) {
+        styles.forEach(style => {
+            map.getMap().setLayoutProperty(style, 'visibility', 'visible')
+        });
+    }
+}
+
+
 export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
@@ -187,6 +208,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         });
     const filter = useMemo(() => ['in', 'COUNTRY', selectedCountry], [selectedCountry]);
     const nonMigrantCountryFilter = useMemo(() => ['in', 'name_en', nonMigrantCountry], [nonMigrantCountry]);
+    const citiesSelectedCountryFilter = useMemo(() => ['in', 'country_origin', selectedCountry], [selectedCountry]);
     const unselectedCountryFilter = useMemo(() => [
         "match",
         ["get", "name_en"],
@@ -244,6 +266,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     }, [selectedCountry])
 
 
+
     useEffect(() => {
 
 
@@ -258,9 +281,21 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         if (typeof featureOpacity === "object") setFeatureOpacity(opacitySwicth[activeSource])
 
         if (mapRef.current) {
+            // console.log(mapRef.current.getMap().getStyle().layers)
+
             mapRef.current.on('load', () => {
                 mapRef.current.resize()
             })
+            if (activeSource === "transectSegment") {
+                mapRef.current.getMap().setLayoutProperty("wa-ifpri-countries-outline", "visibility", "none")
+                mapRef.current.getMap().setLayoutProperty("libya-outline", "visibility", "none")
+                mapRef.current.getMap().setLayoutProperty("transect-countries-outline", "visibility", "visible")
+            } else {
+                mapRef.current.getMap().setLayoutProperty("wa-ifpri-countries-outline", "visibility", "visible")
+                mapRef.current.getMap().setLayoutProperty("libya-outline", "visibility", "visible")
+                mapRef.current.getMap().setLayoutProperty("transect-countries-outline", "visibility", "none")
+            }
+
 
             mapRef.current.on('click', 'migration', (e) => {
                 if (activeSource === "globeView") {
@@ -272,6 +307,16 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         }
 
     }, [activeSource])
+
+
+    useEffect(() => {
+        if (mapRef.current) {
+            mapRef.current.on('load', () => {
+                mapRef.current.getMap().setLayoutProperty("wa-ifpri-countries-outline", "visibility", "visible")
+                mapRef.current.getMap().setLayoutProperty("libya-outline", "visibility", "visible")
+            })
+        }
+    })
     return (
         <RouteContext.Provider value={routeValue}>
             <ScreenContext.Provider value={pointerPosValue}>
@@ -348,6 +393,10 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                                 "circle-opacity": featureOpacity && featureOpacity.originCities,
 
                             }} />
+                        <Layer {...layersObject["cityStyle"]}
+                            id='cities-in-country'
+                            filter={citiesSelectedCountryFilter}
+                        />
                         <Layer {...layersObject["cityMarkerHighlight"]} filter={cityHighlightFilter} />
                         <Layer {...layersObject["migrationBuffer"]} />
                         {activeSource === "overallRoutes" && (<Layer {...layersObject["citiesContextAllMarker"]} />)}
@@ -364,11 +413,6 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                             />)}
                         {width > 600 && (
                             <Layer {...layersObject["nonMigrantCountryLabel"]}
-                                paint={{
-                                    ...layersObject["nonMigrantCountryLabel"].paint,
-                                    "text-opacity": featureOpacity && featureOpacity.countryBorder,
-
-                                }}
                                 filter={nonMigrantCountryFilter}
                             />)}
                         {width > 600 && (

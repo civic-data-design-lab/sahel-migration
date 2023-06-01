@@ -4,6 +4,7 @@ import CountryTip from './countrytip'
 import CityTip from './citytip'
 import RouteTip from './routetip'
 import { ScreenContext } from './../mapBox'
+import { SectionContext } from '../../../pages'
 import styles from './../../../styles/Tooltip.module.css'
 import useWindowSize from '../../../hooks/useWindowSize'
 
@@ -18,6 +19,7 @@ export default function ToolTip({ location, toolType, regionDataProps }) {
     const { posX, posY } = pointerCoords
     const { width, height } = containerDimensions
     const { width: containerWidth } = useWindowSize()
+    const { currentSection, setSection } = useContext(SectionContext)
 
 
 
@@ -53,29 +55,30 @@ export default function ToolTip({ location, toolType, regionDataProps }) {
     }
 
     return (
-        <Popup style={{
-            maxWidth: '400px',
-            display: visibility,
-            flexDirection: 'column-reverse',
-        }}
-            longitude={lng}
-            latitude={lat}
-            offset={[offsetX, offsetY]}
-            anchor="center"
-            closeButton={false}
-            className="county-info"
-        >
-            {toolType === "country" && (
-                <CountryTip regionData={regionDataProps} />
-            )}
-            {toolType === "city" && (
-                <CityTip regionData={regionDataProps} />
-            )}
-            {toolType === "route" && (
-                <RouteTip regionData={regionDataProps} />
-            )}
-        </Popup>
-
+        (!(toolType === "route") || (currentSection.index)) && (
+            <Popup style={{
+                maxWidth: '400px',
+                display: visibility,
+                flexDirection: 'column-reverse',
+            }}
+                longitude={lng}
+                latitude={lat}
+                offset={[offsetX, offsetY]}
+                anchor="center"
+                closeButton={false}
+                className="county-info"
+            >
+                {toolType === "country" && (
+                    <CountryTip regionData={regionDataProps} />
+                )}
+                {toolType === "city" && (
+                    <CityTip regionData={regionDataProps} />
+                )}
+                {toolType === "route" && (
+                    <RouteTip regionData={regionDataProps} />
+                )}
+            </Popup>
+        )
     )
 
 }
