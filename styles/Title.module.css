@@ -1,5 +1,5 @@
 .main {
-  position: fixed;
+  position: absolute;
   /* width: 100%; */
   /*max-width: 22rem;*/
   overflow-x: hidden;
@@ -14,7 +14,8 @@
 }
 
 .title {
-    width: 100%;
+  width: 100%;
+  pointer-events: none;
 }
 
 /* 

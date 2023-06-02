@@ -3,18 +3,23 @@
         "risks": [
             {
                 "id": "overallRoutes",
-                "heading": "Migration from West Africa to Libya is Risky",
+                "heading": "Migration from West Africa to Libya is risky",
                 "body": "Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022)."
             },
             {
                 "id": "originCities",
-                "heading": "Migrants were Surveyed in Libya",
-                "body": "In June and July 2021, migrants in Libya were surveyed  by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status.. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
+                "heading": "Migrants were surveyed in Libya",
+                "body": "In June and July 2021, migrants in Libya were surveyed by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
             },
             {
-                "id": "extremeHeat",
+                "id": "transectSegment",
                 "heading": "Risk levels for migrants vary along the route",
-                "body": "Some northern countries in Africa, such as Algeria, Libya, Morocco, Tunisia, and Niger, have harsh policies to prosecute irregular migrants. This puts migrants at higher risk, often resorting to alternative means of traveling through more remote areas and hiring smugglers for assistance crossing through treacherous terrain."
+                "body": "Migrants traveling in North Africa face significant risks, often resorting to illicit means of traveling with smugglers who often choose more remote areas, crossing through treacherous terrain. This route shows the combined risks of migrants in transit from the origin Bamako, Mali to the destination Tripoli, Libya; migration risk factors include reported violence, conflict events, food insecurity, relience on smugglers, remoteness, and heat exposure."
+            },
+            {
+                "id": "globeView",
+                "heading": "Explore the risks that West African migrants on the move face along their journey to Tripoli, Libya. Click to begin the journey through the footsteps of a migrant originating from Bamako, Mali. →",
+                "body": ""
             }
         ],
         "migrantData": [
@@ -51,7 +56,7 @@
                 "migrantCount": 5
             },
             {
-                "countryId": "Guinea Bissau",
+                "countryId": "Guinea-Bissau",
                 "migrantCount": 7
             },
             {
@@ -116,11 +121,19 @@
                 "id": "photos",
                 "heading": "Photos",
                 "imageUrls": [
-                    "/images/drafts/2-img01.jpg",
-                    "/images/drafts/2-img02.jpg",
-                    "/images/drafts/2-img03.jpg",
-                    "/images/drafts/2-img04.jpg",
-                    "/images/drafts/3-img01.jpg"
+                    "/images/photos/2-img01.jpg",
+                    "/images/photos/2-img02.jpg",
+                    "/images/photos/3-img01.jpg",
+                    "/images/photos/3-img02.jpg",
+                    "/images/photos/3-img03.jpg",
+                    "/images/photos/3-img04.jpg",
+                    "/images/photos/4-img01.jpg",
+                    "/images/photos/5-img01.jpg",
+                    "/images/photos/8-img01.jpg",
+                    "/images/photos/8-img02.jpg",
+                    "/images/photos/8-img03.jpg",
+                    "/images/photos/8-img04.jpg",
+                    "/images/photos/8-img05.jpg"
                 ]
             }
         ],
@@ -148,7 +161,7 @@
                     ]
                 },
                 {
-                    "id": "extremeHeat",
+                    "id": "transectSegment",
                     "layerNames": [
                         "extremeHeatLayer",
                         "libyaSelect",
@@ -163,19 +176,15 @@
         "sources": [
             {
                 "id": "overall-routes",
-                "url": "mapbox://mitcivicdata.a6m0ng2q"
+                "url": "mapbox://mitcivicdata.3t8zz77o"
             },
             {
                 "id": "selected-countries",
-                "url": "mapbox://mitcivicdata.111746lw"
+                "url": "mapbox://mitcivicdata.6ekx5ymq"
             },
             {
                 "id": "origin-cities",
                 "url": "mapbox://mitcivicdata.biwrhf8h"
-            },
-            {
-                "id": "extreme-heat",
-                "url": "mapbox://mitcivicdata.27dxrfrn"
             },
             {
                 "id": "migration-routes",
@@ -183,11 +192,23 @@
             },
             {
                 "id": "route-buffer",
-                "url": "mapbox://mitcivicdata.6egts54c"
+                "url": "mapbox://mitcivicdata.dtcys7pj"
             },
             {
-                "id": "country-overlay",
+                "id": "all-countries",
                 "url": "mapbox://mapbox.country-boundaries-v1"
+            },
+            {
+                "id": "cities-context-all",
+                "url": "mapbox://mitcivicdata.31anazjx"
+            },
+            {
+                "id": "cities-context-transect",
+                "url": "mapbox://mitcivicdata.b8rdk5be"
+            },
+            {
+                "id": "destination-cities",
+                "url": "mapbox://mitcivicdata.clddichzp14pu20jnf88sorx3-6nuz9"
             },
             {
                 "id": "minor-countries",

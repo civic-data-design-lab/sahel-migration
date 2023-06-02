@@ -1,4 +1,4 @@
-import { useRef, useState, createContext, useContext } from 'react';
+import { useRef, useState, createContext, useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/Map.module.css'
 import useWindowSize from '../../hooks/useWindowSize'
@@ -7,14 +7,10 @@ import MapBox from "../../components/map/mapBox";
 import ContentBox from "../../components/map/contentBox";
 import Title from "../../components/title";
 import { animated, useSpring } from "react-spring";
-import Menu from "../../components/menu";
 import MapJourney from "../../components/map/mapJouney";
 import MapLegend from '../../components/map/mapLegend'
 import { SectionContext } from '..';
-import Link from 'next/link';
 
-
-import ScrollIndicator from '../../components/scrollIndicator';
 
 const mapFetcher = (url) => fetch(url).then((res) => res.json());
 export const ViewContext = createContext({
@@ -22,9 +18,22 @@ export const ViewContext = createContext({
     setCurrentView: () => { },
 });
 
-export default function MainMap() {
+function disablePointerEvents(container) {
+    if (container) {
+        container.style.pointerEvents = 'none'
+    }
+}
+function enablePointerEvents(container) {
+    if (container) {
+        container.style.pointerEvents = 'all'
+    }
+}
+
+
+export default function MainMap({ journeys }) {
     const { width } = useWindowSize();
     const sideBarRef = useRef(null);
+    const boxRef = useRef(null);
     const [currentView, setCurrentView] = useState('overallRoutes');
     const viewValue = { currentView, setCurrentView };
 
@@ -50,12 +59,34 @@ export default function MainMap() {
         zIndex: routeClicked ? 3 : -1,
     });
 
+
     function toggleMap() {
-        setRoute(!routeClicked);
+        setRoute(true);
         setSection(null)
     }
 
-    // console.log(sectionValue)
+    useEffect(() => {
+        if (currentView === "globeView") toggleMap()
+        else setRoute(false)
+
+    }, [currentView])
+
+    useEffect(() => {
+        if (width > 800) {
+            window.addEventListener('wheel', (event) => {
+                enablePointerEvents(boxRef.current)
+            })
+            window.addEventListener('mousewheel', (event) => {
+                enablePointerEvents(boxRef.current)
+            })
+            if (boxRef.current) {
+                boxRef.current.addEventListener('mousemove', () => disablePointerEvents(boxRef.current))
+            }
+        }
+    })
+
+
+
 
     if (risksError) return <div>Map not found</div>;
     if (!riskItems) return <div>loading...</div>;
@@ -76,46 +107,49 @@ export default function MainMap() {
                 >
                     <Title />
                 </div>
-                <div className={styles.boxContainer}>
-                    {!routeClicked && (
+                <div
+                    className={styles.boxContainer}
+                    ref={boxRef}
+                >
+                    {true && (
                         <div className={styles.contentBox} ref={sideBarRef}>
-                            <ContentBox scrollRef={sideBarRef} dataItems={riskItems.risks} />
+                            <ContentBox
+                                scrollRef={sideBarRef}
+                                dataItems={riskItems.risks}
+                                toggleMap={toggleMap}
+                            />
                         </div>
                     )}
-                    {routeClicked && (
+                    {false && (
                         <>
                             <div className={styles.exploreBox}>
-                                <h2 className='header-3'>
-                                Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →
-                                    
-                            
-                                    {/* <span class="material-symbols-outlined">
-                                        trending_flat
-                                    </span> */}
-                                    
-                                </h2>
+                                <a href={'/journeys/beginning-journey'}
+                                >
+                                    Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →
+                                </a>
                             </div>
                         </>
                     )}
                 </div>
                 <div className={styles.mapContainer}>
                     <animated.div style={exploreRoutes} className={styles.mapHolder}>
-                        <MapBox activeSource={currentView} risks={riskItems} tipData={cities} toggleMap={toggleMap} />
+                        <MapBox
+                            activeSource={currentView}
+                            risks={riskItems}
+                            cityData={cities}
+                            toggleMap={toggleMap}
+                        />
                     </animated.div>
                 </div>
                 <MapLegend activeSource={currentView} />
-                <ScrollIndicator />
             </div>
-            {
-                routeClicked && (
+            {routeClicked && (
 
-                    <MapJourney
-                        explorable={routeClicked}
-                        style={revealJourney}
-                    />
-                )
-
-            }
+                <MapJourney
+                    style={revealJourney}
+                    journeys={journeys}
+                />
+            )}
         </ViewContext.Provider>
     );
 }

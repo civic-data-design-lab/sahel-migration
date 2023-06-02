@@ -19,7 +19,7 @@
   --primary-font-fam: 'El Messiri', sans-serif;
   --sans-font-fam: 'Inter', sans-serif;
   --fs-large: 2.75rem;
-  --fs-body-1: clamp(1rem, 20px, 1.5rem);
+  --fs-body-1: clamp(1rem, 1.6vw, 1.25rem);
   --fs-h3: 0.75rem;
 
 }
@@ -107,6 +107,7 @@ html {
   color: var(--brown);
   scroll-snap-type: x mandatory;
   font-family: var(--primary-font-fam);
+  /*overflow-y: hidden;*/
 }
 
 body {
@@ -219,13 +220,12 @@ li:hover {
 Link {}
 
 svg {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 g {
   pointer-events: auto;
 }
-
 
 .mapboxgl-popup-content {
   background: rgba(255, 255, 255, 0.9) !important;
@@ -234,7 +234,7 @@ g {
   color: #463c35;
   padding: 1.1rem !important;
   backdrop-filter: blur(2px);
-  
+
 }
 
 /* .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
@@ -310,6 +310,18 @@ g {
   display: none;
 }
 
+.tooltip>div.tooltip-inner {
+  background-color: white !important;
+  color: #463C35 !important;
+  font-size: 0.75rem;
+  font-weight: 100;
+}
+
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: white !important;
+}
+
 .transectTooltip {
   position: fixed;
   z-index: 100;
@@ -345,11 +357,11 @@ g {
 }
 
 .transectTooltip p.risk-food::before {
-  background: #985946;
+  background: #9A735A;
 }
 
 .transectTooltip p.risk-acled::before {
-  background: #9A735A;
+  background: #985946;
 }
 
 .transectTooltip p.risk-smuggler::before {

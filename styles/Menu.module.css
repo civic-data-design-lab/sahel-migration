@@ -25,16 +25,6 @@
   backdrop-filter: blur(3px);
 }
 
-@media only screen and (max-width: 480px) {
-  .navBar {
-    width: 100%;
-  }
-
-  .journeyContainer {
-    display: none;
-  }
-}
-
 .menuContainer {
   /* font-family: var(--primary-font-fam); */
   /* height: 100%; */
@@ -55,7 +45,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%
+  height: 100%;
 }
 
 .journeyContainer {
@@ -80,7 +70,6 @@
 .menuButton:hover {
   cursor: pointer;
 }
-
 
 .screenCover {
   backdrop-filter: brightness(10%);
@@ -116,7 +105,7 @@
 .routeJourney:hover,
 .aboutSection a:hover {
   text-decoration: underline;
-  color: var(--brown)
+  color: var(--brown);
 }
 
 .routeAbout {
@@ -158,4 +147,41 @@
 .aboutSection a {
   text-decoration: none;
   color: var(--brown);
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 5vh;
+}
+
+.logoContainer img {
+  margin-right: 0.5rem;
+  height: clamp(20px, 6.8vh, 60px);
+}
+.logoCDDL {
+  height: clamp(14px, 6.8vh, 52px);
+}
+
+@media only screen and (max-width: 480px) {
+  .navBar {
+    width: 100%;
+  }
+
+  .logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 3vh 0 5vh 0;
+  }
+
+  .logoContainer img {
+    margin-right: 0.5rem;
+    height: clamp(15px, 3.2vh, 40px);
+  }
+
+.listContainer {
+  padding: 0;
+}
 }

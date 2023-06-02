@@ -1,4 +1,4 @@
-.container {
+/* .container {
     width: 2rem;
     height: 2rem;
     display: flex;
@@ -8,7 +8,14 @@
     inset: 0;
     margin: auto auto 4vh 14vw;
     color: var(--brown);
+} */
+
+.container {
+    margin: 1vh auto auto auto;
+    cursor: pointer;
+    pointer-events: all !important;
 }
+
 
 @media (max-width:600px) {
     .container {

@@ -7,6 +7,7 @@ import DescriptionTab from '../map/descriptionTab';
 import * as d3 from 'd3';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import PolicyRecommendations from './policyRecommendations';
+import ScrollButton from "./transect/scrollButton";
 
 function useParallax(value, distance) {
   return useTransform(value, [0, 1], [0, distance]);
@@ -28,11 +29,11 @@ export default function ImageBox({ journey }) {
       height={height}
     />
   ));
-  const scrollToCoordinate = (posX, posY) => {
-    ref.current.scrollLeft = posX;
-  };
+
   return (
     <>
+      {/*<ScrollButton isForward={false} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>*/}
+      {/*<ScrollButton isForward={true} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>*/}
       <motion.div className="box" ref={ref}>
         {journey.id === 8 ? (
           <PolicyRecommendations narrativeTexts={journey.narrativeTexts} />
@@ -47,6 +48,7 @@ export default function ImageBox({ journey }) {
         ></object>
         {entourages}
       </motion.div>
+
     </>
   );
 }

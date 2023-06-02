@@ -35,19 +35,25 @@ export default function JourneyNav({ journeys }) {
 
     const vignettes = zip(riskItems.vignetteUrls, journeys.slice(1)).map((journeyPackage, index) => {
         const [url, journey] = journeyPackage
+        const goToRouteLink = () => window.location.href = '/journeys/' + journey.route
 
         const routeHovered = index == parseInt(sectionIndex) - 1
+        function highlightSegment() {
+            setSection({ routeId: index + 1 })
+        }
         return (
             <Fragment
                 key={`${index}${uuidv4}`}>
                 <motion.div
                     data-title={journey.title}
-                    data-url={'/journeys/' + journey.id}
+                    data-url={'/journeys/' + journey.route}
                     ref={boxRef}
                     className={styles.vignettes}
                     animate={{
                         y: routeHovered ? 0 : 80,
                     }}
+                    onMouseMove={highlightSegment}
+                    onClick={goToRouteLink}
                     transition={{ type: "spring", duration: 0.75 }}
                     whileHover={{
                         transition: {
@@ -72,9 +78,9 @@ export default function JourneyNav({ journeys }) {
                     >
                     </img>
                     {<Link
-                        href={'/journeys/' + journey.id}
+                        href={'/journeys/' + journey.route}
                         className={styles.journeyLink}
-                    >{journey.title}
+                    >{width > 1000 && journey.title}
 
                     </Link>}
                 </motion.div>

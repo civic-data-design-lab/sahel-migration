@@ -7,7 +7,8 @@ import { color } from 'd3';
 export default function Navigation({ journeys, journey }) {
   const [isActiveLeft, setIsActiveLeft] = useState(false);
   const [isActiveRight, setIsActiveRight] = useState(false);
-
+  const routes = {};
+  journeys.forEach((journey) => (routes[journey.id] = journey.route));
   return (
     <div className={styles.navigationBar}>
       <div className={styles.navigationContainer}>
@@ -19,27 +20,28 @@ export default function Navigation({ journeys, journey }) {
               journeys={journeys}
               reversed={false}
               isActive={isActiveLeft}
+              onHoverStart={() => setIsActiveLeft(true)}
+              onHoverEnd={() => setIsActiveLeft(false)}
             />
             <motion.button
               className={styles.button}
               style={{ marginLeft: '1rem', alignSelf: 'flex-start' }}
-              onHoverStart={() => setIsActiveLeft(!isActiveLeft)}
-              onHoverEnd={() => setIsActiveLeft(!isActiveLeft)}
+              onHoverStart={() => setIsActiveLeft(true)}
+              onHoverEnd={() => setIsActiveLeft(false)}
             >
-              {
-                journey.id > 2 ?
-                <Link href={'/journeys/[id]'} as={'/journeys/' + (journey.id - 1)}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem'}}>
-                  arrow_left
-                </span>
-                </Link> :
-              <Link href={'/'}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem'}}>
-                  arrow_left
-                </span>
-                  </Link>
-              }
-
+              {journey.id > 2 ? (
+                <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                    arrow_left
+                  </span>
+                </Link>
+              ) : (
+                <Link href={'/'}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                    arrow_left
+                  </span>
+                </Link>
+              )}
             </motion.button>
           </>
         ) : (
@@ -56,14 +58,16 @@ export default function Navigation({ journeys, journey }) {
               journeys={journeys}
               reversed={true}
               isActive={isActiveRight}
+              onHoverStart={() => setIsActiveRight(true)}
+              onHoverEnd={() => setIsActiveRight(false)}
             />
             <motion.button
               className={styles.button}
               style={{ marginRight: '1rem', alignSelf: 'flex-end' }}
-              onHoverStart={() => setIsActiveRight(!isActiveRight)}
-              onHoverEnd={() => setIsActiveRight(!isActiveRight)}
+              onHoverStart={() => setIsActiveRight(true)}
+              onHoverEnd={() => setIsActiveRight(false)}
             >
-              <Link href={'/journeys/[id]'} as={'/journeys/' + (journey.id + 1)}>
+              <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
                 <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
                   arrow_right
                 </span>

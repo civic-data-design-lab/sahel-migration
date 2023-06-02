@@ -1,6 +1,15 @@
 import styles from '../styles/Stepper.module.css';
 import { motion } from 'framer-motion';
-export default function Stepper({ totalSteps, stepNumber, journeys, reversed, isActive }) {
+import Link from 'next/link';
+export default function Stepper({
+  totalSteps,
+  stepNumber,
+  journeys,
+  reversed,
+  isActive,
+  onHoverStart,
+  onHoverEnd,
+}) {
   const steps = [...Array(totalSteps).keys()].reverse();
   const variants = {
     open: {
@@ -15,17 +24,17 @@ export default function Stepper({ totalSteps, stepNumber, journeys, reversed, is
   function renderSteps(currentStep, stepNumber) {
     const isFilled = currentStep < stepNumber ? styles.filled : '';
     const isCurrent = currentStep === stepNumber ? styles.current : '';
+    const item = journeys.find((item) => item.id === currentStep + 1);
     return (
-      <div
+      <Link
         key={currentStep}
+        href={item.route || '/'}
         className={styles.stepContainer}
         style={{ flexDirection: reversed ? 'row-reverse' : '' }}
       >
         <div className={`${styles.step} ${isFilled} ${isCurrent}`} />
-        <small className={styles.textContainer}>
-          {journeys.find((item) => item.id === currentStep + 1).title}
-        </small>
-      </div>
+        <small className={styles.textContainer}>{item.title}</small>
+      </Link>
     );
   }
   return (
@@ -33,6 +42,8 @@ export default function Stepper({ totalSteps, stepNumber, journeys, reversed, is
       className={styles.stepperContainer}
       animate={isActive ? 'open' : 'closed'}
       variants={variants}
+      onHoverStart={isActive && onHoverStart}
+      onHoverEnd={isActive && onHoverEnd}
     >
       <div
         className={styles.stepperLine}

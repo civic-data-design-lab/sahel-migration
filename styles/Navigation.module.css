@@ -1,66 +1,65 @@
 .navigationBar {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    text-align: center;
-    justify-content: space-between;
-    pointer-events: none;
-    position: fixed;
-    bottom: 26.8%;
-    z-index: 7;
-    color: var(--brown);
-    width: 100%
+  display: flex;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  justify-content: space-between;
+  pointer-events: none;
+  position: fixed;
+  bottom: 26.8%;
+  z-index: 7;
+  color: var(--brown);
+  width: 100%;
 }
 
 .title {
-    position: absolute;
-    font-weight: bold;
-    top:95%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+  position: absolute;
+  font-weight: bold;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .navigationContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: all;
 }
 
 .button {
-    /*margin-top: 1rem;*/
-    pointer-events: all;
-    border: .125rem solid;
-    border-color: var(--brown);
-    border-radius: 50%;
-    background: none;
-    height: 2rem;
-    width: 2rem;
+  /*margin-top: 1rem;*/
+  pointer-events: all;
+  border: 0.125rem solid;
+  border-color: var(--brown);
+  border-radius: 50%;
+  background: none;
+  height: 2rem;
+  width: 2rem;
 }
 
 .button:hover {
-    /*opacity: 0.75;*/
-    cursor: pointer;
-    background-color: var(--brown);
-    border-color: var(--brown);
+  /*opacity: 0.75;*/
+  cursor: pointer;
+  background-color: var(--brown);
+  border-color: var(--brown);
 }
 
 .button a {
-    color: var(--brown);
+  color: var(--brown);
 }
 
 .button:hover a {
-    color: white;
+  color: white;
 }
 
 @media only screen and (max-width: 480px) {
-    .button {
-        height: 3rem;
-        width: 3rem;
-        align-items: flex-end;
-    }
-    .button h7 {
-        padding-bottom: .3rem;
-    }
+  .button {
+    height: 3rem;
+    width: 3rem;
+    align-items: flex-end;
+  }
+  .button h7 {
+    padding-bottom: 0.3rem;
+  }
 }
-

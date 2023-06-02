@@ -35,7 +35,7 @@ const INITIAL_RISKS_DATA = [
   {
     id: 'smuggler',
     index: 3,
-    label: 'Need for a Smuggler',
+    label: 'Reliance on Smugglers',
     color: '#F48532',
     weight: 100,
     normWeight: 1 / 6,

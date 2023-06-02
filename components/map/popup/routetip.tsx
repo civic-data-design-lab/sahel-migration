@@ -1,33 +1,18 @@
-import { Popup } from 'react-map-gl'
-import { Stack } from 'react-bootstrap'
-import styles from './../../styles/Tooltip.module.css'
-import { v4 as uuidv4 } from 'uuid'
+import styles from './../../../styles/Tooltip.module.css'
+import { useContext } from 'react'
+import { SectionContext } from './../../../pages/index'
 
-
-export default function Routetip({ hoverInfo }) {
-    const vignetteNames = ["Beginning the Journey", "Passing Through Agadez", "Crossing the Sahara Desert", "Entering Libya", "Passing Through Sabha", "Reaching Tripoli", "Current Conditions in Libya"]
+export default function RouteTip({ regionData }) {
+    const vignetteNames = ["Beginning the Journey", "Passing through Agadez", "Crossing the Sahara Desert", "Entering Libya", "Passing through Sabha", "Reaching Tripoli", "Current Conditions in Libya"]
     const round = (num: number) => Math.round(num)
-
-    console.log(hoverInfo)
-
-
+    const { currentSection, setSection } = useContext(SectionContext)
 
     return (
-        <Popup style={{
-            maxWidth: '400px',
-            display: 'flex',
-            flexDirection: 'column-reverse',
-        }}
-            longitude={hoverInfo.longitude}
-            latitude={hoverInfo.latitude}
-            offset={[0, 175]}
-            anchor="center"
-            closeButton={false}
-            className="county-info"
-        >
+
+        (currentSection && currentSection.index) && (
             <div className={styles.tooltip}>
                 <div className={styles.city}>
-                    <h5 className={styles.vignetteName}>{vignetteNames[hoverInfo.routeId - 1]}</h5>
+                    <h5 className={styles.vignetteName}>{vignetteNames[regionData.routeId - 1]}</h5>
                     <div
                         style={{
                             width: '100%',
@@ -44,7 +29,7 @@ export default function Routetip({ hoverInfo }) {
                     }}>
                         <InfoBox
                             left={`Migration Risk`}
-                            text={round(hoverInfo.totalRisk)}
+                            text={round(regionData.totalRisk * 1/6)}
                             region={""}
                             small={false}
                             bold={true}
@@ -52,20 +37,14 @@ export default function Routetip({ hoverInfo }) {
                             align={'space-between'}
                         />
 
-                        {hoverInfo.risks.map((risk) => {
+                        {regionData.risks.map((risk) => {
                             let stat = risk && risk.riskLevel
                             const name = risk && risk.name
-                            if (name === "Reported Violence") {
-                                stat = round(hoverInfo.totalRisk - hoverInfo.risks.
-                                    filter((r) => r.name !== "Reported Violence").
-                                    map((r) => r.riskLevel).
-                                    reduce((a, b) => a + b, 0))
-                            }
                             return (
                                 <InfoBox
                                     key={risk.name}
                                     left={name}
-                                    text={round(stat)}
+                                    text={round(stat * 1/6)}
                                     region={''}
                                     align={'space-between'}
                                     small={true}
@@ -78,8 +57,9 @@ export default function Routetip({ hoverInfo }) {
                     </div>
                 </div>
             </div >
-        </Popup>
+        )
     )
+
 }
 
 function InfoBox({ left, text, region, small, bold, align, squeeze }) {
@@ -102,6 +82,7 @@ function InfoBox({ left, text, region, small, bold, align, squeeze }) {
                 style={{
                     fontSize: small ? "0.75rem" : "1rem",
                     fontWeight: bold ? '600' : 'initial',
+                    marginBottom: '0.5rem',
                 }}
             >{text} <span style={{ fontWeight: '600' }}>{region}</span> </p>
         </div>

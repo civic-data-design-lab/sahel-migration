@@ -7,7 +7,7 @@
     font-family: var(--primary-font-fam);
 }
 
-.screenCover {
+/* .screenCover {
     backdrop-filter: brightness(20%) blur(3px);
     position: fixed;
     bottom: 0;
@@ -16,7 +16,7 @@
     top: 0;
     z-index: 19;
     pointer-events: none;
-}
+} */
 
 @media only screen and (max-width: 480px) {
     .tab {

@@ -131,25 +131,35 @@
     position: relative;
     top: 0;
     left: 0;
-    font-size: 0.7rem;
+    font-size: clamp(0.6rem, 0.7vw, 0.7rem);
     font-family: var(--sans-font-fam);
     font-weight: 300;
+    display: flex;
+    align-items: flex-end;
+    height: 1.75rem;
 }
 
 .caption h4 {
     font-weight: 500;
     margin: 0;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+.caption h5 {
+    font-weight: 300;
+    margin: 0;
+    font-size: clamp(0.85rem, 1vw, 1rem);
 }
 
 .caption .h7 {
-    font-size: 0.7rem;
+    font-size: clamp(0.6rem, 0.7vw, 0.7rem);
     font-family: var(--sans-font-fam);
     font-weight: 300;
 }
 
 .caption p {
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: clamp(0.85rem, 1vw, 1rem);
+    line-height: 1.25rem;
     /* position: absolute; */
 }
 

@@ -1,63 +1,35 @@
-import styles from "../../styles/MapLegend.module.css"
+import styles from "../../styles/MapLegend.module.css";
 import { motion, useTransform } from "framer-motion";
 import { useSpring } from "react-spring";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { SectionContext } from "../../pages";
 import { v4 as uuidv4 } from 'uuid'
-
-function StatMorph({ open }) {
-    const r = 50
-    const cx = 50
-    const cy = 50
-
-    const outputRange = [
-        `
-        M ${cx} ${cy} m ${r}, 0 a ${r},${r} 0 1,0 -${r * 2},0 a ${r},${r} 0 1,0  ${r * 2},0
-        `,
-        `
-        M 0 0 l 0 100 l 200 0 l 0 -200 z
-        `
-    ];
-
-    const clip_path_variants = {
-        open: {
-            d: outputRange[0]
-        },
-        closed: {
-            d: outputRange[1]
-        }
-    }
-
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1450 960"
-        >
-            <motion.path
-                d={`
-              M ${cx} ${cy} m ${r}, 0 a ${r},${r} 0 1,0 -${r * 2},0 a ${r},${r} 0 1,0  ${r * 2},0
-              `}
-                variants={clip_path_variants}
-                animate={open ? "closed" : "open"}
-                transition={{
-                    ease: "easeInOut",
-                    duration: 0.5
-                }}
-            />
-        </svg>
-    );
-
-}
+import useWindowSize from "../../hooks/useWindowSize";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function MapLegend({ activeSource }) {
     const { currentSection, setSection } = useContext(SectionContext)
-    const colors = ['#F9BDA7', '#F79C7C', '#F47B50', '#F15A24', '#B5441B', '#792D12', '#463C35']
+    const colors = ['#FCDED3', '#F9BDA7', '#F79C7C', '#F47B50', '#F15A24', '#B5441B', '#792D12', '#463C35']
+    const cityLegendLabel = 'Migrants Surveyed by Place of Origin'
+    const transectLegendLabel = 'Risk Level Along Route'
+    const titleRef = useRef(null)
+    const containerRef = useRef(null)
+    const { width } = useWindowSize()
 
-    const r = 25
-    const cx = 50
-    const cy = 50
 
     const [clicked, setClick] = useState(false)
+
+    const dataSourceText = (activeSource === "originCities") ? "Place of origin of irregular migrants surveyed in Libya in 2021 by the International Food Policy Research Institute." 
+      : (activeSource === "transectSegment" || activeSource === "globeView") ? "Migrants are always at risk while in transit; this relative risk scale from 0-100 indicates variations of extreme risks with higher values. This migrant risk score is a composite of six factors, including: migrant reported violence incidents, conflict events, food insecurity, reliance on smugglers, remoteness, and heat exposure."
+      : (activeSource === "overallRoutes") ? "Migration routes are mapped using origin and destination locations from the Flow Monitoring Survey Displacement Tracking Matrix data collected by the International Organization for Migration. The locations were mapped using ESRI’s geocoding service and the routes were computed using the Open Source Routing Tool."
+      : null
+    const tooltip = (
+        <Tooltip className={styles.tooltip}>
+            <strong>{dataSourceText}</strong>
+        </Tooltip>
+    );
+
+
 
 
     const displayLegend = useSpring({
@@ -68,46 +40,119 @@ export default function MapLegend({ activeSource }) {
         setClick(!clicked)
     }
 
+    const transectLegend = <div>
+        <div className={styles.label}>
+            <h4 >{transectLegendLabel}</h4>
+        </div>
+        <div className={styles.bars}>
+            {colors.slice(1, 8).map((color, index) => {
+                return (
+                    <div
+                        key={"bar" + uuidv4()}
+                        style={{
+                            display: "block",
+                            backgroundColor: color,
+                            height: `${(index + 1) / 7}rem`
+                        }}
+                    >
+                    </div>
+                )
+            })}
+        </div>
+        <div
+            className={styles.indicators}
+            style={{
+                display: 'flex',
+                justifyContent: "space-between"
+            }}>
+            <span><h4>0</h4></span>
+            <span><h4>100</h4></span>
+        </div>
+    </div>
+    const cityLegend = (() => {
+        const scaleRanges = ["1-24", "25-49", "50-74", "75-100"]
+        return (
+            <div>
+                <div className={styles.label}>
+                    <h4 >{cityLegendLabel}</h4>
+                </div>
+                <div className={styles.cityLegend}>
+                    <>
+                        {colors.slice(0, 4).map((color, index) => {
+                            return (
+                                <div
+                                    key={"bar" + uuidv4()}
+                                    style={{
+                                        display: "flex",
+                                        height: '100%',
+                                        width: '100%',
+                                        justifyContent: "center",
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: "block",
+                                            borderRadius: '50%',
+                                            backgroundColor: color,
+                                            height: width > 600 ? `${(index + 1) / 2}rem` : `${(index + 1) / 4 * 100}%`,
+                                            aspectRatio: '1/1'
+                                        }}
+                                    >
+                                    </div>
+                                </div>
 
+                            )
+                        })}
+                        {scaleRanges.map(range => {
+                            return (
+                                <div
+                                    key={uuidv4()}
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center'
+                                    }}
+                                >
+                                    <h4>{range}</h4></div>
+                            )
+                        })}
+                    </>
+
+                </div>
+            </div>
+        )
+    })
+
+    useEffect(() => {
+        if (containerRef.current) {
+            // containerRef.current.offsetWidth = titleRef.current.offsetWidth
+        }
+    }, [titleRef])
 
     return (
-        <div
-            className={styles.legend}
-            style={displayLegend}
-        >
-            <div className={styles.routes}>
-                <h4>Risk Level Along Route</h4>
-                <div className={styles.bars}>
-                    {colors.map((color, index) => {
-                        return (
-                            <div
-                                key={"bar" + uuidv4()}
-                                style={{
-                                    display: "block",
-                                    backgroundColor: color,
-                                    height: `${(index + 1) / 7 * 100}%`
-                                }}
-                            >
+        <OverlayTrigger placement="top" overlay={tooltip}>
+            <div
+                className={styles.legend}
+                style={displayLegend}
+                ref={containerRef}
+            >
 
-                            </div>
-                        )
+                <div className={styles.routes}>
+                    {activeSource === "originCities" && (cityLegend())}
+                    {(activeSource === "transectSegment" || activeSource === "globeView") && (transectLegend)}
+                    {activeSource === "overallRoutes" && (
+                        <h4
+                            className={styles.subheader}
+                            ref={titleRef}
+                        >Migration Routes to Libya</h4>
+                    )}
+                    <span className="material-symbols-outlined" id={styles.icon}>
+                        info
+                    </span>
 
-                    })
-
-                    }
                 </div>
-                <div
-                    className={styles.indicators}
-                    style={{
-                        display: 'flex',
-                        justifyContent: "space-between"
-                    }}>
-                    <span><h4>0</h4></span>
-                    <span><h4>360</h4></span>
-                </div>
-                <h4>Migration Routes to Libya</h4>
+
             </div>
-
-        </div>
+        </OverlayTrigger>
     )
 }

@@ -15,23 +15,58 @@ export default function JourneysPage() {
   const _id = router.query.id;
   const { data: journeys, errorJourneys } = useSWR(['/api/journeys/journeysdata', 'all'], fetcher);
   const { data: journey, errorJourney } = useSWR(['/api/journeys/journeysdata', _id], fetcher);
-  useEffect(() => {}, []);
 
-  // const handleSelect = (selectedIndex, e) => {
-  //   setIndex(selectedIndex);
-  // };
+  // const [isMouseIdle, setMouseIdle] = useState(false);
+  // const [scrollInterval, setScrollInterval] = useState(null);
+  // useEffect(() => {
+  //   let idleTimer = 0
+  //   const idleTimeout = 1000; // Adjust this value to set the idle time in milliseconds
+
+  //   const handleMouseMove = (event) => {
+  //     clearTimeout(idleTimer);
+  //     setMouseIdle(false);
+  //     idleTimer = setTimeout(() => {
+  //       setMouseIdle(true);
+  //     }, idleTimeout);
+  //     event.stopPropagation();
+  //   };
+  //   // const overlay = document.getElementById('overlay');
+  //   document.addEventListener('mousemove', handleMouseMove);
+  //   return () => {
+  //     document.removeEventListener('mousemove', handleMouseMove);
+  //   }
+  // }, []);
+
+
+  // useEffect(() => {
+  //   if(isMouseIdle) {
+  //     const scrollInterval = setInterval(() => {
+
+  //       // Scroll horizontally by a specific amount
+  //       window.scrollBy(10, 0); // Change the scroll amount as per your requirement
+  //     }, 20); // Change the delay to adjust the scroll speed
+  //     setScrollInterval(scrollInterval);
+  //   } else {
+  //     clearInterval(scrollInterval);
+  //     setScrollInterval(null);
+  //   }
+
+  // }, [isMouseIdle]);
+
+
 
   if (errorJourneys) return <div>Journeys not found</div>;
   if (errorJourney) return <div>Journey not found</div>;
   if (!journeys) return <div>loading...</div>;
   if (!journey) return <div>loading...</div>;
+
   return (
     <>
       <div id="journey" className={styles.journeyContainer}>
         <div className={styles.gridContainer}>
           <Title />
           <Menu journeys={journeys} />
-          <Navigation journeys={journeys} journey={journey} />
+          <Navigation journeys={journeys} journey={journey}/>
           <DataTab journey={journey} />
           <ImageBox journey={journey} id="image-box" />
         </div>
