@@ -65,7 +65,10 @@
     /* margin-bottom: 1.5rem; */
 }
 
-
+/* TO-DO: left align text in tooltip not overriding bootstrap defaults */
+.tooltip>div.tooltip-inner {
+  text-align: left!important;
+}
 
 
 

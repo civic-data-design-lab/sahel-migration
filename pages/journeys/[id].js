@@ -16,42 +16,42 @@ export default function JourneysPage() {
   const { data: journeys, errorJourneys } = useSWR(['/api/journeys/journeysdata', 'all'], fetcher);
   const { data: journey, errorJourney } = useSWR(['/api/journeys/journeysdata', _id], fetcher);
 
-  const [isMouseIdle, setMouseIdle] = useState(false);
-  const [scrollInterval, setScrollInterval] = useState(null);
-  useEffect(() => {
-    let idleTimer = 0
-    const idleTimeout = 1000; // Adjust this value to set the idle time in milliseconds
+  // const [isMouseIdle, setMouseIdle] = useState(false);
+  // const [scrollInterval, setScrollInterval] = useState(null);
+  // useEffect(() => {
+  //   let idleTimer = 0
+  //   const idleTimeout = 1000; // Adjust this value to set the idle time in milliseconds
 
-    const handleMouseMove = (event) => {
-      clearTimeout(idleTimer);
-      setMouseIdle(false);
-      idleTimer = setTimeout(() => {
-        setMouseIdle(true);
-      }, idleTimeout);
-      event.stopPropagation();
-    };
-    // const overlay = document.getElementById('overlay');
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    }
-  }, []);
+  //   const handleMouseMove = (event) => {
+  //     clearTimeout(idleTimer);
+  //     setMouseIdle(false);
+  //     idleTimer = setTimeout(() => {
+  //       setMouseIdle(true);
+  //     }, idleTimeout);
+  //     event.stopPropagation();
+  //   };
+  //   // const overlay = document.getElementById('overlay');
+  //   document.addEventListener('mousemove', handleMouseMove);
+  //   return () => {
+  //     document.removeEventListener('mousemove', handleMouseMove);
+  //   }
+  // }, []);
 
 
-  useEffect(() => {
-    if(isMouseIdle) {
-      const scrollInterval = setInterval(() => {
+  // useEffect(() => {
+  //   if(isMouseIdle) {
+  //     const scrollInterval = setInterval(() => {
 
-        // Scroll horizontally by a specific amount
-        window.scrollBy(10, 0); // Change the scroll amount as per your requirement
-      }, 20); // Change the delay to adjust the scroll speed
-      setScrollInterval(scrollInterval);
-    } else {
-      clearInterval(scrollInterval);
-      setScrollInterval(null);
-    }
+  //       // Scroll horizontally by a specific amount
+  //       window.scrollBy(10, 0); // Change the scroll amount as per your requirement
+  //     }, 20); // Change the delay to adjust the scroll speed
+  //     setScrollInterval(scrollInterval);
+  //   } else {
+  //     clearInterval(scrollInterval);
+  //     setScrollInterval(null);
+  //   }
 
-  }, [isMouseIdle]);
+  // }, [isMouseIdle]);
 
 
 

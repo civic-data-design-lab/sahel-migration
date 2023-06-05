@@ -1,4 +1,4 @@
-import styles from "../../styles/MapLegend.module.css"
+import styles from "../../styles/MapLegend.module.css";
 import { motion, useTransform } from "framer-motion";
 import { useSpring } from "react-spring";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -10,7 +10,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 export default function MapLegend({ activeSource }) {
     const { currentSection, setSection } = useContext(SectionContext)
     const colors = ['#FCDED3', '#F9BDA7', '#F79C7C', '#F47B50', '#F15A24', '#B5441B', '#792D12', '#463C35']
-    const cityLegendLabel = 'Counts of Migrants Surveyed by Place of Origin'
+    const cityLegendLabel = 'Migrants Surveyed by Place of Origin'
     const transectLegendLabel = 'Risk Level Along Route'
     const titleRef = useRef(null)
     const containerRef = useRef(null)
@@ -19,9 +19,13 @@ export default function MapLegend({ activeSource }) {
 
     const [clicked, setClick] = useState(false)
 
+    const dataSourceText = (activeSource === "originCities") ? "Place of origin of irregular migrants surveyed in Libya in 2021 by the International Food Policy Research Institute." 
+      : (activeSource === "transectSegment" || activeSource === "globeView") ? "Migrants are always at risk while in transit; this relative risk scale from 0-100 indicates variations of extreme risks with higher values. This migrant risk score is a composite of six factors, including: migrant reported violence incidents, conflict events, food insecurity, reliance on smugglers, remoteness, and heat exposure."
+      : (activeSource === "overallRoutes") ? "Migration routes are mapped using origin and destination locations from the Flow Monitoring Survey Displacement Tracking Matrix data collected by the International Organization for Migration. The locations were mapped using ESRI’s geocoding service and the routes were computed using the Open Source Routing Tool."
+      : null
     const tooltip = (
         <Tooltip className={styles.tooltip}>
-            <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, doloremque incidunt rerum quia laborum accusantium sed maiores enim illo saepe consequuntur voluptas exercitationem, sunt corrupti at autem nulla ipsam ut!</strong>
+            <strong>{dataSourceText}</strong>
         </Tooltip>
     );
 
