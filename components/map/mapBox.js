@@ -13,6 +13,7 @@ import Map, { Source, Layer } from 'react-map-gl';
 import styles from './../../styles/MapBox.module.css';
 import stylesObject from './mapStyles';
 import useWindowSize from './../../hooks/useWindowSize';
+import useMapView from './../../hooks/useMapView';
 import ToolTip from './popup/tooltip';
 import { SectionContext } from './../../pages';
 
@@ -52,34 +53,6 @@ function objectMap(object, mapFn) {
         }, {})
     }
 }
-
-function zoomFunction(number) {
-    const x = number / 100;
-    // return 3.8 + 0.4 * Math.tanh((x - 8.5) / 1.5) + 0.3 * Math.tanh((x - 12.5) / 2.5) + 0.3 * Math.exp(-((x - 19) ** 2) / 2)
-    // return -(1 / (2.5 * (Math.E ** ((number / 100 - 7) ** 2)))) + 3.7
-    // if (x <= 6) return 3.5
-    // if (6 <= x <= 19) return 3.26923076923 + 0.038461538461 * x
-    // return 4
-    return 0.0801143 * x + 2.72143;
-}
-function latFunction(number) {
-    // return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
-    return 20;
-}
-
-function lngFunction(number) {
-    const x = number / 100;
-    return -0.727878 * x + 5.73398;
-    // if (x === 900) return -3
-    // return -0.765517 * x + 6.60345
-    // const exponent = -(number * 2.5 / 100 - 20)
-    // return 5 - (15 / (1 + Math.E ** exponent))
-}
-
-function computePerspective(width) {
-    return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) };
-}
-
 /** 
  * [bar description]
  * @param  {any} map map object
@@ -104,6 +77,7 @@ function setStyles(map, styles) {
 export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
+    const { zoom, lng, lat } = useMapView()
     const [hoverInfo, setHoverInfo] = useState(null);
     const [cityInfo, setCityInfo] = useState(null);
     const [pointerCoords, setCoordinates] = useState({ posX: 0, posY: 0 })
@@ -130,10 +104,9 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const mapRef = useRef(null)
     const containerRef = useRef(null)
 
-    const perspective = useMemo(() => computePerspective(width), [width])
     const mapCenter = {
-        lng: perspective.lng,
-        lat: perspective.lat,
+        lng: lng,
+        lat: lat,
     }
     const pointerPosValue = { pointerCoords, setCoordinates, containerDimensions, setDimensions, mapCenter }
 
@@ -341,12 +314,12 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                 >
                     <Map
                         initialViewState={{
-                            longitude: perspective.lng,
-                            latitude: perspective.lat,
-                            zoom: perspective.zoom
+                            longitude: lng,
+                            latitude: lat,
+                            zoom: zoom
                         }}
-                        latitude={perspective.lat}
-                        longitude={perspective.lng}
+                        latitude={lat}
+                        longitude={lng}
                         style={{
                             width: '100%', height: '100%'
                         }}
@@ -355,7 +328,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                             activeSource === "originCities" ? ["hoverable", "cities", "overlay"] :
                                 activeSource === "transectSegment" ? ["migration-buffer", "hoverable", 'overlay', "cities"] :
                                     activeSource ? ["hoverable", "overlay", "cities"] : []}
-                        zoom={perspective.zoom}
+                        zoom={zoom}
                         mapStyle={mapStyle}
                         ref={mapRef}
                         doubleClickZoom={false}
