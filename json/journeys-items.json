@@ -38,7 +38,7 @@
         "route": "beginning-journey",
         "title": "Beginning the Journey",
         "body": "The Central Mediterranean Route is long and dangerous, so most migrants rely on smugglers throughout their journey to navigate across borders or treacherous environments.",
-        "imageUrl": "/images/journeys/2-in transit.svg",
+        "imageUrl": "/images/journeys/2-beginning-journey.svg",
         "entourages": [
           {
             "id": 1,
@@ -59,8 +59,8 @@
           {
             "id": 3,
             "body": "Many migrants hire smugglers to help cross borders along the journey. Hiring a smuggler can help, but involves large payments and additional risks for personal security and financial if the smuggler is untrustworthy.",
-            "posX": 1000,
-            "posY": 350,
+            "posX": 0,
+            "posY": -50,
             "scrollStart": 0.35,
             "scrollEnd": 0.5
           },
@@ -87,37 +87,37 @@
         "route": "passing-agadez",
         "title": "Passing through Agadez",
         "body": "Cities, such as Gao in Mali or Agadez in Niger, serve as transitory points along the Central Mediterranean route. Some migrants stop in Agadez to find smugglers, while others stop for extended periods of time to find work to fund the next part of their journey.",
-        "imageUrl": "/images/journeys/3-Transit Hub Agadez.svg",
+        "imageUrl": "/images/journeys/3-passing-agadez.svg",
         "entourages": [
           {
             "id": 1,
             "body": "Agadez became reliant on migration-related activities, such as transportation, hotels, restaurants, shops, and cheap migrant labor, following the decline of its tourism industry due to the Tuareg rebellions in 2007 and 2012. However, the subsequent criminalization of smuggling led to an economic decline in the area.",
-            "posX": 450,
-            "posY": 400,
+            "posX": 50,
+            "posY": -60,
             "scrollStart": 0,
             "scrollEnd": 0.3
           },
           {
             "id": 2,
             "body": "In Agadez, migrants must remain hidden in crowded small houses with many other migrants in the outskirts of the city, as they await smuggler transport to Libya.",
-            "posX": 800,
-            "posY": 450,
+            "posX": 50,
+            "posY": 0,
             "scrollStart": 0.2,
             "scrollEnd": 0.6
           },
           {
             "id": 3,
             "body": "Migrants cannot use their ECOWAS passports at the Libya border, so they need to locate smugglers in Agadez to help them cross into Libya.",
-            "posX": 1300,
-            "posY": 450,
+            "posX": 20,
+            "posY": 0,
             "scrollStart": 0.7,
             "scrollEnd": 1
           },
           {
             "id": 4,
             "body": "Most migrants are continuously on the move. Only 10 percent of migrants stop in a place for longer than one month before reaching Libya (IFPRI, 2021).",
-            "posX": 2000,
-            "posY": 350,
+            "posX": 50,
+            "posY": 20,
             "scrollStart": 0.7,
             "scrollEnd": 1
           }
@@ -128,7 +128,7 @@
         "route": "sahara-desert",
         "title": "Crossing the Sahara Desert",
         "body": "Smugglers commonly drive migrants pick-up trucks for three days across the Sahara Desert. This informal route is the riskiest part of the journey, where migrants risk violence, extortion, nutrition deficiencies, and vehicle accidents.",
-        "imageUrl": "/images/journeys/3-sahara.svg",
+        "imageUrl": "/images/journeys/4-sahara-desert.svg",
         "entourages": [
           {
             "id": 1,
@@ -164,19 +164,19 @@
           },
           {
             "id": 5,
-            "body": "Trucks head back to Agadez with workers from Libya. Migrant workers convert earnings into goods—like furniture, clothes, appliances and other household items—because the Libyan dinar is unstable.",
-            "posX": 130,
-            "posY": 20,
-            "scrollStart": 0.8,
-            "scrollEnd": 1
-          },
-          {
-            "id": 6,
             "body": "Tombs marked by jagged stones and empty water jugs are found along the way. Of the migrant reported deaths along the Central Mediterranean Route, the highest number of reported deaths (28%) occurred in the remote Sahara Desert (MMC).",
             "posX": 110,
             "posY": -20,
             "scrollStart": 0.7,
             "scrollEnd": 0.95
+          },
+          {
+            "id": 6,
+            "body": "Trucks head back to Agadez with workers from Libya. Migrant workers convert earnings into goods—like furniture, clothes, appliances and other household items—because the Libyan dinar is unstable.",
+            "posX": 130,
+            "posY": 20,
+            "scrollStart": 0.8,
+            "scrollEnd": 1
           }
         ]
       },
