@@ -84,7 +84,7 @@
 
 @media(max-width:900px) {
     .content {
-        max-width: 600px;
+        max-width: unset;
     }
 }
 

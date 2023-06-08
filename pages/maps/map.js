@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/Map.module.css'
 import useWindowSize from '../../hooks/useWindowSize'
 import useSWR from 'swr'
+import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+
 import MapBox from "../../components/map/mapBox";
 import ContentBox from "../../components/map/contentBox";
 import Title from "../../components/title";
@@ -38,6 +40,10 @@ export default function MainMap({ journeys }) {
     const boxRef = useRef(null);
     const [currentView, setCurrentView] = useState('overallRoutes');
     const viewValue = { currentView, setCurrentView };
+    const emptyMapContainerRef = useRef(<div></div>)
+    const emptyMapRef = useRef(null)
+
+    const [isScrolling, setScrolling] = useState(false)
 
     const [globeVisibility, setVisibility] = useState(true);
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', mapFetcher);
@@ -75,16 +81,23 @@ export default function MainMap({ journeys }) {
 
     }, [currentView])
 
+    // window.addEventListener('mousewheel', (event) => {
+    //     setScrolling(true)
+    //     enablePointerEvents(boxRef.current)
+    // })
     useEffect(() => {
         if (width > 800) {
-            window.addEventListener('wheel', (event) => {
-                enablePointerEvents(boxRef.current)
-            })
             window.addEventListener('mousewheel', (event) => {
+                // console.log(9)
                 enablePointerEvents(boxRef.current)
             })
             if (boxRef.current) {
-                boxRef.current.addEventListener('mousemove', () => disablePointerEvents(boxRef.current))
+                window.addEventListener('mousemove', (event) => {
+                    if (Math.abs(event.movementX) < 0.5 && Math.abs(event.movementY) < 0.5) enablePointerEvents(boxRef.current)
+                    else disablePointerEvents(boxRef.current)
+                })
+
+
             }
         }
     })
