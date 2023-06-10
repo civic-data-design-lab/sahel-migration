@@ -30,7 +30,7 @@ export default function Stepper({
         key={currentStep}
         href={item.route || '/'}
         className={styles.stepContainer}
-        style={{ flexDirection: reversed ? 'row-reverse' : '' }}
+        style={{ flexDirection: reversed ? 'row-reverse' : '', pointerEvents: isActive ? 'all' : 'none'}}
       >
         <div className={`${styles.step} ${isFilled} ${isCurrent}`} />
         <small className={styles.textContainer}>{item.title}</small>
