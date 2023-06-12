@@ -87,13 +87,16 @@ export default function MainMap({ journeys }) {
     // })
     useEffect(() => {
         if (width > 800) {
+
+            window.addEventListener('wheel', (event) => {
+                enablePointerEvents(boxRef.current)
+            })
             window.addEventListener('mousewheel', (event) => {
-                // console.log(9)
                 enablePointerEvents(boxRef.current)
             })
             if (boxRef.current) {
                 window.addEventListener('mousemove', (event) => {
-                    if (Math.abs(event.movementX) < 0.5 && Math.abs(event.movementY) < 0.5) enablePointerEvents(boxRef.current)
+                    if (!globeVisibility && Math.abs(event.movementX) <= 0.5 && Math.abs(event.movementY) <= 0.5) { enablePointerEvents(boxRef.current) }
                     else disablePointerEvents(boxRef.current)
                 })
 
