@@ -33,7 +33,7 @@ export default function Card({ svgRef, entourage, width, height, scrollXProgress
           setIsOpen(true);
         });
     });
-    scrollXProgress.on('change', setBoundingBox);
+    // scrollXProgress.on('change', setBoundingBox);
   }, [entourage.id, entourage.scrollEnd, entourage.scrollStart, isOpen, scrollXProgress, svgRef]);
 
   useLayoutEffect(() => {
@@ -50,11 +50,11 @@ export default function Card({ svgRef, entourage, width, height, scrollXProgress
     }
   }, [width, height, svgRef, entourage.id]);
 
-  const setBoundingBox = (latest) => {
-    const svg = d3.select(svgRef.current.contentDocument.documentElement);
-    setIsOpen(latest >= entourage.scrollStart && latest <= entourage.scrollEnd);
-    svg.select('#outline-' + entourage.id).style('opacity', isOpen ? 1 : 0);
-  };
+  // const setBoundingBox = (latest) => {
+  //   const svg = d3.select(svgRef.current.contentDocument.documentElement);
+  //   setIsOpen(latest >= entourage.scrollStart && latest <= entourage.scrollEnd);
+  //   svg.select('#outline-' + entourage.id).style('opacity', isOpen ? 1 : 0);
+  // };
 
   return (
     <motion.div

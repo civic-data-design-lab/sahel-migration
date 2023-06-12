@@ -138,40 +138,178 @@
             }
         ],
         "styles": {
-            "allLayers": [],
-            "layers": [
-                {
-                    "id": "originCities",
-                    "layerNames": [
-                        "libyaSelect",
-                        "countryBorderStyle",
-                        "countryLayer",
-                        "migrationRouteStyle",
-                        "migrationBuffer"
+            "usedLayerNames": [
+                "selected_Countries_outline",
+                "wa-ifpri-countries-outline",
+                "transect-countries-outline",
+                "libya-outline",
+                "transect-country-labels",
+                "country-label-major",
+                "country-label-minor",
+                "routes-all",
+                "transect-segments",
+                "route-buffer-6",
+                "route-buffer-big",
+                "world_countries_fill copy",
+                "cities-route-context",
+                "cities-route-context-text",
+                "migrant-country-selector ",
+                "destination-cities-fill",
+                "label_tripoli",
+                "cities-wa-context",
+                "cities-wa-context-text",
+                "origin_cities_color",
+                "origin_cities_highlight",
+                "place-label (1)",
+                "place-label (1) copy",
+                "transect-country-labels",
+                "overlay",
+                "hoverable",
+                "countires-highlighted",
+                "overall-routes",
+                "migration",
+                "migration-hover",
+                "cities",
+                "cities-in-country",
+                "city-highlight",
+                "migration-buffer",
+                "city-context-marker-all",
+                "city-context-label-all",
+                "destination-cities-marker",
+                "destination-cities-label",
+                "major-labels",
+                "minor-labels"
+            ],
+            "narrativeToLayer": {
+                "overallRoutes": {
+                    "layers": [
+                        {
+                            "id": "routes-all"
+                        },
+                        {
+                            "id": "migrant-country-selector"
+                        },
+                        {
+                            "id": "selected_Countries_outline",
+                            "filter": [
+                                "in",
+                                "COUNTRY"
+                            ],
+                            "property": "COUNTRY"
+                        },
+                        {
+                            "id": "label_tripoli"
+                        },
+                        {
+                            "id": "destination-cities-fill"
+                        },
+                        {
+                            "id": "wa-ifpri-countries-outline"
+                        },
+                        {
+                            "id": "country-label-major"
+                        },
+                        {
+                            "id": "country-label-minor"
+                        },
+                        {
+                            "id": "cities-wa-context"
+                        },
+                        {
+                            "id": "cities-wa-context-text"
+                        }
                     ]
                 },
-                {
-                    "id": "overallRoutes",
-                    "layerNames": [
-                        "libyaSelect",
-                        "countryBorderStyle",
-                        "countryLayer",
-                        "migrationRouteStyle",
-                        "migrationBuffer"
+                "originCities": {
+                    "layers": [
+                        {
+                            "id": "country-label-major"
+                        },
+                        {
+                            "id": "selected_Countries_outline",
+                            "filter": [
+                                "in",
+                                "COUNTRY"
+                            ],
+                            "property": "COUNTRY"
+                        },
+                        {
+                            "id": "migrant-country-selector"
+                        },
+                        {
+                            "id": "label_tripoli"
+                        },
+                        {
+                            "id": "destination-cities-fill"
+                        },
+                        {
+                            "id": "country-label-minor"
+                        },
+                        {
+                            "id": "routes-all"
+                        },
+                        {
+                            "id": "origin_cities_color"
+                        },
+                        {
+                            "id": "origin_cities_highlight",
+                            "buffer?": "true",
+                            "filter": [
+                                "in",
+                                "city_origin"
+                            ],
+                            "property": "city_origin"
+                        }
                     ]
                 },
-                {
-                    "id": "transectSegment",
-                    "layerNames": [
-                        "extremeHeatLayer",
-                        "libyaSelect",
-                        "countryBorderStyle",
-                        "countryLayer",
-                        "migrationRouteStyle",
-                        "migrationBuffer"
+                "transectSegment": {
+                    "layers": [
+                        {
+                            "id": "transect-country-labels"
+                        },
+                        {
+                            "id": "migrant-country-selector"
+                        },
+                        {
+                            "id": "route-buffer-big",
+                            "buffer?": "true"
+                        },
+                        {
+                            "id": "route-buffer-6",
+                            "filter": [
+                                "in",
+                                "index"
+                            ],
+                            "property": "segement_i"
+                        },
+                        {
+                            "id": "label_tripoli"
+                        },
+                        {
+                            "id": "destination-cities-fill"
+                        },
+                        {
+                            "id": "cities-route-context"
+                        },
+                        {
+                            "id": "cities-route-context-text"
+                        },
+                        {
+                            "id": "transect-countries-outline"
+                        },
+                        {
+                            "id": "transect-segments"
+                        }
+                    ]
+                },
+                "globeView": {
+                    "layers": [
+                        {
+                            "id": "routes-all"
+                        }
                     ]
                 }
-            ]
+            }
         },
         "sources": [
             {

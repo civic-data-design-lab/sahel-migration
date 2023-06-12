@@ -2,24 +2,24 @@ import React, { useRef, useEffect, useState, useContext } from 'react';
 import mapboxgl from '!mapbox-gl';
 import styles from '../../styles/MapJourney.module.css';
 import { renderToString } from 'react-dom/server'
-import stylesObject from './mapStyles';
 import TransectTip from './transecttip';
 import { SectionContext } from '../../pages';
+import { ViewContext } from '../../pages/maps/map';
+import useMapView from '../../hooks/useMapView';
+import { useScroll } from 'framer-motion';
+import ContentBox from './contentBox';
 
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
-export default function MapJourney({ journeys }) {
+export default function MapJourney({ journeys, globeVisibility, scrollProgress }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng, setLng] = useState(3);
-    const [lat, setLat] = useState(25);
-    const [zoom, setZoom] = useState(3.65);
-    const [canExplore, setExplore] = useState(false);
-    const { layersObject, highlightLayer } = stylesObject()
-
+    const { zoom, lng, lat } = useMapView()
     const { currentSection, setSection } = useContext(SectionContext)
+    const { currentView, setCurrentView } = useContext(ViewContext)
     const routeId = currentSection && currentSection.routeId
 
+    console.log(scrollProgress)
     function keys(object) {
         return Object.keys(object)
     }
@@ -27,7 +27,6 @@ export default function MapJourney({ journeys }) {
         return Object.values(object)
     }
     useEffect(() => {
-        setExplore(true);
 
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
@@ -103,7 +102,7 @@ export default function MapJourney({ journeys }) {
                         return t;
                     },
                 });
-            }, 3000);
+            }, 5000);
 
 
             map.current.on('load', () => {
@@ -191,7 +190,24 @@ export default function MapJourney({ journeys }) {
                 if (journey) window.location.href = '/journeys/' + journey.route
             })
         }
-    }, [canExplore]);
+
+        window.addEventListener('wheel', (event) => {
+            if (event.deltaY < 0 && scrollProgress < 0.85) {
+                map.current.flyTo({
+                    center: [lng, lat],
+                    zoom: zoom,
+                    speed: 1,
+                    curve: 1,
+                    pitch: 0,
+                    bearing: 0,
+                    easing(t) {
+                        return t;
+                    },
+                });
+            }
+        })
+
+    }, [globeVisibility, scrollProgress]);
 
     return (
         <div className={styles.container}>

@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/Map.module.css'
 import useWindowSize from '../../hooks/useWindowSize'
 import useSWR from 'swr'
+import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+
 import MapBox from "../../components/map/mapBox";
 import ContentBox from "../../components/map/contentBox";
 import Title from "../../components/title";
@@ -10,6 +12,8 @@ import { animated, useSpring } from "react-spring";
 import MapJourney from "../../components/map/mapJouney";
 import MapLegend from '../../components/map/mapLegend'
 import { SectionContext } from '..';
+import { motion } from 'framer-motion';
+import { useScroll } from 'framer-motion';
 
 
 const mapFetcher = (url) => fetch(url).then((res) => res.json());
@@ -36,43 +40,54 @@ export default function MainMap({ journeys }) {
     const boxRef = useRef(null);
     const [currentView, setCurrentView] = useState('overallRoutes');
     const viewValue = { currentView, setCurrentView };
+    const emptyMapContainerRef = useRef(<div></div>)
+    const emptyMapRef = useRef(null)
 
-    const [routeClicked, setRoute] = useState(false);
+    const [isScrolling, setScrolling] = useState(false)
+
+    const [globeVisibility, setVisibility] = useState(true);
     const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', mapFetcher);
     const { data: cities, error: citiesError } = useSWR('/api/map/citydata', mapFetcher);
     const { currentSection, setSection } = useContext(SectionContext)
-
-
-    const isActive = currentView === 'selectRoute' ? true : false;
-
-    const exploreRoutes = useSpring({
-        opacity: routeClicked ? 0 : 1,
-        zIndex: routeClicked ? 0 : 1,
-        marginBottom: isActive && width < 480 ? '0rem' : '0',
-    });
-
-    const hideMapBox = useSpring({
-        opacity: routeClicked ? 0 : 1
+    const { scrollYProgress, scrollY } = useScroll({
+        container: sideBarRef
     })
 
-    const revealJourney = useSpring({
-        zIndex: routeClicked ? 3 : -1,
-    });
+
+
+    // const exploreRoutes = useSpring({
+    //     opacity: globeVisibility ? 0 : 1,
+    //     zIndex: globeVisibility ? 0 : 1,
+    // });
+
+    // const hideMapBox = useSpring({
+    //     opacity: globeVisibility ? 0 : 1
+    // })
+
+    // const revealJourney = useSpring({
+    //     zIndex: globeVisibility ? 3 : -1,
+    // });
 
 
     function toggleMap() {
-        setRoute(true);
+        setVisibility(true);
         setSection(null)
     }
 
     useEffect(() => {
         if (currentView === "globeView") toggleMap()
-        else setRoute(false)
+        else setVisibility(false)
+        if (currentView === "vignetteTransition") window.location.href = '/journeys/beginning-journey'
 
     }, [currentView])
 
+    // window.addEventListener('mousewheel', (event) => {
+    //     setScrolling(true)
+    //     enablePointerEvents(boxRef.current)
+    // })
     useEffect(() => {
         if (width > 800) {
+
             window.addEventListener('wheel', (event) => {
                 enablePointerEvents(boxRef.current)
             })
@@ -80,7 +95,12 @@ export default function MainMap({ journeys }) {
                 enablePointerEvents(boxRef.current)
             })
             if (boxRef.current) {
-                boxRef.current.addEventListener('mousemove', () => disablePointerEvents(boxRef.current))
+                window.addEventListener('mousemove', (event) => {
+                    if (!globeVisibility && Math.abs(event.movementX) <= 0.5 && Math.abs(event.movementY) <= 0.5) { enablePointerEvents(boxRef.current) }
+                    else disablePointerEvents(boxRef.current)
+                })
+
+
             }
         }
     })
@@ -98,7 +118,7 @@ export default function MainMap({ journeys }) {
         <ViewContext.Provider value={viewValue}>
             <div
                 className={styles.gridContainer}
-                data-color={routeClicked ? 'dark' : 'light'}
+                data-color={globeVisibility ? 'dark' : 'light'}
             >
                 <div
                     style={{
@@ -111,44 +131,59 @@ export default function MainMap({ journeys }) {
                     className={styles.boxContainer}
                     ref={boxRef}
                 >
-                    {true && (
-                        <div className={styles.contentBox} ref={sideBarRef}>
-                            <ContentBox
-                                scrollRef={sideBarRef}
-                                dataItems={riskItems.risks}
-                                toggleMap={toggleMap}
-                            />
-                        </div>
-                    )}
-                    {false && (
-                        <>
-                            <div className={styles.exploreBox}>
-                                <a href={'/journeys/beginning-journey'}
-                                >
-                                    Click to explore the experience of migrants on the move from Bamako, Mali to Tripoli, Libya →
-                                </a>
-                            </div>
-                        </>
-                    )}
+
+                    <div className={styles.contentBox} ref={sideBarRef}>
+                        <ContentBox
+                            scrollRef={sideBarRef}
+                            dataItems={riskItems.risks}
+                        />
+                    </div>
+
                 </div>
                 <div className={styles.mapContainer}>
-                    <animated.div style={exploreRoutes} className={styles.mapHolder}>
+                    <motion.div
+                        style={{
+                            opacity: 1
+                        }}
+                        animate={{
+                            opacity: globeVisibility ? 0 : 1
+                        }}
+                        // transition={{
+                        //     type: 'tween',
+                        //     duration: 2
+                        // }}
+                        className={styles.mapHolder}>
                         <MapBox
                             activeSource={currentView}
                             risks={riskItems}
                             cityData={cities}
                             toggleMap={toggleMap}
                         />
-                    </animated.div>
+                    </motion.div>
                 </div>
                 <MapLegend activeSource={currentView} />
             </div>
-            {routeClicked && (
-
-                <MapJourney
-                    style={revealJourney}
-                    journeys={journeys}
-                />
+            {globeVisibility && (
+                <motion.div
+                    style={{
+                        opacity: 0
+                    }}
+                    animate={{
+                        opacity: 1
+                    }}
+                    transition={{
+                        type: 'tween',
+                        delay: 0.25,
+                        duration: 2
+                    }}
+                >
+                    <MapJourney
+                        // style={revealJourney}
+                        journeys={journeys}
+                        globeVisibility={globeVisibility}
+                        scrollProgress={scrollYProgress.current}
+                    />
+                </motion.div>
             )}
         </ViewContext.Provider>
     );

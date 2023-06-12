@@ -43,7 +43,7 @@ function Paragraph({ children, data, nextElem }) {
             >
                 {data.body}
             </p>
-            {data.id !== "globeView" && (
+            {(data.id !== "globeView" && data.id !== "vignetteTransition") && (
                 <ScrollIndicator
                     onClick={scrollToNext}
                 />
@@ -70,7 +70,7 @@ function ScrollButton({ onClick, currentView }) {
     );
 }
 
-export default function ContentBox({ dataItems, toggleMap }) {
+export default function ContentBox({ dataItems }) {
     const contentRef = useRef(null);
     const [isOpen, toggleOpen] = useState(false);
     const [scroll, setScroll] = useState();
@@ -94,6 +94,7 @@ export default function ContentBox({ dataItems, toggleMap }) {
 
     useEffect(() => {
 
+
         const contentBox = contentRef.current;
         if (currentView === 'selectRoute') toggleClick(false);
         if (currentView === 'selectRoute' && isClicked) {
@@ -108,23 +109,16 @@ export default function ContentBox({ dataItems, toggleMap }) {
 
     }, [scrollYProgress]);
 
-    const globeTransition = () => {
-        if (scrollYProgress.current >= 1) {
-            toggleScrollStatus(true)
-            setTimeout(() => {
-                toggleMap()
-            }, 500)
-        }
-        else toggleScrollStatus(false)
-    }
-
     const scrollUp = () => {
         setScroll(1200);
         toggleClick(!isClicked);
     };
     return (
         <>
-            <div ref={contentRef} className={styles.container} onTouchMove={globeTransition}>
+            <div ref={contentRef}
+                className={styles.container}
+                id='narrative-text'
+            >
                 <div className={styles.content}>
                     {dataItems.map((data, index) => {
                         const nextIndex = (index + 1) % dataItems.length

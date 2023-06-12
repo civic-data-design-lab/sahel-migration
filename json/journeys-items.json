@@ -38,29 +38,29 @@
         "route": "beginning-journey",
         "title": "Beginning the Journey",
         "body": "The Central Mediterranean Route is long and dangerous, so most migrants rely on smugglers throughout their journey to navigate across borders or treacherous environments.",
-        "imageUrl": "/images/journeys/2-in transit.svg",
+        "imageUrl": "/images/journeys/2-beginning-journey.svg",
         "entourages": [
           {
             "id": 1,
             "body": "Migrants encounter several risks while in transit; 20% of migrants were concerned for their personal safety, 14% struggled with finding shelter, and 18% experienced food insecurity (IFPRI, 2021).",
-            "posX": 100,
-            "posY": 0,
+            "posX": 180,
+            "posY": 20,
             "scrollStart": 0,
             "scrollEnd": 0.1
           },
           {
             "id": 2,
             "body": "Migrants heading to Libya through the Central Mediterranean route typically originate from the Economic Community of West African States (ECOWAS), and carry passports which allow them to pass through most neighboring country borders along the way without a visa.",
-            "posX": -50,
-            "posY": 50,
+            "posX": 100,
+            "posY": 30,
             "scrollStart": 0.12,
             "scrollEnd": 0.36
           },
           {
             "id": 3,
             "body": "Many migrants hire smugglers to help cross borders along the journey. Hiring a smuggler can help, but involves large payments and additional risks for personal security and financial if the smuggler is untrustworthy.",
-            "posX": 1000,
-            "posY": 350,
+            "posX": 120,
+            "posY": -30,
             "scrollStart": 0.35,
             "scrollEnd": 0.5
           },
@@ -68,15 +68,15 @@
             "id": 4,
             "body": "The average cost that migrants spent to reach Libya was USD 658. The pay-as-you-go method employed by many smugglers exploits the vulnerability and desperation of migrants, and abuse or human rights violations can occur at any stage of the journey.",
             "posX": 200,
-            "posY": 30,
+            "posY": 80,
             "scrollStart": 0.5,
             "scrollEnd": 0.7
           },
           {
             "id": 5,
             "body": "There are two ways to hire a smuggler: organized or step-by-step. In organized smuggling the migrant is accompanied by a smuggler for most of the journey, while in step-by-step smuggling, migrants mostly travel on their own and only use a smuggler for certain segments of the journey, like crossing a border or the desert.",
-            "posX": 50,
-            "posY": 0,
+            "posX": 70,
+            "posY": 50,
             "scrollStart": 0.75,
             "scrollEnd": 1
           }
@@ -87,37 +87,37 @@
         "route": "passing-agadez",
         "title": "Passing through Agadez",
         "body": "Cities, such as Gao in Mali or Agadez in Niger, serve as transitory points along the Central Mediterranean route. Some migrants stop in Agadez to find smugglers, while others stop for extended periods of time to find work to fund the next part of their journey.",
-        "imageUrl": "/images/journeys/3-Transit Hub Agadez.svg",
+        "imageUrl": "/images/journeys/3-passing-agadez.svg",
         "entourages": [
           {
             "id": 1,
             "body": "Agadez became reliant on migration-related activities, such as transportation, hotels, restaurants, shops, and cheap migrant labor, following the decline of its tourism industry due to the Tuareg rebellions in 2007 and 2012. However, the subsequent criminalization of smuggling led to an economic decline in the area.",
-            "posX": 450,
-            "posY": 400,
+            "posX": 100,
+            "posY": 0,
             "scrollStart": 0,
             "scrollEnd": 0.3
           },
           {
             "id": 2,
             "body": "In Agadez, migrants must remain hidden in crowded small houses with many other migrants in the outskirts of the city, as they await smuggler transport to Libya.",
-            "posX": 800,
-            "posY": 450,
+            "posX": 150,
+            "posY": 20,
             "scrollStart": 0.2,
             "scrollEnd": 0.6
           },
           {
             "id": 3,
             "body": "Migrants cannot use their ECOWAS passports at the Libya border, so they need to locate smugglers in Agadez to help them cross into Libya.",
-            "posX": 1300,
-            "posY": 450,
+            "posX": 80,
+            "posY": 0,
             "scrollStart": 0.7,
             "scrollEnd": 1
           },
           {
             "id": 4,
             "body": "Most migrants are continuously on the move. Only 10 percent of migrants stop in a place for longer than one month before reaching Libya (IFPRI, 2021).",
-            "posX": 2000,
-            "posY": 350,
+            "posX": 200,
+            "posY": 20,
             "scrollStart": 0.7,
             "scrollEnd": 1
           }
@@ -128,12 +128,12 @@
         "route": "sahara-desert",
         "title": "Crossing the Sahara Desert",
         "body": "Smugglers commonly drive migrants pick-up trucks for three days across the Sahara Desert. This informal route is the riskiest part of the journey, where migrants risk violence, extortion, nutrition deficiencies, and vehicle accidents.",
-        "imageUrl": "/images/journeys/3-sahara.svg",
+        "imageUrl": "/images/journeys/4-sahara-desert.svg",
         "entourages": [
           {
             "id": 1,
             "body": "Pickup trucks typically transport around twenty-five migrants in the cargo bed. Migrants wrap their heads with turbans for sun protection and brace themselves with sticks to keep from falling out of the truck. Vehicle accidents are common, with 19% of reported deaths along this part of the route caused by vehicle accidents (MMC).",
-            "posX": 200,
+            "posX": 220,
             "posY": -10,
             "scrollStart": 0,
             "scrollEnd": 0.1
@@ -142,14 +142,14 @@
             "id": 2,
             "body": "Migrants stop at rest stations along the journey through the Sahara. The 2015 Law 036 EU-Niger prohibits smuggling in Niger. This increases the risk for migrants because smugglers must use longer routes, which are more dangerous and expensive.",
             "posX": 120,
-            "posY": -10,
+            "posY": 30,
             "scrollStart": 0.12,
             "scrollEnd": 0.36
           },
           {
             "id": 3,
             "body": "When trucks break down, passengers are forced to walk. This exposes migrants to extreme heat risk with little access to shelter or water. Average high temperatures in the Sahara Desert reach 38° celsius.",
-            "posX": 250,
+            "posX": 220,
             "posY": -20,
             "scrollStart": 0.35,
             "scrollEnd": 0.5
@@ -157,26 +157,26 @@
           {
             "id": 4,
             "body": "Just as migrants are exposed to extreme heat during the day, the Sahara Desert can be a cold place at night, so migrants burn tires to keep warm. The Sahara Desert reaches average low temperatures of -4° celsius during the winter at night—posing another health risk for migrants.",
-            "posX": 170,
+            "posX": 130,
             "posY": -35,
             "scrollStart": 0.5,
             "scrollEnd": 0.9
           },
           {
             "id": 5,
-            "body": "Trucks head back to Agadez with workers from Libya. Migrant workers convert earnings into goods—like furniture, clothes, appliances and other household items—because the Libyan dinar is unstable.",
-            "posX": 130,
-            "posY": 20,
-            "scrollStart": 0.8,
-            "scrollEnd": 1
-          },
-          {
-            "id": 6,
             "body": "Tombs marked by jagged stones and empty water jugs are found along the way. Of the migrant reported deaths along the Central Mediterranean Route, the highest number of reported deaths (28%) occurred in the remote Sahara Desert (MMC).",
             "posX": 110,
             "posY": -20,
             "scrollStart": 0.7,
             "scrollEnd": 0.95
+          },
+          {
+            "id": 6,
+            "body": "Trucks head back to Agadez with workers from Libya. Migrant workers convert earnings into goods—like furniture, clothes, appliances and other household items—because the Libyan dinar is unstable.",
+            "posX": 130,
+            "posY": 20,
+            "scrollStart": 0.8,
+            "scrollEnd": 1
           }
         ]
       },
@@ -206,7 +206,7 @@
           {
             "id": 3,
             "body": "In Libya, many migrants face detention by the Directorate for Combating Illegal Migration (DCIM). In detention centers, migrants are often subject to harsh living conditions, physical violence, and death.",
-            "posX": 250,
+            "posX": 200,
             "posY": 30,
             "scrollStart": 0.5,
             "scrollEnd": 0.75
@@ -247,7 +247,7 @@
           {
             "id": 3,
             "body": "Migrants often change hands in or near Sabha from southern Libyan ethnic groups to Arab smugglers. During this transition, smugglers may keep migrants in hidden compounds while they arrange for smugglers to take them to a coastal city, and some reportedly lure migrants into trafficking where they are sold as slaves.",
-            "posX": 100,
+            "posX": 200,
             "posY": 150,
             "scrollStart": 0.5,
             "scrollEnd": 0.7
@@ -272,7 +272,7 @@
           {
             "id": 1,
             "body": "For many, Tripoli serves as a place of resettlement, with 31% of migrants currently residing there considering Tripoli to be their final destination. Tripoli also serves as a protracted transit stop for migrants while they seek income for the next phase of the journey.",
-            "posX": 100,
+            "posX": 80,
             "posY": 0,
             "scrollStart": 0,
             "scrollEnd": 0.2
@@ -288,7 +288,7 @@
           {
             "id": 3,
             "body": "Employment increases the likelihood of vulnerability for migrants. Contributing to higher employment-related vulnerability are factors such as informal work contracts, and lack of access to digital banking services.",
-            "posX": 100,
+            "posX": 110,
             "posY": 35,
             "scrollStart": 0.5,
             "scrollEnd": 0.7
@@ -345,7 +345,7 @@
           {
             "id": 3,
             "body": "In transit, migrants face different issues compared to when they arrive in Libya. When on the move, migrants are more concerned about personal safety, health, and shelter—as opposed to issues such as securing economic opportunities and food insecurity.",
-            "posX": 100,
+            "posX": 200,
             "posY": 10,
             "scrollStart": 0.5,
             "scrollEnd": 0.7

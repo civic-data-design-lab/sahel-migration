@@ -32,14 +32,14 @@ export default function ImageBox({ journey }) {
 
   return (
     <>
-      {/*<ScrollButton isForward={false} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>*/}
+      <ScrollButton width={width}/>
       {/*<ScrollButton isForward={true} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>*/}
       <motion.div className="box" ref={ref}>
-        {journey.id === 8 ? (
+        {/* {journey.id === 8 ? (
           <PolicyRecommendations narrativeTexts={journey.narrativeTexts} />
-        ) : (
+        ) : ( */}
           <DescriptionTab title={journey.title} body={journey.body} />
-        )}
+        {/* )} */}
         <object
           type="image/svg+xml"
           data={journey.imageUrl}

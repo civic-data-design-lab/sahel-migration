@@ -9,12 +9,14 @@ import React, {
     useContext,
 } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import Map, { Source, Layer } from 'react-map-gl';
+import Map, { Source, Layer, useMap } from 'react-map-gl';
 import styles from './../../styles/MapBox.module.css';
 import stylesObject from './mapStyles';
 import useWindowSize from './../../hooks/useWindowSize';
+import useMapView from './../../hooks/useMapView';
 import ToolTip from './popup/tooltip';
 import { SectionContext } from './../../pages';
+import { Metamorphous } from '@next/font/google';
 
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
@@ -52,51 +54,80 @@ function objectMap(object, mapFn) {
         }, {})
     }
 }
-
-function zoomFunction(number) {
-    const x = number / 100;
-    // return 3.8 + 0.4 * Math.tanh((x - 8.5) / 1.5) + 0.3 * Math.tanh((x - 12.5) / 2.5) + 0.3 * Math.exp(-((x - 19) ** 2) / 2)
-    // return -(1 / (2.5 * (Math.E ** ((number / 100 - 7) ** 2)))) + 3.7
-    // if (x <= 6) return 3.5
-    // if (6 <= x <= 19) return 3.26923076923 + 0.038461538461 * x
-    // return 4
-    return 0.0801143 * x + 2.72143;
-}
-function latFunction(number) {
-    // return ((-3 / (2.5 * (Math.E ** ((number * 2 / 100 - 14) ** 2)))) + 2) * 10
-    return 20;
-}
-
-function lngFunction(number) {
-    const x = number / 100;
-    return -0.727878 * x + 5.73398;
-    // if (x === 900) return -3
-    // return -0.765517 * x + 6.60345
-    // const exponent = -(number * 2.5 / 100 - 20)
-    // return 5 - (15 / (1 + Math.E ** exponent))
-}
-
-function computePerspective(width) {
-    return { zoom: zoomFunction(width), lat: latFunction(width), lng: lngFunction(width) };
-}
-
 /** 
  * [bar description]
  * @param  {any} map map object
  * @param  {[]} styles all styles to be shown on the map (from json file)
  * @return {[]}     all styles to be shown on the map
 */
-function retrieveMapStyles(map, styles) {
-    if (map) {
-        return styles.filter(style => style in map.getStyle().layers)
+// function retrieveMapStyles(map, interactiveStyles) {
+//     if (map && ("getStyle" in map)) {
+//         const mapStyles = map.getStyle().layers
+//         return mapStyles.filter(style => interactiveStyles.includes(style.id))
+//     }
+// }
+
+
+function setLayerVisibility(map, layers) {
+    if (map && layers) {
+        layers.forEach(layer => {
+            map.getMap().setLayoutProperty(layer.id, 'visibility', 'visible')
+        });
     }
 }
-function setStyles(map, styles) {
 
-    if (map && styles) {
-        styles.forEach(style => {
-            map.getMap().setLayoutProperty(style, 'visibility', 'visible')
-        });
+function setLayersOpacity(map, allLayers, seenLayers) {
+    if (map && allLayers && seenLayers) {
+        const mapStyles = map.getStyle().layers.map(layer => layer.id)
+        const seenLayerNames = seenLayers.map(layer => layer.id)
+        allLayers.forEach(layer => {
+            const type = layer.type === "symbol" ? "text" : layer.type
+            if (!mapStyles.includes(layer.id)) return
+            if (seenLayerNames.includes(layer.id)) {
+                map
+                    .getMap()
+                    .setPaintProperty(layer.id, `${type}-opacity`, 1)
+                if (type === "circle")
+                    map
+                        .getMap()
+                        .setPaintProperty(layer.id, `${type}-stroke-opacity`, 1)
+                if ("buffer?" in seenLayers.find(seenLayer => seenLayer.id === layer.id)) {
+                    map
+                        .getMap()
+                        .setPaintProperty(layer.id, `${type}-opacity`, 0)
+                }
+            } else {
+                if (type === "circle")
+                    map
+                        .getMap()
+                        .setPaintProperty(layer.id, `${type}-stroke-opacity`, 0)
+                map
+                    .getMap()
+                    .setPaintProperty(layer.id, `${type}-opacity`, 0)
+            }
+        })
+    }
+}
+
+function setLayersFilters(map, layers, selectedFeature) {
+    if (map && layers) {
+        const layersWithFilters = layers.filter(layer => "filter" in layer)
+        layersWithFilters.forEach(layer => {
+            if (!layer) return
+            if (!selectedFeature) {
+                map
+                    .getMap()
+                    .setFilter(layer.id, [...(layer.filter), " "])
+                return
+            }
+            const filteredProperty = layer.property
+            const selectedProperty = selectedFeature.properties[`${filteredProperty}`]
+            // console.log(selectedProperty)
+            if (!selectedProperty) return
+            map
+                .getMap()
+                .setFilter(layer.id, [...(layer.filter), String(selectedProperty)])
+        })
     }
 }
 
@@ -104,14 +135,17 @@ function setStyles(map, styles) {
 export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
+    const { zoom, lng, lat } = useMapView()
     const [hoverInfo, setHoverInfo] = useState(null);
     const [cityInfo, setCityInfo] = useState(null);
     const [pointerCoords, setCoordinates] = useState({ posX: 0, posY: 0 })
     const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 })
     const [routeInfo, setRouteInfo] = useState(null);
     const [feature, setFeature] = useState(null)
+    const [selectedFeature, setSelectedFeature] = useState(null)
     const [point, setPoint] = useState(null)
     const routeValue = { feature, point, setFeature, setPoint }
+    const { current: map } = useMap()
 
     const { layersObject, highlightLayer } = stylesObject(activeSource)
     const { currentSection, setSection } = useContext(SectionContext)
@@ -127,15 +161,61 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     let getMousePos = (event) => {
         setCoordinates({ posX: event.pageX, posY: event.pageY })
     };
-    const mapRef = useRef(null)
     const containerRef = useRef(null)
+    const mapRef = useRef(null)
 
-    const perspective = useMemo(() => computePerspective(width), [width])
     const mapCenter = {
-        lng: perspective.lng,
-        lat: perspective.lat,
+        lng: lng,
+        lat: lat,
     }
     const pointerPosValue = { pointerCoords, setCoordinates, containerDimensions, setDimensions, mapCenter }
+    function renderLayers(allLayers, currentNarrative, selectedFeature, map) {
+        if (allLayers && currentNarrative && map) {
+            // console.log(currentNarrative)
+            return (
+                <>
+                    {allLayers.map(layer => {
+                        const type = layer.type === "symbol" ? "text" : layer.type
+                        const currentNarrativeLayerIds = currentNarrative.map(narrativeLayer => narrativeLayer.id)
+                        const layerOpacity = currentNarrativeLayerIds.includes(layer.id) ? 1 : 0
+                        const opacityProperties = {}
+                        const layerProperties = {}
+                        opacityProperties[`${type}-opacity`] = layerOpacity
+                        if (type === "circle") {
+                            if (!(`${type}-color` in layer.paint)) opacityProperties[`${type}-opacity`] = 0
+                            opacityProperties[`${type}-stroke-opacity`] = layerOpacity
+                        }
+                        if ("layout" in layer) layerProperties["layout"] = { ...layer["layout"], visibility: "visible" }
+                        const currentNarrativeLayer = currentNarrative.find(narrativeLayer => narrativeLayer.id === layer.id)
+                        if (currentNarrativeLayer?.filter) {
+                            const layerFilter = currentNarrative.find(narrativeLayer => narrativeLayer.id == layer.id).filter || ["in", "property", " "]
+                            layerProperties["filter"] = selectedFeature && currentNarrativeLayer.property in selectedFeature ?
+                                [...layerFilter, selectedFeature[currentNarrativeLayer.property]] :
+                                layerFilter
+
+                        }
+                        return (
+
+                            < Layer
+                                {...layerProperties}
+                                paint={{
+                                    ...layer["paint"],
+                                    ...opacityProperties
+                                }}
+                                type={layer.type}
+                                source={layer.source}
+                                source-layer={layer["source-layer"]}
+                                beforeId={layer.id}
+                                id={`${layer.id}_rendered`}
+                                key={layer.id}
+                            />
+                        )
+                    })
+                    }
+                </>
+            )
+        }
+    }
 
 
     function renderSource(activeSource, data) {
@@ -149,12 +229,22 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                 </>
             );
     }
+    // const mapLayers = retrieveMapStyles(mapRef.current, risks.styles.usedLayerNames)
+    useEffect(() => {
+        if (mapRef.current) {
+            // setLayerVisibility(mapRef.current, mapLayers)
+            // mapRef.current.on('load', () => {
+            //     setLayersOpacity(mapRef.current, mapLayers, risks.styles.narrativeToLayer.overallRoutes.layers)
+            // })
+        }
+    })
 
     const onInfo = useCallback((event) => {
         const region = event.features && event.features[0];
         let routeIndex = region && region.properties.segement_i
         let routeId = region && region.properties.segement_i
         let migrantCountryName = region && region.properties.COUNTRY
+        setSelectedFeature(region && region.properties)
 
         if (routeIndex > 6) routeIndex = 6
         if (routeId > 6) routeId = 6
@@ -202,7 +292,14 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
             migrantCountryName: migrantCountryName,
             nonMigrantCountryName: (region && region.properties.name_en) || migrantCountryName,
         });
-    }, []);
+
+        // const seenLayers = risks
+        //     .styles
+        //     .narrativeToLayer[activeSource]
+        //     .layers
+
+        // setLayersFilters(mapRef.current, seenLayers, region)
+    }, [activeSource]);
 
     const selectedCountry = (hoverInfo && hoverInfo.migrantCountryName) || '';
     const nonMigrantCountry = (hoverInfo && hoverInfo.nonMigrantCountryName) || '';
@@ -282,6 +379,18 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
 
 
 
+
+    // if (activeSource === "overallRoutes") {
+    //     setLayersOpacity(mapRef.current, mapLayers, risks.styles.narrativeToLayer.overallRoutes.layers)
+    // }
+
+    // useEffect(() => {
+    //     if (mapRef.current) {
+    //         console.log(mapRef.current.getMap().getStyle().layers)
+    //     }
+    // }, [])
+
+
     useEffect(() => {
 
 
@@ -298,9 +407,12 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         if (mapRef.current) {
             // console.log(mapRef.current.getMap().getStyle().layers)
 
+            // console.log(mapRef.current..getStyle().layers)
             mapRef.current.on('load', () => {
                 mapRef.current.resize()
             })
+            // setLayersOpacity(mapRef.current, mapLayers, risks.styles.narrativeToLayer[activeSource].layers)
+
             if (activeSource === "transectSegment") {
                 mapRef.current.getMap().setLayoutProperty("wa-ifpri-countries-outline", "visibility", "none")
                 mapRef.current.getMap().setLayoutProperty("libya-outline", "visibility", "none")
@@ -323,6 +435,12 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
 
     }, [activeSource])
 
+    // const mapLayers = retrieveMapStyles(mapRef.current, risks.styles.usedLayerNames)
+    // const seenLayers = risks
+    //     .styles
+    //     .narrativeToLayer[activeSource]
+    //     .layers
+
 
     useEffect(() => {
         if (mapRef.current) {
@@ -341,12 +459,12 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                 >
                     <Map
                         initialViewState={{
-                            longitude: perspective.lng,
-                            latitude: perspective.lat,
-                            zoom: perspective.zoom
+                            longitude: lng,
+                            latitude: lat,
+                            zoom: zoom
                         }}
-                        latitude={perspective.lat}
-                        longitude={perspective.lng}
+                        latitude={lat}
+                        longitude={lng}
                         style={{
                             width: '100%', height: '100%'
                         }}
@@ -354,8 +472,15 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                         interactiveLayerIds={
                             activeSource === "originCities" ? ["hoverable", "cities", "overlay"] :
                                 activeSource === "transectSegment" ? ["migration-buffer", "hoverable", 'overlay', "cities"] :
-                                    activeSource ? ["hoverable", "overlay", "cities"] : []}
-                        zoom={perspective.zoom}
+                                    activeSource ? ["hoverable", "overlay", "cities"] : ['hoverable']}
+                        // interactiveLayerIds={
+                        //     (mapLayers && seenLayers) ? risks
+                        //         .styles
+                        //         .narrativeToLayer[activeSource]
+                        //         .layers
+                        //         .map(layer => `${layer.id}`) : []
+                        // }
+                        zoom={zoom}
                         mapStyle={mapStyle}
                         ref={mapRef}
                         doubleClickZoom={false}
@@ -368,6 +493,8 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                         {(selectedCity) && (cityTip)}
                         {(selectedSegment && activeSource === 'transectSegment') && (routeTip)}
                         {renderSource(activeSource, risks)}
+
+                        {/* {renderLayers(mapLayers, seenLayers, selectedFeature, mapRef.current)} */}
                         <Layer {...layersObject["unselectedCountryOverlay"]}
                             filter={unselectedCountryFilter}
                             paint={{
@@ -378,12 +505,12 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                         <Layer {...layersObject["countryLayer"]} />
 
                         <Layer {...highlightLayer} filter={filter} />
-                        <Layer {...layersObject["overallRoutes"]}
+                        {<Layer {...layersObject["overallRoutes"]}
                             paint={{
                                 ...layersObject["overallRoutes"].paint,
                                 "line-opacity": featureOpacity && featureOpacity.countryBorder,
                             }}
-                        />
+                        />}
 
                         <Layer {...layersObject["migrationRouteStyle"]}
                             lineJoin="round"
