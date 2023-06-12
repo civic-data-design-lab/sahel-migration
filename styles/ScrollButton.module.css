@@ -1,20 +1,28 @@
 .scrollButton {
     position: fixed;
-    top: 35%;
+    top: 42%;
     display: flex;
     align-items: center;
-    margin-top: 1rem;
-    margin-left: 1rem;
     background: none;
     border: none;
     z-index: 10;
 
+
+}
+.scrollButton:hover {
+    cursor: pointer;
+    animation: blink 2s infinite;
+}
+
+.scrollButtonText {
+    color: var(--dark);
+    width: 100%;
 }
 
 .scrollContainer {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 
@@ -25,5 +33,5 @@
 }
 
 .blink {
-    animation: blink 1s infinite;
+    /*animation: blink 3s infinite;*/
 }
