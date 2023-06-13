@@ -13,7 +13,7 @@ const INITIAL_RISKS_DATA = [
     index: 0,
     label: 'Reported Violence',
     color: '#5D3435',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
@@ -21,7 +21,7 @@ const INITIAL_RISKS_DATA = [
     index: 1,
     label: 'Conflict Events',
     color: '#985946',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
@@ -29,7 +29,7 @@ const INITIAL_RISKS_DATA = [
     index: 2,
     label: 'Food Insecurity',
     color: '#9A735A',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
@@ -37,7 +37,7 @@ const INITIAL_RISKS_DATA = [
     index: 3,
     label: 'Reliance on Smugglers',
     color: '#F48532',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
@@ -45,7 +45,7 @@ const INITIAL_RISKS_DATA = [
     index: 4,
     label: 'Remoteness',
     color: '#624B44',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
@@ -53,7 +53,7 @@ const INITIAL_RISKS_DATA = [
     index: 5,
     label: 'Heat Exposure',
     color: '#3F231B',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
 ];
@@ -261,7 +261,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     const svg = d3.select(svgRef.current);
 
     risks.forEach((risk) => {
-      console.log('Drawing', risk);
+      // console.log('Drawing', risk);
       const textInputElement = svg
         .append('foreignObject')
         .attr('width', 100)
@@ -310,7 +310,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   }, [dataTabHeight, height, svgRef, width, isOpen, journey, isExpanded]);
 
   useEffect(() => {
-    console.log('Rendering roots', roots);
+    // console.log('Rendering roots', roots);
 
     roots.forEach(({ type, root, riskId }) => {
       const riskInfo = risks.find((risk) => risk.id === riskId);
@@ -339,7 +339,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
       }
     });
 
-    console.log('Done rendering');
+    // console.log('Done rendering');
   }, [roots, risks]);
 
   const updateRiskWeight = (riskId, newWeight) => {
