@@ -26,58 +26,61 @@ export default function ImageCarousel({ isOpen }) {
   if (!isOpen) return <></>;
 
   return (
-    <div className={styles.carousel}>
-      {riskItems.transectRisks[6].imageUrls.map((url, i) => {
-        return (
-          <motion.div
-            layout
-            onClick={() => (modalOpen ? closeModal() : openModal(i))}
-            whileHover={{
-              // aspectRatio: `${width}/${height}`,
-              transition: {
-                type: 'spring',
-                stiffness: 37.5,
-                duration: 0.75,
-              },
-              // ['--color' as any]: `none`,
-              ['--opacity' as any]: 0,
-            }}
-            transition={{
-              ease: 'easeInOut',
-            }}
-            className={styles.image}
-            key={uuidv4()}
-            style={{
-              width: `1rem`,
-              ['--opacity' as any]: 1,
-            }}
-          >
-            <ImageFilter
-              image={url}
-              filter={'duotone'}
-              preserveAspectRatio="cover"
-              // colorOne={[93, 53, 53]}
-              colorOne={[116, 70, 63]}
-              colorTwo={[247, 245, 239]}
+    <div>
+      <p className={styles.labelPhotos}>Photos</p>
+      <div className={styles.carousel}>
+        {riskItems.transectRisks[6].imageUrls.map((url, i) => {
+          return (
+            <motion.div
+              layout
+              onClick={() => (modalOpen ? closeModal() : openModal(i))}
+              whileHover={{
+                // aspectRatio: `${width}/${height}`,
+                transition: {
+                  type: 'spring',
+                  stiffness: 37.5,
+                  duration: 0.75,
+                },
+                // ['--color' as any]: `none`,
+                ['--opacity' as any]: 0,
+              }}
+              transition={{
+                ease: 'easeInOut',
+              }}
+              className={styles.image}
+              key={uuidv4()}
+              style={{
+                width: `1.25rem`,
+                ['--opacity' as any]: 1,
+              }}
+            >
+              <ImageFilter
+                image={url}
+                filter={'duotone'}
+                preserveAspectRatio="cover"
+                // colorOne={[93, 53, 53]}
+                colorOne={[116, 70, 63]}
+                colorTwo={[247, 245, 239]}
+              />
+            </motion.div>
+          );
+        })}
+        <AnimatePresence
+          initial={false}
+          mode="wait"
+          onExitComplete={() => null}
+          // currentIndex
+        >
+          {modalOpen && (
+            <ImageModal
+              currentIndex={currentImageIndex}
+              // modalOpen={modalOpen}
+              handleClose={closeModal}
+              images={riskItems.transectRisks[6].imageUrls}
             />
-          </motion.div>
-        );
-      })}
-      <AnimatePresence
-        initial={false}
-        mode="wait"
-        onExitComplete={() => null}
-        // currentIndex
-      >
-        {modalOpen && (
-          <ImageModal
-            currentIndex={currentImageIndex}
-            // modalOpen={modalOpen}
-            handleClose={closeModal}
-            images={riskItems.transectRisks[6].imageUrls}
-          />
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
