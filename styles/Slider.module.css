@@ -49,3 +49,14 @@
   margin-top: -4px;
   border-radius: 50%;
 }
+
+.mainSlider {
+  display: flex;
+  gap: 3px;
+}
+
+.mainSlider > p {
+  font-size: 0.6rem;
+  font-family: var(--sans-font-fam);
+  margin-bottom: 0;
+}

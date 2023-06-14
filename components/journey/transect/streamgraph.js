@@ -78,7 +78,8 @@ export default function Streamgraph(
   // Compute the default y-domain. Note: diverging stacks can be negative.
   if (yDomain === undefined) yDomain = d3.extent(series.flat(2));
   const yRange = [height - margin.bottom, margin.top]; // [bottom, top]
-  const yScale = d3.scaleLinear(yDomain, yRange);
+  let yScale = d3.scaleLinear(yDomain, yRange);
+  if (riskId !== 'all') yScale = d3.scaleLinear([0, 100 * risks.find(item => item.id == riskId).normWeight * 100/risks.find(item => item.id == riskId).weight], yRange); // update yScale for each plot with weighted values
   // define svg
   const plot = svg
     .append('g')
@@ -92,6 +93,7 @@ export default function Streamgraph(
     xDomain: xDomain,
     xScale: xScale,
     riskId: riskId,
+    risks: risks,
     yLabel: yLabel,
     yScale: yScale,
     series: series,
@@ -158,6 +160,7 @@ export function PlotAreaCurve(data,
     xDomain,
     xScale,
     riskId,
+    risks,
     yLabel,
     yScale,
     series,
