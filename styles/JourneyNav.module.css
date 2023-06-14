@@ -17,7 +17,7 @@
     cursor: pointer;
     /* padding-top: 20%; */
     /* width: calc(100%/6); */
-    height: 100%;
+    height: 80px;
     /* background-size: cover; */
     position: relative;
     /* background-position-y: 20%; */
@@ -51,7 +51,7 @@
     width: 100%;
     inset: 0;
     font-size: clamp(0.6rem, 1.3vw, 0.9rem);
-    line-height: 0.9rem;
+    line-height: 0.9rem!important;
     text-align: center;
     text-decoration: none;
     color: var(--brown);
