@@ -33,12 +33,6 @@ export default function InfoTooltipWrapper({ children, text, placement, classNam
                 }}
             >
                 {children}
-                <span
-                    className="material-symbols-outlined"
-                    id={styles.icon}
-                >
-                    info
-                </span>
             </div>
         </OverlayTrigger>
 

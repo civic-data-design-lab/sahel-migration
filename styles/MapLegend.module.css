@@ -16,18 +16,16 @@
     height: max-content;
 }
 
-
 #icon {
-    pointer-events: all !important;
-    font-size: 0.8rem;
-    color: #985946;
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0
+  pointer-events: all !important;
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #985946;
+  font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0;
 }
-
-
 
 .subheader {
     border-bottom: 2px solid #985946;
@@ -35,10 +33,17 @@
     padding-bottom: 0.5rem;
 }
 
-.routes h4 {
-    font-size: 0.8rem;
+.routes h4,
+.routes p {
     margin-bottom: 0.2rem;
     color: var(--brown);
+    line-height: 1rem;
+}
+.routes h4 {
+  font-size: 0.8rem;
+}
+.routes p {
+  font-size: 0.7rem;
 }
 
 .label {

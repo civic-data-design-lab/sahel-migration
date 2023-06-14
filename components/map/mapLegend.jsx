@@ -48,7 +48,15 @@ export default function MapLegend({ activeSource }) {
         >
 
             <div className={styles.label}>
-                <h4 >{transectLegendLabel}</h4>
+                <h4>
+                  {transectLegendLabel}
+                  <span
+                    className="material-symbols-outlined"
+                    id={styles.icon}
+                  >
+                    info
+                  </span>
+                </h4>
             </div>
         </InfoTooltipWrapper>
         <div className={styles.bars}>
@@ -72,8 +80,8 @@ export default function MapLegend({ activeSource }) {
                 display: 'flex',
                 justifyContent: "space-between"
             }}>
-            <span><h4>0</h4></span>
-            <span><h4>100</h4></span>
+            <span><p>0</p></span>
+            <span><p>100</p></span>
         </div>
     </div>
     const cityLegend = (() => {
@@ -85,7 +93,15 @@ export default function MapLegend({ activeSource }) {
                     placement="top"
                 >
                     <div className={styles.label}>
-                        <h4 >{cityLegendLabel}</h4>
+                        <h4>
+                          {cityLegendLabel}
+                          <span
+                            className="material-symbols-outlined"
+                            id={styles.icon}
+                          >
+                            info
+                          </span>
+                        </h4>
                     </div>
                 </InfoTooltipWrapper>
                 <div className={styles.cityLegend}>
@@ -125,7 +141,7 @@ export default function MapLegend({ activeSource }) {
                                         justifyContent: 'center'
                                     }}
                                 >
-                                    <h4>{range}</h4></div>
+                                    <p>{range}</p></div>
                             )
                         })}
                     </>
@@ -160,7 +176,15 @@ export default function MapLegend({ activeSource }) {
                         <h4
                             className={styles.subheader}
                             ref={titleRef}
-                        >Migration Routes to Libya</h4>
+                        >
+                          Migration Routes to Libya
+                          <span
+                            className="material-symbols-outlined"
+                            id={styles.icon}
+                          >
+                            info
+                          </span>
+                        </h4>
                     </ InfoTooltipWrapper>
                 )}
 
