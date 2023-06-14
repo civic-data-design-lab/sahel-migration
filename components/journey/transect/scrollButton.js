@@ -17,7 +17,6 @@ export default function ScrollButton ({width}) {
     } else if (position <= 0) {
       setIsForward(true);
     }
-    console.log(position);
   };
 
   useEffect(() => {
