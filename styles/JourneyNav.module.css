@@ -10,7 +10,6 @@
     right: 0;
     grid-template-columns: repeat(14, auto);
     align-items: flex-end;
-
 }
 
 .journeyContainer .vignettes {
@@ -23,9 +22,6 @@
     /* background-position-y: 20%; */
     /* grid-area: 1/ span 2; */
     background-color: #D9D9D9;
-
-
-
 }
 
 .gates {
@@ -65,6 +61,7 @@
   color: rgba(70, 60, 53, 0.75);
 }
 
+/* small screen widths */
 @media (max-width:700px) {
     .journeyContainer {
         height: 100px;
@@ -87,5 +84,15 @@
     .gates {
         display: none;
     }
+}
 
+/* large screen widths */
+@media (min-width:1440px) {
+  .journeyContainer .vignettes {
+    height: 100%;
+  }
+  .gates {
+    height: 100%;
+    transform: translateY(68px);
+  }
 }
