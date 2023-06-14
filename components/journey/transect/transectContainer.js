@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Transect from './transect';
 import { motion } from 'framer-motion';
 import DataTabToggle from './dataTabToggle';
-import ImageCarousel from '../../map/imageCarousel';
+import ImageCarousel from './imageCarousel';
 
 import useWindowSize from '../../../hooks/useWindowSize';
 

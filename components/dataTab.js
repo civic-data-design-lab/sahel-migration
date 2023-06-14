@@ -4,7 +4,7 @@ import DataTabToggle from "./dataTabToggle";
 import styles from "../styles/DataTab.module.css";
 import Link from "next/link";
 import useWindowSize from "../hooks/useWindowSize";
-import ImageCarousel from "./map/imageCarousel";
+import ImageCarousel from "./journey/transect/imageCarousel";
 import TransectPlots from "./transectPlots";
 import useSWR from "swr";
 import { fetcher } from "../hooks/useFetch";

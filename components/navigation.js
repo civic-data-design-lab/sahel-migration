@@ -11,7 +11,7 @@ export default function Navigation({ journeys, journey }) {
   journeys.forEach((journey) => (routes[journey.id] = journey.route));
   return (
     <div className={styles.navigationBar}>
-      <div className={styles.navigationContainer}>
+      <div className={styles.navigationContainer} style={{pointerEvents: isActiveLeft? 'all' : 'none'}}>
         {journey.id > 1 ? (
           <>
             <Stepper
@@ -49,7 +49,7 @@ export default function Navigation({ journeys, journey }) {
         )}
       </div>
 
-      <div className={styles.navigationContainer}>
+      <div className={styles.navigationContainer} style={{pointerEvents: isActiveRight? 'all' : 'none'}}>
         {journey.id < 8 ? (
           <>
             <Stepper

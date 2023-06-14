@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Carousel } from 'react-bootstrap';
-import styles from '../../styles/ImageCarousel.module.css';
+import styles from '../../../styles/ImageCarousel.module.css';
 import { v4 as uuidv4 } from 'uuid';
-import imageMetadata from '../../json/image-metadata.json';
+import imageMetadata from '../../../json/image-metadata.json';
 import { useMemo, useState } from 'react';
 import { wrap } from 'framer-motion';
 
