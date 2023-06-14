@@ -198,6 +198,23 @@
                             "property": "COUNTRY"
                         },
                         {
+                            "id": "origin_cities_color",
+                            "filter": [
+                                "in",
+                                "country_origin"
+                            ],
+                            "property": "COUNTRY"
+                        },
+                        {
+                            "id": "origin_cities_highlight",
+                            "buffer?": "true",
+                            "filter": [
+                                "in",
+                                "city_origin"
+                            ],
+                            "property": "city_origin"
+                        },
+                        {
                             "id": "label_tripoli"
                         },
                         {
@@ -237,6 +254,9 @@
                             "id": "migrant-country-selector"
                         },
                         {
+                            "id": "wa-ifpri-countries-outline"
+                        },
+                        {
                             "id": "label_tripoli"
                         },
                         {
@@ -249,7 +269,8 @@
                             "id": "routes-all"
                         },
                         {
-                            "id": "origin_cities_color"
+                            "id": "origin_cities_color",
+                            "filter": []
                         },
                         {
                             "id": "origin_cities_highlight",

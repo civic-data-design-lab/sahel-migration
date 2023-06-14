@@ -126,9 +126,8 @@
     font-size: 0.6rem;
 }
 
+
 @media (max-width:900px) {
-
-
     .gridContainer {
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(10, 1fr);
@@ -150,7 +149,7 @@
         display: flex;
         width: 100%;
         align-items: unset;
-        grid-area: 2/1/5/13;
+        grid-area: 2/1/10/13;
     }
 
     .contentBox {

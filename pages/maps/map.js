@@ -6,7 +6,7 @@ import useSWR from 'swr'
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
 import MapBox from "../../components/map/mapBox";
-import ContentBox from "../../components/map/contentBox";
+import NarrativeTextBox from "../../components/map/contentBox";
 import Title from "../../components/title";
 import { animated, useSpring } from "react-spring";
 import MapJourney from "../../components/map/mapJouney";
@@ -86,22 +86,25 @@ export default function MainMap({ journeys }) {
     //     enablePointerEvents(boxRef.current)
     // })
     useEffect(() => {
-        if (width > 800) {
 
-            window.addEventListener('wheel', (event) => {
-                enablePointerEvents(boxRef.current)
+        window.addEventListener('wheel', (event) => {
+            enablePointerEvents(boxRef.current)
+        })
+        window.addEventListener('mousewheel', (event) => {
+            enablePointerEvents(boxRef.current)
+        })
+        if (boxRef.current) {
+            window.addEventListener('mousemove', (event) => {
+                if (!globeVisibility && Math.abs(event.movementX) <= 0.5 && Math.abs(event.movementY) <= 0.5) { enablePointerEvents(boxRef.current) }
+                else disablePointerEvents(boxRef.current)
             })
-            window.addEventListener('mousewheel', (event) => {
-                enablePointerEvents(boxRef.current)
-            })
-            if (boxRef.current) {
-                window.addEventListener('mousemove', (event) => {
-                    if (!globeVisibility && Math.abs(event.movementX) <= 0.5 && Math.abs(event.movementY) <= 0.5) { enablePointerEvents(boxRef.current) }
-                    else disablePointerEvents(boxRef.current)
+            if (width < 600) {
+                window.addEventListener('click', (event) => {
+                    disablePointerEvents(boxRef.current)
                 })
-
-
             }
+
+
         }
     })
 
@@ -133,7 +136,7 @@ export default function MainMap({ journeys }) {
                 >
 
                     <div className={styles.contentBox} ref={sideBarRef}>
-                        <ContentBox
+                        <NarrativeTextBox
                             scrollRef={sideBarRef}
                             dataItems={riskItems.risks}
                         />
@@ -148,10 +151,6 @@ export default function MainMap({ journeys }) {
                         animate={{
                             opacity: globeVisibility ? 0 : 1
                         }}
-                        // transition={{
-                        //     type: 'tween',
-                        //     duration: 2
-                        // }}
                         className={styles.mapHolder}>
                         <MapBox
                             activeSource={currentView}
@@ -173,7 +172,7 @@ export default function MainMap({ journeys }) {
                     }}
                     transition={{
                         type: 'tween',
-                        delay: 0.25,
+                        delay: 1,
                         duration: 2
                     }}
                 >
