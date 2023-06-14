@@ -1,5 +1,5 @@
 .legend {
-    z-index: 1;
+    z-index: 3;
     grid-area: 10/11/11/13;
     /* grid-column-end: 13; */
     display: flex;
@@ -67,7 +67,7 @@
 
 /* TO-DO: left align text in tooltip not overriding bootstrap defaults */
 .tooltip>div.tooltip-inner {
-  text-align: left!important;
+    text-align: left !important;
 }
 
 
