@@ -303,7 +303,7 @@ export default function Menu({ journeys }) {
                     </p>
                   </AboutSection>
                   <Row className='mt-5'>
-                    <Col xs={5} className='p-0'>
+                    <Col xs={5} lg={4} className='p-0'>
                       <a href="https://civicdatadesignlab.mit.edu/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'
                       >
@@ -312,7 +312,7 @@ export default function Menu({ journeys }) {
                           className='w-100'></img>
                       </a>
                     </Col>
-                    <Col xs={4} className='p-0'>
+                    <Col xs={4} lg={{span: 3, offset: 1}} className='p-0'>
                       <a 
                         href="https://www.wfp.org/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'>
@@ -322,7 +322,7 @@ export default function Menu({ journeys }) {
                         ></img>
                       </a>
                     </Col>
-                    <Col xs={3} className='pe-0'>
+                    <Col xs={3} lg= {{span: 2, offset: 1}} className='pe-0'>
                       <a 
                         href="https://www.ifpri.org/"  target="_blank" rel="noreferrer noopener" 
                         className='h-100 d-flex align-items-center'
@@ -335,7 +335,7 @@ export default function Menu({ journeys }) {
                     </Col>
                   </Row>
                   <Row className='mt-3'>
-                    <Col xs={{span: 3, offset: 3}} className='p-1'>
+                    <Col xs={{span: 3, offset: 3}} lg={{span: 2}} className='p-1'>
                      <a 
                         href="https://www.iom.int/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'
@@ -347,7 +347,7 @@ export default function Menu({ journeys }) {
                       </a>
                       
                     </Col>
-                    <Col xs={{span: 2, offset: 1}} className='p-1'>
+                    <Col xs={{span: 2, offset: 1}} lg={{offset: 2}} className='p-1'>
                       <a 
                         href="https://mixedmigration.org/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'

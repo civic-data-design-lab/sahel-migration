@@ -20,6 +20,7 @@
   --sans-font-fam: 'Inter', sans-serif;
   --fs-large: 2.75rem;
   --fs-body-1: clamp(1rem, 1.6vw, 1.25rem);
+  --fs-body-3: clamp(0.8rem, 1.3vw, 1rem);
   --fs-h3: 0.75rem;
 
 }
@@ -66,8 +67,8 @@
 /* font style for main narrative text */
 .body-3 {
   font-family: var(--primary-font-fam);
-  font-size: clamp(1.15rem, 1.25vw, 1.5rem);
-  /* line-height: 1.4rem; */
+  font-size: clamp(0.8rem, 1.3vw, 1rem);
+  line-height: 1.5rem;
   font-weight: medium;
   color: var(--brown);
 }

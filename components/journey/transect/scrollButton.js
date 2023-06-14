@@ -16,7 +16,7 @@ export default function ScrollButton ({width}) {
         <button onClick={handleScroll} className={styles.scrollButton} style={{ right: '.5rem'}}>
           <div className={` ${styles.scrollContainer} ${styles.blink}`}>
             <div className={ `${styles.scrollButtonText} body-5` }>
-              View More
+              Scroll to <br/>view more
             </div>
           <span className="material-symbols-outlined">
             keyboard_arrow_right
@@ -29,8 +29,8 @@ export default function ScrollButton ({width}) {
             <span className="material-symbols-outlined">
             keyboard_arrow_left
             </span>
-            <div className={`${styles.scrollButtonText} body-5`}>
-              View More
+            <div className={`${styles.scrollButtonText}`}>
+              Scroll back
             </div>
           </div>
         </button>
