@@ -1,4 +1,4 @@
-import styles from '../../styles/ImageCarousel.module.css';
+import styles from '../../../styles/ImageCarousel.module.css';
 
 import { useSpring, motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
