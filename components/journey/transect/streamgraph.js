@@ -35,7 +35,6 @@ export default function Streamgraph(
     isExpanded,
   } = {}
 ) {
-
   /** X-scale, the distance along the path. */
   const X = d3.map(data, x);
 
@@ -63,7 +62,7 @@ export default function Streamgraph(
   const series = d3
     .stack()
     .keys(zDomain)
-    .value(([x, I], z) => Y[I.get(z)]*Z[I.get(z)].normWeight)
+    .value(([x, I], z) => Y[I.get(z)] * Z[I.get(z)].normWeight)
     .order(order)
     .offset(offset)(
       d3.rollup(
@@ -79,13 +78,26 @@ export default function Streamgraph(
   if (yDomain === undefined) yDomain = d3.extent(series.flat(2));
   const yRange = [height - margin.bottom, margin.top]; // [bottom, top]
   let yScale = d3.scaleLinear(yDomain, yRange);
-  if (riskId !== 'all') yScale = d3.scaleLinear([0, 100 * risks.find(item => item.id == riskId).normWeight * 100/risks.find(item => item.id == riskId).weight], yRange); // update yScale for each plot with weighted values
+  if (riskId !== 'all') {
+    const riskItem = risks.find((item) => item.id == riskId);
+
+    // Calculate the maximum Y of the streamgraph
+    let maxY;
+    if (riskItem.weight === 0) {
+      // Avoid divide by zero, set the baseline to the yRange
+      maxY = yRange[0] - yRange[1];
+    } else {
+      maxY = (100 * riskItem.normWeight * 100) / riskItem.weight;
+    }
+
+    yScale = d3.scaleLinear([0, maxY], yRange); // update yScale for each plot with weighted values
+  }
   // define svg
   const plot = svg
     .append('g')
     .attr('id', 'viz-transect-' + riskId)
-    .attr('class', 'viz-transect')
-  PlotAreaCurve(data,{
+    .attr('class', 'viz-transect');
+  PlotAreaCurve(data, {
     plot: plot,
     X: X,
     Z: Z,
@@ -97,7 +109,7 @@ export default function Streamgraph(
     yLabel: yLabel,
     yScale: yScale,
     series: series,
-  })
+  });
   const xAxis = d3
     .axisBottom(xScale)
     .tickValues([0, 10, 20, 30, 40, xDomain[1].toFixed(2)])
@@ -106,13 +118,12 @@ export default function Streamgraph(
     .tickFormat((d, i) => (d * 100).toLocaleString('en-US') + ' km');
 
   if (riskId === 'all') {
-
     PlotXAxis({
       plot: plot,
       height: height,
       margin: margin,
       xAxis: xAxis,
-      xAxisTicks: (ticksData) => XAxisTicks(ticksData,xScale),
+      xAxisTicks: (ticksData) => XAxisTicks(ticksData, xScale),
       borders: borders,
       cities: cities,
     });
@@ -151,20 +162,10 @@ export default function Streamgraph(
   }
 }
 
-export function PlotAreaCurve(data,
-   {
-    plot,
-    X,
-    Z,
-    margin,
-    xDomain,
-    xScale,
-    riskId,
-    risks,
-    yLabel,
-    yScale,
-    series,
-   }) {
+export function PlotAreaCurve(
+  data,
+  { plot, X, Z, margin, xDomain, xScale, riskId, risks, yLabel, yScale, series }
+) {
   const area = d3
     .area()
     .x(({ i }) => xScale(X[i]))
@@ -236,33 +237,27 @@ function focusArea(
     .attr('opacity', 0.3);
 }
 
-
-export function PlotXAxis({
-  plot,
-  height,
-  margin,
-  xAxis,
-  xAxisTicks,
-  borders,
-  cities,
-
-}) {
+export function PlotXAxis({ plot, height, margin, xAxis, xAxisTicks, borders, cities }) {
   plot
-    .append("g")
-    .attr("class", "x-axis-borders")
-    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .append('g')
+    .attr('class', 'x-axis-borders')
+    .attr('transform', `translate(0,${height - margin.bottom})`)
     .call(xAxisTicks(borders))
     .call((g) => g.select('.domain').remove())
-    .selectAll("text")
-    .attr("x", (d, i) => {
-      return (i == 0) ? 20 // mali - burkina faso
-        : (i == 1) ? -19 // burkina faso - niger
-          : (i == 2) ? -1 // imaginary line
-            : 0;
+    .selectAll('text')
+    .attr('x', (d, i) => {
+      return i == 0
+        ? 20 // mali - burkina faso
+        : i == 1
+        ? -19 // burkina faso - niger
+        : i == 2
+        ? -1 // imaginary line
+        : 0;
     })
-    .style("text-anchor", (d, i) => {
-      return (i == 2) ? "start" // imaginary line
-        : "middle";
+    .style('text-anchor', (d, i) => {
+      return i == 2
+        ? 'start' // imaginary line
+        : 'middle';
     });
   // define ticks for city names
   plot
@@ -271,11 +266,13 @@ export function PlotXAxis({
     .attr('transform', `translate(0,${height - margin.bottom})`)
     .call(xAxisTicks(cities))
     .call((g) => g.select('.domain').remove())
-    .selectAll("text")
-    .style("text-anchor", (d, i) => {
-      return (i == 0) ? "start" // Bamako
-        : (i == 7) ? "end" // Tripoli
-          : "middle";
+    .selectAll('text')
+    .style('text-anchor', (d, i) => {
+      return i == 0
+        ? 'start' // Bamako
+        : i == 7
+        ? 'end' // Tripoli
+        : 'middle';
     });
   // define x-axis (distance in km)
   plot
@@ -284,32 +281,37 @@ export function PlotXAxis({
     .attr('transform', `translate(0,${height - margin.bottom})`)
     .call(xAxis)
     .call((g) => g.select('.domain').remove())
-    .selectAll("text")
-    .attr("x", (d, i) => {
-      return (i == 0) ? 2 // 0 km
-        : (i == 5) ? -2 // total dist
-          : 0;
+    .selectAll('text')
+    .attr('x', (d, i) => {
+      return i == 0
+        ? 2 // 0 km
+        : i == 5
+        ? -2 // total dist
+        : 0;
     })
-    .style("text-anchor", (d, i) => {
-      return (i == 0) ? "start" // 0 km
-        : (i == 5) ? "end" // total dist
-          : "middle";
+    .style('text-anchor', (d, i) => {
+      return i == 0
+        ? 'start' // 0 km
+        : i == 5
+        ? 'end' // total dist
+        : 'middle';
     });
 
   // add white rect behind cities text labels
-  plot.select(".x-axis-cities")
-    .selectAll("g.tick")
-    .insert("rect", "text")
-    .attr("x", -35)
-    .attr("y", 21)
-    .attr("width", 70)
-    .attr("height", 11)
-    .style("fill", "white")
-    .style("opacity", (d, i) => {
-      return (i == 1 || i == 5) ? 0.8 // bobo dioulasso and agadez
+  plot
+    .select('.x-axis-cities')
+    .selectAll('g.tick')
+    .insert('rect', 'text')
+    .attr('x', -35)
+    .attr('y', 21)
+    .attr('width', 70)
+    .attr('height', 11)
+    .style('fill', 'white')
+    .style('opacity', (d, i) => {
+      return i == 1 || i == 5
+        ? 0.8 // bobo dioulasso and agadez
         : 0;
     });
-
 }
 function bracket(
   data, //journeyFocusData
@@ -378,7 +380,7 @@ function journeyText(
     .append('text')
     .attr('class', 'label-journey')
     .attr('x', (d) => {
-      return (journey.id == 2 && !isExpanded) ? xCenter + xOffsetJourney2 : xCenter;
+      return journey.id == 2 && !isExpanded ? xCenter + xOffsetJourney2 : xCenter;
     })
     .attr('y', yBase - 20)
     .attr('dy', '-0.125em')
@@ -391,7 +393,7 @@ function journeyText(
     .append('text')
     .attr('class', 'text-expand')
     .attr('x', (d) => {
-      return (journey.id == 2 && !isExpanded) ? xCenter + xOffsetJourney2 : xCenter;
+      return journey.id == 2 && !isExpanded ? xCenter + xOffsetJourney2 : xCenter;
     })
     .attr('y', yBase - 5)
     .attr('dy', '-0.125em')
@@ -401,50 +403,105 @@ function journeyText(
   // triangles for expand
   // path for left arrow
   const leftArrow = () => {
-    return (journey.id == 2 && !isExpanded) ?
-      'M ' + (xCenter - xOffset + triSize / 2 + xOffsetJourney2) + ' ' + (yBase - 14 + triSize / 2) +
-      ' L ' + (xCenter - xOffset + triSize + xOffsetJourney2) + ' ' + (yBase - 14) +
-      ' L ' + (xCenter - xOffset + triSize + xOffsetJourney2) + ' ' + (yBase - 14 + triSize) +
-      ' Z' // triangle points left and offset to avoid text overlap
-      : (isExpanded) ? 
-      'M ' + (xCenter - xOffset - triSize / 2) + ' ' + (yBase - 14 + triSize / 2) +
-      ' L ' + (xCenter - xOffset - triSize) + ' ' + (yBase - 14) +
-      ' L ' + (xCenter - xOffset - triSize) + ' ' + (yBase - 14 + triSize) +
-      ' Z' // triangle points right
-      : 'M ' + (xCenter - xOffset + triSize / 2) + ' ' + (yBase - 14 + triSize / 2) +
-      ' L ' + (xCenter - xOffset + triSize) + ' ' + (yBase - 14) +
-      ' L ' + (xCenter - xOffset + triSize) + ' ' + (yBase - 14 + triSize) +
-      ' Z'; // triangle points left
-  }
+    return journey.id == 2 && !isExpanded
+      ? 'M ' +
+          (xCenter - xOffset + triSize / 2 + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14 + triSize / 2) +
+          ' L ' +
+          (xCenter - xOffset + triSize + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14) +
+          ' L ' +
+          (xCenter - xOffset + triSize + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14 + triSize) +
+          ' Z' // triangle points left and offset to avoid text overlap
+      : isExpanded
+      ? 'M ' +
+        (xCenter - xOffset - triSize / 2) +
+        ' ' +
+        (yBase - 14 + triSize / 2) +
+        ' L ' +
+        (xCenter - xOffset - triSize) +
+        ' ' +
+        (yBase - 14) +
+        ' L ' +
+        (xCenter - xOffset - triSize) +
+        ' ' +
+        (yBase - 14 + triSize) +
+        ' Z' // triangle points right
+      : 'M ' +
+        (xCenter - xOffset + triSize / 2) +
+        ' ' +
+        (yBase - 14 + triSize / 2) +
+        ' L ' +
+        (xCenter - xOffset + triSize) +
+        ' ' +
+        (yBase - 14) +
+        ' L ' +
+        (xCenter - xOffset + triSize) +
+        ' ' +
+        (yBase - 14 + triSize) +
+        ' Z'; // triangle points left
+  };
   const rightArrow = () => {
-    return (journey.id == 2 && !isExpanded) ? 
-      'M ' + (xCenter + xOffset - triSize / 2 + xOffsetJourney2) + ' ' + (yBase - 14 + triSize / 2) +
-      ' L ' + (xCenter + xOffset - triSize + xOffsetJourney2) + ' ' + (yBase - 14) +
-      ' L ' + (xCenter + xOffset - triSize + xOffsetJourney2) + ' ' + (yBase - 14 + triSize) +
-      ' Z' // triangle points right and offset to avoid text overlap
-      : (isExpanded) ? 
-      'M ' + (xCenter + xOffset + triSize / 2) + ' ' + (yBase - 14 + triSize / 2) +
-      ' L ' + (xCenter + xOffset + triSize) + ' ' + (yBase - 14) +
-      ' L ' + (xCenter + xOffset + triSize) + ' ' + (yBase - 14 + triSize) +
-      ' Z' // triangle points left
-      : 'M ' + (xCenter + xOffset - triSize / 2) + ' ' + (yBase - 14 + triSize / 2) +
-      ' L ' + (xCenter + xOffset - triSize) + ' ' + (yBase - 14) +
-      ' L ' + (xCenter + xOffset - triSize) + ' ' + (yBase - 14 + triSize) +
-      ' Z'; // triangle points right
-  }
+    return journey.id == 2 && !isExpanded
+      ? 'M ' +
+          (xCenter + xOffset - triSize / 2 + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14 + triSize / 2) +
+          ' L ' +
+          (xCenter + xOffset - triSize + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14) +
+          ' L ' +
+          (xCenter + xOffset - triSize + xOffsetJourney2) +
+          ' ' +
+          (yBase - 14 + triSize) +
+          ' Z' // triangle points right and offset to avoid text overlap
+      : isExpanded
+      ? 'M ' +
+        (xCenter + xOffset + triSize / 2) +
+        ' ' +
+        (yBase - 14 + triSize / 2) +
+        ' L ' +
+        (xCenter + xOffset + triSize) +
+        ' ' +
+        (yBase - 14) +
+        ' L ' +
+        (xCenter + xOffset + triSize) +
+        ' ' +
+        (yBase - 14 + triSize) +
+        ' Z' // triangle points left
+      : 'M ' +
+        (xCenter + xOffset - triSize / 2) +
+        ' ' +
+        (yBase - 14 + triSize / 2) +
+        ' L ' +
+        (xCenter + xOffset - triSize) +
+        ' ' +
+        (yBase - 14) +
+        ' L ' +
+        (xCenter + xOffset - triSize) +
+        ' ' +
+        (yBase - 14 + triSize) +
+        ' Z'; // triangle points right
+  };
 
   // path for left arrow
-  journeyText.append('path')
-    .attr('d', isExpanded? rightArrow() : leftArrow())
+  journeyText
+    .append('path')
+    .attr('d', isExpanded ? rightArrow() : leftArrow())
     .attr('fill', '#463C35');
   // path for right arrow
-  journeyText.append('path')
-    .attr('d', isExpanded? leftArrow(): rightArrow())
+  journeyText
+    .append('path')
+    .attr('d', isExpanded ? leftArrow() : rightArrow())
     .attr('fill', '#463C35');
 }
 
-
-export function XAxisTicks(ticksData,xScale) {
+export function XAxisTicks(ticksData, xScale) {
   let tickSize = 20; // tick size for city
   if (!ticksData[0].hasOwnProperty('city')) {
     tickSize = 35; // tick size for borders
@@ -456,8 +513,10 @@ export function XAxisTicks(ticksData,xScale) {
     .tickSizeOuter(0)
     .tickFormat((d, i) => {
       let labelData = ticksData[i];
-      return labelData.hasOwnProperty('city') ? labelData.city // cities
-        : (labelData.hasOwnProperty('border_2') && i == 2) ? labelData.border_2 // imaginary line
-          : labelData.border_1 + ' – ' + labelData.border_2;
+      return labelData.hasOwnProperty('city')
+        ? labelData.city // cities
+        : labelData.hasOwnProperty('border_2') && i == 2
+        ? labelData.border_2 // imaginary line
+        : labelData.border_1 + ' – ' + labelData.border_2;
     });
 }
