@@ -260,13 +260,14 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
 
     const svg = d3.select(svgRef.current);
 
+    // Create the risk weight-related elements and push them to the roots array
     risks.forEach((risk) => {
       // console.log('Drawing', risk);
       const textInputElement = svg
         .append('foreignObject')
         .attr('width', 100)
         .attr('height', 100)
-        .attr('x', margin.left + 445)
+        .attr('x', margin.left + 475)
         .attr('y', margin.top + yPlotOffset * risk.index - 12)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
@@ -279,7 +280,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
 
       const sliderElement = svg
         .append('foreignObject')
-        .attr('width', 250)
+        .attr('width', 400)
         .attr('height', 25)
         .attr('x', margin.left + 190)
         .attr('y', margin.top + yPlotOffset * risk.index - 15)
@@ -323,7 +324,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
           <RiskWeightTextInput
             key={riskInfo.id}
             riskId={riskInfo.id}
-            riskWeight={riskInfo.weight}
+            riskWeight={riskInfo.normWeight}
             onUpdate={(val) => updateRiskWeight(riskInfo.id, val)}
           />
         );
