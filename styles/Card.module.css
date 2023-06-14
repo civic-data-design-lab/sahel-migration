@@ -5,6 +5,7 @@
   /*width: fit-content;*/
   transform: translate(0%, -100%);
   z-index: 5;
+  pointer-events: none;
 }
 
 .card {
