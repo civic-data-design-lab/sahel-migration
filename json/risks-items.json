@@ -518,13 +518,13 @@
             }
         ],
         "vignetteUrls": [
-            "/images/journeys/thumbnails/2-in transit.png",
-            "/images/journeys/thumbnails/3-sahara.png",
-            "/images/journeys/thumbnails/3-Transit Hub Agadez.png",
-            "/images/journeys/thumbnails/5-Entering Libya.png",
-            "/images/journeys/thumbnails/6-Transit Hub Sabha.png",
-            "/images/journeys/thumbnails/7-Transit Hub Tripoli.png",
-            "/images/journeys/thumbnails/8-Current Migrant Condition in Libya.png"
+            "/images/journeys/thumbnails/2-beginning-journey.png",
+            "/images/journeys/thumbnails/3-agadez.png",
+            "/images/journeys/thumbnails/4-sahara-desert.png",
+            "/images/journeys/thumbnails/5-entering-libya.png",
+            "/images/journeys/thumbnails/6-sabha.png",
+            "/images/journeys/thumbnails/7-tripoli.png",
+            "/images/journeys/thumbnails/8-current-conditions-libya.png"
         ],
         "paths": {
             "id": "migration-routes",

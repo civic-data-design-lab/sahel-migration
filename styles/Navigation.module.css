@@ -27,6 +27,17 @@
   pointer-events: all;
 }
 
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.buttonText {
+  margin-top: .2rem;
+  margin-right: .5rem;
+  margin-left: .5rem;
+}
+
 .button {
   /*margin-top: 1rem;*/
   pointer-events: all;
