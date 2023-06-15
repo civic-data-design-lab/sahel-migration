@@ -11,7 +11,8 @@ export default function Tooltip(config) {
     .attr('class', 'rect-area')
     .append('image')
     .attr('x', () => xScale(0))
-    .attr('y', height - yPlotOffset)
+    // .attr('y', height - yPlotOffset)
+    .attr('y', height - yPlotOffset/3 - margin.bottom + 2)
     .attr('width', width - margin.left - margin.right)
     .attr('height', yPlotOffset / 3)
     .attr('preserveAspectRatio', 'none')
@@ -56,14 +57,14 @@ export default function Tooltip(config) {
   //     .attr('opacity', 0.8);
 
   // add label
-  dotPlot
-    .append('text')
-    .attr('id', 'label-migrants')
-    .attr('x', margin.left)
-    .attr('y', height - yPlotOffset - 10)
-    .attr('dy', '-0.125em')
-    .attr('fill', '#463C35')
-    .text('Migrants Along the Route');
+  // dotPlot
+  //   .append('text')
+  //   .attr('id', 'label-migrants')
+  //   .attr('x', margin.left)
+  //   .attr('y', height - yPlotOffset - 10)
+  //   .attr('dy', '-0.125em')
+  //   .attr('fill', '#463C35')
+  //   .text('Migrants Along the Route');
 
   // transform xAxis labels
   // svg.select('g#viz-transect-axis')

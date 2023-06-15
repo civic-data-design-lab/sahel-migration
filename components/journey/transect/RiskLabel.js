@@ -1,0 +1,46 @@
+import * as d3 from 'd3';
+import { useEffect } from 'react';
+import InfoTooltipWrapper from "../../infotooltip";
+
+const RiskLabel = ({ riskId, riskLabel, riskDescription }) => {
+
+  return (
+    <div style={{ display: 'flex', textAlign: 'left', alignItems: 'left', gap: '0.5rem' }}>
+      < InfoTooltipWrapper
+            text={riskDescription}
+            placement="right"
+      >
+        <p
+          type="text"
+          className='label-risk'
+          value={riskId}
+          style={{
+            marginTop: '-0.2rem',
+            marginBottom: '0rem',
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: '500',
+            fontSize: '0.85rem',
+            color: 'var(--brown)',
+          }}
+        >
+          {riskLabel}
+          <span
+            className="material-symbols-outlined"
+            style={{
+              pointerEvents: "all !important",
+              marginLeft: "0.5rem",
+              fontSize: "0.8rem",
+              color: "#985946",
+              fontVariationSettings:
+                  "'FILL' 0, 'wght' 400, 'GRAD' 0"
+            }}
+          >
+            info
+          </span>
+        </p>
+      </InfoTooltipWrapper>
+    </div>
+  );
+};
+
+export default RiskLabel;

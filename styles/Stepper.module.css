@@ -11,6 +11,7 @@
   position: relative;
   flex-direction: column-reverse;
   /*width: 10rem;*/
+  text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.6);
 }
 .stepperLine {
   content: '';
@@ -32,6 +33,7 @@
   align-items: center;
   text-decoration: none;
   color: inherit;
+  line-height: 1.1rem;
 }
 
 .stepContainer:hover {
@@ -67,4 +69,8 @@
   background-color: var(--light);
 }
 
-
+@media only screen and (max-width: 480px) {
+  .textContainer {
+    font-size: .7rem;
+  }
+}

@@ -53,7 +53,7 @@
 }
 
 .journeyItem {
-  padding-left: 1.5rem;
+  padding: 0 0 0.25rem 1.5rem;
 }
 
 .arrow {
@@ -85,8 +85,8 @@
 .route,
 .routeAbout,
 .routeJourney {
-  font-size: var(--fs-body-1);
-  line-height: 0.5rem;
+  font-size: var(--fs-body-3);
+  line-height: 1.5rem;
   color: var(--brown);
 }
 
@@ -101,7 +101,6 @@
   text-decoration: none;
 }
 
-.route:hover,
 .routeJourney:hover,
 .aboutSection a:hover {
   text-decoration: underline;

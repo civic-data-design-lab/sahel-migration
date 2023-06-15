@@ -1,0 +1,5 @@
+.wrapper {
+    /* display: block; */
+    padding: 1rem;
+    pointer-events: all !important;
+}

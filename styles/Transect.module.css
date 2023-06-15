@@ -58,20 +58,21 @@
   float: right;
 }
 
-
 /* confirm weight changes button */
 
 .confirmWeights {
   position: absolute;
   top: 1rem;
   padding: 2px 8px;
-  background-color: var(--light);
   border-radius: 5px;
-  border: 1.5px solid var(--brown);
+  border: 1.5px solid hsl(25, 14%, 35%);
   /* border-width: 2px;
   border-color: var(--brown); */
   transition: background-color 250ms ease;
-  color: var(--brown);
+
+  background-color: hsl(25, 14%, 35%);
+  color: rgba(255, 255, 255, 0.9);
+
   font-family: var(--sans-font-fam);
   font-size: 0.7rem;
   font-weight: 450;
@@ -79,6 +80,6 @@
 
 .confirmWeights:hover {
   background-color: var(--brown);
-  color: rgba(255, 255, 255, 0.9);
+
   cursor: pointer;
 }

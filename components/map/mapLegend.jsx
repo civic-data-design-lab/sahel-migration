@@ -5,7 +5,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { SectionContext } from "../../pages";
 import { v4 as uuidv4 } from 'uuid'
 import useWindowSize from "../../hooks/useWindowSize";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import InfoTooltipWrapper from "../infotooltip"
 
 export default function MapLegend({ activeSource }) {
     const { currentSection, setSection } = useContext(SectionContext)
@@ -16,34 +16,34 @@ export default function MapLegend({ activeSource }) {
     const containerRef = useRef(null)
     const { width } = useWindowSize()
 
-
-    const [clicked, setClick] = useState(false)
-
-    const dataSourceText = (activeSource === "originCities") ? "Place of origin of irregular migrants surveyed in Libya in 2021 by the International Food Policy Research Institute." 
-      : (activeSource === "transectSegment" || activeSource === "globeView") ? "Migrants are always at risk while in transit; this relative risk scale from 0-100 indicates variations of extreme risks with higher values. This migrant risk score is a composite of six factors, including: migrant reported violence incidents, conflict events, food insecurity, reliance on smugglers, remoteness, and heat exposure."
-      : (activeSource === "overallRoutes") ? "Migration routes are mapped using origin and destination locations from the Flow Monitoring Survey Displacement Tracking Matrix data collected by the International Organization for Migration. The locations were mapped using ESRI’s geocoding service and the routes were computed using the Open Source Routing Tool."
-      : null
-    const tooltip = (
-        <Tooltip className={styles.tooltip}>
-            <strong>{dataSourceText}</strong>
-        </Tooltip>
-    );
-
-
+    const dataSourceText = (activeSource === "originCities") ? "Place of origin of irregular migrants surveyed in Libya in 2021 by the International Food Policy Research Institute."
+        : (activeSource === "transectSegment" || activeSource === "globeView") ? "Migrants are always at risk while in transit; this relative risk scale from 0-100 indicates variations of extreme risks with higher values. This migrant risk score is a composite of six factors, including: migrant reported violence incidents, conflict events, food insecurity, reliance on smugglers, remoteness, and heat exposure."
+            : (activeSource === "overallRoutes") ? "Migration routes are mapped using origin and destination locations from the Flow Monitoring Survey Displacement Tracking Matrix data collected by the International Organization for Migration. The locations were mapped using ESRI’s geocoding service and the routes were computed using the Open Source Routing Tool."
+                : null
 
 
     const displayLegend = useSpring({
         opacity: currentSection == 7 ? 0 : 1,
     });
 
-    function toggleClick() {
-        setClick(!clicked)
-    }
-
     const transectLegend = <div>
-        <div className={styles.label}>
-            <h4 >{transectLegendLabel}</h4>
-        </div>
+        < InfoTooltipWrapper
+            text={dataSourceText}
+            placement="top"
+        >
+
+            <div className={styles.label}>
+                <h4>
+                  {transectLegendLabel}
+                  <span
+                    className="material-symbols-outlined"
+                    id={styles.icon}
+                  >
+                    info
+                  </span>
+                </h4>
+            </div>
+        </InfoTooltipWrapper>
         <div className={styles.bars}>
             {colors.slice(1, 8).map((color, index) => {
                 return (
@@ -65,17 +65,30 @@ export default function MapLegend({ activeSource }) {
                 display: 'flex',
                 justifyContent: "space-between"
             }}>
-            <span><h4>0</h4></span>
-            <span><h4>100</h4></span>
+            <span><p>0</p></span>
+            <span><p>100</p></span>
         </div>
     </div>
     const cityLegend = (() => {
         const scaleRanges = ["1-24", "25-49", "50-74", "75-100"]
         return (
             <div>
-                <div className={styles.label}>
-                    <h4 >{cityLegendLabel}</h4>
-                </div>
+                < InfoTooltipWrapper
+                    text={dataSourceText}
+                    placement="top"
+                >
+                    <div className={styles.label}>
+                        <h4>
+                          {cityLegendLabel}
+                          <span
+                            className="material-symbols-outlined"
+                            id={styles.icon}
+                          >
+                            info
+                          </span>
+                        </h4>
+                    </div>
+                </InfoTooltipWrapper>
                 <div className={styles.cityLegend}>
                     <>
                         {colors.slice(0, 4).map((color, index) => {
@@ -113,7 +126,7 @@ export default function MapLegend({ activeSource }) {
                                         justifyContent: 'center'
                                     }}
                                 >
-                                    <h4>{range}</h4></div>
+                                    <p>{range}</p></div>
                             )
                         })}
                     </>
@@ -130,29 +143,39 @@ export default function MapLegend({ activeSource }) {
     }, [titleRef])
 
     return (
-        <OverlayTrigger placement="top" overlay={tooltip}>
-            <div
-                className={styles.legend}
-                style={displayLegend}
-                ref={containerRef}
-            >
 
-                <div className={styles.routes}>
-                    {activeSource === "originCities" && (cityLegend())}
-                    {(activeSource === "transectSegment" || activeSource === "globeView") && (transectLegend)}
-                    {activeSource === "overallRoutes" && (
+        <div
+            style={displayLegend}
+            ref={containerRef}
+            className={styles.legend}
+        >
+
+            <div className={styles.routes}>
+                {activeSource === "originCities" && (cityLegend())}
+                {(activeSource === "transectSegment" || activeSource === "globeView") && (transectLegend)}
+                {activeSource === "overallRoutes" && (
+                    < InfoTooltipWrapper
+                        text={dataSourceText}
+                        placement="top"
+                    >
                         <h4
                             className={styles.subheader}
                             ref={titleRef}
-                        >Migration Routes to Libya</h4>
-                    )}
-                    <span className="material-symbols-outlined" id={styles.icon}>
-                        info
-                    </span>
+                        >
+                          Migration Routes to Libya
+                          <span
+                            className="material-symbols-outlined"
+                            id={styles.icon}
+                          >
+                            info
+                          </span>
+                        </h4>
+                    </ InfoTooltipWrapper>
+                )}
 
-                </div>
 
             </div>
-        </OverlayTrigger>
+
+        </div>
     )
 }

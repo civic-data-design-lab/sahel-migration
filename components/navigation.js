@@ -11,7 +11,7 @@ export default function Navigation({ journeys, journey }) {
   journeys.forEach((journey) => (routes[journey.id] = journey.route));
   return (
     <div className={styles.navigationBar}>
-      <div className={styles.navigationContainer}>
+      <div className={styles.navigationContainer} style={{pointerEvents: isActiveLeft? 'all' : 'none'}}>
         {journey.id > 1 ? (
           <>
             <Stepper
@@ -23,6 +23,7 @@ export default function Navigation({ journeys, journey }) {
               onHoverStart={() => setIsActiveLeft(true)}
               onHoverEnd={() => setIsActiveLeft(false)}
             />
+            <div className={styles.buttonContainer} style={{justifyContent: "flex-start"}}>
             <motion.button
               className={styles.button}
               style={{ marginLeft: '1rem', alignSelf: 'flex-start' }}
@@ -31,25 +32,27 @@ export default function Navigation({ journeys, journey }) {
             >
               {journey.id > 2 ? (
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                  <span className={`${styles.arrowIcon} material-symbols-outlined`}>
                     arrow_left
                   </span>
                 </Link>
               ) : (
                 <Link href={'/'}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                  <span className={`${styles.arrowIcon} material-symbols-outlined`} >
                     arrow_left
                   </span>
                 </Link>
               )}
             </motion.button>
+            <div className={styles.buttonText}>Previous Chapter</div>
+            </div>
           </>
         ) : (
           <div></div>
         )}
       </div>
 
-      <div className={styles.navigationContainer}>
+      <div className={styles.navigationContainer} style={{pointerEvents: isActiveRight? 'all' : 'none'}}>
         {journey.id < 8 ? (
           <>
             <Stepper
@@ -61,18 +64,21 @@ export default function Navigation({ journeys, journey }) {
               onHoverStart={() => setIsActiveRight(true)}
               onHoverEnd={() => setIsActiveRight(false)}
             />
-            <motion.button
-              className={styles.button}
-              style={{ marginRight: '1rem', alignSelf: 'flex-end' }}
-              onHoverStart={() => setIsActiveRight(true)}
-              onHoverEnd={() => setIsActiveRight(false)}
-            >
-              <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+            <div className={styles.buttonContainer} style={{justifyContent: "flex-end"}}>
+              <div className={styles.buttonText}>Next Chapter</div>
+              <motion.button
+                className={styles.button}
+                style={{ marginRight: '1rem', alignSelf: 'flex-end' }}
+                onHoverStart={() => setIsActiveRight(true)}
+                onHoverEnd={() => setIsActiveRight(false)}
+              >
+                <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
+                <span className={`${styles.arrowIcon} material-symbols-outlined`}>
                   arrow_right
                 </span>
-              </Link>
-            </motion.button>
+                </Link>
+              </motion.button>
+            </div>
           </>
         ) : (
           <div></div>

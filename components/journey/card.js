@@ -1,6 +1,6 @@
-import { motion, AnimatePresence, useScroll } from 'framer-motion';
+import { motion, AnimatePresence, useScroll} from 'framer-motion';
 import styles from '../../styles/Card.module.css';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState,useRef} from 'react';
 import * as d3 from 'd3';
 import useWindowSize from '../../hooks/useWindowSize';
 
@@ -8,7 +8,7 @@ export default function Card({ svgRef, entourage, width, height, scrollXProgress
   const [isOpen, setIsOpen] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-
+  const previousScrollXRef = useRef(0);
   useEffect(() => {
     svgRef.current.addEventListener('load', () => {
       const svg = d3.select(svgRef.current.contentDocument.documentElement);
@@ -31,6 +31,13 @@ export default function Card({ svgRef, entourage, width, height, scrollXProgress
         .on('mouseover', function () {
           svg.select('#outline-' + entourage.id).style('opacity', 1);
           setIsOpen(true);
+        })
+        .on('click', function (event) {
+          let scrollX = event.clientX - window.innerWidth / 2;
+          if (Math.abs(scrollX-previousScrollXRef.current)> 100) {
+            window.scrollTo(scrollX+100, 0);
+            previousScrollXRef.current = scrollX+100;
+          }
         });
     });
     // scrollXProgress.on('change', setBoundingBox);

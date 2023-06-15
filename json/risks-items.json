@@ -14,12 +14,12 @@
             {
                 "id": "transectSegment",
                 "heading": "Risk levels for migrants vary along the route",
-                "body": "Migrants traveling in North Africa face significant risks, often resorting to illicit means of traveling with smugglers who often choose more remote areas, crossing through treacherous terrain. This route shows the combined risks of migrants in transit from the origin Bamako, Mali to the destination Tripoli, Libya; migration risk factors include reported violence, conflict events, food insecurity, relience on smugglers, remoteness, and heat exposure."
+                "body": "Migrants traveling in North Africa face significant risks, often resorting to illicit means of traveling with smugglers who often choose more remote areas, crossing through treacherous terrain. This analysis illustrates the combined risks of migrants in transit from Mali to Tripoli, Libya; migration risk factors include reported violence, conflict events, food insecurity, reliance on smugglers, remoteness, and heat exposure."
             },
             {
                 "id": "globeView",
-                "heading": "Explore the risks that West African migrants on the move face along their journey to Tripoli, Libya. Click to begin the journey through the footsteps of a migrant originating from Bamako, Mali. →",
-                "body": ""
+                "heading": "Explore the migration risks",
+                "body": "West African migrants face several risks while along their journey to Tripoli, Libya. Click to begin the journey through the footsteps of a migrant originating from Mali. →"
             }
         ],
         "migrantData": [
@@ -198,6 +198,23 @@
                             "property": "COUNTRY"
                         },
                         {
+                            "id": "origin_cities_color",
+                            "filter": [
+                                "in",
+                                "country_origin"
+                            ],
+                            "property": "COUNTRY"
+                        },
+                        {
+                            "id": "origin_cities_highlight",
+                            "buffer?": "true",
+                            "filter": [
+                                "in",
+                                "city_origin"
+                            ],
+                            "property": "city_origin"
+                        },
+                        {
                             "id": "label_tripoli"
                         },
                         {
@@ -237,6 +254,9 @@
                             "id": "migrant-country-selector"
                         },
                         {
+                            "id": "wa-ifpri-countries-outline"
+                        },
+                        {
                             "id": "label_tripoli"
                         },
                         {
@@ -249,7 +269,8 @@
                             "id": "routes-all"
                         },
                         {
-                            "id": "origin_cities_color"
+                            "id": "origin_cities_color",
+                            "filter": []
                         },
                         {
                             "id": "origin_cities_highlight",
@@ -497,13 +518,13 @@
             }
         ],
         "vignetteUrls": [
-            "/images/journeys/thumbnails/2-in transit.png",
-            "/images/journeys/thumbnails/3-sahara.png",
-            "/images/journeys/thumbnails/3-Transit Hub Agadez.png",
-            "/images/journeys/thumbnails/5-Entering Libya.png",
-            "/images/journeys/thumbnails/6-Transit Hub Sabha.png",
-            "/images/journeys/thumbnails/7-Transit Hub Tripoli.png",
-            "/images/journeys/thumbnails/8-Current Migrant Condition in Libya.png"
+            "/images/journeys/thumbnails/2-beginning-journey.png",
+            "/images/journeys/thumbnails/3-agadez.png",
+            "/images/journeys/thumbnails/4-sahara-desert.png",
+            "/images/journeys/thumbnails/5-entering-libya.png",
+            "/images/journeys/thumbnails/6-sabha.png",
+            "/images/journeys/thumbnails/7-tripoli.png",
+            "/images/journeys/thumbnails/8-current-conditions-libya.png"
         ],
         "paths": {
             "id": "migration-routes",

@@ -16,7 +16,6 @@ import useWindowSize from './../../hooks/useWindowSize';
 import useMapView from './../../hooks/useMapView';
 import ToolTip from './popup/tooltip';
 import { SectionContext } from './../../pages';
-import { Metamorphous } from '@next/font/google';
 
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
@@ -60,12 +59,12 @@ function objectMap(object, mapFn) {
  * @param  {[]} styles all styles to be shown on the map (from json file)
  * @return {[]}     all styles to be shown on the map
 */
-// function retrieveMapStyles(map, interactiveStyles) {
-//     if (map && ("getStyle" in map)) {
-//         const mapStyles = map.getStyle().layers
-//         return mapStyles.filter(style => interactiveStyles.includes(style.id))
-//     }
-// }
+function retrieveMapStyles(map, interactiveStyles) {
+    if (map && ("getStyle" in map)) {
+        const mapStyles = map.getStyle().layers
+        return mapStyles.filter(style => interactiveStyles.includes(style.id))
+    }
+}
 
 
 function setLayerVisibility(map, layers) {
@@ -123,6 +122,12 @@ function setLayersFilters(map, layers, selectedFeature) {
             const filteredProperty = layer.property
             const selectedProperty = selectedFeature.properties[`${filteredProperty}`]
             // console.log(selectedProperty)
+            if (layer.filter.length == 0) {
+                map
+                    .getMap()
+                    .setFilter(layer.id, null)
+                return
+            }
             if (!selectedProperty) return
             map
                 .getMap()
@@ -145,7 +150,6 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const [selectedFeature, setSelectedFeature] = useState(null)
     const [point, setPoint] = useState(null)
     const routeValue = { feature, point, setFeature, setPoint }
-    const { current: map } = useMap()
 
     const { layersObject, highlightLayer } = stylesObject(activeSource)
     const { currentSection, setSection } = useContext(SectionContext)
@@ -230,14 +234,14 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
             );
     }
     // const mapLayers = retrieveMapStyles(mapRef.current, risks.styles.usedLayerNames)
-    useEffect(() => {
-        if (mapRef.current) {
-            // setLayerVisibility(mapRef.current, mapLayers)
-            // mapRef.current.on('load', () => {
-            //     setLayersOpacity(mapRef.current, mapLayers, risks.styles.narrativeToLayer.overallRoutes.layers)
-            // })
-        }
-    })
+    // useEffect(() => {
+    //     if (mapRef.current) {
+    //         setLayerVisibility(mapRef.current, mapLayers)
+    //         mapRef.current.on('load', () => {
+    //             setLayersOpacity(mapRef.current, mapLayers, risks.styles.narrativeToLayer.overallRoutes.layers)
+    //         })
+    //     }
+    // })
 
     const onInfo = useCallback((event) => {
         const region = event.features && event.features[0];
@@ -474,7 +478,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                                 activeSource === "transectSegment" ? ["migration-buffer", "hoverable", 'overlay', "cities"] :
                                     activeSource ? ["hoverable", "overlay", "cities"] : ['hoverable']}
                         // interactiveLayerIds={
-                        //     (mapLayers && seenLayers) ? risks
+                        //     (mapLayers) ? risks
                         //         .styles
                         //         .narrativeToLayer[activeSource]
                         //         .layers

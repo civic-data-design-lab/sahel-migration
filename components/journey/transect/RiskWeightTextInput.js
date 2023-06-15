@@ -19,10 +19,9 @@ const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
 
   return (
     <div style={{ display: 'flex', textAlign: 'center', alignItems: 'center', gap: '0.5rem' }}>
-      <input
+      <p
         type="text"
         value={riskWeight}
-        onChange={validateAndUpdate}
         style={{
           width: '30px',
           height: '20px',
@@ -30,13 +29,13 @@ const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
           fontSize: '0.7rem',
           fontWeight: '500',
           textAlign: 'center',
-          border: '1.5px solid var(--gray)',
-          borderRadius: '4px',
           color: 'var(--brown)',
-          marginTop: '0.1rem',
+          marginTop: '-0.2rem',
         }}
-      />
-      <label className='label-pct'>%</label>
+      >
+        {Math.round(riskWeight * 100)}%
+      </p>
+      {/* <label className='label-pct'>%</label> */}
     </div>
   );
 };
