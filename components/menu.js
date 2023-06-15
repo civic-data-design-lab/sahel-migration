@@ -135,7 +135,7 @@ export default function Menu({ journeys }) {
                     </ul>
                   </AboutSection>
                   <AboutSection title={'Methodology'}>
-                    <h5>Migration Routes</h5>
+                    <h5>Migration Map</h5>
                     <p className="body-5">
                       Migration routes from West Africa using two datasets: IFPRI survey of
                       irregular migrants in Libya 2021 and the IOM flow monitoring surveys with

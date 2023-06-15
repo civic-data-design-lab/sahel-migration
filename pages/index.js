@@ -31,7 +31,7 @@ export default function Home() {
         <meta name="description" content="Risks of West African Migration" />
         <meta name="author" content="Civic Data Design Lab at MIT" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/migrantsmove_favicon.ico" />
       </Head>
       <main
       >
