@@ -36,11 +36,14 @@ export default function JourneyNav({ journeys }) {
     const vignettes = zip(riskItems.vignetteUrls, journeys.slice(1)).map((journeyPackage, index) => {
         const [url, journey] = journeyPackage
         const goToRouteLink = () => window.location.href = '/journeys/' + journey.route
+        let vignetteHovered = false
 
         const routeHovered = index == parseInt(sectionIndex) - 1
         function highlightSegment() {
-            setSection({ routeId: index + 1 })
+            vignetteHovered = true
+            setSection({ routeId: index + 1, vignetteHovered: index })
         }
+        console.log(width > 1000 || routeHovered)
         return (
             <Fragment
                 key={`${index}${uuidv4}`}>
@@ -52,6 +55,8 @@ export default function JourneyNav({ journeys }) {
                     animate={{
                         y: routeHovered ? 0 : 80,
                     }}
+                    onMouseEnter={() => vignetteHovered = true}
+                    onMouseLeave={() => vignetteHovered = false}
                     onMouseMove={highlightSegment}
                     onClick={goToRouteLink}
                     transition={{ type: "spring", duration: 0.75 }}
@@ -80,7 +85,9 @@ export default function JourneyNav({ journeys }) {
                     {<Link
                         href={'/journeys/' + journey.route}
                         className={styles.journeyLink}
-                    >{width > 1000 && journey.title}
+                    >
+
+                        {(width > 1000 || routeHovered || (currentSection?.vignetteHovered) === index) && journey.title}
 
                     </Link>}
                 </motion.div>
