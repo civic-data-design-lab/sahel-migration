@@ -32,6 +32,9 @@
     100% { opacity: 1; }
 }
 
-/* .blink {
-    animation: blink 3s infinite;
-} */
+
+@media only screen and (max-width: 480px) {
+    .scrollButton {
+        display: none;
+    }
+}

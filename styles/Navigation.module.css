@@ -64,13 +64,22 @@
   color: white;
 }
 
+.arrowIcon {
+  font-size: 1.75rem;
+}
+
 @media only screen and (max-width: 480px) {
   .button {
-    height: 3rem;
-    width: 3rem;
+    height: 2.5rem;
+    width: 2.5rem;
     align-items: flex-end;
   }
-  .button h7 {
-    padding-bottom: 0.3rem;
+
+  .buttonText {
+    display: none;
+  }
+
+  .arrowIcon {
+    font-size: 2.2rem;
   }
 }
