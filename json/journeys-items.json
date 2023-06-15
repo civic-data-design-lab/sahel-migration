@@ -4,7 +4,7 @@
       {
         "id": 1,
         "title": "Place of Origin",
-        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facilisis odio vitae condimentum. Pellentesque sed sem elementum, commodo velit eu, blandit lacus. Phasellus porttitor dolor vestibulum scelerisque lacinia. Nullam erat erat, vulputate sollicitudin suscipit et, commodo bibendum felis. Vestibulum ullamcorper facilisis eleifend. Morbi malesuada felis et odio elementum cursus. Integer tincidunt, turpis eu pulvinar interdum, nulla urna lobortis risus, et faucibus augue diam et tellus.",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "imageUrl": "/images/journeys/1.svg",
         "entourages": [
           {
@@ -223,7 +223,7 @@
       },
       {
         "id": 6,
-        "route": "sabha",
+        "route": "libya-sabha",
         "title": " Passing through Sabha",
         "body": "Sabha is one of the first cities migrants pass through after arriving in Libya. Most migrants pass through Sabha as a resting point, rather than a place to settle.",
         "imageUrl": "/images/journeys/6-Transit Hub Sabha.svg",
@@ -264,7 +264,7 @@
       },
       {
         "id": 7,
-        "route": "tripoli",
+        "route": "libya-tripoli",
         "title": "Reaching Tripoli",
         "body": "While Tripoli serves as a disembarkation point for migrants taking the sea route to Europe, it is also a place where many migrants choose to settle or a protracted transitory stop.",
         "imageUrl": "/images/journeys/7-Transit Hub Tripoli.svg",
@@ -305,7 +305,7 @@
       },
       {
         "id": 8,
-        "route": "current-conditions-libya",
+        "route": "libya-current-conditions",
         "title": "Current Conditions in Libya",
         "body": "Some migrants in Libya plan to leave the country by embarking to Europe, while others attempt to stay and find work without being deported. Each pathway exposes migrants to a different set of risks.",
         "narrativeTexts": [

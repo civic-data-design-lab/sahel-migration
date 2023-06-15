@@ -6,12 +6,6 @@ import styles from '../../../styles/Slider.module.css';
 const RiskWeightSlider = ({ riskId, riskWeight, onUpdate }) => {
   return (
     <div className={styles.SliderContainer}>
-      {/* <span
-        className="material-symbols-outlined"
-        id={styles.icon}
-      >
-        info
-      </span> */}
       <p className="label-weight">Risk importance:</p>
       <span className={styles.mainSlider}>
         <p>Less</p>
