@@ -136,7 +136,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
           'Gharyan',
           'Az Zawiyah',
         ];
-        const cities = data
+        let cities = data
           .filter((d) => !!d.city && !excludeCities.includes(d.city))
           .map((d) => {
             let item = {};
@@ -145,7 +145,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             item.country = d.country;
             return item;
           });
-        const borders = data
+        let borders = data
           .filter((d) => !!d.border_2)
           .map((d) => {
             let item = {};
@@ -154,6 +154,11 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             item.border_2 = d.border_2;
             return item;
           });
+        if (width < 900) {
+          cities = cities.filter(
+            (d) => d.city === 'Bamako' || d.city === 'Tripoli'
+          )
+        }
         const migrantRoutesData = data.reduce((a, d) => {
           let i = d.route_index - 1;
           if (!a[i]) {
@@ -289,7 +294,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
           .style('pointer-events', 'all')
         .node();
       newRoots.push({ type: 'label', root: createRoot(textLabel), riskId: risk.id });
-      
+
       const textInputElement = svg
         .append('foreignObject')
         .attr('width', 100)

@@ -239,27 +239,29 @@ function focusArea(
 }
 
 export function PlotXAxis({ plot, height, margin, xAxis, xAxisTicks, borders, cities }) {
-  plot
-    .append('g')
-    .attr('class', 'x-axis-borders')
-    .attr('transform', `translate(0,${height - margin.bottom})`)
-    .call(xAxisTicks(borders))
-    .call((g) => g.select('.domain').remove())
-    .selectAll('text')
-    .attr('x', (d, i) => {
-      return i == 0
-        ? 20 // mali - burkina faso
-        : i == 1
-        ? -19 // burkina faso - niger
-        : i == 2
-        ? -1 // imaginary line
-        : 0;
-    })
-    .style('text-anchor', (d, i) => {
-      return i == 2
-        ? 'start' // imaginary line
-        : 'middle';
-    });
+  if (window.innerWidth >= 700) {
+    plot
+      .append('g')
+      .attr('class', 'x-axis-borders')
+      .attr('transform', `translate(0,${height - margin.bottom})`)
+      .call(xAxisTicks(borders))
+      .call((g) => g.select('.domain').remove())
+      .selectAll('text')
+      .attr('x', (d, i) => {
+        return i == 0
+          ? 20 // mali - burkina faso
+          : i == 1
+            ? -19 // burkina faso - niger
+            : i == 2
+              ? -1 // imaginary line
+              : 0;
+      })
+      .style('text-anchor', (d, i) => {
+        return i == 2
+          ? 'start' // imaginary line
+          : 'middle';
+      });
+  }
   // define ticks for city names
   plot
     .append('g')
