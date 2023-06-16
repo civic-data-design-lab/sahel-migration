@@ -7,6 +7,9 @@
     margin-right: .5rem;
     /* pointer-events: none; */
 }
+.legend:hover {
+  cursor: default;
+}
 
 .routes {
     display: flex;

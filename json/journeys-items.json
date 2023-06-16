@@ -4,7 +4,7 @@
       {
         "id": 1,
         "title": "Place of Origin",
-        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum diam eget dolor pharetra, et luctus mi consequat. Aliquam semper facilisis odio vitae condimentum. Pellentesque sed sem elementum, commodo velit eu, blandit lacus. Phasellus porttitor dolor vestibulum scelerisque lacinia. Nullam erat erat, vulputate sollicitudin suscipit et, commodo bibendum felis. Vestibulum ullamcorper facilisis eleifend. Morbi malesuada felis et odio elementum cursus. Integer tincidunt, turpis eu pulvinar interdum, nulla urna lobortis risus, et faucibus augue diam et tellus.",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "imageUrl": "/images/journeys/1.svg",
         "entourages": [
           {
@@ -45,40 +45,40 @@
             "body": "Migrants encounter several risks while in transit; 20% of migrants were concerned for their personal safety, 14% struggled with finding shelter, and 18% experienced food insecurity (IFPRI, 2021).",
             "posX": 180,
             "posY": 20,
-            "scrollStart": 0,
-            "scrollEnd": 0.1
+            "scrollStart": 0.12,
+            "scrollEnd": 0.36
           },
           {
             "id": 2,
             "body": "Migrants heading to Libya through the Central Mediterranean route typically originate from the Economic Community of West African States (ECOWAS), and carry passports which allow them to pass through most neighboring country borders along the way without a visa.",
             "posX": 100,
             "posY": 30,
-            "scrollStart": 0.12,
-            "scrollEnd": 0.36
+            "scrollStart": 0.36,
+            "scrollEnd": 0.5
           },
           {
             "id": 3,
             "body": "Many migrants hire smugglers to help cross borders along the journey. Hiring a smuggler can help, but involves large payments and additional risks for personal security and financial if the smuggler is untrustworthy.",
             "posX": 120,
             "posY": -30,
-            "scrollStart": 0.35,
-            "scrollEnd": 0.5
+            "scrollStart": 0.5,
+            "scrollEnd": 0.7
           },
           {
             "id": 4,
             "body": "The average cost that migrants spent to reach Libya was USD 658. The pay-as-you-go method employed by many smugglers exploits the vulnerability and desperation of migrants, and abuse or human rights violations can occur at any stage of the journey.",
             "posX": 200,
             "posY": 80,
-            "scrollStart": 0.5,
-            "scrollEnd": 0.7
+            "scrollStart": 0.7,
+            "scrollEnd": 0.8
           },
           {
             "id": 5,
             "body": "There are two ways to hire a smuggler: organized or step-by-step. In organized smuggling the migrant is accompanied by a smuggler for most of the journey, while in step-by-step smuggling, migrants mostly travel on their own and only use a smuggler for certain segments of the journey, like crossing a border or the desert.",
             "posX": 70,
             "posY": 50,
-            "scrollStart": 0.75,
-            "scrollEnd": 1
+            "scrollStart": 0.8,
+            "scrollEnd": 0.9
           }
         ]
       },
@@ -94,7 +94,7 @@
             "body": "Agadez became reliant on migration-related activities, such as transportation, hotels, restaurants, shops, and cheap migrant labor, following the decline of its tourism industry due to the Tuareg rebellions in 2007 and 2012. However, the subsequent criminalization of smuggling led to an economic decline in the area.",
             "posX": 100,
             "posY": 0,
-            "scrollStart": 0,
+            "scrollStart": 0.1,
             "scrollEnd": 0.3
           },
           {
@@ -111,15 +111,15 @@
             "posX": 80,
             "posY": 0,
             "scrollStart": 0.7,
-            "scrollEnd": 1
+            "scrollEnd": 0.8
           },
           {
             "id": 4,
             "body": "Most migrants are continuously on the move. Only 10 percent of migrants stop in a place for longer than one month before reaching Libya (IFPRI, 2021).",
             "posX": 200,
             "posY": 20,
-            "scrollStart": 0.7,
-            "scrollEnd": 1
+            "scrollStart": 0.8,
+            "scrollEnd": 0.9
           }
         ]
       },
@@ -135,15 +135,15 @@
             "body": "Pickup trucks typically transport around twenty-five migrants in the cargo bed. Migrants wrap their heads with turbans for sun protection and brace themselves with sticks to keep from falling out of the truck. Vehicle accidents are common, with 19% of reported deaths along this part of the route caused by vehicle accidents (MMC).",
             "posX": 220,
             "posY": -10,
-            "scrollStart": 0,
-            "scrollEnd": 0.1
+            "scrollStart": 0.1,
+            "scrollEnd": 0.12
           },
           {
             "id": 2,
             "body": "Migrants stop at rest stations along the journey through the Sahara. The 2015 Law 036 EU-Niger prohibits smuggling in Niger. This increases the risk for migrants because smugglers must use longer routes, which are more dangerous and expensive.",
             "posX": 120,
             "posY": 30,
-            "scrollStart": 0.12,
+            "scrollStart": 0.15,
             "scrollEnd": 0.36
           },
           {
@@ -223,7 +223,7 @@
       },
       {
         "id": 6,
-        "route": "sabha",
+        "route": "libya-sabha",
         "title": " Passing through Sabha",
         "body": "Sabha is one of the first cities migrants pass through after arriving in Libya. Most migrants pass through Sabha as a resting point, rather than a place to settle.",
         "imageUrl": "/images/journeys/6-Transit Hub Sabha.svg",
@@ -264,7 +264,7 @@
       },
       {
         "id": 7,
-        "route": "tripoli",
+        "route": "libya-tripoli",
         "title": "Reaching Tripoli",
         "body": "While Tripoli serves as a disembarkation point for migrants taking the sea route to Europe, it is also a place where many migrants choose to settle or a protracted transitory stop.",
         "imageUrl": "/images/journeys/7-Transit Hub Tripoli.svg",
@@ -305,7 +305,7 @@
       },
       {
         "id": 8,
-        "route": "current-conditions-libya",
+        "route": "libya-current-conditions",
         "title": "Current Conditions in Libya",
         "body": "Some migrants in Libya plan to leave the country by embarking to Europe, while others attempt to stay and find work without being deported. Each pathway exposes migrants to a different set of risks.",
         "narrativeTexts": [

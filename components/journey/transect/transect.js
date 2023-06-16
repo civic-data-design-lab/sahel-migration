@@ -3,8 +3,10 @@ import * as d3 from 'd3';
 import useWindowSize from '../../../hooks/useWindowSize';
 import PlotAllTransectLayers, { PlotCombinedTransectLayers } from './transectPlots';
 import styles from '../../../styles/Transect.module.css';
+import RiskLabel from './RiskLabel';
 import RiskWeightTextInput from './RiskWeightTextInput';
 import RiskWeightSlider from './RiskWeightSlider';
+import InfoTooltipWrapper from "../../infotooltip";
 import { createRoot } from 'react-dom/client';
 
 const INITIAL_RISKS_DATA = [
@@ -12,6 +14,7 @@ const INITIAL_RISKS_DATA = [
     id: '4mi',
     index: 0,
     label: 'Reported Violence',
+    dataDescr: 'Migrant reported locations and incidents of death, sexual violence, kidnapping, and physical violence. This 4Mi is based on around 48,000 interviews with refugees and migrants conducted in Africa, collected by the Mixed Migration Centre between 2018-2022.',
     color: '#5D3435',
     weight: 50,
     normWeight: 1 / 6,
@@ -20,6 +23,7 @@ const INITIAL_RISKS_DATA = [
     id: 'acled',
     index: 1,
     label: 'Conflict Events',
+    dataDescr: 'Armed Conflict Location & Event Data of dates, locations, fatalities, and types of all reported political violence and protest events from 2022. Conflict events are visualized by the sum of incident counts within a 50km radius of the route.',
     color: '#985946',
     weight: 50,
     normWeight: 1 / 6,
@@ -28,6 +32,7 @@ const INITIAL_RISKS_DATA = [
     id: 'food',
     index: 2,
     label: 'Food Insecurity',
+    dataDescr: 'Integrated Food Security Phase Classification (IPC) and Cadre Harmonisé data on regional food insecurity in 2021. The IPC Classification System distinguishes acute food insecurity across five severity phases: minimal/none, stressed, crisis, emergency, catastrophe/famine.',
     color: '#9A735A',
     weight: 50,
     normWeight: 1 / 6,
@@ -36,6 +41,7 @@ const INITIAL_RISKS_DATA = [
     id: 'smuggler',
     index: 3,
     label: 'Reliance on Smugglers',
+    dataDescr: 'Irregular migrants tend to rely on smugglers more when traveling through areas that restrict freedom of movement, approaching border crossings, and traveling through areas with a perceived need for protection. This dataset is based on research to address areas along the route where migrants are more likely to rely on smugglers, using geographic boundaries.',
     color: '#F48532',
     weight: 50,
     normWeight: 1 / 6,
@@ -44,6 +50,7 @@ const INITIAL_RISKS_DATA = [
     id: 'remoteness',
     index: 4,
     label: 'Remoteness',
+    dataDescr: 'Remoteness data serves as a proxy for the lack of access to food, healthcare, and other resources. This dataset visualizes the driving time access to the nearest city based on the ESRI World Cities dataset and Travel Time tool.',
     color: '#624B44',
     weight: 50,
     normWeight: 1 / 6,
@@ -52,11 +59,17 @@ const INITIAL_RISKS_DATA = [
     id: 'heat',
     index: 5,
     label: 'Heat Exposure',
+    dataDescr: 'Many migrants encounter dehydration and exposure to extreme heat. This dataset show the average of daily maximum temperatures from the MERRA2 satellite data in 2022 in regions that are categorized as barren or sparsely vegetated in the ESRI Africa Land Cover dataset.',
     color: '#3F231B',
     weight: 50,
     normWeight: 1 / 6,
   },
 ];
+const routeMigrants = {
+  id: 'migrants',
+  label: 'Migrants Along the Route',
+  dataDescr: 'Based on the Displacement Tracking Matrix Flow Monitoring Survey data collected by the International Organization for Migration in West Africa from July 2021-June 2022, this data represents the relative number of migrants that pass through a given segment along the route using the most efficient travel routes from the Open Source Routing Machine.'
+};
 
 const margin = {
   top: 50,
@@ -263,6 +276,20 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     // Create the risk weight-related elements and push them to the roots array
     risks.forEach((risk) => {
       // console.log('Drawing', risk);
+      const textLabel = svg
+        .append('foreignObject')
+          .attr('width', 200)
+          .attr('height', 20)
+          .attr('x', margin.left)
+          .attr('y', margin.top + yPlotOffset * risk.index - 12)
+          .style('z-index', 9999)
+          .attr('pointer-events', 'none')
+        .append('xhtml:div')
+          .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+          .style('pointer-events', 'all')
+        .node();
+      newRoots.push({ type: 'label', root: createRoot(textLabel), riskId: risk.id });
+      
       const textInputElement = svg
         .append('foreignObject')
         .attr('width', 100)
@@ -293,6 +320,20 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
 
       newRoots.push({ type: 'slider', root: createRoot(sliderElement), riskId: risk.id });
     });
+    // create text label for 'migrants along the route'
+    const migrantsTextLabel = svg
+        .append('foreignObject')
+          .attr('width', 200)
+          .attr('height', 20)
+          .attr('x', margin.left)
+          .attr('y', margin.top + yPlotOffset * 6 - 12)
+          .style('z-index', 9999)
+          .attr('pointer-events', 'none')
+        .append('xhtml:div')
+          .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+          .style('pointer-events', 'all')
+        .node();
+    newRoots.push({ type: 'label-migrants', root: createRoot(migrantsTextLabel), riskId: routeMigrants.id });
 
     setRoots(newRoots);
     console.debug('Sliders: created roots', newRoots);
@@ -319,7 +360,27 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         console.warn('Tried updating an unmounted root');
         return;
       }
-      if (type === 'text') {
+      if (type === 'label') {
+        root.render(
+          <RiskLabel
+            key={riskInfo.id}
+            riskId={riskInfo.id}
+            riskDescription={riskInfo.dataDescr}
+            riskLabel={riskInfo.label}
+          />
+        );
+      }
+      else if (type === 'label-migrants') {
+        root.render(
+          <RiskLabel
+            key={routeMigrants.id}
+            riskId={routeMigrants.id}
+            riskDescription={routeMigrants.dataDescr}
+            riskLabel={routeMigrants.label}
+          />
+        );
+      }
+      else if (type === 'text') {
         root.render(
           <RiskWeightTextInput
             key={riskInfo.id}

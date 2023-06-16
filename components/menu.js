@@ -97,64 +97,25 @@ export default function Menu({ journeys }) {
                 <Col xs={width > 480 ? 7 : 9} className="pt-5 pb-5">
                   <AboutSection title={'Risks of West African Migration'}>
                     <p className="body-5">
-                      Thousands of migrants risk their lives each year to travel from West Africa to
-                      Libya through a heavily traversed pathway, known as the Central Mediterranean
-                      Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have
-                      origins in West Africa (IOM, 2022). In June and July 2021, migrants in Libya
-                      were surveyed by the United Nations World Food Programme (WFP) and the
-                      International Food Policy Research Institute (IFPRI) with questions pertaining
-                      to their place of origin, their journey to Libya, their intentions to move on,
-                      and their current economic conditions and food security status. The resulting
-                      survey sample consisted of 347 migrants from Economic Community of West
-                      African States (ECOWAS) countries in Tripoli and Sabha, with the most from
-                      Niger*, Chad, Nigeria, Mali, and Ghana. Migrants on the Move visualizes the
-                      combined risks of migrants traveling from West Africa to Libya, along the
-                      Central Mediterranean route.
+                      Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022). In June and July 2021, migrants in Libya were surveyed by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana. Migrants on the Move visualizes the combined risks of migrants traveling from West Africa to Libya, along the Central Mediterranean route.
                     </p>
                     <p className="body-5">
-                      Migrants traveling in North Africa face significant risks, often resorting to
-                      illicit means of traveling with smugglers crossing through treacherous terrain
-                      in remote areas. A variety of factors contribute to increased risk during
-                      migration, including food insecurity, lack of access to resources, heat
-                      exposure, and physical violence and abuses. In an attempt to enter Libya
-                      undetected, many migrants cross through the Tenere, a stretch within the
-                      Sahara Desert that spans hundreds of kilometers. Many migrants turn to
-                      smugglers in order to receive protection and navigation assistance during
-                      stretches of the journey, but hiring a smuggler often comes at a high cost and
-                      can also leave migrants vulnerable to bribery and extortion. Regardless of
-                      their travel means, migrants are at great risk while in transit along the
-                      Central Mediterranean route.
+                      Migrants traveling in North Africa face significant risks, often resorting to illicit means of traveling with smugglers crossing through treacherous terrain in remote areas. A variety of factors contribute to increased risk during migration, including food insecurity, lack of access to resources, heat exposure, and physical violence and abuses. In an attempt to enter Libya undetected, many migrants cross through the Tenere, a stretch within the Sahara Desert that spans hundreds of kilometers. Many migrants turn to smugglers in order to receive protection and navigation assistance during stretches of the journey, but hiring a smuggler often comes at a high cost and can also leave migrants vulnerable to bribery and extortion. Regardless of their travel means, migrants are at great risk while in transit along the Central Mediterranean route.
                     </p>
                     <p className="body-5">
-                      Documenting and analyzing the risks of irregular migration is crucial to
-                      better addressing the needs of migrants. The routes of migrants originating
-                      from West Africa traveling to Libya were mapped using data provided by the
-                      International Organization for Migration (IOM). In parallel to the World Food
-                      Programme case studies that dive deeper into irregular migration in Libya and
-                      in Mali, the data visualizations shown in Migrants on the Move focus on one
-                      route from Bamako, Mali to Tripoli, Libya.
+                      Documenting and analyzing the risks of migration is crucial to better addressing the needs of migrants. The routes of migrants originating from West Africa traveling to Libya were mapped using data provided by the International Organization for Migration (IOM). In parallel to the World Food Programme case studies that dive deeper into irregular migration in Libya and in Mali, the data visualizations shown in Migrants on the Move focus on one route from Bamako, Mali to Tripoli, Libya.
                     </p>
                   </AboutSection>
                   <AboutSection title={'Policy Recommendations'}>
                     <ol>
                       <li className="body-5">
-                        Since the main push factor for migrants to leave their countries of origin
-                        is economic wage differentials, WFP should focus efforts on building
-                        economic opportunities at the country of origin. Such efforts could include
-                        employment generation programmes in partnership with national governments,
-                        training opportunities in the technology sector, or engagement in rural food
-                        systems programmes.
+                        Since the main push factor for migrants to leave their countries of origin is economic wage differentials, the international community should focus efforts on building economic opportunities at the country of origin, including employment generation, skills building—ideally in partnership with national governments.
                       </li>
                       <li className="body-5">
-                        Given the extremely high levels of risk during transit, including those
-                        related to protection and food insecurity, WFP should work more closely with
-                        key partners in the provision of needs-based assistance to migrants.
+                        Given the extremely high levels of risk during transit, including those related to protection and food insecurity, international partners should seek entry points for the provision of needs-based assistance to migrants.
                       </li>
                       <li className="body-5">
-                        In locations where migrants settle or use as protracted transit sites, WFP
-                        and partners should address food insecurity and other humanitarian
-                        requirements through existing social protection systems, also considering
-                        the needs of the host population to avoid potential tensions.
+                        In locations where migrants settle or use as protracted transit sites, the international community  should address food insecurity and other humanitarian requirements, also considering the needs of the host population to avoid potential tensions.
                       </li>
                     </ol>
                   </AboutSection>
@@ -174,7 +135,7 @@ export default function Menu({ journeys }) {
                     </ul>
                   </AboutSection>
                   <AboutSection title={'Methodology'}>
-                    <h5>Migration Routes</h5>
+                    <h5>Migration Map</h5>
                     <p className="body-5">
                       Migration routes from West Africa using two datasets: IFPRI survey of
                       irregular migrants in Libya 2021 and the IOM flow monitoring surveys with

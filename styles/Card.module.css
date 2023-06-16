@@ -32,15 +32,19 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .expandedCard {
-    width: 10rem;
-    max-width: 100rem;
-    /*overflow-y: scroll;*/
-    max-height: 20rem;
-  }
+  /*.expandedCard {*/
+  /*  width: 10rem;*/
+  /*  max-width: 100rem;*/
+  /*  !*overflow-y: scroll;*!*/
+  /*  max-height: 20rem;*/
+  /*}*/
 
-  .card {
-    font-size: .6rem;
+  /*.card {*/
+  /*  font-size: .6rem;*/
+  /*}*/
+
+  .cardContainer {
+    display: none;
   }
 
 }

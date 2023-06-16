@@ -68,3 +68,9 @@
 .current {
   background-color: var(--light);
 }
+
+@media only screen and (max-width: 480px) {
+  .textContainer {
+    font-size: .7rem;
+  }
+}

@@ -32,13 +32,13 @@ export default function Navigation({ journeys, journey }) {
             >
               {journey.id > 2 ? (
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                  <span className={`${styles.arrowIcon} material-symbols-outlined`}>
                     arrow_left
                   </span>
                 </Link>
               ) : (
                 <Link href={'/'}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                  <span className={`${styles.arrowIcon} material-symbols-outlined`} >
                     arrow_left
                   </span>
                 </Link>
@@ -73,7 +73,7 @@ export default function Navigation({ journeys, journey }) {
                 onHoverEnd={() => setIsActiveRight(false)}
               >
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>
+                <span className={`${styles.arrowIcon} material-symbols-outlined`}>
                   arrow_right
                 </span>
                 </Link>

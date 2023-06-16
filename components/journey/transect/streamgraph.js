@@ -215,7 +215,8 @@ export function PlotAreaCurve(
         .attr('y', margin.top - 5)
         .text(yLabel)
     )
-    .attr('fill', '#463C35');
+    .attr('fill', '#463C35')
+    .attr('opacity', 0);
 }
 
 function focusArea(

@@ -38,7 +38,7 @@ export default function ImageBox({ journey }) {
         {/* {journey.id === 8 ? (
           <PolicyRecommendations narrativeTexts={journey.narrativeTexts} />
         ) : ( */}
-          <DescriptionTab title={journey.title} body={journey.body} />
+          <DescriptionTab title={journey.title} body={journey.body} scrollXProgress={scrollXProgress} entourages={journey.entourages} width={width}/>
         {/* )} */}
         <object
           type="image/svg+xml"

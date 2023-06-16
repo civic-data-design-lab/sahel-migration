@@ -60,3 +60,14 @@
   font-family: var(--sans-font-fam);
   margin-bottom: 0;
 }
+
+#icon {
+  pointer-events: all !important;
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #985946;
+  font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0;
+}

@@ -5,7 +5,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { SectionContext } from "../../pages";
 import { v4 as uuidv4 } from 'uuid'
 import useWindowSize from "../../hooks/useWindowSize";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import InfoTooltipWrapper from "../infotooltip"
 
 export default function MapLegend({ activeSource }) {
@@ -17,29 +16,15 @@ export default function MapLegend({ activeSource }) {
     const containerRef = useRef(null)
     const { width } = useWindowSize()
 
-
-    const [clicked, setClick] = useState(false)
-
     const dataSourceText = (activeSource === "originCities") ? "Place of origin of irregular migrants surveyed in Libya in 2021 by the International Food Policy Research Institute."
         : (activeSource === "transectSegment" || activeSource === "globeView") ? "Migrants are always at risk while in transit; this relative risk scale from 0-100 indicates variations of extreme risks with higher values. This migrant risk score is a composite of six factors, including: migrant reported violence incidents, conflict events, food insecurity, reliance on smugglers, remoteness, and heat exposure."
             : (activeSource === "overallRoutes") ? "Migration routes are mapped using origin and destination locations from the Flow Monitoring Survey Displacement Tracking Matrix data collected by the International Organization for Migration. The locations were mapped using ESRI’s geocoding service and the routes were computed using the Open Source Routing Tool."
                 : null
-    const tooltip = (
-        <Tooltip className={styles.tooltip}>
-            <strong>{dataSourceText}</strong>
-        </Tooltip>
-    );
-
-
 
 
     const displayLegend = useSpring({
         opacity: currentSection == 7 ? 0 : 1,
     });
-
-    function toggleClick() {
-        setClick(!clicked)
-    }
 
     const transectLegend = <div>
         < InfoTooltipWrapper
