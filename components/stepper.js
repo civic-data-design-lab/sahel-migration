@@ -49,7 +49,7 @@ export default function Stepper({
     >
       <div
         className={styles.stepperLine}
-        style={{ transform: reversed ? 'translate(11.7rem,-65%)' : '' }}
+        style={{ transform:  window.innerWidth < 480? reversed ? 'translate(7.8rem,-68%)' : '' : reversed ? 'translate(10.7rem,-65%)' : '' }}
       />
       <motion.div
         className={styles.stepper}

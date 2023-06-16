@@ -78,4 +78,8 @@
   .textContainer {
     font-size: .7rem;
   }
+
+  .stepperLine {
+    transform: translate(180%,-68%);
+  }
 }
