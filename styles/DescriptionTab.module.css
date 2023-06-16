@@ -25,18 +25,18 @@
 
 @media only screen and (max-width: 480px) {
   .main {
-    max-width: 90vw;
+    /*max-width: 90vw;*/
+    width: 90vw;
     top: 7%;
     /*left: 1rem;*/
   }
 
   .main small {
-    width: 17rem;
+    /*width: 17rem;*/
     height: auto;
     /* line-height: 1rem;
     font-size: .7rem; */
   }
-
   .description {
     border-radius: .5rem;
     padding: .5rem;
