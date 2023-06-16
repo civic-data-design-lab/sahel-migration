@@ -44,8 +44,8 @@ export default function Stepper({
       variants={variants}
       onMouseEnter={isActive && onHoverStart}
       onMouseLeave={isActive && onHoverEnd}
-      // onTouchStart={isActive && onHoverStart}
-      // onTouchEnd={isActive && onHoverEnd}
+      onTouchStart={isActive && onHoverStart}
+      onTouchEnd={isActive && onHoverEnd}
     >
       <div
         className={styles.stepperLine}
