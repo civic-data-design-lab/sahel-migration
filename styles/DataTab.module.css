@@ -21,7 +21,6 @@
 @media only screen and (max-width: 480px) {
     .tab {
         top: 95%;
-        border-radius: 1rem 1rem 0 0;
         justify-items: center;
         bottom: 300px;
     }
