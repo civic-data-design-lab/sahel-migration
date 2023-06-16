@@ -6,8 +6,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 export default function CityTip({ regionData }) {
     const surveryData = regionData && regionData.migrantData
-    const selectedCity = (regionData && regionData.cityName) || '';
-    let originCountry = (regionData && regionData.countryName) || '';
+    const selectedCity = (regionData && regionData.hoveredCity) || '';
+    let originCountry = (regionData && regionData.hoveredMigrantCountry) || '';
     if (originCountry === 'Sierr') originCountry = 'Sierra Leone'
     if (originCountry === 'Côt') originCountry = "Côte d'Ivoire"
     if (originCountry === 'Guine') originCountry = "Guinea-Bissau"

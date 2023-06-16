@@ -1,6 +1,5 @@
 .main {
   position: fixed;
-  width: 100%;
   max-width: 28rem;
   top: 10vh;
   left: 1rem;
@@ -9,6 +8,7 @@
   flex-direction: column;
   z-index: 5;
   padding-top: 1rem;
+  margin-right: 1rem;
   /* color: var(--brown);
   font-size: var(--fs-body-1);
   font-family: var(--primary-font-fam); */
@@ -25,21 +25,21 @@
 
 @media only screen and (max-width: 480px) {
   .main {
-    max-width: 90vw;
     top: 7%;
-    /*left: 1rem;*/
+    left: 1rem;
+    margin-right: 1rem;
   }
 
   .main small {
-    width: 17rem;
-    height: auto;
+
+    /*height: auto;*/
     /* line-height: 1rem;
     font-size: .7rem; */
   }
-
   .description {
     border-radius: .5rem;
-    padding: .5rem;
+    margin-right: 1rem;
+
   }
 
 }

@@ -2,7 +2,7 @@ import styles from '../../styles/DescriptionTab.module.css';
 import {useEffect, useState} from "react";
 import * as d3 from "d3";
 
-export default function DescriptionTab({body, scrollXProgress, entourages, width}) {
+export default function DescriptionTab({body, scrollXProgress, entourages}) {
   const initialDescription = body;
   const [description, setDescription] = useState(body);
   const [hasChanged, setHasChanged] = useState(false);

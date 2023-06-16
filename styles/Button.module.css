@@ -21,11 +21,13 @@
 
 }
 
-.button:hover {
-    /* --dark: #463C35; */
-    border: none;
-    background-color: var(--dark);
-    color: var(--light);
+@media (hover: hover) and (pointer: fine) {
+    .button:hover {
+        /* --dark: #463C35; */
+        border: none;
+        background-color: var(--dark);
+        color: var(--light);
+    }
 }
 
 .filled {

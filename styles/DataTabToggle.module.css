@@ -1,32 +1,29 @@
 .toggleButton {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    background: none;
-    border: none;
-    text-decoration: none;
-    font-weight: bold;
-    font-family: var(--primary-font-fam);
-    z-index: 0;
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  background: none;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: var(--primary-font-fam);
+  z-index: 0;
 }
 
-
-.toggleButton:hover {
+@media (hover: hover) and (pointer: fine) {
+  .toggleButton:hover {
     cursor: pointer;
     opacity: 0.6;
-
+  }
 }
 
 @media only screen and (max-width: 480px) {
-
-    .toggleButton {
-        justify-content: center;
-        padding: .5rem;
-
-    }
+  .toggleButton {
+    justify-content: center;
+    padding: 0.5rem 0.5rem 0.5rem 0;
+  }
 }

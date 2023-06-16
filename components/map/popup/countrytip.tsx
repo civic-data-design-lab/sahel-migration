@@ -12,7 +12,7 @@ function numberWithCommas(x) {
 
 export default function CountryTip({ regionData }) {
     const surveyData = regionData && regionData.migrantData
-    const selectedCountry = regionData && regionData.selectedCountry
+    const selectedCountry = regionData && regionData.hoveredMigrantCountry
     const countryData = surveyData.find((country) => country.countryId == selectedCountry)
     const nationalMigrantCount = (countryData && countryData.migrantCount) || 0
     const totalSurveyed = 347

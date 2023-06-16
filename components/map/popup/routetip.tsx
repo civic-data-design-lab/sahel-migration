@@ -29,7 +29,7 @@ export default function RouteTip({ regionData }) {
                     }}>
                         <InfoBox
                             left={`Migration Risk`}
-                            text={round(regionData.totalRisk * 1/6)}
+                            text={round(regionData.riskLevelData.totalRisk * 1 / 6)}
                             region={""}
                             small={false}
                             bold={true}
@@ -37,14 +37,14 @@ export default function RouteTip({ regionData }) {
                             align={'space-between'}
                         />
 
-                        {regionData.risks.map((risk) => {
+                        {regionData.riskLevelData.risks.map((risk) => {
                             let stat = risk && risk.riskLevel
                             const name = risk && risk.name
                             return (
                                 <InfoBox
                                     key={risk.name}
                                     left={name}
-                                    text={round(stat * 1/6)}
+                                    text={round(stat * 1 / 6)}
                                     region={''}
                                     align={'space-between'}
                                     small={true}
