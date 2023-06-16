@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import imageMetadata from '../../../json/image-metadata.json';
 import { useMemo, useState } from 'react';
 import { wrap } from 'framer-motion';
+import useWindowSize from '../../../hooks/useWindowSize';
 
 const dropIn = {
   hidden: {
@@ -94,6 +95,7 @@ const swipePower = (offset: number, velocity: number) => {
 
 export const SlideShow = ({ images, currentIndex }: any) => {
   const [[page, direction], setPage] = useState([0, 0]);
+  const { width } = useWindowSize()
 
   // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
   // then wrap that within 0-2 to find our image ID in the array below. By passing an
@@ -159,9 +161,16 @@ export const SlideShow = ({ images, currentIndex }: any) => {
               <div className={styles.h7}>Date: {imageMeta.img_date}</div>
 
               <div>
-                <span>
-                  Image {((imageIndex + currentIndex) % images.length) + 1}/ {images.length}
-                </span>
+                {width > 700 && (
+                  <span>
+                    Image {((imageIndex + currentIndex) % images.length) + 1}/ {images.length}
+                  </span>
+                )}
+                {width <= 700 && (
+                  <span>
+                    {((imageIndex + currentIndex) % images.length) + 1} of {images.length}
+                  </span>
+                )}
               </div>
             </div>
           </div>
