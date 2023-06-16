@@ -20,13 +20,6 @@ import { SectionContext } from './../../pages';
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
 
-export const RouteContext = createContext({
-    feature: null,
-    point: null,
-    setFeature: () => { },
-    setPoint: () => { },
-});
-
 export const ScreenContext = createContext({
     pointerCoords: { posX: 0, posY: 0 },
     setCoordinates: (() => { }),
@@ -53,103 +46,24 @@ function objectMap(object, mapFn) {
         }, {})
     }
 }
-/** 
- * [bar description]
- * @param  {any} map map object
- * @param  {[]} styles all styles to be shown on the map (from json file)
- * @return {[]}     all styles to be shown on the map
-*/
-function retrieveMapStyles(map, interactiveStyles) {
-    if (map && ("getStyle" in map)) {
-        const mapStyles = map.getStyle().layers
-        return mapStyles.filter(style => interactiveStyles.includes(style.id))
-    }
-}
-
-
-function setLayerVisibility(map, layers) {
-    if (map && layers) {
-        layers.forEach(layer => {
-            map.getMap().setLayoutProperty(layer.id, 'visibility', 'visible')
-        });
-    }
-}
-
-function setLayersOpacity(map, allLayers, seenLayers) {
-    if (map && allLayers && seenLayers) {
-        const mapStyles = map.getStyle().layers.map(layer => layer.id)
-        const seenLayerNames = seenLayers.map(layer => layer.id)
-        allLayers.forEach(layer => {
-            const type = layer.type === "symbol" ? "text" : layer.type
-            if (!mapStyles.includes(layer.id)) return
-            if (seenLayerNames.includes(layer.id)) {
-                map
-                    .getMap()
-                    .setPaintProperty(layer.id, `${type}-opacity`, 1)
-                if (type === "circle")
-                    map
-                        .getMap()
-                        .setPaintProperty(layer.id, `${type}-stroke-opacity`, 1)
-                if ("buffer?" in seenLayers.find(seenLayer => seenLayer.id === layer.id)) {
-                    map
-                        .getMap()
-                        .setPaintProperty(layer.id, `${type}-opacity`, 0)
-                }
-            } else {
-                if (type === "circle")
-                    map
-                        .getMap()
-                        .setPaintProperty(layer.id, `${type}-stroke-opacity`, 0)
-                map
-                    .getMap()
-                    .setPaintProperty(layer.id, `${type}-opacity`, 0)
-            }
-        })
-    }
-}
-
-function setLayersFilters(map, layers, selectedFeature) {
-    if (map && layers) {
-        const layersWithFilters = layers.filter(layer => "filter" in layer)
-        layersWithFilters.forEach(layer => {
-            if (!layer) return
-            if (!selectedFeature) {
-                map
-                    .getMap()
-                    .setFilter(layer.id, [...(layer.filter), " "])
-                return
-            }
-            const filteredProperty = layer.property
-            const selectedProperty = selectedFeature.properties[`${filteredProperty}`]
-            // console.log(selectedProperty)
-            if (layer.filter.length == 0) {
-                map
-                    .getMap()
-                    .setFilter(layer.id, null)
-                return
-            }
-            if (!selectedProperty) return
-            map
-                .getMap()
-                .setFilter(layer.id, [...(layer.filter), String(selectedProperty)])
-        })
-    }
-}
 
 
 export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
+    const containerRef = useRef(null)
+    const mapRef = useRef(null)
     const { width } = useWindowSize()
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mitcivicdata/cld132ji3001h01rn1jxjlyt4')
     const { zoom, lng, lat } = useMapView()
-    const [hoverInfo, setHoverInfo] = useState(null);
-    const [cityInfo, setCityInfo] = useState(null);
+    const mapCenter = { lng: lng, lat: lat, }
+    const [tooltipInfo, setTooltipInfo] = useState({
+        migrantData: risks && risks.migrantData,
+        cityData: cityData
+    });
+
     const [pointerCoords, setCoordinates] = useState({ posX: 0, posY: 0 })
+    let getMousePos = (event) => setCoordinates({ posX: event.pageX, posY: event.pageY })
     const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 })
-    const [routeInfo, setRouteInfo] = useState(null);
-    const [feature, setFeature] = useState(null)
-    const [selectedFeature, setSelectedFeature] = useState(null)
-    const [point, setPoint] = useState(null)
-    const routeValue = { feature, point, setFeature, setPoint }
+    const pointerPosValue = { pointerCoords, setCoordinates, containerDimensions, setDimensions, mapCenter }
 
     const { layersObject, highlightLayer } = stylesObject(activeSource)
     const { currentSection, setSection } = useContext(SectionContext)
@@ -162,66 +76,6 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
 
     })
 
-    let getMousePos = (event) => {
-        setCoordinates({ posX: event.pageX, posY: event.pageY })
-    };
-    const containerRef = useRef(null)
-    const mapRef = useRef(null)
-
-    const mapCenter = {
-        lng: lng,
-        lat: lat,
-    }
-    const pointerPosValue = { pointerCoords, setCoordinates, containerDimensions, setDimensions, mapCenter }
-    function renderLayers(allLayers, currentNarrative, selectedFeature, map) {
-        if (allLayers && currentNarrative && map) {
-            // console.log(currentNarrative)
-            return (
-                <>
-                    {allLayers.map(layer => {
-                        const type = layer.type === "symbol" ? "text" : layer.type
-                        const currentNarrativeLayerIds = currentNarrative.map(narrativeLayer => narrativeLayer.id)
-                        const layerOpacity = currentNarrativeLayerIds.includes(layer.id) ? 1 : 0
-                        const opacityProperties = {}
-                        const layerProperties = {}
-                        opacityProperties[`${type}-opacity`] = layerOpacity
-                        if (type === "circle") {
-                            if (!(`${type}-color` in layer.paint)) opacityProperties[`${type}-opacity`] = 0
-                            opacityProperties[`${type}-stroke-opacity`] = layerOpacity
-                        }
-                        if ("layout" in layer) layerProperties["layout"] = { ...layer["layout"], visibility: "visible" }
-                        const currentNarrativeLayer = currentNarrative.find(narrativeLayer => narrativeLayer.id === layer.id)
-                        if (currentNarrativeLayer?.filter) {
-                            const layerFilter = currentNarrative.find(narrativeLayer => narrativeLayer.id == layer.id).filter || ["in", "property", " "]
-                            layerProperties["filter"] = selectedFeature && currentNarrativeLayer.property in selectedFeature ?
-                                [...layerFilter, selectedFeature[currentNarrativeLayer.property]] :
-                                layerFilter
-
-                        }
-                        return (
-
-                            < Layer
-                                {...layerProperties}
-                                paint={{
-                                    ...layer["paint"],
-                                    ...opacityProperties
-                                }}
-                                type={layer.type}
-                                source={layer.source}
-                                source-layer={layer["source-layer"]}
-                                beforeId={layer.id}
-                                id={`${layer.id}_rendered`}
-                                key={layer.id}
-                            />
-                        )
-                    })
-                    }
-                </>
-            )
-        }
-    }
-
-
     function renderSource(activeSource, data) {
         const sourceInfo = data.sources;
         if (sourceInfo)
@@ -233,22 +87,12 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                 </>
             );
     }
-    // const mapLayers = retrieveMapStyles(mapRef.current, risks.styles.usedLayerNames)
-    // useEffect(() => {
-    //     if (mapRef.current) {
-    //         setLayerVisibility(mapRef.current, mapLayers)
-    //         mapRef.current.on('load', () => {
-    //             setLayersOpacity(mapRef.current, mapLayers, risks.styles.narrativeToLayer.overallRoutes.layers)
-    //         })
-    //     }
-    // })
 
     const onInfo = useCallback((event) => {
         const region = event.features && event.features[0];
         let routeIndex = region && region.properties.segement_i
         let routeId = region && region.properties.segement_i
         let migrantCountryName = region && region.properties.COUNTRY
-        setSelectedFeature(region && region.properties)
 
         if (routeIndex > 6) routeIndex = 6
         if (routeId > 6) routeId = 6
@@ -277,95 +121,61 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
             routeId: routeId
         });
 
-        setRouteInfo({
+        // Data Properties that will be supplied to tooltips when map layer features are hovered
+        setTooltipInfo({
+            ...tooltipInfo,
             longitude: event.lngLat.lng,
             latitude: event.lngLat.lat,
-            ...transectRiskData
-        });
-        setCityInfo({
-            longitude: event.lngLat.lng,
-            latitude: event.lngLat.lat,
-            cityName: region && region.properties.city_origin,
-            countryName: region && region.properties.country_origin,
+            hoveredMigrantCountry: (region && region.properties.country_origin) || migrantCountryName,
+            hoveredNonMigrantCountry: (region && region.properties.name_en) || migrantCountryName,
+            hoveredCity: region && region.properties.city_origin,
             migrantCount: region && region.properties.count,
-        });
-
-        setHoverInfo({
-            longitude: event.lngLat.lng,
-            latitude: event.lngLat.lat,
-            migrantCountryName: migrantCountryName,
-            nonMigrantCountryName: (region && region.properties.name_en) || migrantCountryName,
-        });
-
-        // const seenLayers = risks
-        //     .styles
-        //     .narrativeToLayer[activeSource]
-        //     .layers
-
-        // setLayersFilters(mapRef.current, seenLayers, region)
+            riskLevelData: transectRiskData,
+            routeId: routeId
+        })
     }, [activeSource]);
 
-    const selectedCountry = (hoverInfo && hoverInfo.migrantCountryName) || '';
-    const nonMigrantCountry = (hoverInfo && hoverInfo.nonMigrantCountryName) || '';
-    const selectedCity = (cityInfo && cityInfo.cityName) || '';
-    const countryOfSelectedCity = (cityInfo && cityInfo.countryName) || '';
-    const selectedSegment = (currentSection && currentSection.routeId) || '';
-    const countryNames = !selectedCountry
-        ? []
-        : ['Ghana', 'Mali', 'Nigeria', 'Niger', 'Chad'].filter((elem) => {
-            return elem !== selectedCountry;
-        });
-    const filter = useMemo(() => ['in', 'COUNTRY', selectedCountry], [selectedCountry]);
+
+    // Features (geographical area) of the map that are currently being hovered over
+    const [
+        hoveredMigrantCountry,
+        hoveredNonMigrantCountry,
+        hoveredCity,
+        hoveredRouteId
+    ] = [
+        "hoveredMigrantCountry",
+        "hoveredNonMigrantCountry",
+        "hoveredCity",
+        "routeId"
+    ].map(hoveredProperty => {
+        return tooltipInfo && tooltipInfo[hoveredProperty] || ''
+    })
+    const filter = useMemo(() => ['in', 'COUNTRY', hoveredMigrantCountry], [hoveredMigrantCountry]);
     const nonMigrantCountryFilter = useMemo(() => ['in', 'name_en',
-        (nonMigrantCountry || countryOfSelectedCity) === "Côte d'Ivoire" ? "Ivory Coast" : (nonMigrantCountry || countryOfSelectedCity)
-    ], [nonMigrantCountry, countryOfSelectedCity]);
+        (hoveredNonMigrantCountry) === "Côte d'Ivoire" ? "Ivory Coast" : (hoveredNonMigrantCountry)
+    ], [hoveredNonMigrantCountry]);
     const citiesSelectedCountryFilter = useMemo(() => ['in', 'country_origin',
-        (selectedCountry || countryOfSelectedCity) == "Côte d'Ivoire" ? "Côt" :
-            (selectedCountry || countryOfSelectedCity) == "Burkina Faso" ? "Burkin" :
-                (selectedCountry || countryOfSelectedCity) == "Sierra Leone" ? "Sierr" :
-                    selectedCountry || countryOfSelectedCity],
-        [selectedCountry, countryOfSelectedCity]);
+        (hoveredMigrantCountry) == "Côte d'Ivoire" ? "Côt" :
+            (hoveredMigrantCountry) == "Burkina Faso" ? "Burkin" :
+                (hoveredMigrantCountry) == "Sierra Leone" ? "Sierr" :
+                    hoveredMigrantCountry],
+        [hoveredMigrantCountry]);
     const unselectedCountryFilter = useMemo(() => [
         "match",
         ["get", "name_en"],
-        [selectedCountry != "Côte d'Ivoire" ? selectedCountry : 'Ivory Coast'],
+        [hoveredMigrantCountry != "Côte d'Ivoire" ? hoveredMigrantCountry : 'Ivory Coast'],
         false,
         true
-    ], [selectedCountry]);
-    const cityHighlightFilter = useMemo(() => ['in', 'city_origin', selectedCity], [selectedCity]);
-    const highlightFilter = useMemo(
-        () => ['in', ['get', 'ADM0_NAME'], ['literal', countryNames]],
-        [selectedCountry]
-    );
-    const routeFilter = useMemo(() => ['in', 'index', String(selectedSegment)], [selectedSegment]);
-
-    const countryToolTipData = {
-        ...hoverInfo,
-        type: "country",
-        cityData: cityData,
-        migrantData: risks && risks.migrantData,
-        selectedCountry: selectedCountry,
-    }
-    const cityToolTipData = {
-        ...cityInfo,
-        type: "city",
-        migrantData: risks && risks.migrantData,
-        selectedCity: selectedCity,
-    }
-    const routeToolTipData = {
-        ...routeInfo,
-        type: "route",
-        selectedSegment: selectedSegment,
-        riskLevels: routeInfo
-    }
-
-    const [countryTip, cityTip, routeTip] = [countryToolTipData, cityToolTipData, routeToolTipData].map(data => {
+    ], [hoveredMigrantCountry]);
+    const cityHighlightFilter = useMemo(() => ['in', 'city_origin', hoveredCity], [hoveredCity]);
+    const routeFilter = useMemo(() => ['in', 'index', String(hoveredRouteId)], [hoveredRouteId]);
+    const [countryTip, cityTip, routeTip] = ["country", "city", "route"].map(type => {
         return (
             <ToolTip
-                key={data.type}
-                location={{ longitude: data.longitude, latitude: data.latitude }}
-                toolType={data.type}
-                regionDataProps={data}
+                key={type}
+                location={{ longitude: tooltipInfo.longitude, latitude: tooltipInfo.latitude }}
+                toolType={type}
+                regionDataProps={tooltipInfo}
 
             />
         )
@@ -376,28 +186,11 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     }, [containerRef])
 
     useEffect(() => {
-        if (selectedCountry) setOverlayOpacity(0.35)
+        if (hoveredMigrantCountry) setOverlayOpacity(0.35)
         else setOverlayOpacity(0)
-
-    }, [selectedCountry])
-
-
-
-
-    // if (activeSource === "overallRoutes") {
-    //     setLayersOpacity(mapRef.current, mapLayers, risks.styles.narrativeToLayer.overallRoutes.layers)
-    // }
-
-    // useEffect(() => {
-    //     if (mapRef.current) {
-    //         console.log(mapRef.current.getMap().getStyle().layers)
-    //     }
-    // }, [])
-
+    }, [hoveredMigrantCountry])
 
     useEffect(() => {
-
-
         const opacitySwicth = {
             "overallRoutes": { ...objectMap(featureOpacity, () => 0), countryBorder: 1 },
             "originCities": { ...objectMap(featureOpacity, () => 1), transect: 0, allCities: 0 },
@@ -409,14 +202,9 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         if (typeof featureOpacity === "object") setFeatureOpacity(opacitySwicth[activeSource])
 
         if (mapRef.current) {
-            // console.log(mapRef.current.getMap().getStyle().layers)
-
-            // console.log(mapRef.current..getStyle().layers)
             mapRef.current.on('load', () => {
                 mapRef.current.resize()
             })
-            // setLayersOpacity(mapRef.current, mapLayers, risks.styles.narrativeToLayer[activeSource].layers)
-
             if (activeSource === "transectSegment") {
                 mapRef.current.getMap().setLayoutProperty("wa-ifpri-countries-outline", "visibility", "none")
                 mapRef.current.getMap().setLayoutProperty("libya-outline", "visibility", "none")
@@ -427,7 +215,6 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                 mapRef.current.getMap().setLayoutProperty("transect-countries-outline", "visibility", "none")
             }
 
-
             mapRef.current.on('click', 'migration', (e) => {
                 if (activeSource === "globeView") {
                     const globeElem = document.getElementById("globeView")
@@ -436,15 +223,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                 }
             })
         }
-
     }, [activeSource])
-
-    // const mapLayers = retrieveMapStyles(mapRef.current, risks.styles.usedLayerNames)
-    // const seenLayers = risks
-    //     .styles
-    //     .narrativeToLayer[activeSource]
-    //     .layers
-
 
     useEffect(() => {
         if (mapRef.current) {
@@ -455,130 +234,120 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
         }
     })
     return (
-        <RouteContext.Provider value={routeValue}>
-            <ScreenContext.Provider value={pointerPosValue}>
-                <div className={styles.mapContainer}
-                    onMouseMove={getMousePos}
-                    ref={containerRef}
+        <ScreenContext.Provider value={pointerPosValue}>
+            <div className={styles.mapContainer}
+                onMouseMove={getMousePos}
+                ref={containerRef}
+            >
+                <Map
+                    initialViewState={{
+                        longitude: lng,
+                        latitude: lat,
+                        zoom: zoom
+                    }}
+                    latitude={lat}
+                    longitude={lng}
+                    style={{
+                        width: '100%', height: '100%'
+                    }}
+                    attributionControl={false}
+                    interactiveLayerIds={
+                        activeSource === "originCities" ? ["hoverable", "cities", "overlay"] :
+                            activeSource === "transectSegment" ? ["migration-buffer", "hoverable", 'overlay', "cities"] :
+                                activeSource ? ["hoverable", "overlay", "cities"] : ['hoverable']}
+                    zoom={zoom}
+                    mapStyle={mapStyle}
+                    ref={mapRef}
+                    doubleClickZoom={false}
+                    onMouseMove={onInfo}
+                    dragPan={false}
+                    dragRotate={false}
+                    scrollZoom={false}
                 >
-                    <Map
-                        initialViewState={{
-                            longitude: lng,
-                            latitude: lat,
-                            zoom: zoom
+                    {(hoveredMigrantCountry && !hoveredCity) && (countryTip)}
+                    {(hoveredCity) && (cityTip)}
+                    {(hoveredRouteId) && (routeTip)}
+                    {renderSource(activeSource, risks)}
+
+                    <Layer {...layersObject["unselectedCountryOverlay"]}
+                        filter={unselectedCountryFilter}
+                        paint={{
+                            ...layersObject["unselectedCountryOverlay"].paint,
+                            "fill-opacity": overlayOpacity
                         }}
-                        latitude={lat}
-                        longitude={lng}
-                        style={{
-                            width: '100%', height: '100%'
+                    />
+                    <Layer {...layersObject["countryLayer"]} />
+
+                    <Layer {...highlightLayer} filter={filter} />
+                    {<Layer {...layersObject["overallRoutes"]}
+                        paint={{
+                            ...layersObject["overallRoutes"].paint,
+                            "line-opacity": featureOpacity && featureOpacity.countryBorder,
                         }}
-                        attributionControl={false}
-                        interactiveLayerIds={
-                            activeSource === "originCities" ? ["hoverable", "cities", "overlay"] :
-                                activeSource === "transectSegment" ? ["migration-buffer", "hoverable", 'overlay', "cities"] :
-                                    activeSource ? ["hoverable", "overlay", "cities"] : ['hoverable']}
-                        // interactiveLayerIds={
-                        //     (mapLayers) ? risks
-                        //         .styles
-                        //         .narrativeToLayer[activeSource]
-                        //         .layers
-                        //         .map(layer => `${layer.id}`) : []
-                        // }
-                        zoom={zoom}
-                        mapStyle={mapStyle}
-                        ref={mapRef}
-                        doubleClickZoom={false}
-                        onMouseMove={onInfo}
-                        dragPan={false}
-                        dragRotate={false}
-                        scrollZoom={false}
-                    >
-                        {(selectedCountry) && (countryTip)}
-                        {(selectedCity) && (cityTip)}
-                        {(selectedSegment && activeSource === 'transectSegment') && (routeTip)}
-                        {renderSource(activeSource, risks)}
+                    />}
 
-                        {/* {renderLayers(mapLayers, seenLayers, selectedFeature, mapRef.current)} */}
-                        <Layer {...layersObject["unselectedCountryOverlay"]}
-                            filter={unselectedCountryFilter}
-                            paint={{
-                                ...layersObject["unselectedCountryOverlay"].paint,
-                                "fill-opacity": overlayOpacity
-                            }}
-                        />
-                        <Layer {...layersObject["countryLayer"]} />
+                    <Layer {...layersObject["migrationRouteStyle"]}
+                        lineJoin="round"
+                        paint={{
+                            ...layersObject["migrationRouteStyle"].paint,
+                            // "line-opacity": featureOpacity && featureOpacity.transect,
 
-                        <Layer {...highlightLayer} filter={filter} />
-                        {<Layer {...layersObject["overallRoutes"]}
-                            paint={{
-                                ...layersObject["overallRoutes"].paint,
-                                "line-opacity": featureOpacity && featureOpacity.countryBorder,
-                            }}
-                        />}
+                        }}
+                    />
+                    <Layer {...layersObject["migrationHover"]}
+                        lineJoin="round"
+                        filter={routeFilter}
+                        paint={{
+                            ...layersObject["migrationHover"].paint,
+                            // "line-opacity": featureOpacity && featureOpacity.transect,
 
-                        <Layer {...layersObject["migrationRouteStyle"]}
-                            lineJoin="round"
+                        }}
+                    />
+                    <Layer {...layersObject["cityStyle"]}
+                        paint={{
+                            ...layersObject["cityStyle"].paint,
+                            "circle-opacity": featureOpacity && featureOpacity.originCities,
+
+                        }} />
+                    <Layer {...layersObject["cityStyle"]}
+                        id='cities-in-country'
+                        filter={citiesSelectedCountryFilter}
+                    />
+                    <Layer {...layersObject["cityMarkerHighlight"]} filter={cityHighlightFilter} />
+                    <Layer {...layersObject["migrationBuffer"]} />
+                    {activeSource === "overallRoutes" && (<Layer {...layersObject["citiesContextAllMarker"]} />)}
+                    {activeSource === "overallRoutes" && (<Layer {...layersObject["citiesContextAllLabel"]} />)}
+                    {activeSource === "transectSegment" && (<Layer {...layersObject["citiesContextTransectMarker"]} />)}
+                    {activeSource === "transectSegment" && (<Layer {...layersObject["citiesContextTransectLabel"]} />)}
+
+                    {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
+                    <Layer {...layersObject["destinationCitiesMarker"]} />
+                    <Layer {...layersObject["destinationCitiesLabel"]} />
+
+                    {width > 600 && (
+                        <Layer {...layersObject["majorCountryLabel"]}
                             paint={{
-                                ...layersObject["migrationRouteStyle"].paint,
-                                "line-opacity": featureOpacity && featureOpacity.transect,
+                                ...layersObject["majorCountryLabel"].paint,
+                                "text-opacity": featureOpacity && featureOpacity.countryBorder,
 
                             }}
-                        />
-                        <Layer {...layersObject["migrationHover"]}
-                            lineJoin="round"
-                            filter={routeFilter}
+                        />)}
+                    {width > 600 && (
+                        <Layer {...layersObject["minorCountryLabel"]}
                             paint={{
-                                ...layersObject["migrationHover"].paint,
-                                "line-opacity": featureOpacity && featureOpacity.transect,
+                                ...layersObject["minorCountryLabel"].paint,
+                                "text-opacity": featureOpacity && featureOpacity.countryBorder,
 
                             }}
-                        />
-                        <Layer {...layersObject["cityStyle"]}
-                            paint={{
-                                ...layersObject["cityStyle"].paint,
-                                "circle-opacity": featureOpacity && featureOpacity.originCities,
+                        />)}
+                    {(width > 600 && (!hoveredMigrantCountry || (activeSource === 'transectSegment'))) && (
 
-                            }} />
-                        <Layer {...layersObject["cityStyle"]}
-                            id='cities-in-country'
-                            filter={citiesSelectedCountryFilter}
-                        />
-                        <Layer {...layersObject["cityMarkerHighlight"]} filter={cityHighlightFilter} />
-                        <Layer {...layersObject["migrationBuffer"]} />
-                        {activeSource === "overallRoutes" && (<Layer {...layersObject["citiesContextAllMarker"]} />)}
-                        {activeSource === "overallRoutes" && (<Layer {...layersObject["citiesContextAllLabel"]} />)}
-                        {activeSource === "transectSegment" && (<Layer {...layersObject["citiesContextTransectMarker"]} />)}
-                        {activeSource === "transectSegment" && (<Layer {...layersObject["citiesContextTransectLabel"]} />)}
-
-                        {activeSource && (<Layer {...layersObject["migrationHover"]} lineJoin="round" filter={routeFilter} />)}
-                        <Layer {...layersObject["destinationCitiesMarker"]} />
-                        <Layer {...layersObject["destinationCitiesLabel"]} />
-
-                        {width > 600 && (
-                            <Layer {...layersObject["majorCountryLabel"]}
-                                paint={{
-                                    ...layersObject["majorCountryLabel"].paint,
-                                    "text-opacity": featureOpacity && featureOpacity.countryBorder,
-
-                                }}
-                            />)}
-                        {width > 600 && (
-                            <Layer {...layersObject["minorCountryLabel"]}
-                                paint={{
-                                    ...layersObject["minorCountryLabel"].paint,
-                                    "text-opacity": featureOpacity && featureOpacity.countryBorder,
-
-                                }}
-                            />)}
-                        {(width > 600 && (!selectedCountry || (activeSource === 'transectSegment'))) && (
-
-                            <Layer {...layersObject["nonMigrantCountryLabel"]}
-                                filter={nonMigrantCountryFilter}
-                            />)}
-                        {activeSource === "transectSegment" && (<Layer {...layersObject["transectCountryLabel"]} />)}
-                    </Map>
-                </div >
-            </ScreenContext.Provider>
-        </RouteContext.Provider>
+                        <Layer {...layersObject["nonMigrantCountryLabel"]}
+                            filter={nonMigrantCountryFilter}
+                        />)}
+                    {activeSource === "transectSegment" && (<Layer {...layersObject["transectCountryLabel"]} />)}
+                </Map>
+            </div >
+        </ScreenContext.Provider>
     )
 }
