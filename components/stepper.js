@@ -42,8 +42,10 @@ export default function Stepper({
       className={styles.stepperContainer}
       animate={isActive ? 'open' : 'closed'}
       variants={variants}
-      onHoverStart={isActive && onHoverStart}
-      onHoverEnd={isActive && onHoverEnd}
+      onMouseEnter={isActive && onHoverStart}
+      onMouseLeave={isActive && onHoverEnd}
+      onTouchStart={isActive && onHoverStart}
+      onTouchEnd={isActive && onHoverEnd}
     >
       <div
         className={styles.stepperLine}
