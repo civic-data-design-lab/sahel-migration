@@ -29,8 +29,8 @@ export default function Navigation({ journeys, journey }) {
               style={{ marginLeft: '1rem', alignSelf: 'flex-start' }}
               onMouseEnter={() => setIsActiveLeft(true)}
               onMouseLeave={() => setIsActiveLeft(false)}
-              onTouchStart={() => setIsActiveLeft(true)}
-              onTouchEnd={() => setIsActiveLeft(false)}
+              // onTouchStart={() => setIsActiveLeft(true)}
+              // onTouchEnd={() => setIsActiveLeft(false)}
             >
               {journey.id > 2 ? (
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
@@ -73,8 +73,8 @@ export default function Navigation({ journeys, journey }) {
                 style={{ marginRight: '1rem', alignSelf: 'flex-end' }}
                 onMouseEnter={() => setIsActiveRight(true)}
                 onMouseLeave={() => setIsActiveRight(false)}
-                onTouchStart={() => setIsActiveRight(true)}
-                onTouchEnd={() => setIsActiveRight(false)}
+                // onTouchStart={() => setIsActiveRight(true)}
+                // onTouchEnd={() => setIsActiveRight(false)}
               >
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
                 <span className={`${styles.arrowIcon} material-symbols-outlined`}>

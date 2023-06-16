@@ -25,8 +25,7 @@
 
 @media only screen and (max-width: 480px) {
   .main {
-    /*max-width: 90vw;*/
-    width: 90vw;
+    /*width: 90vw;*/
     top: 7%;
     /*left: 1rem;*/
   }
