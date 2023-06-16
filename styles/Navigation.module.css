@@ -49,20 +49,25 @@
   width: 2rem;
 }
 
-.button:hover {
-  /*opacity: 0.75;*/
-  cursor: pointer;
-  background-color: var(--brown);
-  border-color: var(--brown);
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    /*opacity: 0.75;*/
+    cursor: pointer;
+    background-color: var(--brown);
+    border-color: var(--brown);
+  }
+  .button:hover a {
+    color: white;
+  }
 }
+
+
 
 .button a {
   color: var(--brown);
 }
 
-.button:hover a {
-  color: white;
-}
+
 
 .arrowIcon {
   font-size: 1.75rem;

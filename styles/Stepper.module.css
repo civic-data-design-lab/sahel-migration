@@ -36,9 +36,14 @@
   line-height: 1.1rem;
 }
 
-.stepContainer:hover {
-  color: black
+@media (hover: hover) and (pointer: fine) {
+  .stepContainer:hover {
+    color: black
+  }
+
 }
+
+
 
 .textContainer {
   margin-left: .2rem;
