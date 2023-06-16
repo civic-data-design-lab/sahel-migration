@@ -27,8 +27,10 @@ export default function Navigation({ journeys, journey }) {
             <motion.button
               className={styles.button}
               style={{ marginLeft: '1rem', alignSelf: 'flex-start' }}
-              onHoverStart={() => setIsActiveLeft(true)}
-              onHoverEnd={() => setIsActiveLeft(false)}
+              onMouseEnter={() => setIsActiveLeft(true)}
+              onMouseLeave={() => setIsActiveLeft(false)}
+              onTouchStart={() => setIsActiveLeft(true)}
+              onTouchEnd={() => setIsActiveLeft(false)}
             >
               {journey.id > 2 ? (
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
@@ -69,8 +71,10 @@ export default function Navigation({ journeys, journey }) {
               <motion.button
                 className={styles.button}
                 style={{ marginRight: '1rem', alignSelf: 'flex-end' }}
-                onHoverStart={() => setIsActiveRight(true)}
-                onHoverEnd={() => setIsActiveRight(false)}
+                onMouseEnter={() => setIsActiveRight(true)}
+                onMouseLeave={() => setIsActiveRight(false)}
+                onTouchStart={() => setIsActiveRight(true)}
+                onTouchEnd={() => setIsActiveRight(false)}
               >
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
                 <span className={`${styles.arrowIcon} material-symbols-outlined`}>
