@@ -29,7 +29,7 @@
 
 .buttonContainer {
   display: flex;
-  flex-direction: row;
+  align-items: center;
 }
 
 .buttonText {
@@ -81,7 +81,7 @@
   }
 
   .buttonText {
-    display: none;
+    font-size: 0.75rem;
   }
 
   .arrowIcon {
