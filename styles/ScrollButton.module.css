@@ -6,6 +6,7 @@
     background: none;
     border: none;
     z-index: 10;
+    color: var(--brown);
 }
 .scrollButton:hover {
     cursor: pointer;
@@ -13,7 +14,6 @@
 }
 
 .scrollButtonText {
-    color: var(--dark);
     font-family: var(--sans-font-fam);
     font-size: clamp(0.5rem, 1.3vw, 0.7rem);
     line-height: 0.8rem;
@@ -35,6 +35,5 @@
 
 @media only screen and (max-width: 480px) {
     .scrollButton {
-        display: none;
     }
 }
