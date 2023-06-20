@@ -43,7 +43,6 @@ export default function JourneyNav({ journeys }) {
             vignetteHovered = true
             setSection({ routeId: index + 1, vignetteHovered: index })
         }
-        console.log(width > 1000 || routeHovered)
         return (
             <Fragment
                 key={`${index}${uuidv4}`}>

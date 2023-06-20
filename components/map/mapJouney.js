@@ -8,6 +8,7 @@ import { ViewContext } from '../../pages/maps/map';
 import useMapView from '../../hooks/useMapView';
 import { useScroll } from 'framer-motion';
 import ContentBox from './contentBox';
+import useWindowSize from '../../hooks/useWindowSize';
 
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
@@ -18,8 +19,8 @@ export default function MapJourney({ journeys, globeVisibility, scrollProgress }
     const { currentSection, setSection } = useContext(SectionContext)
     const { currentView, setCurrentView } = useContext(ViewContext)
     const routeId = currentSection && currentSection.routeId
+    const { width } = useWindowSize()
 
-    console.log(scrollProgress)
     function keys(object) {
         return Object.keys(object)
     }
@@ -93,7 +94,7 @@ export default function MapJourney({ journeys, globeVisibility, scrollProgress }
             setTimeout(() => {
                 map.current.flyTo({
                     center: [4.998172, 20.506743],
-                    zoom: 4.85,
+                    zoom: width > 480 ? 4.85 : 2.7,
                     speed: 0.5,
                     curve: 1,
                     pitch: 50,
