@@ -75,6 +75,13 @@
 }
 
 @media only screen and (max-width: 480px) {
+  .stepContainer {
+    display: none;
+  }
+
+  .stepperLine {
+    display: none;
+  }
   .textContainer {
     font-size: .7rem;
   }

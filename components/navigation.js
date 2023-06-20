@@ -1,12 +1,19 @@
 import styles from '../styles/Navigation.module.css';
 import Link from 'next/link';
 import Stepper from './stepper';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { motion } from 'framer-motion';
 import { color } from 'd3';
 export default function Navigation({ journeys, journey }) {
   const [isActiveLeft, setIsActiveLeft] = useState(false);
   const [isActiveRight, setIsActiveRight] = useState(false);
+  useEffect(() => {
+    if (window.innerWidth < 480) {
+      setIsActiveLeft(true);
+      setIsActiveRight(true);
+    }
+    }, [window.innerWidth]
+  );
   const routes = {};
   journeys.forEach((journey) => (routes[journey.id] = journey.route));
   return (
@@ -29,8 +36,6 @@ export default function Navigation({ journeys, journey }) {
               style={{ marginLeft: '1rem', alignSelf: 'flex-start' }}
               onMouseEnter={() => setIsActiveLeft(true)}
               onMouseLeave={() => setIsActiveLeft(false)}
-              onTouchStart={() => setIsActiveLeft(true)}
-              onTouchEnd={() => setIsActiveLeft(false)}
             >
               {journey.id > 2 ? (
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
@@ -73,8 +78,6 @@ export default function Navigation({ journeys, journey }) {
                 style={{ marginRight: '1rem', alignSelf: 'flex-end' }}
                 onMouseEnter={() => setIsActiveRight(true)}
                 onMouseLeave={() => setIsActiveRight(false)}
-                onTouchStart={() => setIsActiveRight(true)}
-                onTouchEnd={() => setIsActiveRight(false)}
               >
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
                 <span className={`${styles.arrowIcon} material-symbols-outlined`}>

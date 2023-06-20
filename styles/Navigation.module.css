@@ -29,13 +29,13 @@
 
 .buttonContainer {
   display: flex;
-  flex-direction: row;
+  align-items: center;
 }
 
 .buttonText {
-  margin-top: .2rem;
-  margin-right: .5rem;
-  margin-left: .5rem;
+  margin-top: 0.2rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .button {
@@ -61,13 +61,9 @@
   }
 }
 
-
-
 .button a {
   color: var(--brown);
 }
-
-
 
 .arrowIcon {
   font-size: 1.75rem;
@@ -81,6 +77,8 @@
   }
 
   .buttonText {
+    font-size: 0.75rem;
+    /* Remove to add back navigation buttons (next/prev chapter) */
     display: none;
   }
 
