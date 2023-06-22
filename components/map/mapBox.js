@@ -9,7 +9,7 @@ import React, {
     useContext,
 } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import Map, { Source, Layer, useMap } from 'react-map-gl';
+import Map, { Source, Layer } from 'react-map-gl';
 import styles from './../../styles/MapBox.module.css';
 import stylesObject from './mapStyles';
 import useWindowSize from './../../hooks/useWindowSize';

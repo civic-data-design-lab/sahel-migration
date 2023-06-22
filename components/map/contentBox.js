@@ -50,6 +50,7 @@ function Paragraph({ children, data, nextElem }) {
                 <ScrollIndicator
                     onClick={scrollToNext}
                 />
+
             )
             }
         </motion.div>
