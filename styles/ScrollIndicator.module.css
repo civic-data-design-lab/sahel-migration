@@ -10,6 +10,13 @@
     text-align: center;
 }
 
+.scrollIndicator {
+  font-family: var(--sans-font-fam);
+  font-size: 0.6rem;
+  color: var(--brown);
+  transform: translateY(0.4rem);
+}
+
 @media (max-width:600px) {
     .container {
         margin: auto auto 1vh auto;

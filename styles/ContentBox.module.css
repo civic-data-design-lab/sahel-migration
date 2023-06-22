@@ -34,13 +34,43 @@
     margin-bottom: 500px;
 }
 
+.paragraphContainer[data-id="globeView"],
 .paragraphContainer[data-id="globeView_fit"] {
-    margin-bottom: 450px;
-
+    margin-bottom: calc(95vh - 20rem) !important;
+}
+.paragraphContainer[data-id="globeView"] div,
+.paragraphContainer[data-id="globeView_fit"] div,
+.paragraphContainer[data-id="globeView"] div p,
+.paragraphContainer[data-id="globeView_fit"] div p {
+  margin-bottom: 0px !important;
 }
 
 .container::-webkit-scrollbar {
     display: none;
+}
+
+.beginText {
+  font-family: var(--sans-font-fam);
+  font-size: 0.7rem;
+  font-weight: 500;
+  transform: translateY(1rem);
+}
+.arrowRight {
+  color: var(--brown);
+  font-size: 1.5rem;
+  line-height: 0.5rem;
+  transform: translateY(0.5rem);
+}
+.routeJourney {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--brown);
+  text-decoration: none;
+  pointer-events: all !important;
+}
+.routeJourney:hover {
+  color: var(--brown);
+  opacity: 0.7;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
