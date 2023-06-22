@@ -1,3 +1,4 @@
+import useWindowSize from '../../../hooks/useWindowSize';
 import styles from '../../../styles/DataTabToggle.module.css';
 import InfoTooltipWrapper from '../../infotooltip';
 
@@ -8,12 +9,14 @@ export default function DataTabToggle({ isOpen, toggleOpen }) {
     'Migrants are always at risk while in transit. This migration risk score indicates relative variations of extreme risk with higher values that range from 0-100. The score is a composite of six risk factors: migrant reported violence incidents, conflict events, food insecurity, reliance on smugglers, remoteness, and heat exposure. ';
   let riskTooltipText = isOpen ? riskDescription + textCombined : riskDescription + textLayers;
 
+  const { width, height } = useWindowSize();
+
   return (
     <>
       <button className={styles.toggleButton} onClick={toggleOpen}>
-        <h3 className="header-2">Explore the Risks</h3>
-        &ensp;
-        <InfoTooltipWrapper text={riskTooltipText} placement="right">
+        <InfoTooltipWrapper text={riskTooltipText} placement="right" disabled={width < 480}>
+          <h3 className="header-2">Explore the Risks</h3>
+          &ensp;
           <span
             className="material-symbols-outlined"
             style={{
