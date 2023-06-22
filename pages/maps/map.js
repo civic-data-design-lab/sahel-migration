@@ -115,6 +115,7 @@ export default function MainMap({ journeys }) {
                         <NarrativeTextBox
                             scrollRef={sideBarRef}
                             dataItems={riskItems.risks}
+                            journeys={journeys}
                         />
                     </div>
 

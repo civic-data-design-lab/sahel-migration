@@ -109,10 +109,10 @@ export default function Menu({ journeys }) {
                   <AboutSection title={'Policy Recommendations'}>
                     <ol>
                       <li>
-                        Since the main push factor for migrants to leave their countries of origin is economic wage differentials, the international community should focus efforts on building economic opportunities at the country of origin, including employment generation, skills building—ideally in partnership with national governments.
+                        Since the main push factor for migrants to leave their countries of origin is economic wage differentials, the international community should work alongside national governments in developing appropriate policies that facilitate economic and employment opportunities in the country of origin.
                       </li>
                       <li>
-                        Given the extremely high levels of risk during transit, including those related to protection and food insecurity, international partners should seek entry points for the provision of needs-based assistance to migrants.
+                        Given the extremely high levels of risk during transit, including those related to protection and food insecurity, international partners should seek entry points for the provision of needs-based assistance to migrants where possible and feasible. Cash transfers to meet essential needs are recommended where possible and feasible.
                       </li>
                       <li>
                         In locations where migrants settle or use as protracted transit sites, the international community  should address food insecurity and other humanitarian requirements, also considering the needs of the host population to avoid potential tensions.
@@ -242,11 +242,15 @@ export default function Menu({ journeys }) {
                         Esri. (2021). <span className='fst-italic'>Africa Boundaries (ADM0)</span>. {' '}
                         <Link className='font-sans fw-light' href='https://hub.arcgis.com/datasets/geoduck::africa-boundaries/about' target='_blank' rel='noopener noreferrer'>[dataset]</Link>
                       </li>
-                      <li>Esri. (2021). <span className='fst-italic'>World Cities</span>. {' '}
+                      <li>
+                        Esri. (2021). <span className='fst-italic'>World Cities</span>. {' '}
                         <Link className='font-sans fw-light' href='https://hub.arcgis.com/datasets/esri::world-cities/about' target='_blank' rel='noopener noreferrer'>[dataset]</Link>
                       </li>
                       <li>
-                        Global Modeling and Assimilation Office (GMAO). (2022), <span className='fst-italic'>MERRA-2 statM_2d_edi_Nx: 2d, Single-Level, Monthly Extremes Detection Indices based on 1991-2020 V2, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC)</span>, Accessed: 10 January 2022, 10.5067/O8AX56DO60MI
+                        Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. <span className='fst-italic'>High Resolution Settlement Layer (HRSL)</span>. Source imagery for HRSL © 2016 DigitalGlobe. Accessed 1 March 2023.
+                      </li>
+                      <li>
+                        Global Modeling and Assimilation Office (GMAO). (2022), <span className='fst-italic'>MERRA-2 statM_2d_edi_Nx: 2d, Single-Level, Monthly Extremes Detection Indices based on 1991-2020 V2, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC)</span>, Accessed: 10 January 2022, 10.5067/O8AX56DO60MI.
                       </li>
                       <li>
                        Permanent Interstate Committee for Drought Control in the Sahel (CILSS), Integrated Phase Classification (IPC). (2021). <span className='fst-italic'>Cadre Harmonisé (CH) & Integrated Phase Classification (IPC) for West & Central Africa</span>. {' '}
