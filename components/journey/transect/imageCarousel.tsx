@@ -12,7 +12,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 export default function ImageCarousel({ isOpen }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentImageIndex, setIndex] = useState(0);
-  const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', fetcher);
+  const { data: photos, error: photosError } = useSWR('/api/journeys/photosdata', fetcher);
 
 
   const closeModal = () => setModalOpen(false);
@@ -21,15 +21,15 @@ export default function ImageCarousel({ isOpen }) {
     setModalOpen(true);
   };
 
-  if (risksError) return <div>Images not found</div>;
-  if (!riskItems) return <div>loading...</div>;
+  if (photosError) return <div>Images not found</div>;
+  if (!photos) return <div>loading...</div>;
   if (!isOpen) return <></>;
 
   return (
     <div>
       <p className={styles.labelPhotos}>Photos</p>
       <div className={styles.carousel}>
-        {riskItems.transectRisks[6].imageUrls.map((url, i) => {
+        {photos.map((url, i) => {
           return (
             <motion.div
               layout
@@ -69,14 +69,14 @@ export default function ImageCarousel({ isOpen }) {
           initial={false}
           mode="wait"
           onExitComplete={() => null}
-          // currentIndex
+        // currentIndex
         >
           {modalOpen && (
             <ImageModal
               currentIndex={currentImageIndex}
               // modalOpen={modalOpen}
               handleClose={closeModal}
-              images={riskItems.transectRisks[6].imageUrls}
+              images={photos}
             />
           )}
         </AnimatePresence>
