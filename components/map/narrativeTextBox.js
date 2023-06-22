@@ -1,10 +1,11 @@
 import { useRef, useEffect, useContext, useState, useMemo } from 'react';
-import { useInView, useScroll, motion } from 'framer-motion';
+import { useInView, useScroll, motion, useMotionValueEvent } from 'framer-motion';
 import styles from '../../styles/ContentBox.module.css';
 import { ViewContext } from '../../pages/maps/map';
 import { v4 as uuidv4 } from 'uuid';
 import useWindowSize from '../../hooks/useWindowSize';
 import ScrollIndicator from '../scrollIndicator';
+
 
 function Paragraph({ children, data, nextElem }) {
     const { width } = useWindowSize()
@@ -50,9 +51,7 @@ function Paragraph({ children, data, nextElem }) {
                 <ScrollIndicator
                     onClick={scrollToNext}
                 />
-
-            )
-            }
+            )}
         </motion.div>
     );
 }
@@ -60,6 +59,21 @@ function Paragraph({ children, data, nextElem }) {
 export default function NarrativeTextBox({ dataItems }) {
     const contentRef = useRef(null);
     const { width } = useWindowSize()
+
+    const paragraphs = dataItems.map((data, index) => {
+        const nextIndex = (index + 1) % dataItems.length
+        return (
+            <div
+                className={`${styles.paragraphContainer}`}
+                key={uuidv4()}
+                id={data.id}
+                data-id={`${data.id}${width <= 1000 ? "_fit" : ""}`}
+            >
+                <Paragraph data={data} nextElem={dataItems[nextIndex].id}></Paragraph>
+            </div>
+        );
+    })
+
     return (
         <>
             <div ref={contentRef}
@@ -67,19 +81,7 @@ export default function NarrativeTextBox({ dataItems }) {
                 id='narrative-text'
             >
                 <div className={styles.content}>
-                    {dataItems.map((data, index) => {
-                        const nextIndex = (index + 1) % dataItems.length
-                        return (
-                            <div
-                                className={styles.paragraphContainer}
-                                key={uuidv4()}
-                                id={data.id}
-                                data-id={`${data.id}${width <= 1000 ? "_fit" : ""}`}
-                            >
-                                <Paragraph data={data} nextElem={dataItems[nextIndex].id}></Paragraph>
-                            </div>
-                        );
-                    })}
+                    {paragraphs}
                 </div>
             </div>
         </>

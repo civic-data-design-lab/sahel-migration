@@ -5,7 +5,7 @@ import useWindowSize from '../../hooks/useWindowSize'
 import useSWR from 'swr'
 
 import MapBox from "../../components/map/mapBox";
-import NarrativeTextBox from "../../components/map/contentBox";
+import NarrativeTextBox from "../../components/map/narrativeTextBox";
 import Title from "../../components/title";
 import MapJourney from "../../components/map/mapJouney";
 import MapLegend from '../../components/map/mapLegend'

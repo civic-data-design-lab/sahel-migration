@@ -6,8 +6,6 @@ import TransectTip from './transecttip';
 import { SectionContext } from '../../pages';
 import { ViewContext } from '../../pages/maps/map';
 import useMapView from '../../hooks/useMapView';
-import { useScroll } from 'framer-motion';
-import ContentBox from './contentBox';
 import useWindowSize from '../../hooks/useWindowSize';
 
 mapboxgl.accessToken =

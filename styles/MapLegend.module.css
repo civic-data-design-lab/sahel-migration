@@ -7,8 +7,9 @@
     margin-right: .5rem;
     /* pointer-events: none; */
 }
+
 .legend:hover {
-  cursor: default;
+    cursor: default;
 }
 
 .routes {
@@ -20,14 +21,14 @@
 }
 
 #icon {
-  pointer-events: all !important;
-  margin-left: 0.5rem;
-  font-size: 0.8rem;
-  color: #985946;
-  font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0;
+    pointer-events: all !important;
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    color: #985946;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0;
 }
 
 .subheader {
@@ -42,11 +43,13 @@
     color: var(--brown);
     line-height: 1rem;
 }
+
 .routes h4 {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
+
 .routes p {
-  font-size: 0.7rem;
+    font-size: 0.7rem;
 }
 
 .label {
@@ -87,6 +90,12 @@
     .routes h4 {
         font-size: 0.4rem;
     }
+
+    .routes p {
+
+        font-size: 0.4rem;
+    }
+
 
     .legend {
         grid-area: 10/11/10/13;

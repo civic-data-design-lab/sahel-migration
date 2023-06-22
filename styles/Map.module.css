@@ -162,3 +162,11 @@
     } */
 
 }
+
+@media (max-width:480px) {
+
+    .mapContainer {
+        pointer-events: none;
+        z-index: 5;
+    }
+}

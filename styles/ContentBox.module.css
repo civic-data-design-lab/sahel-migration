@@ -32,6 +32,7 @@
     align-items: center;
     padding: 1rem;
     margin-bottom: 500px;
+    transition: opacity 1s;
 }
 
 .paragraphContainer[data-id="globeView_fit"] {
@@ -68,6 +69,16 @@
     height: 100%;
     width: 100%;
     padding: 2rem;
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.show {
+    opacity: 1 !important;
+
 }
 
 
