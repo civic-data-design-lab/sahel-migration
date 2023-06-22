@@ -177,11 +177,11 @@
 /* x-small screen width */
 @media (max-width: 575px) {
   .container {
-    margin-top: 7rem;
+    margin-top: 5rem;
   }
   .nav {
     position: absolute;
-    top: -3rem;
+    top: -2rem;
     pointer-events: none;
   }
   .listContainer {
