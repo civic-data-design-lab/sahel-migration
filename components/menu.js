@@ -67,25 +67,25 @@ export default function Menu({ journeys }) {
         {/* <animated.div style={fullScreenFill} className={styles.screenCover} /> */}
         <animated.div style={fullscreenMenu} className={styles.navBar}>
           <Title className={styles.title} />
-          <Container fluid className={`w-100 h-100 pt-5 pb-1 ${styles.container}`}>
-            <Row className="h-100 mt-4">
-              <Col xs={width > 480 ? 4 : 3} className="h-100 d-flex pt-5 mt-5 mb-5 pb-5">
-                <div className="position-fixed mb-5 pb-5 stickyContainer">
+          <Container fluid className={`w-100 h-100 pt-sm-5 pb-1 ${styles.container}`}>
+            <Row className="position-relative h-100 mt-md-4">
+              <Col xs={12} sm={4} className={`${styles.nav} h-100 d-flex pt-md-5 mt-md-5 mb-md-5 pb-md-5`}>
+                <div className="position-fixed mb-md-5 pb-md-5 stickyContainer">
                   <ul className={styles.listContainer}>
                     <li onClick={() => setSelected(null)}>
-                      <span className={styles.routeAbout}>About</span>
+                      <span className={selected == null ? `${styles.routeAbout} ${styles.routeActive}` : styles.routeAbout}>About</span>
                     </li>
 
                     <li onClick={() => setSelected('map')}>
-                      <span className={styles.route}>Map</span>
+                      <span className={selected == 'map' ? `${styles.route} ${styles.routeActive}` : styles.route}>Map</span>
                       {/* Only show inline on large screens */}
-                      {width > 480 && <MapMenu handleRouting={handleRouting} />}
+                      {width > 767 && <MapMenu handleRouting={handleRouting} />}
                     </li>
 
                     <li onClick={() => setSelected('journey')}>
-                      <span className={styles.route}>Journey</span>
+                      <span className={selected == 'journey' ? `${styles.route} ${styles.routeActive}` : styles.route}>Journey</span>
                       {/* Only show inline on large screens */}
-                      {width > 480 && (
+                      {width > 767 && (
                         <JourneysMenu journeys={journeys} handleRouting={handleRouting} />
                       )}
                     </li>
@@ -93,8 +93,8 @@ export default function Menu({ journeys }) {
                 </div>
               </Col>
 
-              {width > 480 || (width <= 480 && !selected) ? (
-                <Col xs={width > 480 ? 7 : 9} className="pt-5 pb-5">
+              {width > 767 || (width <= 767 && !selected) ? (
+                <Col xs={12} sm={7} className="pt-md-5 pb-5">
                   <AboutSection title={'Risks of West African Migration'}>
                     <p className="body-5">
                       Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022). In June and July 2021, migrants in Libya were surveyed by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana. Migrants on the Move visualizes the combined risks of migrants traveling from West Africa to Libya, along the Central Mediterranean route.
@@ -259,7 +259,7 @@ export default function Menu({ journeys }) {
                     </ul>
                   </AboutSection>
                   <AboutSection title={'Credits'} className="mb-5 pb-5">
-                    <h6>
+                    <h6 className='mt-4'>
                       <Link href='https://civicdatadesignlab.mit.edu/' target='_blank' rel='noopener noreferrer'>
                         Civic Data Design Lab at Massachusetts Institute of Technology
                       </Link>
@@ -272,7 +272,7 @@ export default function Menu({ journeys }) {
                       John Devine, Jonathan Goh, Sebastian Ives, Namhi Kwun, Thanh Nguyen,
                       Jariyaporn Prachasartta, Hannah Shumway, Alison Wang, Tony Xiao
                     </p>
-                    <h6>
+                    <h6 className='mt-4'>
                       <Link href='https://www.wfp.org/' target='_blank' rel='noopener noreferrer'>
                         United Nations World Food Programme
                       </Link>
@@ -280,7 +280,7 @@ export default function Menu({ journeys }) {
                     <p className="body-5">
                       Sara Moussavi, Eleonora Corsale, Mark Wischmeyer, Federico Doehnert
                     </p>
-                    <h6>
+                    <h6 className='mt-4'>
                       <Link href='https://www.ifpri.org/' target='_blank' rel='noopener noreferrer'>
                         International Food Policy Research Institute
                       </Link>
@@ -291,7 +291,7 @@ export default function Menu({ journeys }) {
                       Thanks to the <Link className='fw-bold' href='https://www.iom.int/' target='_blank' rel='noopener noreferrer'>International Organization for Migration (IOM)</Link> and the <Link className='fw-bold' href='https://mixedmigration.org/' target='_blank' rel='noopener noreferrer'>Mixed Migration Centre (MMC)</Link> for sharing datasets, which are included in visualizations on this website.
                     </p>
                   </AboutSection>
-                  <Row className='mt-5'>
+                  <Row className='mt-5 ps-3 pe-3 ps-sm-0 pe-sm-0'>
                     <Col xs={5} lg={4} className='p-0'>
                       <a href="https://civicdatadesignlab.mit.edu/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'
@@ -323,7 +323,7 @@ export default function Menu({ journeys }) {
                       </a>
                     </Col>
                   </Row>
-                  <Row className='mt-3'>
+                  <Row className='mt-3 ps-3 pe-3 ps-sm-0 pe-sm-0 pb-5 mb-5'>
                     <Col xs={{span: 3, offset: 3}} lg={{span: 2}} className='p-1'>
                      <a 
                         href="https://www.iom.int/" target="_blank" rel="noreferrer noopener"
@@ -352,11 +352,11 @@ export default function Menu({ journeys }) {
                   {/* </div> */}
                 </Col>
               ) : selected === 'journey' ? (
-                <Col xs={width > 480 ? 7 : 9} className="pt-5 mt-5 pb-5">
+                <Col xs={12} sm={7} lg={9} className="pt-md-5 mt-md-5 pb-5">
                   <JourneysMenu journeys={journeys} handleRouting={handleRouting} />
                 </Col>
               ) : (
-                <Col xs={width > 480 ? 7 : 9} className="pt-5 mt-5 pb-5">
+                <Col xs={12} sm={7} lg={9} className="pt-md-5 mt-md-5 pb-5">
                   <MapMenu handleRouting={handleRouting} />
                 </Col>
               )}
@@ -371,7 +371,7 @@ export default function Menu({ journeys }) {
 function AboutSection({ title, body, children }) {
   return (
     <>
-      <div className={`mt-5 ${styles.aboutSection}`}>
+      <div className={`mt-md-5 ${styles.aboutSection}`}>
         <h3>{title}</h3>
         {children}
       </div>
