@@ -17,19 +17,21 @@ export default function DataTabToggle({ isOpen, toggleOpen }) {
         <InfoTooltipWrapper text={riskTooltipText} placement="right" disabled={width < 480}>
           <h3 className="header-2">Explore the Risks</h3>
           &ensp;
-          <span
-            className="material-symbols-outlined"
-            style={{
-              pointerEvents: 'all !important',
-              marginLeft: '0.1rem',
-              fontSize: '1.2rem',
-              color: '#985946',
-              fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0",
-              transform: 'translateY(-0.15rem)',
-            }}
-          >
-            info
-          </span>
+          {width >= 480 && (
+            <span
+              className="material-symbols-outlined"
+              style={{
+                pointerEvents: 'all !important',
+                marginLeft: '0.1rem',
+                fontSize: '1.2rem',
+                color: '#985946',
+                fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0",
+                transform: 'translateY(-0.15rem)',
+              }}
+            >
+              info
+            </span>
+          )}
           {isOpen ? (
             <span
               className="material-symbols-outlined"
