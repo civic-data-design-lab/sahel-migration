@@ -38,20 +38,21 @@ export default function Navigation({ journeys, journey }) {
               onMouseLeave={() => setIsActiveLeft(false)}
             >
               {journey.id > 2 ? (
-                <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
+                <Link className={styles.buttonLink} href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
                   <span className={`${styles.arrowIcon} material-symbols-outlined`} style={{fontSize: window.innerWidth < 480? '2.2rem': '1.75rem'}}>
                     arrow_left
                   </span>
+                  <span className={`${styles.buttonText} ${styles.buttonTextPrev}`}>Previous Chapter</span>
                 </Link>
               ) : (
-                <Link href={'/'}>
+                <Link className={styles.buttonLink} href={'/'}>
                   <span className={`${styles.arrowIcon} material-symbols-outlined`} style={{fontSize: window.innerWidth < 480? '2.2rem': '1.75rem'}}>
                     arrow_left
                   </span>
+                  <span className={`${styles.buttonText} ${styles.buttonTextPrev}`}>Previous Chapter</span>
                 </Link>
               )}
             </motion.button>
-            <div className={styles.buttonText}>Previous Chapter</div>
             </div>
           </>
         ) : (
@@ -72,14 +73,14 @@ export default function Navigation({ journeys, journey }) {
               onHoverEnd={() => setIsActiveRight(false)}
             />
             <div className={styles.buttonContainer} style={{justifyContent: "flex-end"}}>
-              <div className={styles.buttonText}>Next Chapter</div>
               <motion.button
                 className={styles.button}
                 style={{ marginRight: '1rem', alignSelf: 'flex-end' }}
                 onMouseEnter={() => setIsActiveRight(true)}
                 onMouseLeave={() => setIsActiveRight(false)}
               >
-                <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
+                <Link className={styles.buttonLink} href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id + 1]}>
+                <span className={`${styles.buttonText} ${styles.buttonTextNext}`}>Next Chapter</span>
                 <span className={`${styles.arrowIcon} material-symbols-outlined`} style={{fontSize: window.innerWidth < 480? '2.2rem': '1.75rem'}}>
                   arrow_right
                 </span>
