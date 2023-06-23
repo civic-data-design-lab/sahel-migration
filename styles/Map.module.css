@@ -127,6 +127,13 @@
 }
 
 
+@supports (-webkit-hyphens:none) {
+    .contentBox {
+        /* background-color: red; */
+        margin-top: 5rem;
+    }
+}
+
 @media (max-width:900px) {
     .gridContainer {
         grid-template-columns: repeat(3, 1fr);
