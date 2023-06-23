@@ -136,7 +136,7 @@
     @media (max-width:480px) {
         .contentBox {
             /* background-color: red; */
-            margin-top: 2.25rem;
+            margin-top: 0rem;
         }
     }
 }
@@ -177,7 +177,7 @@
 
 }
 
-@media (max-width:480px) {
+@media (max-width:900px) {
 
     .mapContainer {
         pointer-events: none;
