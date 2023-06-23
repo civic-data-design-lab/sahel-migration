@@ -129,17 +129,26 @@
 
 @supports (-webkit-hyphens:none) {
     .contentBox {
-        /* background-color: red; */
         margin-top: 5rem;
     }
 
     @media (max-width:480px) {
         .contentBox {
-            /* background-color: red; */
             margin-top: 0rem;
         }
     }
 }
+
+@supports (-webkit-touch-callout: none) {
+
+    /* CSS specific to iOS devices */
+    @media (max-width:480px) {
+        .contentBox {
+            margin-top: 2rem;
+        }
+    }
+}
+
 
 @media (max-width:900px) {
     .gridContainer {

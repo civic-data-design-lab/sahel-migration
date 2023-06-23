@@ -9,7 +9,7 @@ import DataTab from '../components/journey/transect/dataTab';
 const inter = Inter({ subsets: ['latin'] });
 import { useAppContext } from '../context/journeys';
 import JourneyNav from '../components/map/journeyNav';
-import { createContext, useState } from 'react';
+import { createContext, use, useEffect, useState } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
 export const SectionContext = createContext({
@@ -23,6 +23,14 @@ export default function Home() {
   const [currentSection, setSection] = useState(null);
   const sectionValue = { currentSection, setSection };
   const { width } = useWindowSize();
+  const documentHeight = () => {
+    const doc = document.documentElement
+    doc.style.setProperty('--doc-height', `${window.innerHeight}px`)
+  }
+  useEffect(() => {
+    window.addEventListener("resize", documentHeight)
+    documentHeight()
+  })
 
   return (
     <>
