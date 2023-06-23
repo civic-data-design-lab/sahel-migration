@@ -39,7 +39,7 @@ export default function Navigation({ journeys, journey }) {
             >
               {journey.id > 2 ? (
                 <Link href={'/journeys/[id]'} as={'/journeys/' + routes[journey.id - 1]}>
-                  <span className={`${styles.arrowIcon} material-symbols-outlined`}>
+                  <span className={`${styles.arrowIcon} material-symbols-outlined`} style={{fontSize: window.innerWidth < 480? '2.2rem': '1.75rem'}}>
                     arrow_left
                   </span>
                 </Link>
