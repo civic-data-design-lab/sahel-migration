@@ -9,34 +9,48 @@ const RiskLabel = ({ riskId, riskLabel, riskDescription }) => {
   return (
     <div style={{ display: 'flex', textAlign: 'left', alignItems: 'left', gap: '0.5rem' }}>
       <InfoTooltipWrapper text={riskDescription} placement="right">
-        <p
+        <span
           type="text"
           className="label-risk"
           value={riskId}
           style={{
             marginTop: '-0.2rem',
             marginBottom: '0rem',
-            fontFamily: "'Inter', sans-serif",
-            fontWeight: '500',
-            fontSize: width > 480 ? '0.85rem' : '0.6rem',
-            color: 'var(--brown)',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          {riskLabel}
-          <span
-            className="material-symbols-outlined"
+          <p
+            type="text"
+            className="label-risk"
+            value={riskId}
             style={{
-              pointerEvents: 'all !important',
-              marginLeft: '0.5rem',
-              fontSize: '0.8rem',
-              color: '#985946',
-              fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0",
-              transform: 'translateY(0.1rem)'
+              marginTop: '-0.2rem',
+              marginBottom: '0rem',
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: '500',
+              fontSize: width > 480 ? '0.85rem' : '0.6rem',
+              color: 'var(--brown)',
             }}
           >
-            info
-          </span>
-        </p>
+            {riskLabel}
+          </p>
+          <div style={{ display: 'flex' }}>
+            <span
+              className="material-symbols-outlined"
+              style={{
+                pointerEvents: 'all !important',
+                marginLeft: '0.5rem',
+                fontSize: '0.8rem',
+                color: '#985946',
+                fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0",
+                transform: width < 480 ? 'translateY(8px)' : 'none',
+              }}
+            >
+              info
+            </span>
+          </div>
+        </span>
       </InfoTooltipWrapper>
     </div>
   );
