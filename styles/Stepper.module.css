@@ -11,7 +11,7 @@
   position: relative;
   flex-direction: column-reverse;
   /*width: 10rem;*/
-  text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.6);
+  text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8);
 }
 .stepperLine {
   content: '';

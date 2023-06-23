@@ -5,9 +5,10 @@ import { ViewContext } from '../../pages/maps/map';
 import { v4 as uuidv4 } from 'uuid';
 import useWindowSize from '../../hooks/useWindowSize';
 import ScrollIndicator from '../scrollIndicator';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-
-function Paragraph({ children, data, nextElem }) {
+function Paragraph({ children, data, nextElem, journeys }) {
     const { width } = useWindowSize()
     const ref = useRef(null);
     const threshold = width <= 600 ? 0.5 : 0.7;
@@ -15,8 +16,16 @@ function Paragraph({ children, data, nextElem }) {
     const isInView = useInView(ref, {
         amount: threshold,
     });
+    const router = useRouter();
 
     const { currentView, setCurrentView } = useContext(ViewContext);
+    const handleRouting = (href) => {
+      return async (e) => {
+        e.preventDefault();
+        await router.push(href);
+      };
+    };
+    const beginJourney = journeys[1];
 
     function scrollToNext() {
         const el = document.getElementById(nextElem)
@@ -46,6 +55,25 @@ function Paragraph({ children, data, nextElem }) {
                 }}
             >
                 {data.body}
+                {data.id === "globeView" ? (
+                  <>
+                  <br/>
+                  <Link
+                    className={styles.routeJourney}
+                    key={beginJourney.id}
+                    onClick={handleRouting('/journeys/' + beginJourney.route)}
+                    href={'/journeys/' + beginJourney.route}
+                  >
+                    <span className={styles.beginText}>Begin the migration journey from Mali.
+                      <motion.span
+                        class={`${styles.arrowRight} material-symbols-outlined`}
+                      >
+                        keyboard_arrow_right
+                      </motion.span>
+                    </span>
+                  </Link>
+                  </>
+                ) : ''}
             </p>
             {(data.id !== "globeView" && data.id !== "vignetteTransition") && (
                 <ScrollIndicator
@@ -56,7 +84,7 @@ function Paragraph({ children, data, nextElem }) {
     );
 }
 
-export default function NarrativeTextBox({ dataItems }) {
+export default function NarrativeTextBox({ dataItems, journeys }) {
     const contentRef = useRef(null);
     const { width } = useWindowSize()
 
@@ -69,7 +97,7 @@ export default function NarrativeTextBox({ dataItems }) {
                 id={data.id}
                 data-id={`${data.id}${width <= 1000 ? "_fit" : ""}`}
             >
-                <Paragraph data={data} nextElem={dataItems[nextIndex].id}></Paragraph>
+                <Paragraph data={data} nextElem={dataItems[nextIndex].id} journeys={journeys}></Paragraph>
             </div>
         );
     })
@@ -87,5 +115,3 @@ export default function NarrativeTextBox({ dataItems }) {
         </>
     );
 }
-
-
