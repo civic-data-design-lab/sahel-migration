@@ -139,17 +139,6 @@
     }
 }
 
-@supports (-webkit-touch-callout: none) {
-
-    /* CSS specific to iOS devices */
-    @media (max-width:480px) {
-        .contentBox {
-            margin-top: 2rem;
-        }
-    }
-}
-
-
 @media (max-width:900px) {
     .gridContainer {
         grid-template-columns: repeat(3, 1fr);
