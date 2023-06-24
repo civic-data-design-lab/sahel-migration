@@ -61,7 +61,7 @@ export default function ImageBox({ journey }) {
         <object
           type="image/svg+xml"
           data={journey.imageUrl}
-          style={{ position: 'relative', height: height }}
+          style={{ position: 'relative', height: height, overflowY: 'hidden' }}
           ref={svgRef}
         ></object>
         {entourages}
