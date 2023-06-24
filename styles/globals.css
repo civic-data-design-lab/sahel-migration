@@ -157,7 +157,7 @@ main {
   }
 
   body {
-    overflow-y: visible;
+    overflow-y: hidden;
     font-size: 15pt;
     inset: 0;
   }
