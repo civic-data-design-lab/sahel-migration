@@ -18,7 +18,25 @@ export default function ImageBox({ journey }) {
   const ref = useRef(null);
   const { scrollXProgress } = useScroll({ target: ref });
   const svgRef = useRef(null);
-  useEffect(() => {}, []);
+  const handleResize = () => {
+    const objectElement = svgRef.current;
+    if (objectElement && objectElement.contentDocument) {
+      const svgElement = objectElement.contentDocument.querySelector('svg');
+      if (svgElement) {
+        // Set the desired width and height of the SVG element
+        svgElement.setAttribute('width', '100%');
+        svgElement.setAttribute('height', '100%');
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const entourages = journey.entourages.map((entourage) => (
     <Card
       entourage={entourage}
@@ -48,7 +66,6 @@ export default function ImageBox({ journey }) {
         ></object>
         {entourages}
       </motion.div>
-
     </>
   );
 }
