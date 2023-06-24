@@ -151,7 +151,7 @@ main {
 @media only screen and (max-width: 480px) {
   html {
     /* max-width: 100vw; */
-    overflow-y: hidden;
+    /*overflow-y: hidden;*/
     font-size: 15pt;
     inset: 0;
   }
