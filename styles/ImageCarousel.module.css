@@ -135,7 +135,7 @@
     justify-content: space-between;
 }
 
-.caption span {
+.counterCaption {
     position: relative;
     top: 0;
     left: 0;
@@ -224,6 +224,14 @@
 }
 
 @media (max-width:700px) {
+    .mobileCounter {
+        position: fixed;
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        bottom: 10%;
+    }
+
     .imgContainer {
         flex-direction: column;
         padding: 0;
@@ -249,12 +257,11 @@
         left: 5rem;
     }
 
-    .caption span {
-        justify-content: center;
-        position: fixed;
-        inset: 0;
-        top: 85%;
+    .counterCaption {
+        display: flex;
+        align-items: center;
     }
+
 }
 
 
