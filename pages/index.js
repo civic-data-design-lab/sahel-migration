@@ -8,7 +8,7 @@ import DataTabToggle from '../components/journey/transect/dataTabToggle';
 import DataTab from '../components/journey/transect/dataTab';
 const inter = Inter({ subsets: ['latin'] });
 import { useAppContext } from '../context/journeys';
-import JourneyNav from '../components/map/journeyNav';
+import VignetteChapterNav from '../components/map/vignetteChapterNav';
 import { createContext, use, useEffect, useState } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
@@ -48,7 +48,7 @@ export default function Home() {
           {/* <h1>HOME</h1> */}
           <MainMap journeys={journeys} />
           {/* <MapBox /> */}
-          <JourneyNav journeys={journeys} />
+          <VignetteChapterNav journeys={journeys} />
         </SectionContext.Provider>
       </main>
     </>

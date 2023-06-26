@@ -7,7 +7,7 @@ import useSWR from 'swr'
 import MapBox from "../../components/map/mapBox";
 import NarrativeTextBox from "../../components/map/narrativeTextBox";
 import Title from "../../components/title";
-import MapJourney from "../../components/map/mapJouney";
+import MapGlobe from '../../components/map/mapGlobe';
 import MapLegend from '../../components/map/mapLegend'
 import { SectionContext } from '..';
 import { motion } from 'framer-motion';
@@ -40,7 +40,7 @@ export default function MainMap({ journeys }) {
     const viewValue = { currentView, setCurrentView };
 
     const [globeVisibility, setVisibility] = useState(true);
-    const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', mapFetcher);
+    const { data: narrativeItems, error: narrativeError } = useSWR('/api/map/narrativedata', mapFetcher);
     const { data: cities, error: citiesError } = useSWR('/api/map/citydata', mapFetcher);
     const { currentSection, setSection } = useContext(SectionContext)
     const { scrollYProgress, scrollY } = useScroll({
@@ -87,10 +87,10 @@ export default function MainMap({ journeys }) {
 
 
 
-    if (risksError) return <div>Map not found</div>;
-    if (!riskItems) return <div>loading...</div>;
+    if (narrativeError) return <div>Map not found</div>;
+    if (!narrativeItems) return <div>loading...</div>;
 
-    if (citiesError) return <div>Map not found</div>;
+    if (citiesError) return <div>Cities not found</div>;
     if (!cities) return <div>loading...</div>;
 
     return (
@@ -114,7 +114,7 @@ export default function MainMap({ journeys }) {
                     <div className={styles.contentBox} ref={sideBarRef}>
                         <NarrativeTextBox
                             scrollRef={sideBarRef}
-                            dataItems={riskItems.risks}
+                            dataItems={narrativeItems.narratives}
                             journeys={journeys}
                         />
                     </div>
@@ -131,7 +131,7 @@ export default function MainMap({ journeys }) {
                         className={styles.mapHolder}>
                         <MapBox
                             activeSource={currentView}
-                            risks={riskItems}
+                            narrativeData={narrativeItems}
                             cityData={cities}
                             toggleMap={toggleMap}
                         />
@@ -153,7 +153,7 @@ export default function MainMap({ journeys }) {
                         duration: 2
                     }}
                 >
-                    <MapJourney
+                    <MapGlobe
                         journeys={journeys}
                         globeVisibility={globeVisibility}
                         scrollProgress={scrollYProgress.current}
