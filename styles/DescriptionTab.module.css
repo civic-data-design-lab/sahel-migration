@@ -20,7 +20,9 @@
   padding: .5rem;
 }
 
-
+.description {
+  text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8);
+}
 
 
 @media only screen and (max-width: 480px) {

@@ -107,7 +107,7 @@
   color: var(--brown);
 }
 
-.routeAbout {
+.routeActive {
   text-decoration: underline;
 }
 
@@ -161,6 +161,37 @@
 }
 .logoCDDL {
   height: clamp(14px, 6.8vh, 52px);
+}
+
+/* small screen width */
+@media (max-width: 767px) {
+  .container {
+    margin-top: 4rem;
+  }
+  .route:hover,
+  .routeAbout:hover {
+    cursor: pointer;
+  }
+}
+
+/* x-small screen width */
+@media (max-width: 575px) {
+  .container {
+    margin-top: 5rem;
+  }
+  .nav {
+    position: absolute;
+    top: -2rem;
+    pointer-events: none;
+  }
+  .listContainer {
+    flex-direction: row;
+    pointer-events: auto;
+    padding: 0rem;
+  }
+  .listContainer li {
+    padding: 0rem 1rem;
+  }
 }
 
 @media only screen and (max-width: 480px) {

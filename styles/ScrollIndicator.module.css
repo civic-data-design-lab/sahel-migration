@@ -1,21 +1,21 @@
-/* .container {
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    justify-content: space-around;
-    z-index: 10;
-    position: fixed;
-    inset: 0;
-    margin: auto auto 4vh 14vw;
-    color: var(--brown);
-} */
-
 .container {
+    display: flex;
+    flex-direction: column;
     margin: 1vh auto auto auto;
     cursor: pointer;
     pointer-events: all !important;
 }
 
+.container>* {
+    text-align: center;
+}
+
+.scrollIndicator {
+  font-family: var(--sans-font-fam);
+  font-size: 0.6rem;
+  color: var(--brown);
+  transform: translateY(0.4rem);
+}
 
 @media (max-width:600px) {
     .container {

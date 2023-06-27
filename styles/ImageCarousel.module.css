@@ -113,7 +113,7 @@
     background: none;
     border: none;
     position: absolute;
-    top: 1rem;
+    top: 4rem;
     right: 1rem;
     z-index: 1000;
     cursor: pointer;
@@ -135,7 +135,7 @@
     justify-content: space-between;
 }
 
-.caption span {
+.counterCaption {
     position: relative;
     top: 0;
     left: 0;
@@ -216,7 +216,21 @@
     backdrop-filter: blur(10px);
 }
 
+@media screen and (orientation:portrait) {
+    .imgContainer {
+        flex-direction: column;
+        padding: 0;
+    }
+}
+
 @media (max-width:700px) {
+    .mobileCounter {
+        position: absolute;
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+    }
+
     .imgContainer {
         flex-direction: column;
         padding: 0;
@@ -235,19 +249,18 @@
     }
 
     .next {
-        right: 10rem;
+        right: 5rem;
     }
 
     .prev {
-        left: 10rem;
+        left: 5rem;
     }
 
-    .caption span {
-        justify-content: center;
-        position: fixed;
-        inset: 0;
-        top: 85%;
+    .counterCaption {
+        display: flex;
+        align-items: center;
     }
+
 }
 
 

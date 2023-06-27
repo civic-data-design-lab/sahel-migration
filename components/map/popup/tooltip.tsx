@@ -22,7 +22,11 @@ export default function ToolTip({ location, toolType, regionDataProps }) {
     const { currentSection, setSection } = useContext(SectionContext)
 
 
-
+    /*
+    * The tooltip will be offset by this amount from the cursor 
+    * [x,y] represents [horizontal offset, vertical offset]
+    *  postive x direction is a leftward offset, postive y direction is a downward offset
+    */
     const offset = {
         "city": [-150, -100],
         "country": [-150, -200],
@@ -31,12 +35,22 @@ export default function ToolTip({ location, toolType, regionDataProps }) {
         "undefined": [150, -150],
         "false": [50, -50],
     }
+
+
+    /*
+    * Recalculates offsetX and offsetY baed on proximity to (edge of screen) 
+    * Offset direction flips over line reflection
+    * Horizontal line of reflection is centered around Africa's western most point
+    * Vertical line of reflection is centered on vertical halfway point of screen
+    */
     let offsetX = useMemo(() => {
         return Math.sign((posX - width * 0.4) - (width - width * 0.4) / 2) * has(offset, toolType)[0]
     }, [posX])
     let offsetY = useMemo(() => {
         return Math.sign(posY - (height / 2)) * has(offset, toolType)[1]
     }, [posY])
+
+
     let lat = location.latitude
     let lng = location.longitude
 
@@ -55,7 +69,7 @@ export default function ToolTip({ location, toolType, regionDataProps }) {
     }
 
     return (
-        (!(toolType === "route") || (currentSection.index)) && (
+        (!(toolType === "route") || (currentSection.index)) && width > 480 && (
             <Popup style={{
                 maxWidth: '400px',
                 display: visibility,

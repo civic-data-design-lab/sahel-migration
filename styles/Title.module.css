@@ -42,3 +42,9 @@
     /* width: 50rem; */
   }
 }
+/* medium screen width */
+@media (max-width: 991px) {
+  .title {
+    width: 80%;
+  }
+}

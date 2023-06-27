@@ -10,8 +10,8 @@ import useWindowSize from "../../hooks/useWindowSize";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 
-export default function JourneyNav({ journeys }) {
-    const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', fetcher)
+export default function VignetteChapterNav({ journeys }) {
+    const { data: narrativeItems, error: narrativeError } = useSWR('/api/map/narrativedata', fetcher)
     const ref = useRef(null);
     const { width } = useWindowSize()
     const boxRef = useRef(null);
@@ -29,11 +29,11 @@ export default function JourneyNav({ journeys }) {
     const { currentSection, setSection } = useContext(SectionContext)
     const sectionIndex = currentSection && currentSection.index
 
-    if (risksError) return <div>Images not found</div>;
-    if (!riskItems) return <div>loading...</div>;
+    if (narrativeError) return <div>Images not found</div>;
+    if (!narrativeItems) return <div>loading...</div>;
     if (!journeys) return <></>
 
-    const vignettes = zip(riskItems.vignetteUrls, journeys.slice(1)).map((journeyPackage, index) => {
+    const vignettes = zip(narrativeItems.vignetteUrls, journeys.slice(1)).map((journeyPackage, index) => {
         const [url, journey] = journeyPackage
         const goToRouteLink = () => window.location.href = '/journeys/' + journey.route
         let vignetteHovered = false
@@ -43,7 +43,6 @@ export default function JourneyNav({ journeys }) {
             vignetteHovered = true
             setSection({ routeId: index + 1, vignetteHovered: index })
         }
-        console.log(width > 1000 || routeHovered)
         return (
             <Fragment
                 key={`${index}${uuidv4}`}>

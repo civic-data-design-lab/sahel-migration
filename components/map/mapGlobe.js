@@ -3,23 +3,21 @@ import mapboxgl from '!mapbox-gl';
 import styles from '../../styles/MapJourney.module.css';
 import { renderToString } from 'react-dom/server'
 import TransectTip from './transecttip';
+import RouteTip from './popup/routetip';
 import { SectionContext } from '../../pages';
 import { ViewContext } from '../../pages/maps/map';
 import useMapView from '../../hooks/useMapView';
-import { useScroll } from 'framer-motion';
-import ContentBox from './contentBox';
+import useWindowSize from '../../hooks/useWindowSize';
 
 mapboxgl.accessToken =
     'pk.eyJ1IjoibWl0Y2l2aWNkYXRhIiwiYSI6ImNpbDQ0aGR0djN3MGl1bWtzaDZrajdzb28ifQ.quOF41LsLB5FdjnGLwbrrg';
-export default function MapJourney({ journeys, globeVisibility, scrollProgress }) {
+export default function MapGlobe({ journeys, globeVisibility, scrollProgress }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const { zoom, lng, lat } = useMapView()
     const { currentSection, setSection } = useContext(SectionContext)
-    const { currentView, setCurrentView } = useContext(ViewContext)
-    const routeId = currentSection && currentSection.routeId
+    const { width } = useWindowSize()
 
-    console.log(scrollProgress)
     function keys(object) {
         return Object.keys(object)
     }
@@ -93,7 +91,7 @@ export default function MapJourney({ journeys, globeVisibility, scrollProgress }
             setTimeout(() => {
                 map.current.flyTo({
                     center: [4.998172, 20.506743],
-                    zoom: 4.85,
+                    zoom: width > 480 ? 4.85 : 2.7,
                     speed: 0.5,
                     curve: 1,
                     pitch: 50,
@@ -190,22 +188,6 @@ export default function MapJourney({ journeys, globeVisibility, scrollProgress }
                 if (journey) window.location.href = '/journeys/' + journey.route
             })
         }
-
-        window.addEventListener('wheel', (event) => {
-            if (event.deltaY < 0 && scrollProgress < 0.85) {
-                map.current.flyTo({
-                    center: [lng, lat],
-                    zoom: zoom,
-                    speed: 1,
-                    curve: 1,
-                    pitch: 0,
-                    bearing: 0,
-                    easing(t) {
-                        return t;
-                    },
-                });
-            }
-        })
 
     }, [globeVisibility, scrollProgress]);
 

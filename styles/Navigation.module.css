@@ -29,13 +29,29 @@
 
 .buttonContainer {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+}
+
+.buttonLink {
+  position: relative;
 }
 
 .buttonText {
-  margin-top: .2rem;
-  margin-right: .5rem;
-  margin-left: .5rem;
+  position: absolute;
+  width: 8rem;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8);
+}
+.buttonTextPrev {
+  text-align: left;
+  left: 2rem;
+  margin-left: 0.5rem;
+}
+.buttonTextNext {
+  text-align: right;
+  right: 2rem;
+  margin-right: 0.5rem;
 }
 
 .button {
@@ -59,15 +75,15 @@
   .button:hover a {
     color: white;
   }
+  .button:hover .buttonText {
+    color: var(--brown);
+    text-decoration: underline;
+  }
 }
-
-
 
 .button a {
   color: var(--brown);
 }
-
-
 
 .arrowIcon {
   font-size: 1.75rem;
@@ -81,6 +97,8 @@
   }
 
   .buttonText {
+    font-size: 0.75rem;
+    /* Remove to add back navigation buttons (next/prev chapter) */
     display: none;
   }
 

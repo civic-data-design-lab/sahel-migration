@@ -3,13 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/Map.module.css'
 import useWindowSize from '../../hooks/useWindowSize'
 import useSWR from 'swr'
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
 import MapBox from "../../components/map/mapBox";
-import NarrativeTextBox from "../../components/map/contentBox";
+import NarrativeTextBox from "../../components/map/narrativeTextBox";
 import Title from "../../components/title";
-import { animated, useSpring } from "react-spring";
-import MapJourney from "../../components/map/mapJouney";
+import MapGlobe from '../../components/map/mapGlobe';
 import MapLegend from '../../components/map/mapLegend'
 import { SectionContext } from '..';
 import { motion } from 'framer-motion';
@@ -40,33 +38,15 @@ export default function MainMap({ journeys }) {
     const boxRef = useRef(null);
     const [currentView, setCurrentView] = useState('overallRoutes');
     const viewValue = { currentView, setCurrentView };
-    const emptyMapContainerRef = useRef(<div></div>)
-    const emptyMapRef = useRef(null)
-
-    const [isScrolling, setScrolling] = useState(false)
 
     const [globeVisibility, setVisibility] = useState(true);
-    const { data: riskItems, error: risksError } = useSWR('/api/map/risksdata', mapFetcher);
+    const { data: narrativeItems, error: narrativeError } = useSWR('/api/map/narrativedata', mapFetcher);
     const { data: cities, error: citiesError } = useSWR('/api/map/citydata', mapFetcher);
     const { currentSection, setSection } = useContext(SectionContext)
     const { scrollYProgress, scrollY } = useScroll({
         container: sideBarRef
     })
 
-
-
-    // const exploreRoutes = useSpring({
-    //     opacity: globeVisibility ? 0 : 1,
-    //     zIndex: globeVisibility ? 0 : 1,
-    // });
-
-    // const hideMapBox = useSpring({
-    //     opacity: globeVisibility ? 0 : 1
-    // })
-
-    // const revealJourney = useSpring({
-    //     zIndex: globeVisibility ? 3 : -1,
-    // });
 
 
     function toggleMap() {
@@ -81,40 +61,36 @@ export default function MainMap({ journeys }) {
 
     }, [currentView])
 
-    // window.addEventListener('mousewheel', (event) => {
-    //     setScrolling(true)
-    //     enablePointerEvents(boxRef.current)
-    // })
     useEffect(() => {
-
-        window.addEventListener('wheel', (event) => {
-            enablePointerEvents(boxRef.current)
-        })
-        window.addEventListener('mousewheel', (event) => {
-            enablePointerEvents(boxRef.current)
-        })
-        if (boxRef.current) {
-            window.addEventListener('mousemove', (event) => {
-                if (!globeVisibility && Math.abs(event.movementX) <= 0.5 && Math.abs(event.movementY) <= 0.5) { enablePointerEvents(boxRef.current) }
-                else disablePointerEvents(boxRef.current)
+        if (width > 480) {
+            window.addEventListener('wheel', (event) => {
+                enablePointerEvents(boxRef.current)
             })
-            if (width < 600) {
-                window.addEventListener('click', (event) => {
-                    disablePointerEvents(boxRef.current)
+            window.addEventListener('mousewheel', (event) => {
+                enablePointerEvents(boxRef.current)
+            })
+            if (boxRef.current) {
+                window.addEventListener('mousemove', (event) => {
+                    if (!globeVisibility && Math.abs(event.movementX) <= 0.5 && Math.abs(event.movementY) <= 0.5) { enablePointerEvents(boxRef.current) }
+                    else disablePointerEvents(boxRef.current)
                 })
+                if (width < 600) {
+                    window.addEventListener('click', (event) => {
+                        disablePointerEvents(boxRef.current)
+                    })
+                }
+
+
             }
-
-
         }
     })
 
 
 
+    if (narrativeError) return <div>Map not found</div>;
+    if (!narrativeItems) return <div>loading...</div>;
 
-    if (risksError) return <div>Map not found</div>;
-    if (!riskItems) return <div>loading...</div>;
-
-    if (citiesError) return <div>Map not found</div>;
+    if (citiesError) return <div>Cities not found</div>;
     if (!cities) return <div>loading...</div>;
 
     return (
@@ -138,7 +114,8 @@ export default function MainMap({ journeys }) {
                     <div className={styles.contentBox} ref={sideBarRef}>
                         <NarrativeTextBox
                             scrollRef={sideBarRef}
-                            dataItems={riskItems.risks}
+                            dataItems={narrativeItems.narratives}
+                            journeys={journeys}
                         />
                     </div>
 
@@ -154,7 +131,7 @@ export default function MainMap({ journeys }) {
                         className={styles.mapHolder}>
                         <MapBox
                             activeSource={currentView}
-                            risks={riskItems}
+                            narrativeData={narrativeItems}
                             cityData={cities}
                             toggleMap={toggleMap}
                         />
@@ -176,8 +153,7 @@ export default function MainMap({ journeys }) {
                         duration: 2
                     }}
                 >
-                    <MapJourney
-                        // style={revealJourney}
+                    <MapGlobe
                         journeys={journeys}
                         globeVisibility={globeVisibility}
                         scrollProgress={scrollYProgress.current}

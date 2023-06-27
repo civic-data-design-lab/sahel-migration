@@ -36,7 +36,7 @@ export default function DataTab({ journey }) {
   return (
     <>
       <animated.div style={fullScreenFill} className={styles.screenCover} />
-      <animated.div style={fullscreenTab} className={styles.tab}>
+      <animated.div style={fullscreenTab} className={styles.tgiab}>
         <TransectContainer isOpen={isOpen} toggleOpen={handleToggle} journey={journey} />
       </animated.div>
     </>

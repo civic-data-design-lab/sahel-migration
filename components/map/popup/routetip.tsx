@@ -6,7 +6,6 @@ export default function RouteTip({ regionData }) {
     const vignetteNames = ["Beginning the Journey", "Passing through Agadez", "Crossing the Sahara Desert", "Entering Libya", "Passing through Sabha", "Reaching Tripoli", "Current Conditions in Libya"]
     const round = (num: number) => Math.round(num)
     const { currentSection, setSection } = useContext(SectionContext)
-
     return (
 
         (currentSection && currentSection.index) && (

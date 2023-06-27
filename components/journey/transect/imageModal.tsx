@@ -28,10 +28,14 @@ const dropIn = {
   },
 };
 const Backdrop = ({ children, onClick }) => {
+  const { height } = useWindowSize()
   return (
     <motion.div
       onClick={onClick}
       className={styles.backdrop}
+      style={{
+        zIndex: 20
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -88,7 +92,7 @@ const variants = {
  * Should accomodate longer swipes and short flicks without having binary checks on
  * just distance thresholds and velocity > 0.
  */
-const swipeConfidenceThreshold = 10000;
+const swipeConfidenceThreshold = 1000;
 const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
@@ -111,6 +115,28 @@ export const SlideShow = ({ images, currentIndex }: any) => {
   const paginate = (newDirection: number) => {
     setPage([page + newDirection, newDirection]);
   };
+  let currentImageNumber = ((imageIndex + currentIndex) % images.length) + 1
+  const totalImageNumber = images.length
+
+  const nextButton = (className) =>
+    <div className={styles[className]} onClick={() => paginate(1)}>
+      <span className="material-symbols-outlined">navigate_next</span>
+    </div>
+  const prevButton = (className) =>
+    <div className={styles[className]} onClick={() => paginate(-1)}>
+      <span className="material-symbols-outlined">navigate_before</span>
+    </div>
+
+  const desktopImageCounter =
+    <div className={styles.counter}>
+      <span className={styles.counterCaption}>Image {currentImageNumber} / {totalImageNumber}</span>
+    </div>
+  const mobileImageCounter =
+    <div className={styles.mobileCounter}>
+      {prevButton("prevMobile")}
+      <span className={styles.counterCaption}> {currentImageNumber} of {totalImageNumber}</span>
+      {nextButton("nextMobile")}
+    </div>
 
   return (
     <div className={styles['example-container']}>
@@ -162,26 +188,22 @@ export const SlideShow = ({ images, currentIndex }: any) => {
 
               <div>
                 {width > 700 && (
-                  <span>
-                    Image {((imageIndex + currentIndex) % images.length) + 1}/ {images.length}
-                  </span>
+                  desktopImageCounter
                 )}
                 {width <= 700 && (
-                  <span>
-                    {((imageIndex + currentIndex) % images.length) + 1} of {images.length}
-                  </span>
+                  mobileImageCounter
                 )}
               </div>
             </div>
           </div>
         </div>
       </AnimatePresence>
-      <div className={styles.next} onClick={() => paginate(1)}>
-        <span className="material-symbols-outlined">navigate_next</span>
-      </div>
-      <div className={styles.prev} onClick={() => paginate(-1)}>
-        <span className="material-symbols-outlined">navigate_before</span>
-      </div>
+      {width > 700 && (
+        nextButton("next")
+      )}
+      {width > 700 && (
+        prevButton("prev")
+      )}
     </div>
   );
 };

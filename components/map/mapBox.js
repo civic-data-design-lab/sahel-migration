@@ -9,7 +9,7 @@ import React, {
     useContext,
 } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import Map, { Source, Layer, useMap } from 'react-map-gl';
+import Map, { Source, Layer } from 'react-map-gl';
 import styles from './../../styles/MapBox.module.css';
 import stylesObject from './mapStyles';
 import useWindowSize from './../../hooks/useWindowSize';
@@ -48,7 +48,7 @@ function objectMap(object, mapFn) {
 }
 
 
-export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
+export default function MapBox({ activeSource, narrativeData, cityData, toggleMap }) {
     const containerRef = useRef(null)
     const mapRef = useRef(null)
     const { width } = useWindowSize()
@@ -56,7 +56,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
     const { zoom, lng, lat } = useMapView()
     const mapCenter = { lng: lng, lat: lat, }
     const [tooltipInfo, setTooltipInfo] = useState({
-        migrantData: risks && risks.migrantData,
+        migrantData: narrativeData && narrativeData.migrantData,
         cityData: cityData
     });
 
@@ -267,7 +267,7 @@ export default function MapBox({ activeSource, risks, cityData, toggleMap }) {
                     {(hoveredMigrantCountry && !hoveredCity) && (countryTip)}
                     {(hoveredCity) && (cityTip)}
                     {(hoveredRouteId) && (routeTip)}
-                    {renderSource(activeSource, risks)}
+                    {renderSource(activeSource, narrativeData)}
 
                     <Layer {...layersObject["unselectedCountryOverlay"]}
                         filter={unselectedCountryFilter}
