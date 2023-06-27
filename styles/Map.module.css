@@ -175,6 +175,15 @@
 
 }
 
+@media (max-width:480px) {
+    .boxContainer {
+        position: fixed;
+        top: 8vh;
+        height: 99%;
+    }
+
+}
+
 @media (max-width:900px) {
 
     .mapContainer {
