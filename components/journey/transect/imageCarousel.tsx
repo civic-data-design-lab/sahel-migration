@@ -1,23 +1,25 @@
 import styles from '../../../styles/ImageCarousel.module.css';
 
 import { useSpring, motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import useSWR from 'swr';
 import { v4 as uuidv4 } from 'uuid';
 import ImageModal from './imageModal';
 import ImageFilter from 'react-image-filter';
+import { ImagesContext } from '../../../pages/journeys/[id]'
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function ImageCarousel({ isOpen }) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [currentImageIndex, setIndex] = useState(0);
+  const { modalOpen, setModalOpen, currentImageIndex, setImageIndex } = useContext(ImagesContext)
+  // const [modalOpen, setModalOpen] = useState(false);
+  // const [currentImageIndex, setIndex] = useState(0);
   const { data: photos, error: photosError } = useSWR('/api/journeys/photosdata', fetcher);
 
 
   const closeModal = () => setModalOpen(false);
   const openModal = (i) => {
-    setIndex(i);
+    setImageIndex(i);
     setModalOpen(true);
   };
 
@@ -65,7 +67,7 @@ export default function ImageCarousel({ isOpen }) {
             </motion.div>
           );
         })}
-        <AnimatePresence
+        {/* <AnimatePresence
           initial={false}
           mode="wait"
           onExitComplete={() => null}
@@ -79,7 +81,7 @@ export default function ImageCarousel({ isOpen }) {
               images={photos}
             />
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </div>
     </div>
   );

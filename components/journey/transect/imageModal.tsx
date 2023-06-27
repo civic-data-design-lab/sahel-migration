@@ -28,10 +28,14 @@ const dropIn = {
   },
 };
 const Backdrop = ({ children, onClick }) => {
+  const { height } = useWindowSize()
   return (
     <motion.div
       onClick={onClick}
       className={styles.backdrop}
+      style={{
+        zIndex: 20
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
