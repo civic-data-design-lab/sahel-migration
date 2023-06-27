@@ -1,17 +1,12 @@
-.imageContainer {
-  overflow-x: scroll;
-  object-fit: cover;
-  position: relative;
-  height: 100%;
-}
 
 .image {
   overflow-x: scroll;
   position: relative;
 }
 
-.journeryContainer {
+.journeyContainer {
   display: flex;
+  height: 100vh;
 }
 
 .gridContainer {
