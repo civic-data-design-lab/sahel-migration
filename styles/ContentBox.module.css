@@ -48,7 +48,7 @@
 }
 
 .paragraphContainer[data-id="globeView_small"] {
-    margin-bottom: calc(95vh - 12rem) !important;
+    margin-bottom: calc(95vh - 20rem) !important;
 }
 
 .container::-webkit-scrollbar {
