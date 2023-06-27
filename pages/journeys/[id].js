@@ -46,7 +46,7 @@ export default function JourneysPage() {
   if (!photos) return <div>loading...</div>;
 
   return (
-    <>
+    <div style={{height:'100vh'}}>
       <div id="journey" className={styles.journeyContainer}>
         <div className={styles.gridContainer}>
           <Title />
@@ -74,7 +74,7 @@ export default function JourneysPage() {
             images={photos}
           />
         )}
-      </AnimatePresence>x
-    </>
+      </AnimatePresence>
+    </div>
   );
 }
