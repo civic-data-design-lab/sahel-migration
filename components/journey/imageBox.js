@@ -32,19 +32,19 @@ export default function ImageBox({ journey }) {
   ));
 
   return (
-    <>
+    <div style={{height:"100vh"}}>
       <ScrollButton width={width}/>
       <div className="box" ref={ref}>
         <DescriptionTab title={journey.title} body={journey.body} scrollXProgress={scrollXProgress} entourages={journey.entourages} width={width}/>
         <object
           type="image/svg+xml"
           data={journey.imageUrl}
-          style={{ position: 'relative', height: height }}
+          style={{ position: 'relative', height: '100vh' }}
           ref={svgRef}
         ></object>
         {entourages}
       </div>
 
-    </>
+    </div>
   );
 }
