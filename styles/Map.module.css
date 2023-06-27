@@ -148,7 +148,7 @@
 
     .textContainer {
         height: 40vh;
-        overflow-y: auto;
+        /* overflow-y: auto; */
         position: relative;
         overflow-x: hidden;
     }
