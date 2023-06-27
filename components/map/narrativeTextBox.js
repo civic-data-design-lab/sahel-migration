@@ -20,10 +20,10 @@ function Paragraph({ children, data, nextElem, journeys }) {
 
     const { currentView, setCurrentView } = useContext(ViewContext);
     const handleRouting = (href) => {
-      return async (e) => {
-        e.preventDefault();
-        await router.push(href);
-      };
+        return async (e) => {
+            e.preventDefault();
+            await router.push(href);
+        };
     };
     const beginJourney = journeys[1];
 
@@ -56,23 +56,23 @@ function Paragraph({ children, data, nextElem, journeys }) {
             >
                 {data.body}
                 {data.id === "globeView" ? (
-                  <>
-                  <br/>
-                  <Link
-                    className={styles.routeJourney}
-                    key={beginJourney.id}
-                    onClick={handleRouting('/journeys/' + beginJourney.route)}
-                    href={'/journeys/' + beginJourney.route}
-                  >
-                    <span className={styles.beginText}>Begin the migration journey from Mali.
-                      <motion.span
-                        class={`${styles.arrowRight} material-symbols-outlined`}
-                      >
-                        keyboard_arrow_right
-                      </motion.span>
-                    </span>
-                  </Link>
-                  </>
+                    <>
+                        <br />
+                        <Link
+                            className={styles.routeJourney}
+                            key={beginJourney.id}
+                            onClick={handleRouting('/journeys/' + beginJourney.route)}
+                            href={'/journeys/' + beginJourney.route}
+                        >
+                            <span className={styles.beginText}>Begin the migration journey from Mali.
+                                <motion.span
+                                    class={`${styles.arrowRight} material-symbols-outlined`}
+                                >
+                                    keyboard_arrow_right
+                                </motion.span>
+                            </span>
+                        </Link>
+                    </>
                 ) : ''}
             </p>
             {(data.id !== "globeView" && data.id !== "vignetteTransition") && (
@@ -95,7 +95,8 @@ export default function NarrativeTextBox({ dataItems, journeys }) {
                 className={`${styles.paragraphContainer}`}
                 key={uuidv4()}
                 id={data.id}
-                data-id={`${data.id}${width <= 1000 ? "_fit" : ""}`}
+                data-id={`${data.id}${width < 480 ? "_small"
+                    : 480 <= width < 1000 ? "_medium" : ""}`}
             >
                 <Paragraph data={data} nextElem={dataItems[nextIndex].id} journeys={journeys}></Paragraph>
             </div>

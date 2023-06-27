@@ -36,14 +36,19 @@
 }
 
 .paragraphContainer[data-id="globeView"],
-.paragraphContainer[data-id="globeView_fit"] {
+.paragraphContainer[data-id="globeView_medium"] {
     margin-bottom: calc(95vh - 20rem) !important;
 }
+
 .paragraphContainer[data-id="globeView"] div,
-.paragraphContainer[data-id="globeView_fit"] div,
+.paragraphContainer[data-id="globeView_medium"] div,
 .paragraphContainer[data-id="globeView"] div p,
-.paragraphContainer[data-id="globeView_fit"] div p {
-  margin-bottom: 0px !important;
+.paragraphContainer[data-id="globeView_medium"] div p {
+    margin-bottom: 0px !important;
+}
+
+.paragraphContainer[data-id="globeView_small"] {
+    margin-bottom: calc(95vh - 20rem) !important;
 }
 
 .container::-webkit-scrollbar {
@@ -51,27 +56,30 @@
 }
 
 .beginText {
-  font-family: var(--sans-font-fam);
-  font-size: 0.7rem;
-  font-weight: 500;
-  transform: translateY(1rem);
+    font-family: var(--sans-font-fam);
+    font-size: 0.7rem;
+    font-weight: 500;
+    transform: translateY(1rem);
 }
+
 .arrowRight {
-  color: var(--brown);
-  font-size: 1.5rem;
-  line-height: 0.5rem;
-  transform: translateY(0.5rem);
+    color: var(--brown);
+    font-size: 1.5rem;
+    line-height: 0.5rem;
+    transform: translateY(0.5rem);
 }
+
 .routeJourney {
-  display: inline-block;
-  margin-top: 0.5rem;
-  color: var(--brown);
-  text-decoration: none;
-  pointer-events: all !important;
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--brown);
+    text-decoration: none;
+    pointer-events: all !important;
 }
+
 .routeJourney:hover {
-  color: var(--brown);
-  opacity: 0.7;
+    color: var(--brown);
+    opacity: 0.7;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
