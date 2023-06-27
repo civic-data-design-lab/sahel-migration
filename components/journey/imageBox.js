@@ -16,8 +16,9 @@ function useParallax(value, distance) {
 export default function ImageBox({ journey }) {
   const { width, height } = useWindowSize();
   const ref = useRef(null);
-  const { scrollXProgress } = useScroll({ target: ref });
   const svgRef = useRef(null);
+  const { scrollXProgress } = useScroll({ target: svgRef });
+
   useEffect(() => {}, []);
   const entourages = journey.entourages.map((entourage) => (
     <Card
@@ -33,13 +34,8 @@ export default function ImageBox({ journey }) {
   return (
     <>
       <ScrollButton width={width}/>
-      {/*<ScrollButton isForward={true} updateScrollPosition={updateScrollPosition} isAtBeginning={isAtBeginning} isAtEnd={isAtEnd}/>*/}
-      <motion.div className="box" ref={ref}>
-        {/* {journey.id === 8 ? (
-          <PolicyRecommendations narrativeTexts={journey.narrativeTexts} />
-        ) : ( */}
-          <DescriptionTab title={journey.title} body={journey.body} scrollXProgress={scrollXProgress} entourages={journey.entourages} width={width}/>
-        {/* )} */}
+      <div className="box" ref={ref}>
+        <DescriptionTab title={journey.title} body={journey.body} scrollXProgress={scrollXProgress} entourages={journey.entourages} width={width}/>
         <object
           type="image/svg+xml"
           data={journey.imageUrl}
@@ -47,7 +43,7 @@ export default function ImageBox({ journey }) {
           ref={svgRef}
         ></object>
         {entourages}
-      </motion.div>
+      </div>
 
     </>
   );
