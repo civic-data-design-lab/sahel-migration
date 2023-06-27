@@ -78,7 +78,7 @@
             "posX": 70,
             "posY": 50,
             "scrollStart": 0.8,
-            "scrollEnd": 1
+            "scrollEnd": 0.9
           }
         ]
       },
@@ -176,7 +176,7 @@
             "posX": 130,
             "posY": 20,
             "scrollStart": 0.8,
-            "scrollEnd": 1
+            "scrollEnd": 0.9
           }
         ]
       },
@@ -192,7 +192,7 @@
             "body": "In order to enter Libya, smugglers often bribe security personnel, or skirt around border crossings and security checkpoints, such as the major Tumo border checkpoint in Southern Libya.",
             "posX": 100,
             "posY": 50,
-            "scrollStart": 0,
+            "scrollStart": 0.1,
             "scrollEnd": 0.2
           },
           {
@@ -217,7 +217,7 @@
             "posX": 50,
             "posY": 50,
             "scrollStart": 0.8,
-            "scrollEnd": 1
+            "scrollEnd": 0.9
           }
         ]
       },
@@ -233,7 +233,7 @@
             "body": "Migrants see Sabha as a transitory stop, rather than a place to settle. Only 10% of migrants residing in Sabha consider it to be their final destination. The risks migrants in Sabha most commonly face are personal safety (35%), low income (33%), and violence/conflict (22%) (IFPRI, 2021).",
             "posX": 250,
             "posY": 200,
-            "scrollStart": 0,
+            "scrollStart": 0.1,
             "scrollEnd": 0.2
           },
           {
@@ -258,7 +258,7 @@
             "posX": 100,
             "posY": 0,
             "scrollStart": 0.75,
-            "scrollEnd": 1
+            "scrollEnd": 0.9
           }
         ]
       },
@@ -274,7 +274,7 @@
             "body": "For many, Tripoli serves as a place of resettlement, with 31% of migrants currently residing there considering Tripoli to be their final destination. Tripoli also serves as a protracted transit stop for migrants while they seek income for the next phase of the journey.",
             "posX": 80,
             "posY": 0,
-            "scrollStart": 0,
+            "scrollStart": 0.1,
             "scrollEnd": 0.2
           },
           {
@@ -299,7 +299,7 @@
             "posX": 50,
             "posY": 0,
             "scrollStart": 0.75,
-            "scrollEnd": 1
+            "scrollEnd": 0.9
           }
         ]
       },
@@ -331,7 +331,7 @@
             "body": "Many migrants using the Central Mediterranean route plan to stay in Libya in the long-term. Migrant long-term stays in Libya impacts their vulnerability, as increasing the length of time migrants stay in Libya is associated with increased exposure to risk.",
             "posX": 200,
             "posY": 50,
-            "scrollStart": 0,
+            "scrollStart": 0.1,
             "scrollEnd": 0.2
           },
           {
@@ -348,7 +348,7 @@
             "posX": 200,
             "posY": 10,
             "scrollStart": 0.5,
-            "scrollEnd": 0.7
+            "scrollEnd": 0.9
           }
         ]
       }
