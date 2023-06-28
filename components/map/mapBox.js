@@ -252,9 +252,9 @@ export default function MapBox({ activeSource, narrativeData, cityData, toggleMa
                     }}
                     attributionControl={false}
                     interactiveLayerIds={
-                        activeSource === "originCities" ? ["hoverable", "cities", "overlay"] :
+                        activeSource === "originCities" ? ["hoverable", "cities", "overlay", "migration-buffer"] :
                             activeSource === "transectSegment" ? ["migration-buffer", "hoverable", 'overlay', "cities"] :
-                                activeSource ? ["hoverable", "overlay", "cities"] : ['hoverable']}
+                                activeSource ? ["hoverable", "overlay", "cities", "migration-buffer"] : ['hoverable']}
                     zoom={zoom}
                     mapStyle={mapStyle}
                     ref={mapRef}
