@@ -34,42 +34,6 @@ export default function JourneysPage() {
   const [currentImageIndex, setImageIndex] = useState(0);
   const imagesContextValue = { modalOpen, setModalOpen, currentImageIndex, setImageIndex }
 
-  // const [isMouseIdle, setMouseIdle] = useState(false);
-  // const [scrollInterval, setScrollInterval] = useState(null);
-  // useEffect(() => {
-  //   let idleTimer = 0
-  //   const idleTimeout = 1000; // Adjust this value to set the idle time in milliseconds
-
-  //   const handleMouseMove = (event) => {
-  //     clearTimeout(idleTimer);
-  //     setMouseIdle(false);
-  //     idleTimer = setTimeout(() => {
-  //       setMouseIdle(true);
-  //     }, idleTimeout);
-  //     event.stopPropagation();
-  //   };
-  //   // const overlay = document.getElementById('overlay');
-  //   document.addEventListener('mousemove', handleMouseMove);
-  //   return () => {
-  //     document.removeEventListener('mousemove', handleMouseMove);
-  //   }
-  // }, []);
-
-
-  // useEffect(() => {
-  //   if(isMouseIdle) {
-  //     const scrollInterval = setInterval(() => {
-
-  //       // Scroll horizontally by a specific amount
-  //       window.scrollBy(10, 0); // Change the scroll amount as per your requirement
-  //     }, 20); // Change the delay to adjust the scroll speed
-  //     setScrollInterval(scrollInterval);
-  //   } else {
-  //     clearInterval(scrollInterval);
-  //     setScrollInterval(null);
-  //   }
-
-  // }, [isMouseIdle]);
 
 
 
@@ -82,7 +46,7 @@ export default function JourneysPage() {
   if (!photos) return <div>loading...</div>;
 
   return (
-    <>
+    <div style={{height:'100vh'}}>
       <div id="journey" className={styles.journeyContainer}>
         <div className={styles.gridContainer}>
           <Title />
@@ -94,27 +58,6 @@ export default function JourneysPage() {
           <ImageBox journey={journey} id="image-box" />
         </div>
         <div id="transectTooltip" className="transectTooltip hidden">
-          {/* <h4>Combined Risk
-                <span id="risk-total" className={styles.labelData}>152/360</span>
-            </h4>
-            <p className={styles.risk4mi}>Reported Violence
-                <span id="risk-4mi" className={styles.labelData}>12</span>
-            </p>
-            <p className={styles.riskAcled}>Armed Conflict
-                <span id="risk-acled" className={styles.labelData}>0</span>
-            </p>
-            <p className={styles.riskFood}>Food Insecurity
-                <span id="risk-food" className={styles.labelData}>40</span>
-            </p>
-            <p className={styles.riskSmuggler}>Smuggler Assistance
-                <span id="risk-smuggler" className={styles.labelData}>0</span>
-            </p>
-            <p className={styles.riskRemoteness}>Remoteness
-                <span id="risk-remoteness" className={styles.labelData}>20</span>
-            </p>
-            <p className={styles.riskHeat}>Extreme Heat
-                <span id="risk-heat" className={styles.labelData}>80</span>
-            </p> */}
         </div>
       </div>
       <AnimatePresence
@@ -131,7 +74,7 @@ export default function JourneysPage() {
             images={photos}
           />
         )}
-      </AnimatePresence>x
-    </>
+      </AnimatePresence>
+    </div>
   );
 }
