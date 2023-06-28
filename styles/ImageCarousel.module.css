@@ -81,6 +81,10 @@
     justify-content: center;
 }
 
+.material-symbols-outlined {
+    font-size: 3rem;
+}
+
 
 .example-container {
     width: 100vw;
@@ -228,6 +232,7 @@
         position: absolute;
         display: flex;
         width: 100%;
+        align-items: center;
         justify-content: space-around;
     }
 
