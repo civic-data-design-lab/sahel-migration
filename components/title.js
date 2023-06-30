@@ -15,7 +15,7 @@ export default function Title({}) {
 
   return (
     <div className={styles.main}>
-      <Link onClick={handleRouting('/')} href="/">
+      <Link className={styles.titleLink} onClick={handleRouting('/')} href="/">
         <object
           type="image/svg+xml"
           data="../images/logo_Migrants on the Move.svg"
