@@ -148,6 +148,7 @@ main {
   background-color: #AFB3C4;
 }
 
+
 @media only screen and (max-width: 480px) {
   html {
     /* max-width: 100vw; */

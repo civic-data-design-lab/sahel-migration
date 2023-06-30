@@ -13,6 +13,13 @@
   font-family: var(--primary-font-fam);
 }
 
+@supports (-moz-appearance:none) {
+  .main {
+    width: 100pc;
+    max-width: 22rem;
+  }
+}
+
 .title {
   width: 100%;
   pointer-events: none;

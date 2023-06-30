@@ -1,5 +1,7 @@
 import * as d3 from 'd3';
 import { useEffect } from 'react';
+import stlyes from '../../../styles/Transect.module.css'
+
 
 const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
   const validateAndUpdate = (e) => {
@@ -18,7 +20,10 @@ const RiskWeightTextInput = ({ riskId, riskWeight, riskLabel, onUpdate }) => {
   };
 
   return (
-    <div style={{ display: 'flex', textAlign: 'center', alignItems: 'center', gap: '0.5rem' }}>
+    <div
+      className={stlyes.textPercent}
+
+      style={{ display: 'flex', textAlign: 'center', alignItems: 'center', gap: '0.5rem' }}>
       <p
         type="text"
         value={riskWeight}

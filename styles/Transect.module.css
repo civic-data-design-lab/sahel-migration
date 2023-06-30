@@ -32,18 +32,23 @@
 .transectTooltip p.risk4mi::before {
   background: #5d3435;
 }
+
 .transectTooltip p.riskFood::before {
   background: #985946;
 }
+
 .transectTooltip p.riskAcled::before {
   background: #9a735a;
 }
+
 .transectTooltip p.riskSmuggler::before {
   background: #f48532;
 }
+
 .transectTooltip p.riskRemoteness::before {
   background: #624b44;
 }
+
 .transectTooltip p.riskHeat::before {
   background: #3f231b;
 }
@@ -56,6 +61,10 @@
 
 .labelData {
   float: right;
+}
+
+.SliderContainer [data-percentage="true"] {
+  background-color: red !important;
 }
 
 /* confirm weight changes button */
@@ -82,4 +91,10 @@
   background-color: var(--brown);
 
   cursor: pointer;
+}
+
+@supports (-moz-appearance:none) {
+  .textPercent {
+    justify-content: end;
+  }
 }
