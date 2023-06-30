@@ -37,13 +37,11 @@
   position: relative;
 }
 
-
 @supports (-webkit-hyphens:none) {
 
   /* For Safari */
   .SliderContainer input[type='range']::-webkit-slider-thumb {
     margin-top: 6px;
-
   }
 }
 
@@ -58,6 +56,11 @@
   background: var(--brown);
   margin-top: -4px;
   border-radius: 50%;
+}
+
+.SliderContainer input[type='range']::-webkit-slider-thumb:hover {
+  background: var(--brown);
+  cursor: pointer;
 }
 
 .mainSlider {
