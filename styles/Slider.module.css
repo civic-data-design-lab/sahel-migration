@@ -37,6 +37,16 @@
   position: relative;
 }
 
+
+@supports (-webkit-hyphens:none) {
+
+  /* For Safari */
+  .SliderContainer input[type='range']::-webkit-slider-thumb {
+    margin-top: 6px;
+
+  }
+}
+
 .SliderContainer input[type='range']::-webkit-slider-thumb:hover {
   background: var(--brown);
   cursor: pointer;
@@ -55,7 +65,7 @@
   gap: 3px;
 }
 
-.mainSlider > p {
+.mainSlider>p {
   font-size: 0.6rem;
   font-family: var(--sans-font-fam);
   margin-bottom: 0;
@@ -67,7 +77,7 @@
   font-size: 0.8rem;
   color: #985946;
   font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0;
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0;
 }
