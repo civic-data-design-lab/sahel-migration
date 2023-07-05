@@ -5,7 +5,7 @@
   /*width: fit-content;*/
   transform: translate(0%, -100%);
   z-index: 5;
-  /*pointer-events: none;*/
+  pointer-events: none;
 }
 
 .card {
@@ -20,6 +20,8 @@
   justify-content: center;
   object-position: left top;
   backdrop-filter: blur(3px);
+  pointer-events: all;
+  cursor: pointer;
 
 }
 
