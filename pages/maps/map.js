@@ -12,6 +12,8 @@ import MapLegend from '../../components/map/mapLegend'
 import { SectionContext } from '..';
 import { motion } from 'framer-motion';
 import { useScroll } from 'framer-motion';
+import Stepper from '../../components/stepper';
+import ProgressBar from '../../components/progressBar'
 
 
 const mapFetcher = (url) => fetch(url).then((res) => res.json());
@@ -46,9 +48,6 @@ export default function MainMap({ journeys }) {
     const { scrollYProgress, scrollY } = useScroll({
         container: sideBarRef
     })
-
-
-
     function toggleMap() {
         setVisibility(true);
         setSection(null)
@@ -79,11 +78,10 @@ export default function MainMap({ journeys }) {
                         disablePointerEvents(boxRef.current)
                     })
                 }
-
-
             }
         }
     })
+
 
 
 
@@ -106,6 +104,11 @@ export default function MainMap({ journeys }) {
                 >
                     <Title />
                 </div>
+                <ProgressBar
+                    narratives={narrativeItems.narratives}
+                    currenNarrativeSection={currentView}
+
+                />
                 <div
                     className={styles.boxContainer}
                     ref={boxRef}

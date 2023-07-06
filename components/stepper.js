@@ -1,7 +1,7 @@
 import styles from '../styles/Stepper.module.css';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {useEffect} from "react";
+import { useEffect } from "react";
 export default function Stepper({
   totalSteps,
   stepNumber,
@@ -22,7 +22,7 @@ export default function Stepper({
       // transition: { staggerChildren: 0.05, staggerDirection: -1 }
     },
   };
-  useEffect(() => {}, [window.innerWidth]);
+  useEffect(() => { }, [window.innerWidth]);
 
   function renderSteps(currentStep, stepNumber) {
     const isFilled = currentStep < stepNumber ? styles.filled : '';
@@ -33,7 +33,7 @@ export default function Stepper({
         key={currentStep}
         href={item.route || '/'}
         className={styles.stepContainer}
-        style={{ flexDirection: reversed ? 'row-reverse' : '', pointerEvents: isActive ? 'all' : 'none'}}
+        style={{ flexDirection: reversed ? 'row-reverse' : '', pointerEvents: isActive ? 'all' : 'none' }}
       >
         <div className={`${styles.step} ${isFilled} ${isCurrent}`} />
         <small className={styles.textContainer}>{item.title}</small>
@@ -47,12 +47,12 @@ export default function Stepper({
       variants={variants}
       onMouseEnter={isActive && onHoverStart}
       onMouseLeave={isActive && onHoverEnd}
-      // onTouchStart={isActive && onHoverStart}
-      // onTouchEnd={isActive && onHoverEnd}s
+    // onTouchStart={isActive && onHoverStart}
+    // onTouchEnd={isActive && onHoverEnd}s
     >
       <div
         className={styles.stepperLine}
-        style={{ transform:  window.innerWidth < 480? reversed ? 'translate(5.95rem,-69%)' : '' : reversed ? 'translate(11.7rem,-65%)' : '' }}
+        style={{ transform: window.innerWidth < 480 ? reversed ? 'translate(5.95rem,-69%)' : '' : reversed ? 'translate(11.7rem,-65%)' : '' }}
       />
       <motion.div
         className={styles.stepper}

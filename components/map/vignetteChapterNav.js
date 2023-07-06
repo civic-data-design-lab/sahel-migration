@@ -102,6 +102,7 @@ export default function VignetteChapterNav({ journeys }) {
     return (
         <>
             <div key={uuidv4} className={styles.journeyContainer} ref={ref}>
+                <div className={styles.hoverBlocker} />
                 {width > 700 ? vignettes : singleVignette}
             </div>
 

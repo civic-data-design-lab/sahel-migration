@@ -110,6 +110,7 @@ export default function NarrativeTextBox({ dataItems, journeys }) {
                 id='narrative-text'
             >
                 <div className={styles.content}>
+
                     {paragraphs}
                 </div>
             </div>

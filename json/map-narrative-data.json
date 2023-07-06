@@ -3,21 +3,25 @@
         "narratives": [
             {
                 "id": "overallRoutes",
+                "index": 0,
                 "heading": "Migration from West Africa to Libya is risky",
                 "body": "Thousands of migrants risk their lives each year to travel from West Africa to Libya through a heavily traversed pathway, known as the Central Mediterranean Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have origins in West Africa (IOM, 2022)."
             },
             {
                 "id": "originCities",
+                "index": 1,
                 "heading": "Migrants were surveyed in Libya",
                 "body": "In June and July 2021, migrants in Libya were surveyed by the United Nations World Food Programme (WFP) and the International Food Policy Research Institute (IFPRI) with questions pertaining to their place of origin, their journey to Libya, their intentions to move on, and their current economic conditions and food security status. The resulting survey sample consisted of 347 migrants from Economic Community of West African States (ECOWAS) countries in Tripoli and Sabha, with the most from Niger*, Chad, Nigeria, Mali, and Ghana."
             },
             {
                 "id": "transectSegment",
+                "index": 2,
                 "heading": "Risk levels for migrants vary along the route",
                 "body": "Migrants traveling in North Africa face significant risks, often resorting to illicit means of traveling with smugglers who often choose more remote areas, crossing through treacherous terrain. This analysis illustrates the combined risks of migrants in transit from Mali to Tripoli, Libya; migration risk factors include reported violence, conflict events, food insecurity, reliance on smugglers, remoteness, and heat exposure."
             },
             {
                 "id": "globeView",
+                "index": 3,
                 "heading": "Explore the migration risks",
                 "body": "West African migrants face several risks while along their journey to Tripoli, Libya. Click to begin the journey through the footsteps of a migrant originating from Mali."
             }
