@@ -9,28 +9,45 @@
   display: flex;
   gap: 2.5rem;
   z-index: 6;
-  grid-area: 2/2/2/4;
-  justify-content: space-center;
-  position: relative;
+
+  /* grid-area: 2/2/2/4;
+  right: 1rem; */
+
+  justify-content: space-around;
+  position: fixed;
+  left: 8%;
+  top: 8%;
+
+
   margin-bottom: 2rem;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
   /* flex-direction: column-reverse; */
   /*width: 10rem;*/
   text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width:900px) {
+  .stepper {
+    left: 40%;
+  }
 }
 
 
 .stepperLine {
   content: '';
   border: .07rem solid;
-  width: 75%;
+  width: 100%;
   background-color: var(--dark);
   position: absolute;
   top: 47%;
   bottom: 50%;
   /*transform: translateY(-50%);*/
   z-index: 1;
+}
+
+@media (max-width:1200px) {
+  .stepperLine {
+    width: 100%;
+  }
 }
 
 
@@ -63,7 +80,7 @@
 }
 
 .step {
-  background-color: var(--light);
+  /* background-color: var(--light); */
   aspect-ratio: 1/1;
   border-radius: 50%;
   width: 0.75rem;
@@ -86,12 +103,18 @@
 
 @media only screen and (max-width: 480px) {
   .stepper {
-    grid-area: 2/1/2/13;
+    /* grid-area: 2/1/2/13;
+    right: 0;
+    bottom: 2rem; */
+
+    top: 8%;
+    left: 25%;
     margin-bottom: 0;
-    bottom: 2rem
   }
 
-  .stepperLine {}
+  .stepperLine {
+    width: 90%;
+  }
 
   .textContainer {
     font-size: .7rem;

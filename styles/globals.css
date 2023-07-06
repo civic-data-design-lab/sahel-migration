@@ -255,12 +255,12 @@ g {
 }
 
 .mapboxgl-popup-content {
-  background: rgba(255, 255, 255, 0.9) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
   border-radius: 1rem !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
   color: #463c35;
   padding: 1.1rem !important;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
 
 }
 

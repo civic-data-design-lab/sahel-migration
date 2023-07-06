@@ -1,4 +1,4 @@
-import Streamgraph, {ExpandOverlay, PlotXAxis, XAxisTicks} from './streamgraph';
+import Streamgraph, { ExpandOverlay, PlotXAxis, XAxisTicks } from './streamgraph';
 import dotDensityPlot from './dotDensityPlot';
 import Tooltip from './tooltip';
 import { createRoot } from 'react-dom/client';
@@ -80,7 +80,7 @@ export default function PlotAllTransectLayers(
     height: height,
     margin: margin,
     xAxis: xAxis,
-    xAxisTicks: (ticksData) => XAxisTicks(ticksData,xScale),
+    xAxisTicks: (ticksData) => XAxisTicks(ticksData, xScale),
     borders: borders,
     cities: cities,
   });

@@ -152,7 +152,7 @@ export default function MainMap({ journeys }) {
                     }}
                     transition={{
                         type: 'tween',
-                        delay: 1,
+                        delay: 0,
                         duration: 2
                     }}
                 >

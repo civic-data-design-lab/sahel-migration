@@ -33,6 +33,7 @@ export default function MapGlobe({ journeys, globeVisibility, scrollProgress }) 
             center: [lng, lat],
             zoom: zoom,
             attributionControl: false,
+            logoPosition: 'top-right'
 
         });
         const mapInteractions = [
@@ -100,7 +101,7 @@ export default function MapGlobe({ journeys, globeVisibility, scrollProgress }) 
                         return t;
                     },
                 });
-            }, 5000);
+            }, 3000);
 
 
             map.current.on('load', () => {
