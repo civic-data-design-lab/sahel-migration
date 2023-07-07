@@ -7,8 +7,9 @@ import useWindowSize from '../../hooks/useWindowSize';
 import ScrollIndicator from '../scrollIndicator';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import ProgressBar from '../progressBar';
 
-function Paragraph({ children, data, nextElem, journeys }) {
+function Paragraph({ children, data, nextElem, narrativeItems, journeys }) {
     const { width } = useWindowSize()
     const ref = useRef(null);
     const threshold = width <= 600 ? 0.5 : 0.7;
@@ -76,9 +77,13 @@ function Paragraph({ children, data, nextElem, journeys }) {
                 ) : ''}
             </p>
             {(data.id !== "globeView" && data.id !== "vignetteTransition") && (
-                <ScrollIndicator
-                    onClick={scrollToNext}
+
+                <ProgressBar
+                    narratives={narrativeItems}
+                    currenNarrativeSection={currentView}
+
                 />
+
             )}
         </motion.div>
     );
@@ -98,7 +103,11 @@ export default function NarrativeTextBox({ dataItems, journeys }) {
                 data-id={`${data.id}${width < 480 ? "_small"
                     : 480 <= width < 1000 ? "_medium" : ""}`}
             >
-                <Paragraph data={data} nextElem={dataItems[nextIndex].id} journeys={journeys}></Paragraph>
+                <Paragraph
+                    data={data}
+                    nextElem={dataItems[nextIndex].id}
+                    narrativeItems={dataItems}
+                    journeys={journeys}></Paragraph>
             </div>
         );
     })

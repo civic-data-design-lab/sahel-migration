@@ -6,23 +6,26 @@
 .stepper {
   --dark: #463c35;
   --light: #ffffff;
-  display: flex;
-  gap: 2.5rem;
-  z-index: 6;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  /* gap: 2.5rem; */
+  z-index: 8;
+  font-family: Inter;
+  pointer-events: all !important;
 
   /* grid-area: 2/2/2/4;
   right: 1rem; */
 
-  justify-content: space-around;
-  position: fixed;
+  justify-content: center;
+  /* position: fixed;
   left: 8%;
-  top: 8%;
+  top: 8%; */
 
 
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   /* flex-direction: column-reverse; */
   /*width: 10rem;*/
-  text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8);
+  /* text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8); */
 }
 
 @media (max-width:900px) {
@@ -41,7 +44,6 @@
   top: 47%;
   bottom: 50%;
   /*transform: translateY(-50%);*/
-  z-index: 1;
 }
 
 @media (max-width:1200px) {
@@ -59,8 +61,12 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  font-size: 0.8rem;
   color: inherit;
   line-height: 1.1rem;
+  pointer-events: all !important;
+
+
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -81,24 +87,47 @@
 
 .step {
   /* background-color: var(--light); */
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  width: 0.75rem;
-  height: 0.75rem;
+  /* aspect-ratio: 1/1; */
+  /* border-radius: 50%; */
+  width: 2rem;
+  /* height: 0.75rem; */
   display: flex;
+  padding: 0 0.1rem;
   align-items: center;
+  pointer-events: all !important;
+
   justify-content: center;
-  border: 0.125rem solid var(--dark);
+  border: 0.1rem solid var(--dark);
   transition: 0.4s ease;
-  z-index: 1;
+  height: 70%;
+}
+
+.next {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid var(--dark);
+  height: 70%;
+  padding: 0 0.4rem;
+}
+
+.stepContainer:first-child .step {
+  border-radius: 1rem 0 0 1rem;
+
+}
+
+.stepContainer:last-child .next {
+  border-radius: 0 1rem 1rem 0;
+
 }
 
 .filled {
   background-color: var(--dark);
+  color: var(--light);
 }
 
 .current {
-  background-color: var(--light);
+  background-color: none;
 }
 
 @media only screen and (max-width: 480px) {

@@ -3,7 +3,7 @@
     overflow-y: scroll;
     position: relative;
     font-family: var(--primary-font-fam);
-    /* scroll-snap-type: y mandatory; */
+    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 }
 
@@ -94,8 +94,10 @@
     align-self: normal;
     height: 100%;
     display: flex;
+    align-items: baseline;
     flex-direction: column;
     /* justify-content: center; */
+    scroll-snap-align: start;
     margin-bottom: 2rem;
 }
 
@@ -146,9 +148,14 @@
 }
 
 @media (max-width:500px) {
+    .paragraph {
+        scroll-snap-align: none;
+    }
+
     .paragraph p {
         font-size: 0.875rem;
         line-height: 22.5px;
+        margin-bottom: 0;
     }
 
 

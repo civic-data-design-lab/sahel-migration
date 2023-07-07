@@ -104,11 +104,11 @@ export default function MainMap({ journeys }) {
                 >
                     <Title />
                 </div>
-                <ProgressBar
+                {/* <ProgressBar
                     narratives={narrativeItems.narratives}
                     currenNarrativeSection={currentView}
 
-                />
+                /> */}
                 <div
                     className={styles.boxContainer}
                     ref={boxRef}
