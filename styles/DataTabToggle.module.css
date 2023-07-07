@@ -30,6 +30,14 @@
   color: #ffffffe6;
 }
 
+.toggleButton > span {
+  font-size: 1.5rem;
+}
+
+.toggleButton > span:hover {
+  opacity: 1;
+}
+
 .dataTabTitle {
   display: flex;
   align-items: center;
@@ -62,10 +70,6 @@
     color: black;
   }
 
-  .material-symbols-outlined:hover {
-    opacity: 1;
-  }
-
   .DataTabToggle:hover .toggleButton {
     background-color: var(--brown);
   }
@@ -73,8 +77,14 @@
 
 @media only screen and (max-width: 480px) {
   .toggleButton {
-    margin-top: 0.5rem;
-    justify-content: center;
-    padding: 0.5rem 0.5rem 0.5rem 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+  }
+
+  .toggleButton > span {
+    font-size: 0.6rem;
   }
 }
