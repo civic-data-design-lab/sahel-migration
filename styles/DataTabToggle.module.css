@@ -3,9 +3,13 @@
   left: 0;
   top: 0;
   display: flex;
-  gap: 1rem;
   margin-top: 1rem;
   margin-left: 1rem;
+  transition: color 250ms ease;
+}
+
+.DataTabToggle:hover {
+  cursor: pointer;
 }
 
 .toggleButton {
@@ -16,6 +20,7 @@
   font-weight: bold;
 
   padding: 0px 8px;
+  margin: 0 2px 8px 6px;
 
   border-radius: 5px;
   border: 1.5px solid hsl(25, 14%, 35%);
@@ -23,13 +28,12 @@
 
   background-color: hsl(25, 14%, 35%);
   color: #ffffffe6;
-
 }
 
 .dataTabTitle {
   display: flex;
   align-items: center;
-  
+
   background: none;
   border: none;
   text-decoration: none;
@@ -54,9 +58,16 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .toggleButton:hover {
-    cursor: pointer;
-    opacity: 0.6;
+  .DataTabToggle:hover .dataTabTitleText {
+    color: black;
+  }
+
+  .material-symbols-outlined:hover {
+    opacity: 1;
+  }
+
+  .DataTabToggle:hover .toggleButton {
+    background-color: var(--brown);
   }
 }
 

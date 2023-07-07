@@ -12,29 +12,12 @@ export default function DataTabToggle({ isOpen, toggleOpen }) {
   const { width, height } = useWindowSize();
 
   return (
-    <div className={styles.DataTabToggle}>
+    <div className={styles.DataTabToggle} onClick={toggleOpen}>
       <div className={styles.dataTabTitle}>
-        <InfoTooltipWrapper text={riskTooltipText} placement="right" disabled={width < 480}>
-          <h3 className={styles.dataTabTitleText}>Risks Along the Journey</h3>
-          {width >= 480 && (
-            <span
-              className="material-symbols-outlined"
-              style={{
-                pointerEvents: 'all !important',
-                marginLeft: '0.1rem',
-                fontSize: '1.2rem',
-                color: '#985946',
-                fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0",
-                transform: 'translateY(-0.15rem)',
-              }}
-            >
-              info
-            </span>
-          )}
-        </InfoTooltipWrapper>
+        <h3 className={styles.dataTabTitleText}>Risks Along the Journey</h3>
       </div>
-      <button className={styles.toggleButton} onClick={toggleOpen}>
-        <h5 className={styles.expandText}>{isOpen ? "Hide" : "Expand"} data</h5>
+      <button className={styles.toggleButton}>
+        <h5 className={styles.expandText}>{isOpen ? 'Hide' : 'Explore'} data</h5>
         {isOpen ? (
           <span
             className="material-symbols-outlined"
@@ -51,6 +34,23 @@ export default function DataTabToggle({ isOpen, toggleOpen }) {
           </span>
         )}
       </button>
+      <InfoTooltipWrapper text={riskTooltipText} placement="right" disabled={width < 480}>
+        {width >= 480 && (
+          <span
+            className="material-symbols-outlined"
+            style={{
+              pointerEvents: 'all !important',
+              marginLeft: '0.1rem',
+              fontSize: '1.2rem',
+              color: '#985946',
+              fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0",
+              transform: 'translateY(-0.15rem)',
+            }}
+          >
+            info
+          </span>
+        )}
+      </InfoTooltipWrapper>
     </div>
   );
 }
