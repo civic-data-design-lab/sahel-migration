@@ -12,11 +12,10 @@ export default function DataTabToggle({ isOpen, toggleOpen }) {
   const { width, height } = useWindowSize();
 
   return (
-    <>
-      <button className={styles.toggleButton} onClick={toggleOpen}>
+    <div className={styles.DataTabToggle}>
+      <div className={styles.dataTabTitle}>
         <InfoTooltipWrapper text={riskTooltipText} placement="right" disabled={width < 480}>
-          <h3 className="header-2">Explore the Risks</h3>
-          &ensp;
+          <h3 className={styles.dataTabTitleText}>Risks Along the Journey</h3>
           {width >= 480 && (
             <span
               className="material-symbols-outlined"
@@ -32,23 +31,26 @@ export default function DataTabToggle({ isOpen, toggleOpen }) {
               info
             </span>
           )}
-          {isOpen ? (
-            <span
-              className="material-symbols-outlined"
-              style={{ color: '#463c35', fontSize: '2rem' }}
-            >
-              expand_more
-            </span>
-          ) : (
-            <span
-              className="material-symbols-outlined"
-              style={{ color: '#463c35', fontSize: '2rem' }}
-            >
-              expand_less
-            </span>
-          )}
         </InfoTooltipWrapper>
+      </div>
+      <button className={styles.toggleButton} onClick={toggleOpen}>
+        <h5 className={styles.expandText}>{isOpen ? "Hide" : "Expand"} data</h5>
+        {isOpen ? (
+          <span
+            className="material-symbols-outlined"
+            style={{ color: '#ffffffe6', fontSize: '1.5rem' }}
+          >
+            expand_more
+          </span>
+        ) : (
+          <span
+            className="material-symbols-outlined"
+            style={{ color: '#ffffffe6', fontSize: '1.5rem' }}
+          >
+            expand_less
+          </span>
+        )}
       </button>
-    </>
+    </div>
   );
 }

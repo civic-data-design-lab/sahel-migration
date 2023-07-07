@@ -471,7 +471,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         <button
           className={styles.confirmWeights}
           style={{
-            left: `${margin.left + 300}px`,
+            left: `${margin.left + 360}px`,
           }}
           onClick={() => {
             drawLayers(svgRef, width, height, isOpen);

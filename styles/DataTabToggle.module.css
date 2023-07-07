@@ -1,17 +1,56 @@
-.toggleButton {
+.DataTabToggle {
   position: absolute;
-  top: 0;
   left: 0;
+  top: 0;
   display: flex;
-  align-items: center;
+  gap: 1rem;
   margin-top: 1rem;
   margin-left: 1rem;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+
+  padding: 0px 8px;
+
+  border-radius: 5px;
+  border: 1.5px solid hsl(25, 14%, 35%);
+  transition: background-color 250ms ease;
+
+  background-color: hsl(25, 14%, 35%);
+  color: #ffffffe6;
+
+}
+
+.dataTabTitle {
+  display: flex;
+  align-items: center;
+  
   background: none;
   border: none;
   text-decoration: none;
   font-weight: bold;
   font-family: var(--primary-font-fam);
   z-index: 0;
+}
+
+.dataTabTitleText {
+  font-family: var(--sans-font-fam);
+  font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  font-weight: 520;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.expandText {
+  font-family: var(--sans-font-fam);
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 520;
 }
 
 @media (hover: hover) and (pointer: fine) {
