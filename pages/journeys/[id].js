@@ -49,8 +49,8 @@ export default function JourneysPage() {
     <div style={{height:'100vh'}}>
       <div id="journey" className={styles.journeyContainer}>
         <div className={styles.gridContainer}>
-          <Title />
-          <Menu journeys={journeys} />
+          <Title journey={journey}/>
+          <Menu journeys={journeys} journey={journey}/>
           <Navigation journeys={journeys} journey={journey} />
           <ImagesContext.Provider value={imagesContextValue}>
             <DataTab journey={journey} />

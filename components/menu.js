@@ -66,7 +66,7 @@ export default function Menu({ journeys }) {
       <div>
         {/* <animated.div style={fullScreenFill} className={styles.screenCover} /> */}
         <animated.div style={fullscreenMenu} className={styles.navBar}>
-          <Title className={styles.title} />
+          <Title className={styles.title}/>
           <Container fluid className={`w-100 h-100 pt-sm-5 pb-1 ${styles.container}`}>
             <Row className="position-relative h-100 mt-md-4">
               <Col xs={12} sm={4} className={`${styles.nav} h-100 d-flex pt-md-5 mt-md-5 mb-md-5 pb-md-5`}>
@@ -123,7 +123,7 @@ export default function Menu({ journeys }) {
                     {/* <ul>
                       <li> */}
                       <h5 className='fw-bold'>
-                        Addressing Irregular Migration through Principled Programmatic Approaches: Examining the West Africa Route and WFP Operations                    
+                        Addressing Irregular Migration through Principled Programmatic Approaches: Examining the West Africa Route and WFP Operations
                       </h5>
                       <h6>Kate Ambler, Alan de Brauw, Eduardo Maruyama</h6>
                       <h6 className='mt-3'>International Food Policy Research Institute</h6>
@@ -300,13 +300,13 @@ export default function Menu({ journeys }) {
                       <a href="https://civicdatadesignlab.mit.edu/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'
                       >
-                        <img 
+                        <img
                           src="/images/logos/MIT_CDDL_cobrand-01.png" alt="mit-cddl-logo"
                           className='w-100'></img>
                       </a>
                     </Col>
                     <Col xs={4} lg={{span: 3, offset: 1}} className='p-0'>
-                      <a 
+                      <a
                         href="https://www.wfp.org/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'>
                         <img
@@ -316,12 +316,12 @@ export default function Menu({ journeys }) {
                       </a>
                     </Col>
                     <Col xs={3} lg= {{span: 2, offset: 1}} className='pe-0'>
-                      <a 
-                        href="https://www.ifpri.org/"  target="_blank" rel="noreferrer noopener" 
+                      <a
+                        href="https://www.ifpri.org/"  target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'
                       >
-                        <img 
-                          src="/images/logos/IFPRI_Logo_Horizontal.png" alt="ifpri-logo" 
+                        <img
+                          src="/images/logos/IFPRI_Logo_Horizontal.png" alt="ifpri-logo"
                           className='w-100'
                         ></img>
                       </a>
@@ -329,29 +329,29 @@ export default function Menu({ journeys }) {
                   </Row>
                   <Row className='mt-3 ps-3 pe-3 ps-sm-0 pe-sm-0 pb-5 mb-5'>
                     <Col xs={{span: 3, offset: 3}} lg={{span: 2}} className='p-1'>
-                     <a 
+                     <a
                         href="https://www.iom.int/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'
                       >
-                        <img 
+                        <img
                           src="/images/logos/IOM_logo.png" alt="iom-logo"
                           className='w-100'
                         ></img>
                       </a>
-                      
+
                     </Col>
                     <Col xs={{span: 2, offset: 1}} lg={{offset: 2}} className='p-1'>
-                      <a 
+                      <a
                         href="https://mixedmigration.org/" target="_blank" rel="noreferrer noopener"
                         className='h-100 d-flex align-items-center'
                       >
-                        <img 
+                        <img
                           src="/images/logos/MMC_logo.png" alt="mmc-logo"
                           className='w-100'
                         ></img>
                       </a>
                     </Col>
-                    
+
                   </Row>
                   {/* </div> */}
                 </Col>
