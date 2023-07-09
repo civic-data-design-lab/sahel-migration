@@ -11,6 +11,7 @@ import ImageModal from '../../components/journey/transect/imageModal';
 import { fetcher } from '../../hooks/useFetch';
 import Navigation from '../../components/navigation';
 import Title from '../../components/title';
+import Link from "next/link";
 
 export const ImagesContext = createContext({
   modalOpen: false,
@@ -50,6 +51,13 @@ export default function JourneysPage() {
       <div id="journey" className={styles.journeyContainer}>
         <div className={styles.gridContainer}>
           <Title journey={journey}/>
+          <Link style={{color:" #463c35", textDecoration: "none"}} href="/">
+          <div className={styles.mapNavigation}>
+            <span className="material-symbols-outlined">
+              public
+          </span>
+          </div>
+          </Link>
           <Menu journeys={journeys} journey={journey}/>
           <Navigation journeys={journeys} journey={journey} />
           <ImagesContext.Provider value={imagesContextValue}>
