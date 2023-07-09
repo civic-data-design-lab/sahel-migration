@@ -14,7 +14,7 @@ import useWindowSize from '../hooks/useWindowSize';
 
 export default function Menu({ journeys }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState('about');
 
   const { width, height } = useWindowSize();
   const router = useRouter();
@@ -27,7 +27,6 @@ export default function Menu({ journeys }) {
       handleToggle();
       e.preventDefault();
       await router.push(href);
-      setSelected(null);
     };
   };
 
@@ -76,50 +75,24 @@ export default function Menu({ journeys }) {
               >
                 <div className="position-fixed mb-md-5 pb-md-5 stickyContainer">
                   <ul className={styles.listContainer}>
-                    <li onClick={() => setSelected(null)}>
-                      <span
-                        className={
-                          selected == null
-                            ? `${styles.routeAbout} ${styles.routeActive}`
-                            : styles.routeAbout
-                        }
-                      >
-                        About
-                      </span>
+                    <li onClick={() => setSelected('about')}>
+                      <span className={selected === 'about' ? styles.routeActive : ''}>About</span>
                     </li>
 
                     <li onClick={() => setSelected('map')}>
-                      <span
-                        className={
-                          selected == 'map' ? `${styles.route} ${styles.routeActive}` : styles.route
-                        }
-                      >
-                        Map
-                      </span>
-                      {/* Only show inline on large screens */}
-                      {width > 767 && <MapMenu handleRouting={handleRouting} />}
+                      <span className={selected === 'map' ? styles.routeActive : ''}>Map</span>
                     </li>
 
                     <li onClick={() => setSelected('journey')}>
-                      <span
-                        className={
-                          selected == 'journey'
-                            ? `${styles.route} ${styles.routeActive}`
-                            : styles.route
-                        }
-                      >
+                      <span className={selected === 'journey' ? styles.routeActive : ''}>
                         Journey
                       </span>
-                      {/* Only show inline on large screens */}
-                      {width > 767 && (
-                        <JourneysMenu journeys={journeys} handleRouting={handleRouting} />
-                      )}
                     </li>
                   </ul>
                 </div>
               </Col>
 
-              {width > 767 || (width <= 767 && !selected) ? (
+              {selected === 'about' ? (
                 <Col xs={12} sm={7} className="pt-md-5 pb-5">
                   <AboutSection title={'Risks of West African Migration'}>
                     <p className="body-5">
@@ -643,13 +616,15 @@ export default function Menu({ journeys }) {
                   {/* </div> */}
                 </Col>
               ) : selected === 'journey' ? (
-                <Col xs={12} sm={7} lg={9} className="pt-md-5 mt-md-5 pb-5">
+                <Col xs={12} sm={7} className="pt-md-5 mt-md-5 pb-5">
                   <JourneysMenu journeys={journeys} handleRouting={handleRouting} />
                 </Col>
-              ) : (
-                <Col xs={12} sm={7} lg={9} className="pt-md-5 mt-md-5 pb-5">
+              ) : selected === 'map' ? (
+                <Col xs={12} sm={7} className="pt-md-5 mt-md-5 pb-5">
                   <MapMenu handleRouting={handleRouting} />
                 </Col>
+              ) : (
+                <></>
               )}
             </Row>
           </Container>

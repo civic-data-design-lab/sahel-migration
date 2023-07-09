@@ -46,6 +46,24 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  margin-top: -1rem;
+  padding-right: 1rem;
+  border-right: 2px solid var(--brown);
+}
+
+.listContainer > li {
+  text-align: end;
+}
+
+.listContainer > li > span {
+  font-weight: 700;
+  font-size: 40px;
+  vertical-align: text-top;
+}
+
+.listContainer > li > span:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .journeyContainer {
@@ -188,9 +206,15 @@
     flex-direction: row;
     pointer-events: auto;
     padding: 0rem;
+    border-right: none;
+    margin-top: 0;
   }
   .listContainer li {
     padding: 0rem 1rem;
+  }
+
+  .listContainer > li > span {
+    font-size: inherit;
   }
 }
 
@@ -211,7 +235,7 @@
     height: clamp(15px, 3.2vh, 40px);
   }
 
-.listContainer {
-  padding: 0;
-}
+  .listContainer {
+    padding: 0;
+  }
 }
