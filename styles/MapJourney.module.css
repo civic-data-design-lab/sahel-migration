@@ -9,3 +9,92 @@
     width: 100%;
     height: 100%;
 }
+
+.buttonContainer {
+    position: absolute;
+    display: flex;
+    width: 100%;
+
+    justify-content: center;
+}
+
+
+
+.risksButton {
+    position: fixed;
+    /* inset: 0; */
+    top: 6%;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    width: 15rem;
+    /* inset: 0; */
+    /* margin: auto; */
+    aspect-ratio: 6/1;
+    gap: 1rem;
+    align-items: center;
+    border-radius: 3rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(3px);
+}
+
+.riskLabel {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-content: center;
+    width: 14rem;
+    top: 3%;
+    position: fixed;
+}
+
+.riskLabel h4 {
+    font-size: 1rem;
+}
+
+.riskLabel #labelLeft {
+    grid-area: 1 / 1 / 1 / 1;
+
+}
+
+.riskLabel #labelRight {
+    grid-area: 1 / 2 / 1 / 6;
+
+}
+
+.risksButton input {
+    appearance: none;
+
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+
+    position: relative;
+}
+
+.risksButton input:checked[data-risk-type="Reported Violence"] {
+    border: 6px solid #5d3435;
+}
+
+.risksButton input:checked[data-risk-type="Conflict Events"] {
+    border: 6px solid #985946;
+}
+
+.risksButton input:checked[data-risk-type="Food Insecurity"] {
+    border: 6px solid #9a735a;
+}
+
+.risksButton input:checked[data-risk-type="Reliance on Smugglers"] {
+    border: 6px solid #f48532;
+}
+
+.risksButton input:checked[data-risk-type="Remoteness"] {
+    border: 6px solid #624b44;
+}
+
+.risksButton input:checked[data-risk-type="Heat Exposure"] {
+    border: 6px solid #3f231b;
+}

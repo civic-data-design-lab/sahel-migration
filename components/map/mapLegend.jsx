@@ -34,13 +34,13 @@ export default function MapLegend({ activeSource }) {
 
             <div className={styles.label}>
                 <h4>
-                  {transectLegendLabel}
-                  <span
-                    className="material-symbols-outlined"
-                    id={styles.icon}
-                  >
-                    info
-                  </span>
+                    {transectLegendLabel}
+                    <span
+                        className="material-symbols-outlined"
+                        id={styles.icon}
+                    >
+                        info
+                    </span>
                 </h4>
             </div>
         </InfoTooltipWrapper>
@@ -79,13 +79,13 @@ export default function MapLegend({ activeSource }) {
                 >
                     <div className={styles.label}>
                         <h4>
-                          {cityLegendLabel}
-                          <span
-                            className="material-symbols-outlined"
-                            id={styles.icon}
-                          >
-                            info
-                          </span>
+                            {cityLegendLabel}
+                            <span
+                                className="material-symbols-outlined"
+                                id={styles.icon}
+                            >
+                                info
+                            </span>
                         </h4>
                     </div>
                 </InfoTooltipWrapper>
@@ -152,7 +152,7 @@ export default function MapLegend({ activeSource }) {
 
             <div className={styles.routes}>
                 {activeSource === "originCities" && (cityLegend())}
-                {(activeSource === "transectSegment" || activeSource === "globeView") && (transectLegend)}
+                {(activeSource != "originCities") && (transectLegend)}
                 {activeSource === "overallRoutes" && (
                     < InfoTooltipWrapper
                         text={dataSourceText}
@@ -162,13 +162,13 @@ export default function MapLegend({ activeSource }) {
                             className={styles.subheader}
                             ref={titleRef}
                         >
-                          Migration Routes to Libya
-                          <span
-                            className="material-symbols-outlined"
-                            id={styles.icon}
-                          >
-                            info
-                          </span>
+                            Migration Routes to Libya
+                            <span
+                                className="material-symbols-outlined"
+                                id={styles.icon}
+                            >
+                                info
+                            </span>
                         </h4>
                     </ InfoTooltipWrapper>
                 )}
