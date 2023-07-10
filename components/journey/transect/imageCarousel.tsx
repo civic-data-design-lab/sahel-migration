@@ -52,7 +52,7 @@ export default function ImageCarousel({ isOpen }) {
               className={styles.image}
               key={uuidv4()}
               style={{
-                width: `1.25rem`,
+                width: `100%`,
                 ['--opacity' as any]: 1,
               }}
             >

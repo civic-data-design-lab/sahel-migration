@@ -9,6 +9,15 @@
   height: 100vh;
 }
 
+.mapNavigation {
+    position: fixed;
+    top: 0;
+    right: 3rem;
+    z-index: 40;
+    background-color: transparent;
+    padding: 1rem;
+}
+
 .gridContainer {
   display: grid;
   /* grid-gap: 1rem; */

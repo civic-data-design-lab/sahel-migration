@@ -13,6 +13,15 @@
   font-family: var(--primary-font-fam);
 }
 
+.titleLink {
+  color: #463c35;
+  text-decoration: none ;
+}
+.titleLink:hover {
+  color: #463c35;
+  text-decoration: none;
+}
+
 @supports (-moz-appearance:none) {
   .main {
     width: 100pc;
