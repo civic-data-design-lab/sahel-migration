@@ -97,7 +97,7 @@
     align-items: baseline;
     flex-direction: column;
     /* justify-content: center; */
-    scroll-snap-align: start;
+    /* scroll-snap-align: start; */
     margin-bottom: 2rem;
 }
 
