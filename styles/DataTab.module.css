@@ -2,26 +2,16 @@
     display: flex;
     flex-direction: column;
     background: white;
-    z-index: 11;
+    z-index: 20;
     top: 75%;
+    border-radius: 1rem 1rem 0 0;
     font-family: var(--primary-font-fam);
-}
-
-.screenCover {
-    backdrop-filter: brightness(20%) blur(3px);
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    pointer-events: none;
 }
 
 @media only screen and (max-width: 480px) {
     .tab {
         top: 95%;
-        border-radius: 1rem;
         justify-items: center;
+        bottom: 300px;
     }
 }

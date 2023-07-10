@@ -11,6 +11,6 @@
     .mapContainer {
         width: 100vw;
         align-items: flex-end;
-        height: 100vh;
+        height: 100%;
     }
 }

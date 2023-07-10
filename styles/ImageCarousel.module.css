@@ -1,3 +1,11 @@
+.labelPhotos {
+    margin: 0.5rem 0 0 1rem;
+    font-family: var(--sans-font-fam);
+    font-weight: 500;
+    font-size: 0.85rem;
+    line-height: 1rem;
+}
+
 .carousel {
     position: relative;
     display: flex;
@@ -7,7 +15,7 @@
     height: 10%;
     bottom: 20%;
     gap: 1rem;
-    padding: 1rem 2rem;
+    padding: 1rem;
     font-family: var(--primary-font-fam);
 }
 
@@ -73,6 +81,10 @@
     justify-content: center;
 }
 
+.material-symbols-outlined {
+    font-size: 3rem;
+}
+
 
 .example-container {
     width: 100vw;
@@ -105,7 +117,7 @@
     background: none;
     border: none;
     position: absolute;
-    top: 2rem;
+    top: 4rem;
     right: 1rem;
     z-index: 1000;
     cursor: pointer;
@@ -127,20 +139,39 @@
     justify-content: space-between;
 }
 
-.caption span {
+.counterCaption {
     position: relative;
     top: 0;
     left: 0;
-    font-size: 0.75rem;
+    font-size: clamp(0.6rem, 0.7vw, 0.7rem);
+    font-family: var(--sans-font-fam);
+    font-weight: 300;
+    display: flex;
+    align-items: flex-end;
+    height: 1.75rem;
+}
+
+.caption h4 {
+    font-weight: 500;
+    margin: 0;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+.caption h5 {
+    font-weight: 300;
+    margin: 0;
+    font-size: clamp(0.85rem, 1vw, 1rem);
+}
+
+.caption .h7 {
+    font-size: clamp(0.6rem, 0.7vw, 0.7rem);
     font-family: var(--sans-font-fam);
     font-weight: 300;
 }
 
-
-
-
 .caption p {
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 1vw, 1rem);
+    line-height: 1.25rem;
     /* position: absolute; */
 }
 
@@ -151,9 +182,10 @@
     justify-content: center;
     align-items: center;
     /* flex-direction: column; */
-    padding: 4rem;
-    gap: 2rem;
+    padding: 8rem;
+    gap: 2.5rem;
 }
+
 
 .next,
 .prev {
@@ -187,6 +219,56 @@
     max-width: 100vw;
     backdrop-filter: blur(10px);
 }
+
+@media screen and (orientation:portrait) {
+    .imgContainer {
+        flex-direction: column;
+        padding: 0;
+    }
+}
+
+@media (max-width:700px) {
+    .mobileCounter {
+        position: absolute;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .imgContainer {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .backdrop img {
+        width: 100vw;
+        max-width: unset;
+    }
+
+    .next,
+    .prev {
+        position: fixed;
+        top: unset;
+        bottom: 10%;
+    }
+
+    .next {
+        right: 5rem;
+    }
+
+    .prev {
+        left: 5rem;
+    }
+
+    .counterCaption {
+        display: flex;
+        align-items: center;
+    }
+
+}
+
+
 
 .refresh {
     padding: 10px;

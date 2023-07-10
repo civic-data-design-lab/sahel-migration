@@ -29,12 +29,20 @@
 
 .SliderContainer input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   background: var(--brown);
-  margin-top: -5px;
+  margin-top: -4px;
   border-radius: 50%;
   position: relative;
+}
+
+@supports (-webkit-hyphens:none) {
+
+  /* For Safari */
+  .SliderContainer input[type='range']::-webkit-slider-thumb {
+    margin-top: 6px;
+  }
 }
 
 .SliderContainer input[type='range']::-webkit-slider-thumb:hover {
@@ -43,9 +51,36 @@
 }
 
 .SliderContainer input[type='range']::-moz-range-thumb {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   background: var(--brown);
-  margin-top: -5px;
+  margin-top: -4px;
   border-radius: 50%;
+}
+
+.SliderContainer input[type='range']::-webkit-slider-thumb:hover {
+  background: var(--brown);
+  cursor: pointer;
+}
+
+.mainSlider {
+  display: flex;
+  gap: 3px;
+}
+
+.mainSlider>p {
+  font-size: 0.6rem;
+  font-family: var(--sans-font-fam);
+  margin-bottom: 0;
+}
+
+#icon {
+  pointer-events: all !important;
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #985946;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0;
 }

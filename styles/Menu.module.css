@@ -3,11 +3,11 @@
 }
 
 .title {
-  transform: translate(-1rem, -0.75rem)!important;
+  transform: translate(-1rem, -0.75rem) !important;
 }
 
 .navBar {
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   color: var(--brown);
   position: fixed;
   top: 0;
@@ -20,15 +20,9 @@
   /* padding: 1rem; */
   font-size: 2rem;
   margin: 0;
-  z-index: 12;
+  z-index: 21;
   font-family: var(--primary-font-fam);
   backdrop-filter: blur(3px);
-}
-
-@media only screen and (max-width: 480px) {
-  .navBar {
-    width: 100%;
-  }
 }
 
 .menuContainer {
@@ -37,17 +31,39 @@
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 13;
+  z-index: 40;
   background-color: transparent;
   padding: 1rem;
   /*font-size: 4em;*/
+}
+
+.menuContainer .stickyContainer {
+  width: 30%;
 }
 
 .listContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%
+  height: 100%;
+  margin-top: -1rem;
+  padding-right: 1rem;
+  border-right: 2px solid var(--brown);
+}
+
+.listContainer > li {
+  text-align: end;
+}
+
+.listContainer > li > span {
+  font-weight: 700;
+  font-size: 40px;
+  vertical-align: text-top;
+}
+
+.listContainer > li > span:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .journeyContainer {
@@ -55,7 +71,7 @@
 }
 
 .journeyItem {
-  padding-left: 1.5rem;
+  padding: 0 0 0.25rem 1.5rem;
 }
 
 .arrow {
@@ -73,7 +89,6 @@
   cursor: pointer;
 }
 
-
 .screenCover {
   backdrop-filter: brightness(10%);
   position: fixed;
@@ -85,31 +100,32 @@
   pointer-events: none;
 }
 
-.route, 
+.route,
 .routeAbout,
 .routeJourney {
-  font-size: var(--fs-body-1);
-  line-height: 0.5rem;
+  font-size: var(--fs-body-3);
+  line-height: 1.5rem;
   color: var(--brown);
 }
+
 .route,
 .routeAbout {
   font-weight: 700;
 }
+
 .route,
 .routeJourney,
 .aboutSection ul li {
   text-decoration: none;
 }
 
-.route:hover,
 .routeJourney:hover,
 .aboutSection a:hover {
   text-decoration: underline;
-  color: var(--brown)
+  color: var(--brown);
 }
 
-.routeAbout {
+.routeActive {
   text-decoration: underline;
 }
 
@@ -121,6 +137,7 @@
   font-size: 1.5rem;
   font-weight: 700;
 }
+
 .aboutSection h5,
 .aboutSection h6 {
   font-weight: 600;
@@ -139,6 +156,7 @@
   padding-left: 1.5rem;
   margin-bottom: 1rem;
 }
+
 .aboutSection ul li p {
   margin-bottom: 0rem;
 }
@@ -146,4 +164,78 @@
 .aboutSection a {
   text-decoration: none;
   color: var(--brown);
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 5vh;
+}
+
+.logoContainer img {
+  margin-right: 0.5rem;
+  height: clamp(20px, 6.8vh, 60px);
+}
+.logoCDDL {
+  height: clamp(14px, 6.8vh, 52px);
+}
+
+/* small screen width */
+@media (max-width: 767px) {
+  .container {
+    margin-top: 4rem;
+  }
+  .route:hover,
+  .routeAbout:hover {
+    cursor: pointer;
+  }
+}
+
+/* x-small screen width */
+@media (max-width: 575px) {
+  .container {
+    margin-top: 5rem;
+  }
+  .nav {
+    position: absolute;
+    top: -2rem;
+    pointer-events: none;
+  }
+  .listContainer {
+    flex-direction: row;
+    pointer-events: auto;
+    padding: 0rem;
+    border-right: none;
+    margin-top: 0;
+  }
+  .listContainer li {
+    padding: 0rem 1rem;
+  }
+
+  .listContainer > li > span {
+    font-size: inherit;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .navBar {
+    width: 100%;
+  }
+
+  .logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 3vh 0 5vh 0;
+  }
+
+  .logoContainer img {
+    margin-right: 0.5rem;
+    height: clamp(15px, 3.2vh, 40px);
+  }
+
+  .listContainer {
+    padding: 0;
+  }
 }

@@ -1,63 +1,108 @@
 .navigationBar {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    text-align: center;
-    justify-content: space-between;
-    pointer-events: none;
-    position: fixed;
-    bottom: 26.8%;
-    z-index: 7;
-    color: var(--brown);
-    width: 100%
+  display: flex;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  justify-content: space-between;
+  pointer-events: none;
+  position: fixed;
+  bottom: 26.8%;
+  z-index: 7;
+  color: var(--brown);
+  width: 100%;
 }
 
 .title {
-    position: absolute;
-    font-weight: bold;
-    top:95%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+  position: absolute;
+  font-weight: bold;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .navigationContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: all;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+}
+
+.buttonLink {
+  position: relative;
+}
+
+.buttonText {
+  position: absolute;
+  width: 8rem;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8);
+}
+.buttonTextPrev {
+  text-align: left;
+  left: 2rem;
+  margin-left: 0.5rem;
+}
+.buttonTextNext {
+  text-align: right;
+  right: 2rem;
+  margin-right: 0.5rem;
 }
 
 .button {
-    /*margin-top: 1rem;*/
-    pointer-events: all;
-    border: .125rem solid;
-    border-color: var(--brown);
-    border-radius: 50%;
-    background: none;
-    height: 2rem;
-    width: 2rem;
-    color: var(--brown);
-
+  /*margin-top: 1rem;*/
+  pointer-events: all;
+  border: 0.125rem solid;
+  border-color: var(--brown);
+  border-radius: 50%;
+  background: none;
+  height: 2rem;
+  width: 2rem;
 }
 
-.button:hover {
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
     /*opacity: 0.75;*/
     cursor: pointer;
     background-color: var(--brown);
-    color: white;
     border-color: var(--brown);
+  }
+  .button:hover a {
+    color: white;
+  }
+  .button:hover .buttonText {
+    color: var(--brown);
+    text-decoration: underline;
+  }
+}
+
+.button a {
+  color: var(--brown);
+}
+
+.arrowIcon {
+  font-size: 1.75rem;
 }
 
 @media only screen and (max-width: 480px) {
-    .navigationBar {
-        bottom: 6%;
-    }
-    .button {
-        height: 3rem;
-        width: 3rem;
-        align-items: flex-end;
-    }
-    .button h7 {
-        padding-bottom: .3rem;
-    }
-}
+  .button {
+    height: 2.5rem;
+    width: 2.5rem;
+    align-items: flex-end;
+  }
 
+  .buttonText {
+    font-size: 0.75rem;
+    /* Remove to add back navigation buttons (next/prev chapter) */
+    display: none;
+  }
+
+  .arrowIcon {
+    font-size: 2.2rem;
+  }
+}

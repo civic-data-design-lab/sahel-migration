@@ -1,22 +1,28 @@
 .container {
-    /* --line-height: 24px; */
-    /* display: flex; */
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
     height: 100%;
     overflow-y: scroll;
     position: relative;
     font-family: var(--primary-font-fam);
-    /* scroll-snap-type: y mandatory; */
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
-/* 
+.content {
+    display: flex;
+    flex-direction: column;
+    max-width: 30%;
+    /* gap: 500px; */
+}
+
+/*
 .container>* {
     flex-basis: 100vh;
     scroll-snap-align: center;
 } */
+
+.paragraph h2 {
+    pointer-events: all !important;
+}
 
 .paragraphContainer {
     height: 100%;
@@ -25,12 +31,55 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
+    margin-bottom: 500px;
+    transition: opacity 1s;
+}
 
+.paragraphContainer[data-id="globeView"],
+.paragraphContainer[data-id="globeView_medium"] {
+    margin-bottom: calc(95vh - 20rem) !important;
+}
 
+.paragraphContainer[data-id="globeView"] div,
+.paragraphContainer[data-id="globeView_medium"] div,
+.paragraphContainer[data-id="globeView"] div p,
+.paragraphContainer[data-id="globeView_medium"] div p {
+    margin-bottom: 0px !important;
+}
+
+.paragraphContainer[data-id="globeView_small"] {
+    margin-bottom: calc(95vh - 20rem) !important;
 }
 
 .container::-webkit-scrollbar {
     display: none;
+}
+
+.beginText {
+    font-family: var(--sans-font-fam);
+    font-size: 0.7rem;
+    font-weight: 500;
+    transform: translateY(1rem);
+}
+
+.arrowRight {
+    color: var(--brown);
+    font-size: 1.5rem;
+    line-height: 0.5rem;
+    transform: translateY(0.5rem);
+}
+
+.routeJourney {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--brown);
+    text-decoration: none;
+    pointer-events: all !important;
+}
+
+.routeJourney:hover {
+    color: var(--brown);
+    opacity: 0.7;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
@@ -45,14 +94,13 @@
     align-self: normal;
     height: 100%;
     display: flex;
+    align-items: baseline;
     flex-direction: column;
     /* justify-content: center; */
+    /* scroll-snap-align: start; */
     margin-bottom: 2rem;
 }
 
-.paragraph>* {
-    backdrop-filter: blur(10px);
-}
 
 .box {
     display: flex;
@@ -61,6 +109,16 @@
     height: 100%;
     width: 100%;
     padding: 2rem;
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.show {
+    opacity: 1 !important;
+
 }
 
 
@@ -75,15 +133,37 @@
     display: block;
 }
 
-@media (max-width:1000px) {
-    .container {
-        --line-height: 20px;
-        /* backdrop-filter: blur(10px); */
-        /* background-color: #AEB3C4; */
+@media(max-width:900px) {
+    .content {
+        max-width: unset;
+    }
+}
 
+
+@media (max-width:600px) {
+    .paragraphContainer {
+        height: unset;
     }
 
-    /* .paragraph {
-        justify-content: flex-start;
-    } */
+}
+
+@media (max-width:500px) {
+    .paragraph {
+        scroll-snap-align: none;
+    }
+
+    .paragraph p {
+        font-size: 0.875rem;
+        line-height: 22.5px;
+        margin-bottom: 0;
+    }
+
+
+
+    .paragraph h2 {
+        font-size: 0.875rem;
+        line-height: 22.5px;
+    }
+
+
 }

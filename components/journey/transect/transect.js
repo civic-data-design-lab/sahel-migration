@@ -3,8 +3,10 @@ import * as d3 from 'd3';
 import useWindowSize from '../../../hooks/useWindowSize';
 import PlotAllTransectLayers, { PlotCombinedTransectLayers } from './transectPlots';
 import styles from '../../../styles/Transect.module.css';
+import RiskLabel from './RiskLabel';
 import RiskWeightTextInput from './RiskWeightTextInput';
 import RiskWeightSlider from './RiskWeightSlider';
+import InfoTooltipWrapper from '../../infotooltip';
 import { createRoot } from 'react-dom/client';
 
 const INITIAL_RISKS_DATA = [
@@ -12,51 +14,69 @@ const INITIAL_RISKS_DATA = [
     id: '4mi',
     index: 0,
     label: 'Reported Violence',
+    dataDescr:
+      'Migrant reported locations and incidents of death, sexual violence, kidnapping, and physical violence. This 4Mi is based on around 48,000 interviews with refugees and migrants conducted in Africa, collected by the Mixed Migration Centre between 2018-2022.',
     color: '#5D3435',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
     id: 'acled',
     index: 1,
     label: 'Conflict Events',
+    dataDescr:
+      'Armed Conflict Location & Event Data of dates, locations, fatalities, and types of all reported political violence and protest events from 2022. Conflict events are visualized by the sum of incident counts within a 50km radius of the route.',
     color: '#985946',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
     id: 'food',
     index: 2,
     label: 'Food Insecurity',
+    dataDescr:
+      'Integrated Food Security Phase Classification (IPC) and Cadre Harmonisé data on regional food insecurity in 2021. The IPC Classification System distinguishes acute food insecurity across five severity phases: minimal/none, stressed, crisis, emergency, catastrophe/famine.',
     color: '#9A735A',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
     id: 'smuggler',
     index: 3,
-    label: 'Need for a Smuggler',
+    label: 'Reliance on Smugglers',
+    dataDescr:
+      'Irregular migrants tend to rely on smugglers more when traveling through areas that restrict freedom of movement, approaching border crossings, and traveling through areas with a perceived need for protection. This dataset is based on research to address areas along the route where migrants are more likely to rely on smugglers, using geographic boundaries.',
     color: '#F48532',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
     id: 'remoteness',
     index: 4,
     label: 'Remoteness',
+    dataDescr:
+      'Remoteness data serves as a proxy for the lack of access to food, healthcare, and other resources. This dataset visualizes the driving time access to the nearest city based on the ESRI World Cities dataset and Travel Time tool.',
     color: '#624B44',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
   {
     id: 'heat',
     index: 5,
     label: 'Heat Exposure',
+    dataDescr:
+      'Many migrants encounter dehydration and exposure to extreme heat. This dataset show the average of daily maximum temperatures from the MERRA2 satellite data in 2022 in regions that are categorized as barren or sparsely vegetated in the ESRI Africa Land Cover dataset.',
     color: '#3F231B',
-    weight: 100,
+    weight: 50,
     normWeight: 1 / 6,
   },
 ];
+const routeMigrants = {
+  id: 'migrants',
+  label: 'Migrants Along the Route',
+  dataDescr:
+    'Based on the Displacement Tracking Matrix Flow Monitoring Survey data collected by the International Organization for Migration in West Africa from July 2021-June 2022, this data represents the relative number of migrants that pass through a given segment along the route using the most efficient travel routes from the Open Source Routing Machine.',
+};
 
 const margin = {
   top: 50,
@@ -123,7 +143,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
           'Gharyan',
           'Az Zawiyah',
         ];
-        const cities = data
+        let cities = data
           .filter((d) => !!d.city && !excludeCities.includes(d.city))
           .map((d) => {
             let item = {};
@@ -132,7 +152,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             item.country = d.country;
             return item;
           });
-        const borders = data
+        let borders = data
           .filter((d) => !!d.border_2)
           .map((d) => {
             let item = {};
@@ -141,6 +161,9 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             item.border_2 = d.border_2;
             return item;
           });
+        if (width < 900) {
+          cities = cities.filter((d) => d.city === 'Bamako' || d.city === 'Tripoli');
+        }
         const migrantRoutesData = data.reduce((a, d) => {
           let i = d.route_index - 1;
           if (!a[i]) {
@@ -244,28 +267,50 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
   const [roots, setRoots] = useState([]);
 
   useEffect(() => {
+    if (!svgLoaded || !isOpen) {
+      console.debug('Sliders: Set roots to empty array');
+      setRoots([]);
+      return;
+    }
+
     // Make sure to unmount the old roots
-    console.log('Recreating roots');
+    console.debug('Sliders: Recreating roots');
     roots.forEach((r) => {
+      console.warn(r.root._internalRoot);
       r.root.unmount();
     });
     const newRoots = [];
 
-    if (!svgLoaded || !isOpen) {
-      console.log('Set roots to empty array');
-      setRoots(newRoots);
-      return;
-    }
-
     const svg = d3.select(svgRef.current);
 
+    // Create the risk weight-related elements and push them to the roots array
     risks.forEach((risk) => {
-      console.log('Drawing', risk);
+      // console.log('Drawing', risk);
+      const textLabel = svg
+        .append('foreignObject')
+        .attr('width', 200)
+        .attr('height', 20)
+        .attr('x', margin.left)
+        .attr('y', margin.top + yPlotOffset * risk.index - 12)
+        .style('z-index', 9999)
+        .attr('pointer-events', 'none')
+        .append('xhtml:div')
+        .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+        .style('pointer-events', 'all')
+        .node();
+      newRoots.push({ type: 'label', root: createRoot(textLabel), riskId: risk.id });
+
+      // Don't render sliders and the weight text boxes on small screens (not
+      // enough room)
+      if (width <= 480) {
+        return;
+      }
+
       const textInputElement = svg
         .append('foreignObject')
         .attr('width', 100)
         .attr('height', 100)
-        .attr('x', margin.left + 415)
+        .attr('x', margin.left + 475)
         .attr('y', margin.top + yPlotOffset * risk.index - 12)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
@@ -278,9 +323,9 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
 
       const sliderElement = svg
         .append('foreignObject')
-        .attr('width', 250)
+        .attr('width', 400)
         .attr('height', 25)
-        .attr('x', margin.left + 160)
+        .attr('x', margin.left + 190)
         .attr('y', margin.top + yPlotOffset * risk.index - 15)
         .style('z-index', 9999)
         .attr('pointer-events', 'none')
@@ -291,12 +336,30 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
 
       newRoots.push({ type: 'slider', root: createRoot(sliderElement), riskId: risk.id });
     });
+    // create text label for 'migrants along the route'
+    const migrantsTextLabel = svg
+      .append('foreignObject')
+      .attr('width', 200)
+      .attr('height', 20)
+      .attr('x', margin.left)
+      .attr('y', margin.top + yPlotOffset * 6 - 12)
+      .style('z-index', 9999)
+      .attr('pointer-events', 'none')
+      .append('xhtml:div')
+      .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+      .style('pointer-events', 'all')
+      .node();
+    newRoots.push({
+      type: 'label-migrants',
+      root: createRoot(migrantsTextLabel),
+      riskId: routeMigrants.id,
+    });
 
     setRoots(newRoots);
-    console.log('created roots', newRoots);
+    console.debug('Sliders: created roots', newRoots);
 
     return () => {
-      console.log('UNMOUNTING');
+      console.debug('Sliders: UNMOUNTING');
       roots.forEach((rootInfo) => {
         rootInfo.root.unmount();
       });
@@ -308,8 +371,11 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     drawLayers(svgRef, width, height, isOpen);
   }, [dataTabHeight, height, svgRef, width, isOpen, journey, isExpanded]);
 
+  /**
+   * Render the sliders
+   */
   useEffect(() => {
-    console.log('Rendering roots', roots);
+    // console.log('Rendering roots', roots);
 
     roots.forEach(({ type, root, riskId }) => {
       const riskInfo = risks.find((risk) => risk.id === riskId);
@@ -317,12 +383,30 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
         console.warn('Tried updating an unmounted root');
         return;
       }
-      if (type === 'text') {
+      if (type === 'label') {
+        root.render(
+          <RiskLabel
+            key={riskInfo.id}
+            riskId={riskInfo.id}
+            riskDescription={riskInfo.dataDescr}
+            riskLabel={riskInfo.label}
+          />
+        );
+      } else if (type === 'label-migrants') {
+        root.render(
+          <RiskLabel
+            key={routeMigrants.id}
+            riskId={routeMigrants.id}
+            riskDescription={routeMigrants.dataDescr}
+            riskLabel={routeMigrants.label}
+          />
+        );
+      } else if (type === 'text') {
         root.render(
           <RiskWeightTextInput
             key={riskInfo.id}
             riskId={riskInfo.id}
-            riskWeight={riskInfo.weight}
+            riskWeight={riskInfo.normWeight}
             onUpdate={(val) => updateRiskWeight(riskInfo.id, val)}
           />
         );
@@ -338,7 +422,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
       }
     });
 
-    console.log('Done rendering');
+    // console.log('Done rendering');
   }, [roots, risks]);
 
   const updateRiskWeight = (riskId, newWeight) => {
@@ -367,7 +451,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
       const foreignObject = d3
         .select(svgRef.current)
         .append('foreignObject')
-        .attr('x', 50)
+        .attr('x', 80)
         .attr('y', 50)
         .attr('width', 200)
         .attr('height', 100)
@@ -385,9 +469,9 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
     <>
       {!weightsConfirmed && (
         <button
-          class={styles.confirmWeights}
+          className={styles.confirmWeights}
           style={{
-            left: `${margin.left + 250}px`,
+            left: `${margin.left + 360}px`,
           }}
           onClick={() => {
             drawLayers(svgRef, width, height, isOpen);

@@ -17,13 +17,43 @@
     width: 100%;
     height: 100vh;
     grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     background-image: url('../public/images/lines_blue.svg');
-    background-size: 2.5%;
     background-repeat: repeat;
-    background-color: hsl(231, 14%, 53%);
+
+    position: relative;
     /* background-color: #B0B3C3; */
     /* background-blend-mode: darken; */
 }
+
+.gridContainer[data-color=dark] {
+    background-color: hsl(231, 14%, 53%);
+    background-size: 2.5%;
+
+}
+
+.gridContainer[data-color=light] {
+    background-color: #AEB3C4;
+    background-size: 5%;
+
+}
+
+.exploreBox {
+    position: absolute;
+    top: 10%;
+    /* left: 0; */
+    padding: 1rem;
+    font-family: var(--primary-font-fam);
+    color: var(--brown);
+}
+
+.exploreBox>a {
+    color: var(--brown);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: clamp(1rem, 1.25vw, 1.5rem);
+}
+
 
 .mapHolder {
     width: 100vw;
@@ -33,36 +63,29 @@
     align-items: center;
 }
 
-@media (max-width:600px) {
 
-    .mapHolder {
-        width: 100vw;
-        align-items: flex-end;
-        height: 100vh;
-    }
-
-    .gridContainer {
-        grid-template-columns: repeat(3, 1fr);
-
-    }
-}
 
 .boxContainer {
-    height: 100vh;
-    /* width: 30vw; */
-    z-index: 2;
-    display: flex;
-    justify-content: center;
+    /* height: 100vh; */
+    width: 100vw;
+    z-index: 5;
+    display: grid;
     align-items: center;
     /* grid-column-start: span 4; */
-    grid-area: 1/1/1/5;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    grid-area: 1/1/13/13;
+    /* background-color: rgba(0, 255, 0, 0.5); */
 }
 
 .contentBox {
+    /* background-color: rgba(255, 0 ,0, 0.5); */
+    /* grid-area: 3/1/10/4; */
     position: fixed;
     height: 80vh;
     /* bottom: 0; */
     /* z-index: -1; */
+    width: 100%;
 }
 
 /* @media (max-width: 800px) {
@@ -103,42 +126,59 @@
     font-size: 0.6rem;
 }
 
-@media (max-width:600px) {
 
+@supports (-webkit-hyphens:none) {
+    .contentBox {
+        margin-top: 5rem;
+    }
 
-    .mapContainer {
-        height: clamp(30%, 35vh, 40%);
-        width: 100%;
-        bottom: 0;
-        align-items: flex-end;
-        position: absolute;
+    @media (max-width:480px) {
+        .contentBox {
+            margin-top: 0rem;
+        }
+    }
+}
+
+@media (max-width:900px) {
+    .gridContainer {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+
     }
 
     .textContainer {
         height: 40vh;
-        overflow-y: auto;
+        /* overflow-y: auto; */
         position: relative;
         overflow-x: hidden;
     }
-}
-
-@media (max-width:600px) {
 
     .mapContainer {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        align-items: flex-end;
+        grid-area: 5/1/11/7;
     }
 
     .boxContainer {
+        display: flex;
         width: 100%;
         align-items: unset;
+        grid-area: 2/1/10/13;
     }
 
     .contentBox {
-        height: 40%;
+        height: 100%;
         position: relative;
-        margin-top: 5rem;
+    }
+
+    /* .exploreBox {
+        top: 15%;
+    } */
+
+}
+
+@media (max-width:900px) {
+
+    .mapContainer {
+        pointer-events: none;
+        z-index: 5;
     }
 }

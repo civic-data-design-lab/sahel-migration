@@ -1,27 +1,104 @@
 .legend {
-    z-index: 10;
-    grid-area: 1/11/1/12;
-    pointer-events: none;
+    z-index: 5;
+    grid-area: 10/11/11/13;
+    /* grid-column-end: 13; */
+    display: flex;
+    justify-content: flex-end;
+    margin-right: .5rem;
+    /* pointer-events: none; */
+}
+
+.legend:hover {
+    cursor: default;
 }
 
 .routes {
     display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    position: fixed;
-    bottom: 7.5%;
-    border-bottom: 1.5px solid #985946;
+    gap: 1rem;
+    align-items: flex-start;
+
+    flex-direction: column-reverse;
+    height: max-content;
+}
+
+#icon {
+    pointer-events: all !important;
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    color: #985946;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0;
+}
+
+.subheader {
+    border-bottom: 2px solid #985946;
+    width: max-content;
+    padding-bottom: 0.5rem;
+}
+
+.routes h4,
+.routes p {
+    margin-bottom: 0.2rem;
+    color: var(--brown);
+    line-height: 1rem;
 }
 
 .routes h4 {
-    font-size: 1rem;
+    font-size: 0.8rem;
+}
+
+.routes p {
+    font-size: 0.7rem;
+}
+
+.label {
+    max-width: 100%;
+}
+
+.bars,
+.cityLegend {
+    /* width: 100%; */
+    height: max-content;
+    display: grid;
 }
 
 .bars {
-    width: 100%;
-    height: 1rem;
-    margin-bottom: 1rem;
     grid-template-columns: repeat(7, 1fr);
-    display: grid;
+    margin-bottom: 0.5rem;
     align-items: flex-end;
+}
+
+.cityLegend {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    align-items: center;
+    /* margin-bottom: 1.5rem; */
+}
+
+@media (max-width:600px) {
+    .routes {
+        gap: 0.01rem;
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .indicators {
+        height: 1rem
+    }
+
+    .routes h4 {
+        font-size: 0.4rem;
+    }
+
+    .routes p {
+
+        font-size: 0.4rem;
+    }
+
+
+    .legend {
+        grid-area: 10/11/10/13;
+    }
 }

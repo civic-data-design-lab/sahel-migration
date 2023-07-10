@@ -3,13 +3,10 @@ import Menu from '../components/menu';
 import { Inter } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import MainMap from './maps/map';
-import MapBox from '../components/map/mapBox';
-import DataTabToggle from '../components/journey/transect/dataTabToggle';
-import DataTab from '../components/journey/transect/dataTab';
 const inter = Inter({ subsets: ['latin'] });
 import { useAppContext } from '../context/journeys';
-import JourneyNav from '../components/map/journeyNav';
-import { createContext, useState } from 'react';
+import VignetteChapterNav from '../components/map/vignetteChapterNav';
+import { createContext, use, useEffect, useState } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
 export const SectionContext = createContext({
@@ -17,11 +14,21 @@ export const SectionContext = createContext({
   setSection: () => { },
 });
 
+
 export default function Home() {
   const journeys = useAppContext();
   const [currentSection, setSection] = useState(null);
   const sectionValue = { currentSection, setSection };
   const { width } = useWindowSize();
+  const documentHeight = () => {
+    const doc = document.documentElement
+    doc.style.setProperty('--doc-height', `${window.innerHeight}px`)
+  }
+  useEffect(() => {
+    window.addEventListener("resize", documentHeight)
+    documentHeight()
+  })
+
   return (
     <>
       <Head>
@@ -29,15 +36,16 @@ export default function Home() {
         <meta name="description" content="Risks of West African Migration" />
         <meta name="author" content="Civic Data Design Lab at MIT" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/migrantsmove_favicon.ico" />
       </Head>
-      <main>
+      <main
+      >
         <SectionContext.Provider value={sectionValue}>
           <Menu journeys={journeys} />
           {/* <h1>HOME</h1> */}
-          <MainMap />
+          <MainMap journeys={journeys} />
           {/* <MapBox /> */}
-          {width > 600 && <JourneyNav journeys={journeys} />}
+          <VignetteChapterNav journeys={journeys} />
         </SectionContext.Provider>
       </main>
     </>

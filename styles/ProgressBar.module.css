@@ -1,0 +1,153 @@
+.stepperContainer {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.stepper {
+  --dark: #463c35;
+  --light: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  /* gap: 2.5rem; */
+  z-index: 8;
+  font-family: Inter;
+  pointer-events: all !important;
+
+  /* grid-area: 2/2/2/4;
+  right: 1rem; */
+
+  justify-content: center;
+  /* position: fixed;
+  left: 8%;
+  top: 8%; */
+
+
+  /* margin-bottom: 2rem; */
+  /* flex-direction: column-reverse; */
+  /*width: 10rem;*/
+  /* text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8); */
+}
+
+@media (max-width:900px) {
+  .stepper {
+    left: 40%;
+  }
+}
+
+
+.stepperLine {
+  content: '';
+  border: .07rem solid;
+  width: 100%;
+  background-color: var(--dark);
+  position: absolute;
+  top: 47%;
+  bottom: 50%;
+  /*transform: translateY(-50%);*/
+}
+
+@media (max-width:1200px) {
+  .stepperLine {
+    width: 100%;
+  }
+}
+
+
+/*.stepper::before {*/
+
+/*}*/
+
+.stepContainer {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 0.8rem;
+  color: inherit;
+  line-height: 1.1rem;
+  pointer-events: all !important;
+
+
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stepContainer:hover {
+    color: black
+  }
+
+}
+
+
+
+.textContainer {
+  margin-left: .2rem;
+  margin-right: .2rem;
+  display: flex;
+  align-items: center;
+}
+
+.step {
+  /* background-color: var(--light); */
+  /* aspect-ratio: 1/1; */
+  /* border-radius: 50%; */
+  width: 2rem;
+  /* height: 0.75rem; */
+  display: flex;
+  padding: 0 0.1rem;
+  align-items: center;
+  pointer-events: all !important;
+
+  justify-content: center;
+  border: 0.1rem solid var(--dark);
+  transition: 0.4s ease;
+  height: 70%;
+}
+
+.next {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid var(--dark);
+  height: 70%;
+  padding: 0 0.4rem;
+}
+
+.stepContainer:first-child .step {
+  border-radius: 1rem 0 0 1rem;
+
+}
+
+.stepContainer:last-child .next {
+  border-radius: 0 1rem 1rem 0;
+
+}
+
+.filled {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.current {
+  background-color: none;
+}
+
+@media only screen and (max-width: 480px) {
+  .stepper {
+    /* grid-area: 2/1/2/13;
+    right: 0;
+    bottom: 2rem; */
+
+    top: 8%;
+    left: 25%;
+    margin-bottom: 0;
+  }
+
+  .stepperLine {
+    width: 90%;
+  }
+
+  .textContainer {
+    font-size: .7rem;
+  }
+
+
+}

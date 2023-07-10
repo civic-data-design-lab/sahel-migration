@@ -1,15 +1,14 @@
-import { motion, AnimatePresence, useScroll } from 'framer-motion';
+import { motion, AnimatePresence, useScroll} from 'framer-motion';
 import styles from '../../styles/Card.module.css';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState,useRef} from 'react';
 import * as d3 from 'd3';
 import useWindowSize from '../../hooks/useWindowSize';
 
-export default function Card({ svgRef, entourage, width, height, scrollRef }) {
-  const { scrollXProgress } = useScroll({ target: scrollRef });
+export default function Card({ svgRef, entourage, width, height, scrollXProgress }) {
   const [isOpen, setIsOpen] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-
+  const previousScrollXRef = useRef(0);
   useEffect(() => {
     svgRef.current.addEventListener('load', () => {
       const svg = d3.select(svgRef.current.contentDocument.documentElement);
@@ -32,9 +31,18 @@ export default function Card({ svgRef, entourage, width, height, scrollRef }) {
         .on('mouseover', function () {
           svg.select('#outline-' + entourage.id).style('opacity', 1);
           setIsOpen(true);
+        })
+        .on('click', function (event) {
+          let scrollX = event.clientX - window.innerWidth / 2;
+          if (Math.abs(scrollX-previousScrollXRef.current)> 100) {
+            window.scrollTo(scrollX+100, 0);
+            previousScrollXRef.current = scrollX+100;
+          }
         });
     });
-    scrollXProgress.on('change', setBoundingBox);
+    if (window.innerWidth < 480) {
+      scrollXProgress.on('change', setBoundingBox);
+    }
   }, [entourage.id, entourage.scrollEnd, entourage.scrollStart, isOpen, scrollXProgress, svgRef]);
 
   useLayoutEffect(() => {
@@ -53,8 +61,8 @@ export default function Card({ svgRef, entourage, width, height, scrollRef }) {
 
   const setBoundingBox = (latest) => {
     const svg = d3.select(svgRef.current.contentDocument.documentElement);
-    setIsOpen(latest >= entourage.scrollStart && latest <= entourage.scrollEnd);
-    svg.select('#outline-' + entourage.id).style('opacity', isOpen ? 1 : 0);
+    // setIsOpen(latest >= entourage.scrollStart && latest <= entourage.scrollEnd);
+    svg.select('#outline-' + entourage.id).style('opacity', latest >= entourage.scrollStart && latest <= entourage.scrollEnd ? 1 : 0);
   };
 
   return (

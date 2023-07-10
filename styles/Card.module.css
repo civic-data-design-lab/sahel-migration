@@ -4,6 +4,8 @@
   left: 0;
   /*width: fit-content;*/
   transform: translate(0%, -100%);
+  z-index: 5;
+  pointer-events: none;
 }
 
 .card {
@@ -17,7 +19,9 @@
   align-items: center;
   justify-content: center;
   object-position: left top;
-  z-index: 8;
+  backdrop-filter: blur(3px);
+  pointer-events: all;
+  cursor: pointer;
 
 }
 
@@ -30,15 +34,19 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .expandedCard {
-    width: 10rem;
-    max-width: 100rem;
-    /*overflow-y: scroll;*/
-    max-height: 20rem;
-  }
+  /*.expandedCard {*/
+  /*  width: 10rem;*/
+  /*  max-width: 100rem;*/
+  /*  !*overflow-y: scroll;*!*/
+  /*  max-height: 20rem;*/
+  /*}*/
 
-  .card {
-    font-size: .6rem;
+  /*.card {*/
+  /*  font-size: .6rem;*/
+  /*}*/
+
+  .cardContainer {
+    display: none;
   }
 
 }
