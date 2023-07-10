@@ -14,9 +14,10 @@
 
 .routes {
     display: flex;
-    /* gap: 0.2rem; */
+    gap: 1rem;
     align-items: flex-start;
-    /* flex-direction: column; */
+
+    flex-direction: column-reverse;
     height: max-content;
 }
 
