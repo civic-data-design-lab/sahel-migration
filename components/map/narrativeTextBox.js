@@ -56,35 +56,14 @@ function Paragraph({ children, data, nextElem, narrativeItems, journeys }) {
                 }}
             >
                 {data.body}
-                {data.id === "globeView" ? (
-                    <>
-                        <br />
-                        <Link
-                            className={styles.routeJourney}
-                            key={beginJourney.id}
-                            onClick={handleRouting('/journeys/' + beginJourney.route)}
-                            href={'/journeys/' + beginJourney.route}
-                        >
-                            <span className={styles.beginText}>Begin the migration journey from Mali.
-                                <motion.span
-                                    class={`${styles.arrowRight} material-symbols-outlined`}
-                                >
-                                    keyboard_arrow_right
-                                </motion.span>
-                            </span>
-                        </Link>
-                    </>
-                ) : ''}
             </p>
-            {(data.id !== "globeView" && data.id !== "vignetteTransition") && (
 
-                <ProgressBar
-                    narratives={narrativeItems}
-                    currenNarrativeSection={currentView}
+            <ProgressBar
+                narratives={narrativeItems}
+                currenNarrativeSection={currentView}
 
-                />
+            />
 
-            )}
         </motion.div>
     );
 }
