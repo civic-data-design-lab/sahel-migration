@@ -71,6 +71,7 @@ export default function Card({ svgRef, entourage, width, height, scrollXProgress
       style={{
         left: width < 480 ? x + 0.5 * entourage.posX : x + entourage.posX,
         top: y + entourage.posY,
+        transform: entourage.scrollStart >= .8?  'translate(-100%, -100%)': '',
       }}
     >
       <motion.div

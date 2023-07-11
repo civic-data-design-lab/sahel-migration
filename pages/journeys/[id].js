@@ -51,7 +51,7 @@ export default function JourneysPage() {
       <div id="journey" className={styles.journeyContainer}>
         <div className={styles.gridContainer}>
           <Title journey={journey}/>
-          <Link style={{color:" #463c35", textDecoration: "none"}} href="/">
+          <Link  title="Go to Map" style={{color:" #463c35", textDecoration: "none"}} href="/">
           <div className={styles.mapNavigation}>
             <span className="material-symbols-outlined">
               public

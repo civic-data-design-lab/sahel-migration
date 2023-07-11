@@ -19,6 +19,15 @@
   font-family: var(--font-mono);
 }
 
+.mapNavigation {
+  position: fixed;
+  top: 0;
+  right: 3rem;
+  z-index: 40;
+  background-color: transparent;
+  padding: 1rem;
+}
+
 .description a {
   display: flex;
   justify-content: center;

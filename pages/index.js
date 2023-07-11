@@ -6,8 +6,9 @@ import MainMap from './maps/map';
 const inter = Inter({ subsets: ['latin'] });
 import { useAppContext } from '../context/journeys';
 import VignetteChapterNav from '../components/map/vignetteChapterNav';
-import { createContext, use, useEffect, useState } from 'react';
+import React, { createContext, use, useEffect, useState } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
+import Link from "next/link";
 
 export const SectionContext = createContext({
   currentSection: null,
@@ -42,6 +43,13 @@ export default function Home() {
       >
         <SectionContext.Provider value={sectionValue}>
           <Menu journeys={journeys} />
+          <Link  title="Go to Journey" style={{color:" #463c35", textDecoration: "none"}} href="/journeys/beginning-journey">
+            <div className={styles.mapNavigation}>
+            <span className="material-symbols-outlined">
+              directions_walk
+          </span>
+            </div>
+          </Link>
           {/* <h1>HOME</h1> */}
           <MainMap journeys={journeys} />
           {/* <MapBox /> */}
