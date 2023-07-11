@@ -43,7 +43,7 @@ export default function Home() {
       >
         <SectionContext.Provider value={sectionValue}>
           <Menu journeys={journeys} />
-          <Link style={{color:" #463c35", textDecoration: "none"}} href="/journeys/beginning-journey">
+          <Link  title="Go to Journey" style={{color:" #463c35", textDecoration: "none"}} href="/journeys/beginning-journey">
             <div className={styles.mapNavigation}>
             <span className="material-symbols-outlined">
               directions_walk
