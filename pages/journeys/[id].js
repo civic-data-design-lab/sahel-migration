@@ -52,7 +52,7 @@ export default function JourneysPage() {
         <div className={styles.gridContainer}>
           <Title journey={journey}/>
           <Link  title="Go to Map" style={{color:" #463c35", textDecoration: "none"}} href="/">
-          <div className={styles.mapNavigation}>
+          <div className={styles.mapNavigation} style={{fontSize:'32px'}}>
             <span className="material-symbols-outlined">
               public
           </span>
