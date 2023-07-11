@@ -43,6 +43,10 @@ export default function VignetteChapterNav({ journeys }) {
             vignetteHovered = true
             setSection({ routeId: index + 1, vignetteHovered: index })
         }
+        const onLeave = () => {
+            vignetteHovered = false
+            setSection({})
+        }
         return (
             <Fragment
                 key={`${index}${uuidv4}`}>
@@ -55,7 +59,7 @@ export default function VignetteChapterNav({ journeys }) {
                         y: routeHovered ? 0 : 80,
                     }}
                     onMouseEnter={() => vignetteHovered = true}
-                    onMouseLeave={() => vignetteHovered = false}
+                    onMouseLeave={onLeave}
                     onMouseMove={highlightSegment}
                     onClick={goToRouteLink}
                     transition={{ type: "spring", duration: 0.75 }}
