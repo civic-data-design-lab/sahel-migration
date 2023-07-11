@@ -33,7 +33,7 @@ export default function MapGlobe({ journeys, globeVisibility, scrollProgress }) 
             center: [lng, lat],
             zoom: zoom,
             attributionControl: false,
-            logoPosition: 'top-right'
+            logoPosition: width > 480 ? 'bottom-right' : 'bottom-left'
 
         });
         const mapInteractions = [

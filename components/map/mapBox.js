@@ -263,7 +263,7 @@ export default function MapBox({ activeSource, narrativeData, cityData, toggleMa
                     dragPan={false}
                     dragRotate={false}
                     scrollZoom={false}
-                    logoPosition='top-right'
+                    logoPosition={width > 480 ? 'bottom-right' : "bottom-left"}
                 >
                     {(hoveredMigrantCountry && !hoveredCity) && (countryTip)}
                     {(hoveredCity) && (cityTip)}
