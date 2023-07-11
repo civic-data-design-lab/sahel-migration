@@ -270,6 +270,10 @@ g {
   border-top-color: none !important;
 }
 
+.mapboxgl-canvas-container {
+  cursor: auto !important
+}
+
 /* transect svg */
 /* #viz-transect-layers {
     margin-top: 1.5rem;
@@ -335,15 +339,19 @@ g {
   color: #463c35 !important;
 }
 
-.tooltip.bs-tooltip-top>div.tooltip-inner {
+.tooltip.bs-tooltip-top>div.tooltip-inner,
+.tooltip.bs-tooltip-bottom>div.tooltip-inner {
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(3px);
 }
 
-.tooltip.bs-tooltip-top .tooltip-arrow::before {
+.tooltip.bs-tooltip-top .tooltip-arrow::before,
+.tooltip.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: rgba(255, 255, 255, 0.9) !important;
   border-top-color: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(3px);
 }
+
 
 .tooltip.bs-tooltip-end>div.tooltip-inner {
   background-color: rgba(230, 230, 230, 0.95);
