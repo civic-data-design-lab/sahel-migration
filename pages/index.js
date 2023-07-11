@@ -45,7 +45,7 @@ export default function Home() {
           <Menu journeys={journeys} />
           <Link  title="Go to Journey" style={{color:" #463c35", textDecoration: "none"}} href="/journeys/beginning-journey">
             <div className={styles.mapNavigation}>
-            <span className="material-symbols-outlined">
+            <span className="material-symbols-outlined" style={{fontSize:'32px'}}>
               directions_walk
           </span>
             </div>
