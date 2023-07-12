@@ -16,9 +16,17 @@
     display: flex;
     gap: 1rem;
     align-items: flex-start;
-
+    text-shadow: 0rem 0rem 0.5rem rgba(255, 255, 255, 0.8);
     flex-direction: column-reverse;
     height: max-content;
+}
+
+.routeLegend {
+    width: 100%;
+}
+
+.routes img {
+    width: 100%;
 }
 
 #icon {
@@ -34,7 +42,7 @@
 
 .subheader {
     border-bottom: 2px solid #985946;
-    width: max-content;
+    width: 100%;
     padding-bottom: 0.5rem;
 }
 

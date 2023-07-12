@@ -81,7 +81,7 @@ export default function ProgressBar({ narratives, currenNarrativeSection }) {
 
                     >
 
-                        <span>Next</span>
+                        <span>{currenNarrativeSection !== "globeView" ? "Next" : "Begin the Journey"}</span>
                         <span class="material-symbols-outlined">
                             navigate_next
                         </span>

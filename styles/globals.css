@@ -251,6 +251,13 @@ g {
   backdrop-filter: blur(3px);
 }
 
+.mapboxgl-ctrl {
+  display: none;
+  /* position: absolute !important; */
+  /* inset: 0 !important; */
+  margin-bottom: 3rem !important;
+}
+
 /* .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
   border-top-color: rgba(255, 255, 255, 0.75) !important;
 } */
@@ -261,6 +268,10 @@ g {
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
   border-top-color: none !important;
+}
+
+.mapboxgl-canvas-container {
+  cursor: auto !important
 }
 
 /* transect svg */
@@ -319,7 +330,7 @@ g {
 }
 
 /* bootstrap tooltip popover */
-.tooltip > div.tooltip-inner {
+.tooltip>div.tooltip-inner {
   padding: 0.6rem;
   font-size: 0.75rem;
   line-height: 0.9rem;
@@ -328,17 +339,21 @@ g {
   color: #463c35 !important;
 }
 
-.tooltip.bs-tooltip-top > div.tooltip-inner {
+.tooltip.bs-tooltip-top>div.tooltip-inner,
+.tooltip.bs-tooltip-bottom>div.tooltip-inner {
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(3px);
 }
 
-.tooltip.bs-tooltip-top .tooltip-arrow::before {
+.tooltip.bs-tooltip-top .tooltip-arrow::before,
+.tooltip.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: rgba(255, 255, 255, 0.9) !important;
   border-top-color: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(3px);
 }
 
-.tooltip.bs-tooltip-end > div.tooltip-inner {
+
+.tooltip.bs-tooltip-end>div.tooltip-inner {
   background-color: rgba(230, 230, 230, 0.95);
   backdrop-filter: blur(3px) !important;
 }
@@ -358,14 +373,44 @@ g {
   z-index: 100;
   /* top: 0; */
   /* left: 0; */
-  background-color: rgba(255, 255, 255, 0.8);
   font-family: 'Inter', sans-serif;
-  color: #463c35;
-  width: 15.5rem;
-  padding: 1rem;
+  width: 16rem;
   border-radius: 1rem;
   box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(3px);
+}
+
+.transectTooltip .header {
+  padding: 1rem 1rem 0.25rem;
+  border-radius: 1rem 1rem 0 0;
+  color: #fff;
+  background-color: var(--brown);
+}
+.transectTooltip .risk-class-1 {
+  color: #463c35 !important;
+  background-color: #f9bda7;
+}
+.transectTooltip .risk-class-2 {
+  color: #463c35 !important;
+  background-color: #f79c7c;
+}
+.transectTooltip .risk-class-3 {
+  background-color: #f47b50;
+}
+.transectTooltip .risk-class-4 {
+  background-color: #f15a24;
+}
+.transectTooltip .risk-class-5 {
+  background-color: #b5441b;
+}
+.transectTooltip .risk-class-6 {
+  background-color: #792d12;
+}
+.transectTooltip .body {
+  padding: 0.25rem 1rem 1rem;
+  border-radius: 0 0 1rem 1rem;
+  color: #463c35;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .transectTooltip h4 {
@@ -386,23 +431,18 @@ g {
 .transectTooltip p.risk-4mi::before {
   background: #5d3435;
 }
-
 .transectTooltip p.risk-food::before {
   background: #9a735a;
 }
-
 .transectTooltip p.risk-acled::before {
   background: #985946;
 }
-
 .transectTooltip p.risk-smuggler::before {
   background: #f48532;
 }
-
 .transectTooltip p.risk-remoteness::before {
   background: #624b44;
 }
-
 .transectTooltip p.risk-heat::before {
   background: #3f231b;
 }
@@ -415,6 +455,15 @@ g {
 
 .transectTooltip .labelData {
   float: right;
+}
+
+.transectTooltip .risk-total {
+  margin-top: 0.25rem;
+}
+.transectTooltip #data-total {
+  display: inline-block;
+  padding-left: 1rem;
+  border-top: solid 1px #463c35;
 }
 
 .transectTooltip .route-traffic {
