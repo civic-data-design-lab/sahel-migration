@@ -20,6 +20,7 @@ export default function PlotAllTransectLayers(
     xDomain,
     risks,
     risksData,
+    journeys,
     journeyData,
     journeyFocusData,
     journey,
@@ -87,16 +88,19 @@ export default function PlotAllTransectLayers(
   Tooltip({
     width: width,
     height: height,
+    margin: margin,
     data: data,
     svgRef: svgRef,
     tooltipRef: tooltipRef,
     xScale: xScale,
     risks: risks,
     risksData: risksData,
+    journeys: journeys,
     journey: journey,
     journeyData: journeyData,
     journeyFocusData: journeyFocusData,
     isOpen: isOpen,
+    yPlotOffset: yPlotOffset
   });
 }
 
@@ -117,6 +121,7 @@ export function PlotCombinedTransectLayers(
     xRange,
     cities,
     borders,
+    journeys,
     journey,
     risksData, //filteredData
     updateIsExpanded,
@@ -182,12 +187,14 @@ export function PlotCombinedTransectLayers(
     risks: risks,
     riskId: 'all',
     risksData: risksData,
+    journeys: journeys,
     journey: journey,
     journeyData: journeyData,
     journeyFocusData: journeyFocusData,
     updateIsExpanded: updateIsExpanded,
     isExpanded: isExpanded,
-    isOpen: isOpen
+    isOpen: isOpen,
+    yPlotOffset: yPlotOffset
   });
   // rect overlay for on-click to expand trigger
 }

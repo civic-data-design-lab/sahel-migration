@@ -6,7 +6,7 @@ import ImageCarousel from './imageCarousel';
 
 import useWindowSize from '../../../hooks/useWindowSize';
 
-export default function TransectContainer({ isOpen, toggleOpen, journey }) {
+export default function TransectContainer({ isOpen, toggleOpen, journeys, journey }) {
   const contentRef = useRef(null);
   const { width, height } = useWindowSize();
   const containerStyles = {
@@ -30,7 +30,7 @@ export default function TransectContainer({ isOpen, toggleOpen, journey }) {
       {/*  <Transect isOpen={isOpen} journey={journey} containerHeight={containerHeight}/>*/}
       {/*</motion.div>*/}
       <motion.div>
-        <Transect isOpen={isOpen} journey={journey} dataTabHeight={0.25 * height} />
+        <Transect isOpen={isOpen} journeys={journeys} journey={journey} dataTabHeight={0.25 * height} />
         <ImageCarousel isOpen={isOpen} />
       </motion.div>
     </div>

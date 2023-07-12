@@ -85,7 +85,7 @@ const margin = {
   left: 15,
 };
 
-export default function Transect({ isOpen, journey, dataTabHeight }) {
+export default function Transect({ isOpen, journeys, journey, dataTabHeight }) {
   const { width, height } = useWindowSize();
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
@@ -214,6 +214,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             margin: margin,
             cities: cities,
             borders: borders,
+            journeys: journeys,
             journey: journey,
             svgRef: svgRef,
             tooltipRef: tooltipRef,
@@ -250,6 +251,7 @@ export default function Transect({ isOpen, journey, dataTabHeight }) {
             xRange: xRange,
             cities: cities,
             borders: borders,
+            journeys: journeys,
             journey: journey,
             risksData: filteredData,
             migrantRoutesData: migrantRoutesData,

@@ -35,6 +35,9 @@ export default function Streamgraph(
     isExpanded,
   } = {}
 ) {
+  // screen width
+  const winWidth = window.innerWidth;
+
   /** X-scale, the distance along the path. */
   const X = d3.map(data, x);
 
@@ -110,9 +113,10 @@ export default function Streamgraph(
     yScale: yScale,
     series: series,
   });
+  const distTicks = winWidth > 700 ? [0, 10, 20, 30, 40, xDomain[1].toFixed(2)] : [0, 10, 20, 30, xDomain[1].toFixed(2)];
   const xAxis = d3
     .axisBottom(xScale)
-    .tickValues([0, 10, 20, 30, 40, xDomain[1].toFixed(2)])
+    .tickValues(distTicks)
     .ticks(5)
     .tickSizeOuter(0)
     .tickFormat((d, i) => (d * 100).toLocaleString('en-US') + ' km');
@@ -126,6 +130,7 @@ export default function Streamgraph(
       xAxisTicks: (ticksData) => XAxisTicks(ticksData, xScale),
       borders: borders,
       cities: cities,
+      winWidth: winWidth
     });
     if (journey.id < 8) {
       // transparent rects for focus area for this journey
@@ -141,17 +146,24 @@ export default function Streamgraph(
         xScale,
         yScale,
         yDomain,
-        margin,
+        margin
       });
       // label for expand & collapse journey
-      journeyText(journeyFocusData, {
-        svg: svg,
-        journey: journey,
-        xScale: xScale,
-        yScale: yScale,
-        yDomain: yDomain,
-        isExpanded: isExpanded,
-      });
+      if (journey.id == 2 && winWidth > 1200 
+          || journey.id == 3 && winWidth > 950 
+          || journey.id == 4 && winWidth > 800
+          || journey.id > 4 && winWidth > 576
+        ) {
+        journeyText(journeyFocusData, {
+          svg: svg,
+          journey: journey,
+          xScale: xScale,
+          yScale: yScale,
+          yDomain: yDomain,
+          isExpanded: isExpanded,
+          winWidth: winWidth
+        });
+      }
     }
   }
 
@@ -238,8 +250,8 @@ function focusArea(
     .attr('opacity', 0.3);
 }
 
-export function PlotXAxis({ plot, height, margin, xAxis, xAxisTicks, borders, cities }) {
-  if (window.innerWidth >= 700) {
+export function PlotXAxis({ plot, height, margin, xAxis, xAxisTicks, borders, cities, winWidth }) {
+  if (winWidth >= 800) {
     plot
       .append('g')
       .attr('class', 'x-axis-borders')
@@ -248,17 +260,13 @@ export function PlotXAxis({ plot, height, margin, xAxis, xAxisTicks, borders, ci
       .call((g) => g.select('.domain').remove())
       .selectAll('text')
       .attr('x', (d, i) => {
-        return i == 0
-          ? 20 // mali - burkina faso
-          : i == 1
-            ? -19 // burkina faso - niger
-            : i == 2
-              ? -1 // imaginary line
-              : 0;
+        return i == 0 ? 20 // mali - burkina faso
+          : i == 1 ? -19 // burkina faso - niger
+          : i == 2 ? -1 // imaginary line
+          : 0;
       })
       .style('text-anchor', (d, i) => {
-        return i == 2
-          ? 'start' // imaginary line
+        return i == 2 ? 'start' // imaginary line
           : 'middle';
       });
   }
@@ -271,10 +279,8 @@ export function PlotXAxis({ plot, height, margin, xAxis, xAxisTicks, borders, ci
     .call((g) => g.select('.domain').remove())
     .selectAll('text')
     .style('text-anchor', (d, i) => {
-      return i == 0
-        ? 'start' // Bamako
-        : i == 7
-        ? 'end' // Tripoli
+      return i == 0 ? 'start' // Bamako
+        : i == 7 || winWidth < 700 && i == 1 ? 'end' // Tripoli
         : 'middle';
     });
   // define x-axis (distance in km)
@@ -286,17 +292,13 @@ export function PlotXAxis({ plot, height, margin, xAxis, xAxisTicks, borders, ci
     .call((g) => g.select('.domain').remove())
     .selectAll('text')
     .attr('x', (d, i) => {
-      return i == 0
-        ? 2 // 0 km
-        : i == 5
-        ? -2 // total dist
+      return i == 0 ? 2 
+        : i == 5 || winWidth < 700 && i == 4 ? -2 // total dist
         : 0;
     })
     .style('text-anchor', (d, i) => {
-      return i == 0
-        ? 'start' // 0 km
-        : i == 5
-        ? 'end' // total dist
+      return i == 0 ? 'start' // 0 km
+        : i == 5 || winWidth < 700 && i == 4 ? 'end' // total dist
         : 'middle';
     });
 
@@ -311,8 +313,7 @@ export function PlotXAxis({ plot, height, margin, xAxis, xAxisTicks, borders, ci
     .attr('height', 11)
     .style('fill', 'white')
     .style('opacity', (d, i) => {
-      return i == 1 || i == 5
-        ? 0.8 // bobo dioulasso and agadez
+      return i == 1 || i == 5 ? 0.8 // bobo dioulasso and agadez
         : 0;
     });
 }
@@ -369,13 +370,13 @@ function bracket(
 }
 function journeyText(
   data, //journeyFocusData
-  { svg, journey, xScale, yScale, yDomain, isExpanded } = {}
+  { svg, journey, xScale, yScale, yDomain, isExpanded, winWidth } = {}
 ) {
   const xCenter = xScale(data[0].x2 + (data[1].x1 - data[0].x2) / 2);
   const xOffset = isExpanded ? 54 : 64;
   const yBase = yScale(yDomain[1]);
   const triSize = 10;
-  const xOffsetJourney2 = 80;
+  const xOffsetJourney2 = 180;
 
   const journeyText = svg.append('g').attr('class', 'journey-text');
   // text for journey title
