@@ -7,7 +7,7 @@ import TransectContainer from './transectContainer';
 import useSWR from 'swr';
 import { fetcher } from '../../../hooks/useFetch';
 
-export default function DataTab({ journey }) {
+export default function DataTab({ journeys, journey }) {
   const [isOpen, toggleOpen] = useState(false);
   const { width, height } = useWindowSize();
 
@@ -37,7 +37,7 @@ export default function DataTab({ journey }) {
     <>
       <animated.div style={fullScreenFill} className={styles.screenCover} />
       <animated.div style={fullscreenTab} className={styles.tab}>
-        <TransectContainer isOpen={isOpen} toggleOpen={handleToggle} journey={journey} />
+        <TransectContainer isOpen={isOpen} toggleOpen={handleToggle} journeys={journeys} journey={journey} />
       </animated.div>
     </>
   );
