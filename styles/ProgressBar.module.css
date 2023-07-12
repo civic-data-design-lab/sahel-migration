@@ -113,7 +113,11 @@
 
 .stepContainer:first-child .step {
   border-radius: 1rem 0 0 1rem;
+}
 
+.stepContainer:nth-child(even) .step {
+  border-left: none;
+  border-right: none;
 }
 
 .stepContainer:last-child .next {

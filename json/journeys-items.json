@@ -75,7 +75,7 @@
           {
             "id": 5,
             "body": "There are two ways to hire a smuggler: organized or step-by-step. In organized smuggling the migrant is accompanied by a smuggler for most of the journey, while in step-by-step smuggling, migrants mostly travel on their own and only use a smuggler for certain segments of the journey, like crossing a border or the desert.",
-            "posX": 70,
+            "posX": 150,
             "posY": 50,
             "scrollStart": 0.8,
             "scrollEnd": 0.9
@@ -116,7 +116,7 @@
           {
             "id": 4,
             "body": "Most migrants are continuously on the move. Only 10 percent of migrants stop in a place for longer than one month before reaching Libya (IFPRI, 2021).",
-            "posX": 200,
+            "posX": 250,
             "posY": 20,
             "scrollStart": 0.8,
             "scrollEnd": 0.9
@@ -173,7 +173,7 @@
           {
             "id": 6,
             "body": "Trucks head back to Agadez with workers from Libya. Migrant workers convert earnings into goods—like furniture, clothes, appliances and other household items—because the Libyan dinar is unstable.",
-            "posX": 130,
+            "posX": 330,
             "posY": 20,
             "scrollStart": 0.8,
             "scrollEnd": 0.9
@@ -214,7 +214,7 @@
           {
             "id": 4,
             "body": "While the southern border of Libya, and the smuggling network from Agadez to the south of Libya is under control of ethnic groups from the area, the areas farther north are not--meaning they must hand off migrants to Arab smuggling groups before reaching Sabha.",
-            "posX": 50,
+            "posX": 75,
             "posY": 50,
             "scrollStart": 0.8,
             "scrollEnd": 0.9
@@ -257,7 +257,7 @@
             "body": "Some migrants depart Sabha to ‘voluntarily return’ to their home country, while others are forcefully deported or must leave Libya because of poor living conditions. As a result, migrants returning may be left stranded in the Sahara, stuck at urban transit stops on the route, or return to their country of origin with little access to resources.",
             "posX": 100,
             "posY": 0,
-            "scrollStart": 0.75,
+            "scrollStart": 0.8,
             "scrollEnd": 0.9
           }
         ]
@@ -296,9 +296,9 @@
           {
             "id": 4,
             "body": "Some migrants attempt to cross the Mediterranean Sea from Libya to Europe. Attempting to cross the sea corridor in rubber, wooden, or fiberglass boats, is extremely dangerous, and many migrants die at sea.  Migrant smuggling to Italy has almost doubled in 2021, and smuggling fees are very expensive, increasing to an average of EUR 12,000.",
-            "posX": 50,
+            "posX": 200,
             "posY": 0,
-            "scrollStart": 0.75,
+            "scrollStart": 0.8,
             "scrollEnd": 0.9
           }
         ]
@@ -345,9 +345,9 @@
           {
             "id": 3,
             "body": "In transit, migrants face different issues compared to when they arrive in Libya. When on the move, migrants are more concerned about personal safety, health, and shelter—as opposed to issues such as securing economic opportunities and food insecurity.",
-            "posX": 200,
+            "posX": 300,
             "posY": 10,
-            "scrollStart": 0.5,
+            "scrollStart": 0.8,
             "scrollEnd": 0.9
           }
         ]

@@ -41,7 +41,6 @@
 .dataTabTitle {
   display: flex;
   align-items: center;
-
   background: none;
   border: none;
   text-decoration: none;
@@ -54,7 +53,7 @@
   font-family: var(--sans-font-fam);
   font-size: clamp(0.8rem, 2.5vw, 1.1rem);
   font-weight: 520;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   text-underline-offset: 0.2rem;
 }
 
@@ -67,7 +66,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .DataTabToggle:hover .dataTabTitleText {
-    color: black;
+    color: var(--brown);
   }
 
   .DataTabToggle:hover .toggleButton {

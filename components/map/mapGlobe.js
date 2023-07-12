@@ -3,9 +3,7 @@ import mapboxgl from '!mapbox-gl';
 import styles from '../../styles/MapJourney.module.css';
 import { renderToString } from 'react-dom/server'
 import TransectTip from './transecttip';
-import RouteTip from './popup/routetip';
 import { SectionContext } from '../../pages';
-import { ViewContext } from '../../pages/maps/map';
 import useMapView from '../../hooks/useMapView';
 import useWindowSize from '../../hooks/useWindowSize';
 
@@ -33,7 +31,7 @@ export default function MapGlobe({ journeys, globeVisibility, scrollProgress }) 
             center: [lng, lat],
             zoom: zoom,
             attributionControl: false,
-            logoPosition: 'top-right'
+            logoPosition: width > 480 ? 'bottom-right' : 'bottom-left'
 
         });
         const mapInteractions = [
@@ -191,6 +189,15 @@ export default function MapGlobe({ journeys, globeVisibility, scrollProgress }) 
         }
 
     }, [globeVisibility, scrollProgress]);
+
+    useEffect(() => {
+        if (!map.current) return
+        map.current.setFilter('transect-outline', [
+            'in',
+            'index',
+            String(currentSection?.routeId)
+        ]);
+    }, [currentSection])
 
     return (
         <div className={styles.container}>
