@@ -192,11 +192,13 @@ export default function MapGlobe({ journeys, globeVisibility, scrollProgress }) 
 
     useEffect(() => {
         if (!map.current) return
-        map.current.setFilter('transect-outline', [
-            'in',
-            'index',
-            String(currentSection?.routeId)
-        ]);
+        map.current.on('idle', () => {
+            map.current.setFilter('transect-outline', [
+                'in',
+                'index',
+                String(currentSection?.routeId)
+            ]);
+        })
     }, [currentSection])
 
     return (
