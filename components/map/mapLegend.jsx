@@ -44,33 +44,9 @@ export default function MapLegend({ activeSource }) {
                 </h4>
             </div>
         </InfoTooltipWrapper>
-        <div className={styles.bars}>
-            {colors.slice(1, 8).map((color, index) => {
-                return (
-                    <div
-                        key={"bar" + uuidv4()}
-                        style={{
-                            display: "block",
-                            backgroundColor: color,
-                            height: `${(index + 1) / 7}rem`
-                        }}
-                    >
-                    </div>
-                )
-            })}
-        </div>
-        <div
-            className={styles.indicators}
-            style={{
-                display: 'flex',
-                justifyContent: "space-between"
-            }}>
-            <span><p>0</p></span>
-            <span><p>100</p></span>
-        </div>
+        <img src="/images/map-legend-risk.svg" />
     </div>
     const cityLegend = (() => {
-        const scaleRanges = ["1-24", "25-49", "50-74", "75-100"]
         return (
             <div>
                 < InfoTooltipWrapper
@@ -89,49 +65,7 @@ export default function MapLegend({ activeSource }) {
                         </h4>
                     </div>
                 </InfoTooltipWrapper>
-                <div className={styles.cityLegend}>
-                    <>
-                        {colors.slice(0, 4).map((color, index) => {
-                            return (
-                                <div
-                                    key={"bar" + uuidv4()}
-                                    style={{
-                                        display: "flex",
-                                        height: '100%',
-                                        width: '100%',
-                                        justifyContent: "center",
-                                        alignItems: 'center'
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            display: "block",
-                                            borderRadius: '50%',
-                                            backgroundColor: color,
-                                            height: width > 600 ? `${(index + 1) / 2}rem` : `${(index + 1) / 4 * 100}%`,
-                                            aspectRatio: '1/1'
-                                        }}
-                                    >
-                                    </div>
-                                </div>
-
-                            )
-                        })}
-                        {scaleRanges.map(range => {
-                            return (
-                                <div
-                                    key={uuidv4()}
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: 'center'
-                                    }}
-                                >
-                                    <p>{range}</p></div>
-                            )
-                        })}
-                    </>
-
-                </div>
+                <img src="/images/map-legend-migrants-by-origin.svg" />
             </div>
         )
     })
@@ -157,6 +91,7 @@ export default function MapLegend({ activeSource }) {
                     < InfoTooltipWrapper
                         text={dataSourceText}
                         placement="top"
+                        className={styles.routeLegend}
                     >
                         <h4
                             className={styles.subheader}
