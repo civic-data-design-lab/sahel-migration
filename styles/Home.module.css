@@ -22,10 +22,14 @@
 .mapNavigation {
   position: fixed;
   top: 0;
-  right: 3rem;
+  right: 3.5rem;
   z-index: 40;
   background-color: transparent;
   padding: 1rem;
+}
+
+.mapNavigation:hover {
+  opacity: 75%;
 }
 
 .description a {

@@ -5,8 +5,8 @@ export default function Tooltip(config) {
   const { width, height, data, svgRef, tooltipRef, xScale, xRange, margin, risks, riskId, risksData, journey, journeyData, journeyFocusData, updateIsExpanded, isExpanded, isOpen } = config;
 
   const tooltipLayout = isOpen ?
-  "<h4 class='risk risk-total'>Migration Risk<span id='data-total' class='labelData'>152</span></h4><p class='risk risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk risk-acled'>Conflict Events<span id='data-acled' class='labelData'>0</span></p><p class='risk risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk risk-smuggler'>Reliance on Smugglers<span id='data-smuggler' class='labelData'>0</span></p><p class='risk risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk risk-heat'>Heat Exposure<span id='data-heat' class='labelData'>80</span></p><h4 class='route-traffic'>Migrants Along the Route</h4><p class='count-migrants'><span id='data-migrants'>2000 migrants</span> crossed this route between July 2020&ndash;June 2022</p>"
-  : "<h4 class='risk risk-total'>Migration Risk<span id='data-total' class='labelData'>152</span></h4><p class='risk risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk risk-acled'>Conflict Events<span id='data-acled' class='labelData'>0</span></p><p class='risk risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk risk-smuggler'>Reliance on Smugglers<span id='data-smuggler' class='labelData'>0</span></p><p class='risk risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk risk-heat'>Heat Exposure<span id='data-heat' class='labelData'>80</span></p>";
+  "<div class='header'><h4 class='risk risk-class'>Migration Risk<span id='data-risk-text' class='labelData'>High</span></h4></div><div class='body'><p class='risk risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk risk-acled'>Conflict Events<span id='data-acled' class='labelData'>0</span></p><p class='risk risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk risk-smuggler'>Reliance on Smugglers<span id='data-smuggler' class='labelData'>0</span></p><p class='risk risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk risk-heat'>Heat Exposure<span id='data-heat' class='labelData'>80</span></p><p class='risk-total'><b>Total Migration Risk<span id='data-total' class='labelData'>55</span></b></p><p class='route-traffic'><span id='data-migrants'>2,000 migrants crossed this route</span> between July 2020&ndash;June 2022</p></div>"
+  : "<div class='header'><h4 class='risk risk-class'>Migration Risk<span id='data-risk-text' class='labelData'>High</span></h4></div><div class='body'><p class='risk risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk risk-acled'>Conflict Events<span id='data-acled' class='labelData'>0</span></p><p class='risk risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk risk-smuggler'>Reliance on Smugglers<span id='data-smuggler' class='labelData'>0</span></p><p class='risk risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk risk-heat'>Heat Exposure<span id='data-heat' class='labelData'>80</span></p><p class='risk-total'><b>Total Migration Risk<span id='data-total' class='labelData'>55</span></b></p></div>";
 
   const svg = d3.select(svgRef.current).attr('id', 'viz-transect-layers');
   //   const tooltip = d3.select(tooltipRef.current);
@@ -88,21 +88,56 @@ export default function Tooltip(config) {
       }
 
       let combinedRiskValue = 0;
+      let allCombinedRiskValues = risksData.map(
+        d => Math.round(
+          d.risk_4mi * risks.find(i => i.id == '4mi').normWeight + 
+          d.risk_acled * risks.find(i => i.id == 'acled').normWeight + 
+          d.risk_food * risks.find(i => i.id == 'food').normWeight + 
+          d.risk_smuggler * risks.find(i => i.id == 'smuggler').normWeight + 
+          d.risk_remoteness * risks.find(i => i.id == 'remoteness').normWeight + 
+          d.risk_heat * risks.find(i => i.id == 'heat').normWeight
+        )
+      ).sort((a, b) => a - b);
+
+      let riskLevelBreaks = [8, 13, 21, 36, 47, 55]; // min = 0, median = 21, max = 55
+      // redefine breakpoints based on weighting
+      for (let i = 0; i < 6; i++) {
+        let valueIndex = Math.round(allCombinedRiskValues.length/6 * (i + 1)) - 1;
+        riskLevelBreaks[i] = allCombinedRiskValues[valueIndex];
+      }
+      
       // update data in tooltip for each risk
       risks.forEach((risk) => {
         let riskClass = '.risk-' + risk.id;
         let dataId = '#data-' + risk.id;
         let dataValue = Math.round(d0['risk_' + risk.id] * risk.normWeight);
+        let maxDataValue = Math.round(100 * risk.normWeight);
         combinedRiskValue += dataValue;
         tooltip.select(riskClass).select(dataId).html(dataValue);
       });
       // update data in tooltip for total risks
-      tooltip.select('.risk-total').select('#data-total').html(Math.round(d0.risks_total));
+      let riskLevel = (combinedRiskValue <= riskLevelBreaks[0]) ? 1 
+        : (riskLevelBreaks[0] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[1]) ? 2
+        : (riskLevelBreaks[1] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[2]) ? 3
+        : (riskLevelBreaks[2] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[3]) ? 4
+        : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[4]) ? 5
+        : (riskLevelBreaks[4] < combinedRiskValue) ? 6
+        : null;
+      console.log(riskLevel);
+      let riskText = (combinedRiskValue < riskLevelBreaks[0]) ? "Low"
+      : (riskLevelBreaks[0] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[1]) ? "Mid-Low"
+      : (riskLevelBreaks[1] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[2]) ? "Mid"
+      : (riskLevelBreaks[2] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[3]) ? "Mid-High"
+      : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[4]) ? "High"
+      : (riskLevelBreaks[4] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[5]) ? "Very High"
+      : "";
+      tooltip.select('.header').attr('class', 'header risk-class-' + riskLevel);
+      tooltip.select('.risk-class').select('#data-risk-text').html(riskText);
       tooltip.select('.risk-total').select('#data-total').html(Math.round(combinedRiskValue));
 
       if (isOpen) {
         // update data in tooltip for route traffic / migrant counts along each segment
-        tooltip.select('.count-migrants').select('#data-migrants').html(Math.round(d0.migrant_count).toLocaleString('en-US') + " migrants");
+        tooltip.select('.route-traffic').select('#data-migrants').html(Math.round(d0.migrant_count).toLocaleString('en-US') + " migrants crossed this route");
       }
     }
 

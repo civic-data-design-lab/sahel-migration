@@ -25,7 +25,7 @@ export default function Title({journey}) {
         <h2 className={styles.title} style={{marginBottom: '0'}}>
           {journey? journey.title: 'Migrants on the Move'}
         </h2>
-        <h6>Risks of West African Migration</h6>
+        <h6 >Risks of West African Migration</h6>
       </Link>
     </div>
   );
