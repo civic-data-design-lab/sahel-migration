@@ -69,7 +69,10 @@ export default function MainMap({ journeys }) {
                 enablePointerEvents(boxRef.current)
             })
             window.addEventListener('click', (event) => {
-                enablePointerEvents(boxRef.current)
+                disablePointerEvents(boxRef.current)
+                setTimeout(() => {
+                    enablePointerEvents(boxRef.current)
+                }, 4000);
             })
             if (boxRef.current) {
                 window.addEventListener('mousemove', (event) => {
