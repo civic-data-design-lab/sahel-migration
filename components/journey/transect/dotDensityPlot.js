@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 export default function Tooltip(config) {
-  const { migrantRoutesData, width, height, margin, yPlotOffset, svg, xScale } = config;
+  const { migrantRoutesData, width, height, margin, yPlotOffset, svg, xScale, journeys } = config;
 
   const dotPlot = svg.append('g').attr('id', 'viz-dot-density');
 

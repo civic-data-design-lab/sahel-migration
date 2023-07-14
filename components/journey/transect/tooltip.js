@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
 import {PlotAreaCurve} from './streamgraph.js';
+import { startOptimizedAppearAnimation } from 'framer-motion';
 
 export default function Tooltip(config) {
-  const { width, height, data, svgRef, tooltipRef, xScale, xRange, margin, risks, riskId, risksData, journey, journeyData, journeyFocusData, updateIsExpanded, isExpanded, isOpen } = config;
+  const { width, height, data, svgRef, tooltipRef, xScale, xRange, margin, risks, riskId, risksData, journeys, journey, journeyData, journeyFocusData, updateIsExpanded, isExpanded, isOpen, yPlotOffset } = config;
 
   const tooltipLayout = isOpen ?
-  "<div class='header'><h4 class='risk risk-class'>Migration Risk<span id='data-risk-text' class='labelData'>High</span></h4></div><div class='body'><p class='risk risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk risk-acled'>Conflict Events<span id='data-acled' class='labelData'>0</span></p><p class='risk risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk risk-smuggler'>Reliance on Smugglers<span id='data-smuggler' class='labelData'>0</span></p><p class='risk risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk risk-heat'>Heat Exposure<span id='data-heat' class='labelData'>80</span></p><p class='risk-total'><b>Total Migration Risk<span id='data-total' class='labelData'>55</span></b></p><p class='route-traffic'><span id='data-migrants'>2,000 migrants crossed this route</span> between July 2020&ndash;June 2022</p></div>"
+  "<div class='header'><h4 class='risk risk-class'>Migration Risk<span id='data-risk-text' class='labelData'>High</span></h4></div><div class='body'><p class='risk risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk risk-acled'>Conflict Events<span id='data-acled' class='labelData'>0</span></p><p class='risk risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk risk-smuggler'>Reliance on Smugglers<span id='data-smuggler' class='labelData'>0</span></p><p class='risk risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk risk-heat'>Heat Exposure<span id='data-heat' class='labelData'>80</span></p><p class='risk-total'><b>Total Migration Risk<span id='data-total' class='labelData'>55</span></b></p><p class='route-traffic'><span id='data-migrants'>2,000 migrants crossed here</span> between July 2020&ndash;June 2022</p></div>"
   : "<div class='header'><h4 class='risk risk-class'>Migration Risk<span id='data-risk-text' class='labelData'>High</span></h4></div><div class='body'><p class='risk risk-4mi'>Reported Violence<span id='data-4mi' class='labelData'>12</span></p><p class='risk risk-acled'>Conflict Events<span id='data-acled' class='labelData'>0</span></p><p class='risk risk-food'>Food Insecurity<span id='data-food' class='labelData'>40</span></p><p class='risk risk-smuggler'>Reliance on Smugglers<span id='data-smuggler' class='labelData'>0</span></p><p class='risk risk-remoteness'>Remoteness<span id='data-remoteness' class='labelData'>20</span></p><p class='risk risk-heat'>Heat Exposure<span id='data-heat' class='labelData'>80</span></p><p class='risk-total'><b>Total Migration Risk<span id='data-total' class='labelData'>55</span></b></p></div>";
 
   const svg = d3.select(svgRef.current).attr('id', 'viz-transect-layers');
@@ -22,6 +23,55 @@ export default function Tooltip(config) {
   //   .append('g')
   //   .attr('class', 'focus')
   //   .style('display', 'none');
+
+  // hover chapter indicator
+  let journeyChapters = journeys.slice(1,7);
+
+  journeyChapters.forEach((chapter) => {
+    const chapterIndex = chapter.id - 2;
+    const chapterData = risksData.filter(d => d.segment_i == chapter.id - 1);
+    const chapterStartDist = chapterData[0].distance;
+    const chapterEndDist = chapterData.slice(-1)[0].distance;
+    journeyChapters[chapterIndex].x1 = chapterStartDist;
+    journeyChapters[chapterIndex].x2 = chapterEndDist;
+  });
+
+  const chapter = svg
+    .append('g')
+    .attr('class', 'chapter')
+
+  if (isOpen) {
+    // line for journey indicator
+    chapter
+      .selectAll('line')
+      .data(journeyChapters)
+      .enter()
+      .append('line')
+        .attr('id', d => 'line-ch-' + (d.id - 1).toString())
+        .attr('x1', (d) => xScale(d.x1))
+        .attr('x2', (d) => xScale(d.x2))
+        .attr('y1', height - yPlotOffset/3 - margin.bottom + 1)
+        .attr('y2', height - yPlotOffset/3 - margin.bottom + 1)
+        .attr('stroke', '#f15a24')
+        .attr('stroke-width', 4)
+        .attr('opacity', 0);
+
+    // text for journey title
+    chapter
+      .selectAll('text')
+      .data(journeyChapters)
+      .enter()
+      .append('text')
+        .attr('id', d => 'text-ch-' + (d.id - 1).toString())
+        .attr('class', 'label-journey')
+        .attr('x', (d) => xScale(d.x2 + (d.x1 - d.x2) / 2))
+        .attr('y', height - yPlotOffset/3 - margin.bottom - 4)
+        .attr('dy', '-0.125em')
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#463C35')
+        .text(d => d.title)
+        .attr('opacity', 0);
+  }
 
   const line = svg
     .append('line')
@@ -40,7 +90,7 @@ export default function Tooltip(config) {
     .on('mouseenter', mouseenter)
     .on('mouseout', mouseout)
     // Need to pass in arguments to include them in scope
-    .on('mousemove', (event) => mousemove(event, risks, risksData))
+    .on('mousemove', (event) => mousemove(event, risks, risksData, journey))
     .on('click', (event) => {
       return (riskId == "all") ? expandSection(event, journeyData, journeyFocusData)
       : null;
@@ -53,7 +103,7 @@ export default function Tooltip(config) {
     line.attr('opacity', 0);
     tooltip.attr('class', 'hidden transectTooltip');
   }
-  function mousemove(event, risks, risksData) {
+  function mousemove(event, risks, risksData, journey) {
     const bisect = d3.bisector((d) => d.distance).left;
     const xPos = d3.pointer(event)[0];
     const x0 = bisect(data, xScale.invert(xPos));
@@ -62,7 +112,7 @@ export default function Tooltip(config) {
       const dIndex = data[x0].index;
       const d0 = risksData.find((d) => d.index === dIndex);
       if (!isOpen) {
-        if (isExpanded) {
+        if (journey.id == 8 || isExpanded) {
           svg.style('cursor', 'pointer');
           svg.select('.journey-text')
             .transition()
@@ -73,7 +123,7 @@ export default function Tooltip(config) {
         } else {
           if (journeyFocusData[0].x2 <= d0.distance && d0.distance <= journeyFocusData[1].x1) {
             svg.style('cursor', 'pointer');
-            console.log('in range');
+            // console.log('in range');
             pulse()
           } else {
             svg.style('cursor', 'default');
@@ -115,29 +165,37 @@ export default function Tooltip(config) {
         combinedRiskValue += dataValue;
         tooltip.select(riskClass).select(dataId).html(dataValue);
       });
-      // update data in tooltip for total risks
-      let riskLevel = (combinedRiskValue <= riskLevelBreaks[0]) ? 1 
-        : (riskLevelBreaks[0] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[1]) ? 2
-        : (riskLevelBreaks[1] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[2]) ? 3
-        : (riskLevelBreaks[2] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[3]) ? 4
-        : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[4]) ? 5
-        : (riskLevelBreaks[4] < combinedRiskValue) ? 6
+      
+      // classify risk level for total risks
+      let riskLevel = (combinedRiskValue < riskLevelBreaks[0]) ? 1 
+        : (riskLevelBreaks[0] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[1]) ? 2
+        : (riskLevelBreaks[1] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[2]) ? 3
+        : (riskLevelBreaks[2] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[3]) ? 4
+        : (riskLevelBreaks[3] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[4]) ? 5
+        : (riskLevelBreaks[4] <= combinedRiskValue) ? 6
         : null;
-      console.log(riskLevel);
       let riskText = (combinedRiskValue < riskLevelBreaks[0]) ? "Low"
-      : (riskLevelBreaks[0] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[1]) ? "Mid-Low"
-      : (riskLevelBreaks[1] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[2]) ? "Mid"
-      : (riskLevelBreaks[2] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[3]) ? "Mid-High"
-      : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[4]) ? "High"
-      : (riskLevelBreaks[4] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[5]) ? "Very High"
-      : "";
+        : (riskLevelBreaks[0] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[1]) ? "Mid-Low"
+        : (riskLevelBreaks[1] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[2]) ? "Mid"
+        : (riskLevelBreaks[2] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[3]) ? "Mid-High"
+        : (riskLevelBreaks[3] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[4]) ? "High"
+        : (riskLevelBreaks[4] <= combinedRiskValue) ? "Very High"
+        : "";
+
+      // update data in tooltip for total risks
       tooltip.select('.header').attr('class', 'header risk-class-' + riskLevel);
       tooltip.select('.risk-class').select('#data-risk-text').html(riskText);
       tooltip.select('.risk-total').select('#data-total').html(Math.round(combinedRiskValue));
 
       if (isOpen) {
         // update data in tooltip for route traffic / migrant counts along each segment
-        tooltip.select('.route-traffic').select('#data-migrants').html(Math.round(d0.migrant_count).toLocaleString('en-US') + " migrants crossed this route");
+        tooltip.select('.route-traffic').select('#data-migrants').html(Math.round(d0.migrant_count).toLocaleString('en-US') + " migrants crossed here");
+        // show chapter indicator
+        const chapterId = "-ch-" + d0.segment_i;
+        chapter.selectAll("line").attr('opacity', 0);
+        chapter.selectAll("text").attr('opacity', 0);
+        chapter.select("#line" + chapterId).attr('opacity', 1);
+        chapter.select("#text" + chapterId).attr('opacity', 1);
       }
     }
 

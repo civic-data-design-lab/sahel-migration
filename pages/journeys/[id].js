@@ -61,7 +61,7 @@ export default function JourneysPage() {
           <Menu journeys={journeys} journey={journey}/>
           <Navigation journeys={journeys} journey={journey} />
           <ImagesContext.Provider value={imagesContextValue}>
-            <DataTab journey={journey} />
+            <DataTab journeys={journeys} journey={journey} />
           </ImagesContext.Provider>
           <ImageBox journey={journey} id="image-box" />
         </div>

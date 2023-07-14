@@ -299,6 +299,9 @@ g {
 #viz-transect-layers .label-journey {
   font-size: 1rem;
 }
+#viz-transect-layers .chapter .label-journey {
+  font-size: 0.7rem;
+}
 
 #viz-transect-layers .text-expand {
   position: relative;
@@ -484,6 +487,7 @@ g {
 }
 
 .transectTooltip #data-migrants {
+  font-size: 0.95rem;
   font-weight: 700;
 }
 
