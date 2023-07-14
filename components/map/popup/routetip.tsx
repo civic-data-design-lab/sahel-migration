@@ -6,21 +6,27 @@ export default function RouteTip({ regionData }) {
     const vignetteNames = ["Beginning the Journey", "Passing through Agadez", "Crossing the Sahara Desert", "Entering Libya", "Passing through Sabha", "Reaching Tripoli", "Current Conditions in Libya"]
     const round = (num: number) => Math.round(num)
     const { currentSection, setSection } = useContext(SectionContext)
+    let riskLevelBreaks = [8, 13, 21, 36, 47, 55];
+    let combinedRiskValue = round(regionData.riskLevelData.totalRisk * 1 / 6)
+    let riskLevel = (combinedRiskValue <= riskLevelBreaks[0]) ? 1
+        : (riskLevelBreaks[0] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[1]) ? 2
+            : (riskLevelBreaks[1] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[2]) ? 3
+                : (riskLevelBreaks[2] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[3]) ? 4
+                    : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[4]) ? 5
+                        : (riskLevelBreaks[4] < combinedRiskValue) ? 6
+                            : null;
+    let riskText = (combinedRiskValue < riskLevelBreaks[0]) ? "Low"
+        : (riskLevelBreaks[0] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[1]) ? "Mid-Low"
+            : (riskLevelBreaks[1] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[2]) ? "Mid"
+                : (riskLevelBreaks[2] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[3]) ? "Mid-High"
+                    : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[4]) ? "High"
+                        : (riskLevelBreaks[4] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[5]) ? "Very High"
+                            : "";
     return (
 
         (currentSection && currentSection.index) && (
             <div className={styles.tooltip}>
                 <div className={styles.city}>
-                    <h5 className={styles.vignetteName}>{vignetteNames[regionData.routeId - 1]}</h5>
-                    <div
-                        style={{
-                            width: '100%',
-                            borderBottom: '1px solid #A3A3A3',
-                            marginBottom: '0.5rem'
-
-                        }}
-                    ></div>
-
                     <div style={{
                         display: 'flex',
                         gap: '0rem',
@@ -28,30 +34,56 @@ export default function RouteTip({ regionData }) {
                     }}>
                         <InfoBox
                             left={`Migration Risk`}
-                            text={round(regionData.riskLevelData.totalRisk * 1 / 6)}
+                            text={riskText}
                             region={""}
-                            small={false}
-                            bold={true}
+                            fontSize='1rem'
+                            fontWeight={600}
                             squeeze={false}
                             align={'space-between'}
+                            className={`${styles.riskTitle} ${styles[`risk-class-${riskLevel}`]}`}
                         />
+                        <div style={{
+                            display: 'flex',
+                            gap: '0rem',
+                            flexDirection: 'column',
+                            padding: '0.4rem  0 0.3rem 0'
+                        }}>
+                            {regionData.riskLevelData.risks.map((risk) => {
+                                let stat = risk && risk.riskLevel
+                                const name = risk && risk.name
+                                return (
+                                    <InfoBox
+                                        key={risk.name}
+                                        left={name}
+                                        text={round(stat * 1 / 6)}
+                                        region=''
+                                        align={'space-between'}
+                                        fontSize='0.8rem'
+                                        squeeze={false}
+                                        fontWeight='initial'
+                                        className={styles.route}
+                                    />
+                                )
+                            })}
+                        </div>
+                        <div
+                            className={styles["combinedRisk-Title"]}
+                            style={{
+                                paddingBottom: '0.5rem'
+                            }}
 
-                        {regionData.riskLevelData.risks.map((risk) => {
-                            let stat = risk && risk.riskLevel
-                            const name = risk && risk.name
-                            return (
-                                <InfoBox
-                                    key={risk.name}
-                                    left={name}
-                                    text={round(stat * 1 / 6)}
-                                    region={''}
-                                    align={'space-between'}
-                                    small={true}
-                                    squeeze={false}
-                                    bold={false}
-                                />
-                            )
-                        })}
+                        >
+                            <InfoBox
+                                left={"Total Migration Risk"}
+                                text={combinedRiskValue}
+                                region={''}
+                                align={'space-between'}
+                                fontSize='0.82rem'
+                                squeeze={false}
+                                fontWeight={700}
+                                className={styles.route}
+                            />
+                        </div>
 
                     </div>
                 </div>
@@ -61,10 +93,10 @@ export default function RouteTip({ regionData }) {
 
 }
 
-function InfoBox({ left, text, region, small, bold, align, squeeze }) {
+function InfoBox({ left, text, region, fontSize, fontWeight, align, squeeze, className }) {
     return (
         <div
-            className={styles.infoBox}
+            className={`${styles.infoBox} ${className}`}
             style={{
 
                 ['--alignment' as any]: align || 'flex-start',
@@ -73,14 +105,15 @@ function InfoBox({ left, text, region, small, bold, align, squeeze }) {
             {left &&
                 (<h4
                     style={{
-                        ['--weight' as any]: bold ? '600' : 'initial',
-                        fontSize: small ? "0.75rem" : "1rem"
+                        ['--weight' as any]: fontWeight,
+                        fontSize: fontSize,
                     }}
                 >{left}</h4>)}
+            <div></div>
             <p
                 style={{
-                    fontSize: small ? "0.75rem" : "1rem",
-                    fontWeight: bold ? '600' : 'initial',
+                    fontSize: fontSize,
+                    fontWeight: fontWeight,
                     marginBottom: '0.5rem',
                 }}
             >{text} <span style={{ fontWeight: '600' }}>{region}</span> </p>

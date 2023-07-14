@@ -260,6 +260,7 @@ export default function MapBox({ activeSource, narrativeData, cityData, toggleMa
                     ref={mapRef}
                     doubleClickZoom={false}
                     onMouseMove={onInfo}
+                    // onClick={onInfo}
                     dragPan={false}
                     dragRotate={false}
                     scrollZoom={false}

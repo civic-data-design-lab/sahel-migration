@@ -243,11 +243,11 @@ g {
 }
 
 .mapboxgl-popup-content {
-  background: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
   border-radius: 1rem !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
   color: #463c35;
-  padding: 1.1rem !important;
+  padding: 0 !important;
   backdrop-filter: blur(3px);
 }
 
@@ -386,26 +386,33 @@ g {
   color: #fff;
   background-color: var(--brown);
 }
+
 .transectTooltip .risk-class-1 {
   color: #463c35 !important;
   background-color: #f9bda7;
 }
+
 .transectTooltip .risk-class-2 {
   color: #463c35 !important;
   background-color: #f79c7c;
 }
+
 .transectTooltip .risk-class-3 {
   background-color: #f47b50;
 }
+
 .transectTooltip .risk-class-4 {
   background-color: #f15a24;
 }
+
 .transectTooltip .risk-class-5 {
   background-color: #b5441b;
 }
+
 .transectTooltip .risk-class-6 {
   background-color: #792d12;
 }
+
 .transectTooltip .body {
   padding: 0.25rem 1rem 1rem;
   border-radius: 0 0 1rem 1rem;
@@ -431,18 +438,23 @@ g {
 .transectTooltip p.risk-4mi::before {
   background: #5d3435;
 }
+
 .transectTooltip p.risk-food::before {
   background: #9a735a;
 }
+
 .transectTooltip p.risk-acled::before {
   background: #985946;
 }
+
 .transectTooltip p.risk-smuggler::before {
   background: #f48532;
 }
+
 .transectTooltip p.risk-remoteness::before {
   background: #624b44;
 }
+
 .transectTooltip p.risk-heat::before {
   background: #3f231b;
 }
@@ -460,6 +472,7 @@ g {
 .transectTooltip .risk-total {
   margin-top: 0.25rem;
 }
+
 .transectTooltip #data-total {
   display: inline-block;
   padding-left: 1rem;

@@ -58,7 +58,12 @@ export default function CountryTip({ regionData }) {
         return obj
     })
     return (
-        <div id="map-tooltip" className={styles.tooltip}>
+        <div id="map-tooltip"
+            className={styles.tooltip}
+            style={{
+                padding: '1.1rem'
+            }}
+        >
             {selectedCountry == 'Libya' && (
                 <div className={styles.city}>
                     <h4 className={styles.header}>Migrants in Libya</h4>

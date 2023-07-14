@@ -80,7 +80,7 @@ export default function ToolTip({ location, toolType, regionDataProps }) {
                 offset={[offsetX, offsetY]}
                 anchor="center"
                 closeButton={false}
-                className="county-info"
+                className={`county-info`}
             >
                 {toolType === "country" && (
                     <CountryTip regionData={regionDataProps} />
