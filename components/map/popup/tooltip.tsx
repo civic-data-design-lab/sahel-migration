@@ -69,7 +69,7 @@ export default function ToolTip({ location, toolType, regionDataProps }) {
     }
 
     return (
-        (!(toolType === "route") || (currentSection.index)) && width > 480 && (
+        (!(toolType === "route") || (currentSection?.index)) && width > 480 && (
             <Popup style={{
                 maxWidth: '400px',
                 display: visibility,

@@ -262,13 +262,15 @@ g {
   border-top-color: rgba(255, 255, 255, 0.75) !important;
 } */
 
-.county-info.mapboxgl-popup.mapboxgl-popup-anchor-center {
+.county-info.mapboxgl-popup.mapboxgl-popup-anchor-center,
+.mapboxgl-popup.mapboxgl-popup-anchor-bottom {
   max-width: 18.5rem !important;
 }
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
   border-top-color: none !important;
 }
+
 
 .mapboxgl-canvas-container {
   cursor: auto !important
@@ -299,6 +301,7 @@ g {
 #viz-transect-layers .label-journey {
   font-size: 1rem;
 }
+
 #viz-transect-layers .chapter .label-journey {
   font-size: 0.7rem;
 }
