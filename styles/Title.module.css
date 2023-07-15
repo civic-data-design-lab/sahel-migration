@@ -39,6 +39,18 @@
   .main {
     max-width: 100vw;
   }
+  .titleLink {
+    width: 85%;
+    max-height: 4rem;
+    overflow: hidden;
+  }
+  .title {
+    font-size: 1.3rem;
+    pointer-events: none;
+  }
+  .titleDescription {
+    font-size: 0.8rem;
+  }
 }
 
 /* medium screen width */
@@ -48,4 +60,5 @@
     max-height: 4rem;
     overflow: hidden;
   }
+
 }

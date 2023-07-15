@@ -195,7 +195,7 @@
 /* x-small screen width */
 @media (max-width: 575px) {
   .container {
-    margin-top: 5rem;
+    margin-top: 6rem;
   }
   .nav {
     position: absolute;
