@@ -23,6 +23,12 @@
   text-decoration: none;
 }
 
+.title {
+  width: 100%;
+  pointer-events: none;
+  font-weight: 600;
+}
+
 @supports (-moz-appearance:none) {
   .main {
     width: 100pc;
@@ -30,10 +36,7 @@
   }
 }
 
-.title {
-  width: 100%;
-  pointer-events: none;
-}
+
 
 @media only screen and (max-width: 480px) {
   .main {
