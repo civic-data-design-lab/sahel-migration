@@ -43,7 +43,7 @@ const RiskLabel = ({ riskId, riskLabel, riskDescription }) => {
                 fontSize: '0.8rem',
                 color: '#985946',
                 fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0",
-                transform: width < 480 ? 'translateY(-.25px)' : 'none',
+                // transform: width < 480 ? 'translateY(-.25px)' : 'none',
               }}
             >
               info
