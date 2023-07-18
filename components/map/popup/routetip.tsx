@@ -15,12 +15,12 @@ export default function RouteTip({ regionData }) {
                     : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[4]) ? 5
                         : (riskLevelBreaks[4] < combinedRiskValue) ? 6
                             : null;
-    let riskText = (combinedRiskValue < riskLevelBreaks[0]) ? "Low"
-        : (riskLevelBreaks[0] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[1]) ? "Mid-Low"
-            : (riskLevelBreaks[1] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[2]) ? "Mid"
-                : (riskLevelBreaks[2] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[3]) ? "Mid-High"
-                    : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[4]) ? "High"
-                        : (riskLevelBreaks[4] < combinedRiskValue && combinedRiskValue < riskLevelBreaks[5]) ? "Very High"
+    let riskText = (combinedRiskValue <= riskLevelBreaks[0]) ? "Low"
+        : (riskLevelBreaks[0] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[1]) ? "Mid-Low"
+            : (riskLevelBreaks[1] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[2]) ? "Mid"
+                : (riskLevelBreaks[2] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[3]) ? "Mid-High"
+                    : (riskLevelBreaks[3] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[4]) ? "High"
+                        : (riskLevelBreaks[4] < combinedRiskValue && combinedRiskValue <= riskLevelBreaks[5]) ? "Very High"
                             : "";
     return (
 
