@@ -59,7 +59,7 @@ export default function ProgressBar({ narratives, currenNarrativeSection }) {
     return (
 
         <OverlayTrigger
-            placement={"right"}
+            placement={width > 480 ? "right" : "bottom"}
             overlay={tooltip}>
             <div
                 className={styles.stepper}
@@ -70,6 +70,9 @@ export default function ProgressBar({ narratives, currenNarrativeSection }) {
                 <div
                     className={styles.stepContainer}
                     onClick={advanceStep}
+                    style={{
+                        width: 'max-content'
+                    }}
 
                 >
                     <motion.div

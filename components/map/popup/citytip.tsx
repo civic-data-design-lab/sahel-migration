@@ -44,7 +44,12 @@ export default function CityTip({ regionData }) {
     const countryText = `${Math.floor(nationalMigrantCount * 100 / totalSurveyed)}% of all migrants surveyed in Libya come from`
 
     return (
-        <div className={styles["tooltip"]}>
+        <div
+            className={styles["tooltip"]}
+            style={{
+                padding: '1.1rem'
+            }}
+        >
             <div className={styles.city}>
                 <h4 className={styles.header}>{selectedCity}, {originCountry}</h4>
                 <InfoBox

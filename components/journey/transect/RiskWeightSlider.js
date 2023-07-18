@@ -17,6 +17,7 @@ const RiskWeightSlider = ({ riskId, riskWeight, onUpdate }) => {
           max={100}
           step={1}
           onChange={(e) => onUpdate(parseInt(e.target.value))}
+          style={{background:'none'}}
         />
         <p>More</p>
       </span>

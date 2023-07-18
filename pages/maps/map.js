@@ -68,6 +68,12 @@ export default function MainMap({ journeys }) {
             window.addEventListener('mousewheel', (event) => {
                 enablePointerEvents(boxRef.current)
             })
+            window.addEventListener('click', (event) => {
+                disablePointerEvents(boxRef.current)
+                setTimeout(() => {
+                    enablePointerEvents(boxRef.current)
+                }, 4000);
+            })
             if (boxRef.current) {
                 window.addEventListener('mousemove', (event) => {
                     if (!globeVisibility && Math.abs(event.movementX) <= 0.5 && Math.abs(event.movementY) <= 0.5) { enablePointerEvents(boxRef.current) }

@@ -3,7 +3,7 @@ import styles from '../../styles/ImageBox.module.css';
 import useWindowSize from '../../hooks/useWindowSize';
 import Title from '../title';
 import { useState, useRef, useEffect } from 'react';
-import DescriptionTab from '../map/descriptionTab';
+import DescriptionTab from './transect/descriptionTab';
 import * as d3 from 'd3';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import PolicyRecommendations from './policyRecommendations';
