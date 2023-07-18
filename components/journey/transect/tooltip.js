@@ -70,7 +70,8 @@ export default function Tooltip(config) {
         .attr('text-anchor', 'middle')
         .attr('fill', '#463C35')
         .text(d => d.title)
-        .attr('opacity', 0);
+        .attr('opacity', 0)
+        .attr('visibility', window.innerWidth < 700? 'hidden': 'visible');
   }
 
   const line = svg
@@ -140,11 +141,11 @@ export default function Tooltip(config) {
       let combinedRiskValue = 0;
       let allCombinedRiskValues = risksData.map(
         d => Math.round(
-          d.risk_4mi * risks.find(i => i.id == '4mi').normWeight + 
-          d.risk_acled * risks.find(i => i.id == 'acled').normWeight + 
-          d.risk_food * risks.find(i => i.id == 'food').normWeight + 
-          d.risk_smuggler * risks.find(i => i.id == 'smuggler').normWeight + 
-          d.risk_remoteness * risks.find(i => i.id == 'remoteness').normWeight + 
+          d.risk_4mi * risks.find(i => i.id == '4mi').normWeight +
+          d.risk_acled * risks.find(i => i.id == 'acled').normWeight +
+          d.risk_food * risks.find(i => i.id == 'food').normWeight +
+          d.risk_smuggler * risks.find(i => i.id == 'smuggler').normWeight +
+          d.risk_remoteness * risks.find(i => i.id == 'remoteness').normWeight +
           d.risk_heat * risks.find(i => i.id == 'heat').normWeight
         )
       ).sort((a, b) => a - b);
@@ -155,7 +156,7 @@ export default function Tooltip(config) {
         let valueIndex = Math.round(allCombinedRiskValues.length/6 * (i + 1)) - 1;
         riskLevelBreaks[i] = allCombinedRiskValues[valueIndex];
       }
-      
+
       // update data in tooltip for each risk
       risks.forEach((risk) => {
         let riskClass = '.risk-' + risk.id;
@@ -165,9 +166,9 @@ export default function Tooltip(config) {
         combinedRiskValue += dataValue;
         tooltip.select(riskClass).select(dataId).html(dataValue);
       });
-      
+
       // classify risk level for total risks
-      let riskLevel = (combinedRiskValue < riskLevelBreaks[0]) ? 1 
+      let riskLevel = (combinedRiskValue < riskLevelBreaks[0]) ? 1
         : (riskLevelBreaks[0] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[1]) ? 2
         : (riskLevelBreaks[1] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[2]) ? 3
         : (riskLevelBreaks[2] <= combinedRiskValue && combinedRiskValue < riskLevelBreaks[3]) ? 4

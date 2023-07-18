@@ -1,4 +1,4 @@
-import styles from '../../styles/DescriptionTab.module.css';
+import styles from '../../../styles/DescriptionTab.module.css';
 import {useEffect, useState} from "react";
 import * as d3 from "d3";
 
@@ -29,7 +29,7 @@ export default function DescriptionTab({body, scrollXProgress, entourages}) {
   return (
     <div className={styles.main}>
       {hasChanged ?
-      <div className={styles.mainCard}>
+      <div className={styles.mainCard} style={{ top: window.innerWidth < 480? "12%":"10vh"}}>
         <small className="body-3">{description}</small>
       </div>
       :
