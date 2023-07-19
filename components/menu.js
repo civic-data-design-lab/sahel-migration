@@ -11,6 +11,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Title from '../components/title';
 import useWindowSize from '../hooks/useWindowSize';
+import va from '@vercel/analytics';
 
 export default function Menu({ journeys }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -169,6 +170,9 @@ export default function Menu({ journeys }) {
                         href="https://www.wfp.org/publications/2023-addressing-irregular-migration-through-principled-programmatic-approaches" 
                         rel="noopener noreferrer" 
                         target="_blank" 
+                        onClick={() => {
+                          va.track('Report');
+                        }}
                       >
                         [Download the report]
                       </Link>
