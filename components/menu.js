@@ -96,9 +96,7 @@ export default function Menu({ journeys }) {
                 <Col xs={12} sm={7} className="pt-md-5 pb-5">
                   <AboutSection title={'Risks of West African Migration'}>
                     <p className="body-5">
-                      Thousands of migrants risk their lives each year to travel from West Africa to
-                      Libya through a heavily traversed pathway, known as the Central Mediterranean
-                      Route. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have
+                      Thousands of migrants risk their lives each year to travel from West Africa to Libya, primarily motivated by wage differentials and search for better economic opportunities. The lack of legal and regular pathways for migration often leads to dangerous and deadly journeys across the Sahara Desert and the Mediterranean Sea. Of the estimated 621,000 immigrants in Libya in 2022, over 40% have
                       origins in West Africa (IOM, 2022). In June and July 2021, migrants in Libya
                       were surveyed by the United Nations World Food Programme (WFP) and the
                       International Food Policy Research Institute (IFPRI) with questions pertaining
@@ -164,21 +162,17 @@ export default function Menu({ journeys }) {
                       Addressing Irregular Migration through Principled Programmatic Approaches:
                       Examining the West Africa Route and WFP Operations
                     </h5>
-                    <h6>Kate Ambler, Alan de Brauw, Eduardo Maruyama</h6>
-                    <h6 className="mt-3">International Food Policy Research Institute</h6>
+                    <h6>Kate Ambler, Alan de Brauw, Eduardo Maruyama, and Sara Moussavi</h6>
+                    <h6 className="mt-3">World Food Programme & International Food Policy Research Institute</h6>
                     <p className="body-5">
-                      <Link className="font-sans fw-light" href="#">
+                      <Link className="font-sans fw-light" 
+                        href="https://www.wfp.org/publications/2023-addressing-irregular-migration-through-principled-programmatic-approaches" 
+                        rel="noopener noreferrer" 
+                        target="_blank" 
+                      >
                         [Download the report]
                       </Link>
                     </p>
-                    {/* </li>
-                      <li>
-                        Irregular Migration in Libya <Link href="#">[Download the report]</Link>
-                      </li>
-                      <li>
-                        Irregular Migration in Mali <Link href="#">[Download the report]</Link>
-                      </li>
-                    </ul> */}
                   </AboutSection>
                   <AboutSection title={'Data Analysis and Methodology'}>
                     <p className="body-5">
